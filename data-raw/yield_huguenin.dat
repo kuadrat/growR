@@ -1,0 +1,18 @@
+# Expected yield (in t DM/ha) as function of altitude (in m.a.s.l.) for a 
+# given management intensity is given as:
+#
+# yield(alt) = a + b * alt
+#
+# Source:
+# Olivier Huguenin et al. 
+# Grundlagen für die Düngung landwirtschaftlicher Kulturen in der Schweiz 
+# (GRUD), Kapitel 9: Düngung von Grasland
+# ISBN 1663-7852
+# https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
+#
+#-          t DM/ha t DM/ha/m
+intensity   a       b
+high        15.9    -0.0058
+middle      12.1    -0.0046
+low         8.0     -0.0032
+extensive   3.8     -0.0015

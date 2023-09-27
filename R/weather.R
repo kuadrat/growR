@@ -1,0 +1,223 @@
+#' Weather Data Object
+#'
+#' @description
+#' Data structure containing weather data for a given site for several years.
+#'
+#' @details
+#' All fields representing weather variables are vectors of length 365 * N, 
+#' where *N* is the number of years for which weather data is stored. In 
+#' other words, every variable has one value for each of the 365 of each of 
+#' the *N* years.
+#'
+#' @field years numeric Integer representation of the contained years
+#'
+#' @export
+WeatherData = R6Class(
+  "WeatherData",
+
+  public = list(
+  #-Public-attributes-----------------------------------------------------------
+    weather_file = NULL,
+    years = NULL,
+    day_length_vec = NULL,
+    LiquidP_vec = NULL,
+    Melt_vec = NULL,
+    Snow_vec = NULL,
+    year_vec = NULL,
+    DOY_vec = NULL,
+    Ta_vec = NULL,
+    Tn_vec = NULL,
+    Tx_vec = NULL,
+    PP_vec = NULL,
+    SRad_vec = NULL,
+    PAR_vec = NULL,
+    PET_vec = NULL,
+    vec_size = NULL,
+    Tn_smooth = NULL,
+    Ta_smooth = NULL,
+    W = NULL,
+
+  #-Public-methods--------------------------------------------------------------
+
+    #' @description Create a new WeatherData object.
+    #'
+    #' @param weather_file string Path to file containing the weather data to 
+    #'   be read.
+    #' @param years numeric Vector of years for which the weather is to be 
+    #'   extracted.
+    initialize = function(weather_file = NULL, years = NULL) {
+      if (!is.null(weather_file) && !is.null(years)) {
+        self$read_weather(weather_file, years)
+      }
+    },
+
+    #' @description Read weather data from supplied *weather_file*.
+    #'
+    #' @param weather_file Path to or name of file containing weather data.
+    #' @param sim_years Years for which the weather is to be extracted.
+    #'
+    read_weather = function(weather_file, years) {
+      # Prepare the resulting container
+      self[["weather_file"]] = weather_file
+      # Load weather data
+      logger(sprintf("Loading weather data from %s.", weather_file), 
+             level = DEBUG)
+      weather = read.table(weather_file, header = TRUE)
+      # Hard fix NA values
+      weather[is.na(weather)] = 0.0
+
+      # Only consider relevant years and omit leap days
+      selector = weather$year %in% years & weather$DOY < 366
+
+      year_vec = weather$year[selector]
+      DOY_vec  = weather$DOY[selector]
+      Ta_vec   = weather$Ta[selector]
+      Tn_vec   = weather$Tmin[selector]
+      Tx_vec   = weather$Tmax[selector]
+      PP_vec   = weather$Precip[selector]
+      SRad_vec = weather$SRad[selector]
+      # Factor 0.47?
+      PAR_vec  = SRad_vec * 0.47 * 86400 / 1e6
+      PET_vec  = weather$ET0[selector]
+      vec_size = length(year_vec)
+
+      #-Tweaks,-corrections-and-further-weather-variables-----------------------
+
+      # Apply a crop coefficient of 1.15
+      Kc = 1.15
+      PET_vec = PET_vec * Kc
+
+      # Apply a temperature correction
+      dTc = 1.2
+      Ta_vec = Ta_vec + dTc
+      Tn_vec = Tn_vec + dTc
+      Tx_vec = Tx_vec + dTc
+
+      # Smooth time series of air temperature, as needed to determine the 
+      # start of the growing season.
+      Tn_smooth = numeric(vec_size)
+      Ta_smooth = numeric(vec_size)
+      weather_smooth_window = 6
+      for (k in 1:vec_size) {
+        Tn_smooth[k] = mean(Tn_vec[max(1,(k - weather_smooth_window)):k])
+        Ta_smooth[k] = mean(Ta_vec[max(1,(k - weather_smooth_window)):k])
+      }
+
+      ## Estimate snow cover
+      # melt temperature [C] (Rango and Martinec, 1995)
+      T_melt = -1.
+      # melt coefficient [mm C-1 d-1] (Rango and Martinec, 1995)
+      C_melt = 3.
+      # freeze coefficient [mm C-1 d-1] (Kokkonen et al, ??)
+      C_freeze = 0.05
+      # liquid water retention coeff. (Kokkonen et al, ??)
+      C_retention = 0.25   
+
+      LiquidP_vec = (1./(1. + exp(-1.5*(Ta_vec - 2.)))) * PP_vec
+      SolidP_vec  = PP_vec - LiquidP_vec
+
+      Melt_vec   = numeric(vec_size)
+      Freeze_vec = numeric(vec_size)
+      Snow_vec   = numeric(vec_size)
+      Melt_vec[1]   = 0.
+      Freeze_vec[1] = 0.
+      Snow_vec[1]   = 0.
+
+      for (j in 2:vec_size) {
+        # :TODO: Is time_step needed here?
+        time_step = 1
+        Melt_vec[j]   = ifelse(Snow_vec[j - 1] > 0. & Ta_vec[j] >= T_melt,
+                               min(Snow_vec[j - 1]/time_step, 
+                                   C_melt * (Ta_vec[j] - T_melt)), 
+                               0.)
+        Freeze_vec[j] = ifelse(Ta_vec[j] < T_melt, 
+                               min(LiquidP_vec[j], 
+                                   C_freeze * (T_melt - Ta_vec[j])), 
+                               0.)
+        DSnowDt     = SolidP_vec[j] + Freeze_vec[j] - Melt_vec[j]
+        Snow_vec[j]   = max(0., Snow_vec[j - 1] + DSnowDt*time_step)
+      }
+      self[["LiquidP_vec"]] = LiquidP_vec
+      self[["Melt_vec"]] = Melt_vec
+      self[["Snow_vec"]] = Snow_vec
+      self[["year_vec"]] = year_vec
+      self[["DOY_vec"]]  = DOY_vec
+      self[["Ta_vec"]]   = Ta_vec
+      self[["Tn_vec"]]   = Tn_vec
+      self[["Tx_vec"]]   = Tx_vec
+      self[["PP_vec"]]   = PP_vec
+      self[["SRad_vec"]] = SRad_vec
+      self[["PAR_vec"]]  = PAR_vec
+      self[["PET_vec"]]  = PET_vec
+      self[["vec_size"]] = vec_size
+      self[["Tn_smooth"]] = Tn_smooth
+      self[["Ta_smooth"]] = Ta_smooth
+    },
+
+    #' @description Calculate the expected length of day based on a site's 
+    #' geographical latitude.
+    #'
+    #' @param latitude numeric; geographical latitude in degrees.
+    #'
+    calculate_day_length = function(latitude) {
+      day_length_vec = numeric(self[["vec_size"]])
+      # Convert to radians
+      angular_velocity   = 2. * pi / 365.
+      latitude = latitude * pi / 180.
+      # The solar declination starts from 0 degree in the March equinox 
+      # (March 20th), increases to its maximaum value of the Earth's tilt 
+      # angle of 23.4 degree in the Summer solstice of June 20/21. From there 
+      # it falls again, crossing 0 during the September equinox on September 
+      # 22/23, before approaching its minimum value of -23.4 degree on the 
+      # Winter solstice on December 21 or 22.
+      # DOY for March 20th is 31 + 28 + 20 = 79
+      # 23.4 degree = 0.408 RAD
+#      IRelDst  = 1. + 0.033*cos(angular_velocity*DOY_vec)
+      solar_declination  = 0.408 * 
+        sin(angular_velocity * (self[["DOY_vec"]] - 79))
+      # Use the sunset equation to calculate the hour-angle of sunset
+      sunset_hourangle = acos(-tan(latitude)*tan(solar_declination))
+      # Convert hour-angle to hours of sunshine (factor two since sunset and 
+      # sunrise are symmetric around noon for the hour-angle. Angular 
+      # velocity of Earth around itself is roughly 15 degrees per hour.
+#      day_length_vec = 24. * sunset_hourangle / pi
+      day_length_vec = 2 * sunset_hourangle / (15*pi/180)
+
+      self[["day_length_vec"]] = day_length_vec
+      return(day_length_vec)
+    },
+
+    #' @description Extract state variables to the weather data for given 
+    #' year and return them as a list.
+    #'
+    #' @param year integer Year for which to extract weather data.
+    get_weather_for_year = function(year) {
+      iW = which(self$year_vec == year)
+      if (!any(iW)) {
+        stop(sprintf("No weather data found for year %s.", year))
+      }
+
+      W = list()
+      W[["aCO2"]]  = atmospheric_CO2(year)
+      W[["year"]]  = self$year_vec[iW]
+      W[["DOY"]]   = self$DOY_vec[iW]
+      # DL appears to be unused.
+      W[["DL"]]    = self$day_length_vec[iW]
+      W[["Ta"]]    = self$Ta_vec[iW]
+      W[["Ta_sm"]] = self$Ta_smooth[iW]
+      W[["Tn"]]    = self$Tn_vec[iW]
+      W[["Tn_sm"]] = self$Tn_smooth[iW]
+      W[["Tx"]]    = self$Tx_vec[iW]
+      W[["PAR"]]   = self$PAR_vec[iW]
+      W[["PP"]]    = self$PP_vec[iW]
+      W[["PET"]]   = self$PET_vec[iW]
+      W[["LiquidP"]] = self$LiquidP_vec[iW]
+      W[["Melt"]]  = self$Melt_vec[iW] 
+      W[["Snow"]]  = self$Snow_vec[iW]
+      W[["ndays"]] = length(self[["year"]])
+
+      self[["W"]] = W
+      return(W)
+    }
+  )
+)
