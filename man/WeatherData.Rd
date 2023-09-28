@@ -12,6 +12,9 @@ where *N* is the number of years for which weather data is stored. In
 other words, every variable has one value for each of the 365 of each of 
 the *N* years.
 }
+\seealso{
+[WeatherData$read_weather()]
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -35,7 +38,7 @@ the *N* years.
 \subsection{Method \code{new()}}{
 Create a new WeatherData object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{WeatherData$new(weather_file = NULL, years = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$new(weather_file = NULL, years = "all")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

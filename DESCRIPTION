@@ -18,7 +18,8 @@ Description: The underlying grass growth model is based off of ModVege as
 License: MIT + file LICENSE
 RoxygenNote: 7.2.3
 Encoding: UTF-8
-Imports: R6, utils
+Imports: R6, utils, Rdpack
 Depends: 
     R (>= 2.10)
+RdMacros: Rdpack
 LazyData: true

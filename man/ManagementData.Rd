@@ -12,6 +12,9 @@ Management Data Class
 Data structure that contains management data which can serve as input to 
 an rmodvege simulation run.
 }
+\seealso{
+[ManagementData$read_management()]
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -48,7 +51,7 @@ c("high", "middle", "low").}
 \subsection{Method \code{new()}}{
 Create a new ManagementData object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ManagementData$new(management_file = NULL, years = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ManagementData$new(management_file = NULL, years = "all")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

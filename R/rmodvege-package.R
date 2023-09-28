@@ -2,6 +2,7 @@
 #'
 #' @import R6
 #' @import utils
+#' @importFrom Rdpack reprompt
 #'
 #' @keywords internal
 "_PACKAGE"
