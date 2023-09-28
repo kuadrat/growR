@@ -20,9 +20,9 @@ WeatherData = R6Class(
     weather_file = NULL,
     years = NULL,
     day_length_vec = NULL,
-    LiquidP_vec = NULL,
-    Melt_vec = NULL,
-    Snow_vec = NULL,
+    liquidP_vec = NULL,
+    melt_vec = NULL,
+    snow_vec = NULL,
     year_vec = NULL,
     DOY_vec = NULL,
     Ta_vec = NULL,
@@ -74,7 +74,7 @@ WeatherData = R6Class(
       Ta_vec   = weather$Ta[selector]
       Tn_vec   = weather$Tmin[selector]
       Tx_vec   = weather$Tmax[selector]
-      PP_vec   = weather$Precip[selector]
+      PP_vec   = weather$precip[selector]
       SRad_vec = weather$SRad[selector]
       # Factor 0.47?
       PAR_vec  = SRad_vec * 0.47 * 86400 / 1e6
@@ -113,33 +113,33 @@ WeatherData = R6Class(
       # liquid water retention coeff. (Kokkonen et al, ??)
       C_retention = 0.25   
 
-      LiquidP_vec = (1./(1. + exp(-1.5*(Ta_vec - 2.)))) * PP_vec
-      SolidP_vec  = PP_vec - LiquidP_vec
+      liquidP_vec = (1./(1. + exp(-1.5*(Ta_vec - 2.)))) * PP_vec
+      solidP_vec  = PP_vec - liquidP_vec
 
-      Melt_vec   = numeric(vec_size)
-      Freeze_vec = numeric(vec_size)
-      Snow_vec   = numeric(vec_size)
-      Melt_vec[1]   = 0.
-      Freeze_vec[1] = 0.
-      Snow_vec[1]   = 0.
+      melt_vec   = numeric(vec_size)
+      freeze_vec = numeric(vec_size)
+      snow_vec   = numeric(vec_size)
+      melt_vec[1]   = 0.
+      freeze_vec[1] = 0.
+      snow_vec[1]   = 0.
 
       for (j in 2:vec_size) {
         # :TODO: Is time_step needed here?
         time_step = 1
-        Melt_vec[j]   = ifelse(Snow_vec[j - 1] > 0. & Ta_vec[j] >= T_melt,
-                               min(Snow_vec[j - 1]/time_step, 
+        melt_vec[j]   = ifelse(snow_vec[j - 1] > 0. & Ta_vec[j] >= T_melt,
+                               min(snow_vec[j - 1]/time_step, 
                                    C_melt * (Ta_vec[j] - T_melt)), 
                                0.)
-        Freeze_vec[j] = ifelse(Ta_vec[j] < T_melt, 
-                               min(LiquidP_vec[j], 
+        freeze_vec[j] = ifelse(Ta_vec[j] < T_melt, 
+                               min(liquidP_vec[j], 
                                    C_freeze * (T_melt - Ta_vec[j])), 
                                0.)
-        DSnowDt     = SolidP_vec[j] + Freeze_vec[j] - Melt_vec[j]
-        Snow_vec[j]   = max(0., Snow_vec[j - 1] + DSnowDt*time_step)
+        dsnow_dt     = solidP_vec[j] + freeze_vec[j] - melt_vec[j]
+        snow_vec[j]   = max(0., snow_vec[j - 1] + dsnow_dt * time_step)
       }
-      self[["LiquidP_vec"]] = LiquidP_vec
-      self[["Melt_vec"]] = Melt_vec
-      self[["Snow_vec"]] = Snow_vec
+      self[["liquidP_vec"]] = liquidP_vec
+      self[["melt_vec"]] = melt_vec
+      self[["snow_vec"]] = snow_vec
       self[["year_vec"]] = year_vec
       self[["DOY_vec"]]  = DOY_vec
       self[["Ta_vec"]]   = Ta_vec
@@ -211,9 +211,9 @@ WeatherData = R6Class(
       W[["PAR"]]   = self$PAR_vec[iW]
       W[["PP"]]    = self$PP_vec[iW]
       W[["PET"]]   = self$PET_vec[iW]
-      W[["LiquidP"]] = self$LiquidP_vec[iW]
-      W[["Melt"]]  = self$Melt_vec[iW] 
-      W[["Snow"]]  = self$Snow_vec[iW]
+      W[["liquidP"]] = self$liquidP_vec[iW]
+      W[["melt"]]  = self$melt_vec[iW] 
+      W[["snow"]]  = self$snow_vec[iW]
       W[["ndays"]] = length(self[["year"]])
 
       self[["W"]] = W

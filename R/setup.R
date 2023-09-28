@@ -1,14 +1,13 @@
 #' Initialize the desired directory structure for working with rmodvege.
 #'
 #' @param root Path to directory in which to initialize.
-#' @param type Choose how things are to be initialized:
-#'   \itemize{
-#'      \item "empty": Just put empty folders in place.
-#'      \item "example": Fill the created folders with example data.
-#'   }
+#' @param include_examples If `TRUE` (default), include example data and 
+#'   input parameters in the appropriate directories.
+#'
+#' @seealso [examples]
 #'
 #' @export
-setup_directory <- function(root = ".", type = "empty") {
+setup_directory <- function(root = ".", include_examples = TRUE) {
   full_path <- path.expand(root)
   # Check if directory is empty
   contents <- list.files(full_path)
@@ -27,5 +26,40 @@ setup_directory <- function(root = ".", type = "empty") {
     dir.create(path)
   }
   print(sprintf("Initialized directory structure in `%s`.", full_path))
+
+  # Only continue if examples are to be provided.
+  if (!include_examples) {
+    return(0)
+  }
+
+  origin = system.file("extdata", package = "rmodvege")
+  # First, all files that go to `input/`
+  sites = c("posieux", "sorens")
+  input_types = c("weather.txt", 
+                  "parameters.csv", 
+                  "management1.txt", 
+                  "management2.txt")
+  input_files = unlist(lapply(sites, 
+                              function(site) {
+                                paste0(site, "_", input_types)
+                              }))
+  destination = file.path(full_path, "input/")
+  for (input_file in input_files) {
+    original = file.path(origin, input_file)
+    print(sprintf("Copying %s to %s...", original, destination))
+    file.copy(original, destination)
+  }
+  # Then all data files
+  subsites = c("1", "2")
+  destination = file.path(full_path, "data/")
+  for (site in sites) {
+    for (subsite in subsites) {
+      data_filename = paste0(site, subsite, ".csv")
+      original = file.path(origin, data_filename)
+      print(sprintf("Copying %s to %s...", original, destination))
+      file.copy(original, destination)
+    }
+  }
+  print(sprintf("Copied example files to respective directories."))
 }
 

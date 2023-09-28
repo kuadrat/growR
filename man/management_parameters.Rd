@@ -5,7 +5,7 @@
 \alias{management_parameters}
 \title{Management practices for Swiss grasslands}
 \format{
-A data.frame with 15 rows and 5 variables
+A data.frame with 15 rows and 5 variables:
 \describe{
 \item{intensity}{Management intensity}
 \item{altitude}{Altitude in m.a.s.l.}

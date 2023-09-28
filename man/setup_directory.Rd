@@ -4,17 +4,17 @@
 \alias{setup_directory}
 \title{Initialize the desired directory structure for working with rmodvege.}
 \usage{
-setup_directory(root = ".", type = "empty")
+setup_directory(root = ".", include_examples = TRUE)
 }
 \arguments{
 \item{root}{Path to directory in which to initialize.}
 
-\item{type}{Choose how things are to be initialized:
-\itemize{
-   \item "empty": Just put empty folders in place.
-   \item "example": Fill the created folders with example data.
-}}
+\item{include_examples}{If `TRUE` (default), include example data and 
+input parameters in the appropriate directories.}
 }
 \description{
 Initialize the desired directory structure for working with rmodvege.
+}
+\seealso{
+[examples]
 }
