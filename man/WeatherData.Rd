@@ -56,7 +56,7 @@ extracted.}
 \subsection{Method \code{read_weather()}}{
 Read weather data from supplied *weather_file*.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{WeatherData$read_weather(weather_file, years)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$read_weather(weather_file, years = "all")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -64,7 +64,8 @@ Read weather data from supplied *weather_file*.
 \describe{
 \item{\code{weather_file}}{Path to or name of file containing weather data.}
 
-\item{\code{sim_years}}{Years for which the weather is to be extracted.}
+\item{\code{years}}{Years for which the weather is to be extracted.
+Default is "all" to read in all found years.}
 }
 \if{html}{\out{</div>}}
 }

@@ -45,8 +45,10 @@ WeatherData = R6Class(
     #'   be read.
     #' @param years numeric Vector of years for which the weather is to be 
     #'   extracted.
-    initialize = function(weather_file = NULL, years = NULL) {
-      if (!is.null(weather_file) && !is.null(years)) {
+    #'
+    #' @seealso [WeatherData$read_weather()]
+    initialize = function(weather_file = NULL, years = "all") {
+      if (!is.null(weather_file)) {
         self$read_weather(weather_file, years)
       }
     },
@@ -54,20 +56,35 @@ WeatherData = R6Class(
     #' @description Read weather data from supplied *weather_file*.
     #'
     #' @param weather_file Path to or name of file containing weather data.
-    #' @param sim_years Years for which the weather is to be extracted.
+    #' @param years Years for which the weather is to be extracted.
+    #'   Default is "all" to read in all found years.
     #'
-    read_weather = function(weather_file, years) {
-      # Prepare the resulting container
-      self[["weather_file"]] = weather_file
+    read_weather = function(weather_file, years = "all") {
+      self$years = years
+      self$weather_file = weather_file
       # Load weather data
-      logger(sprintf("Loading weather data from %s.", weather_file), 
-             level = DEBUG)
+      if (file.exists(weather_file)) {
+        logger(sprintf("Loading weather data from %s.", weather_file), 
+               level = DEBUG)
+      } else {
+        stop(sprintf("Weather file `%s` not found.", weather_file))
+      }
       weather = read.table(weather_file, header = TRUE)
       # Hard fix NA values
       weather[is.na(weather)] = 0.0
 
       # Only consider relevant years and omit leap days
-      selector = weather$year %in% years & weather$DOY < 366
+      selector = weather$DOY < 366
+      if (years != "all") {
+        selector = selector & weather$year %in% years
+      }
+      
+      # Warn if no matching data was found
+      if (!any(selector)) {
+        message = "No matching data found for specified years (%s) in `%s`."
+        years_string = paste(years, collapse = ", ")
+        stop(sprintf(message, years_string, weather_file))
+      }
 
       year_vec = weather$year[selector]
       DOY_vec  = weather$DOY[selector]
