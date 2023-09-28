@@ -1,37 +1,37 @@
-type;name;value
-Initial Condition;AgeGV;100
-Initial Condition;AgeGR;2000
-Initial Condition;AgeDV;500
-Initial Condition;AgeDR;500
-Initial Condition;BMGV;420
-Initial Condition;BMGR;0
-Initial Condition;BMDV;300
-Initial Condition;BMDR;30
-Initial Condition;SENGV;0
-Initial Condition;SENGR;0
-Initial Condition;ABSDV;0
-Initial Condition;ABSDR;0
-Initial Condition;ST;0
-Initial Condition;cBM;0
-Site;LON;7.05
-Site;LAT;46.66
-Site;ELV;820
-Site;WHC;160
-Site;NI;0.70
-Specific;RUEmax;3
-Specific;w_FGA;0.5
-Specific;w_FGB;0.3
-Specific;w_FGC;0.2
-Specific;w_FGD;0
-Common;sigmaGV;0.4
-Common;sigmaGR;0.2
-Common;T0;5
-Common;T1;10
-Common;T2;20
-Common;KGV;0.002
-Common;KGR;0.001
-Common;KlDV;0.001
-Common;KlDR;0.0005
-Common;OMDDV;0.45
-Common;OMDDR;0.4
-Common;CO2_growth_factor;0.5
+type,name,value
+Initial Condition,AgeGV,100
+Initial Condition,AgeGR,2000
+Initial Condition,AgeDV,500
+Initial Condition,AgeDR,500
+Initial Condition,BMGV,420
+Initial Condition,BMGR,0
+Initial Condition,BMDV,300
+Initial Condition,BMDR,30
+Initial Condition,SENGV,0
+Initial Condition,SENGR,0
+Initial Condition,ABSDV,0
+Initial Condition,ABSDR,0
+Initial Condition,ST,0
+Initial Condition,cBM,0
+Site,LON,7.05
+Site,LAT,46.66
+Site,ELV,820
+Site,WHC,160
+Site,NI,0.70
+Specific,RUEmax,3
+Specific,w_FGA,0.5
+Specific,w_FGB,0.3
+Specific,w_FGC,0.2
+Specific,w_FGD,0
+Common,sigmaGV,0.4
+Common,sigmaGR,0.2
+Common,T0,5
+Common,T1,10
+Common,T2,20
+Common,KGV,0.002
+Common,KGR,0.001
+Common,KlDV,0.001
+Common,KlDR,0.0005
+Common,OMDDV,0.45
+Common,OMDDR,0.4
+Common,CO2_growth_factor,0.5
