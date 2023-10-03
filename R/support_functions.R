@@ -262,7 +262,7 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #'   1 t/ha = 0.1 kg/m^2.
 #'
 #' @export
-annual_gross_yield = function(elevation, intensity = "high") {
+get_annual_gross_yield = function(elevation, intensity = "high") {
   mask = yield_parameters$intensity == intensity
   a = yield_parameters[mask, ]$a
   b = yield_parameters[mask, ]$b
@@ -283,7 +283,7 @@ annual_gross_yield = function(elevation, intensity = "high") {
 #' @return Number of expected cuts per season.
 #'
 #' @export
-expected_n_cuts = function(elevation, intensity = "high") {
+get_expected_n_cuts = function(elevation, intensity = "high") {
   mask = management_parameters$intensity == intensity
   # Find the altitudes below and above given elevation
   altitudes = management_parameters[mask, ]$altitude
@@ -320,7 +320,7 @@ expected_n_cuts = function(elevation, intensity = "high") {
 #'   divided by the total annual biomass.
 #'
 #' @export
-relative_cut_contribution = function(DOY) {
+get_relative_cut_contribution = function(DOY) {
   return((-0.1228 * DOY + 48.96) * 1e-2)
 }
 
@@ -328,7 +328,7 @@ relative_cut_contribution = function(DOY) {
 #'
 #' Estimate the last day on which it still makes sense to cut. This is done 
 #' by checking at which point the expected target biomass (see 
-#' `relative_cut_contribution`) goes below the minimally harvestable standing 
+#' `get_relative_cut_contribution`) goes below the minimally harvestable standing 
 #' biomass.
 #'
 #' @param min_biomass float A standing biomass below this value cannot even 
@@ -339,10 +339,11 @@ relative_cut_contribution = function(DOY) {
 #' @return float Last (fractional) day of the year on which a cut still makes 
 #'   sense.
 #' 
-#' @seealso [relative_cut_contribution()]
+#' @seealso [get_relative_cut_contribution()]
 #' @export
-end_of_cutting_season = function(min_biomass, elevation, intensity = "high") {
-  m_tot = annual_gross_yield(elevation, intensity) * 1000
+get_end_of_cutting_season = function(min_biomass, elevation, 
+                                     intensity = "high") {
+  m_tot = get_annual_gross_yield(elevation, intensity) * 1000
   d_end = (min_biomass - m_tot * 48.96e-2) / (m_tot * -0.1228e-2)
   return(d_end)
 }

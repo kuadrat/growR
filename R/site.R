@@ -33,10 +33,11 @@ ModvegeEnvironment = R6Class(
     #' @param site_name string Name of the simulated site.
     #' @param run_name string Name of the simulation run. Used to 
     #'   differentiate between different simulation conditions at the same site.
+    #'   Defaults to "-", which indicates no specific run name.
     #' @param years numeric Vector of integer years to be simulated.
     #' @param param_file string Name of file that contains site and 
-    #'   vegetation parameters. If not provided, it is assumed to be 
-    #'   "SITENAME_parameters.csv".
+    #'   vegetation parameters. If default value `"-"` is  provided, it is 
+    #'   assumed to be "SITENAME_parameters.csv".
     #' @param weather_file string Analogous to *param_file*.
     #' @param management_file string Analogous to *param_file*.
     #' @param input_dir string Path to directory containing input files. 
@@ -45,26 +46,26 @@ ModvegeEnvironment = R6Class(
     initialize = function(site_name,
                           run_name = "-",
                           years = "all",
-                          param_file = NULL,
-                          weather_file = NULL,
-                          management_file = NULL,
+                          param_file = "-",
+                          weather_file = "-",
+                          management_file = "-",
                           input_dir = NULL) {
       # Set instance variables
       self$site_name = site_name
       self$run_name = run_name
       self$years = years
       # Revert to defaults for the not provided values.
-      if (is.null(param_file)) {
+      if (param_file == "-") {
         self$param_file = paste0(site_name, "_parameters.csv")
       } else {
         self$param_file = param_file
       }
-      if (is.null(weather_file)) {
+      if (weather_file == "-") {
         self$weather_file = paste0(site_name, "_weather.txt")
       } else {
         self$weather_file = weather_file
       }
-      if (is.null(management_file)) {
+      if (management_file == "-") {
         self$management_file = paste0(site_name, "_management.txt")
       } else {
         self$management_file = management_file
@@ -90,11 +91,15 @@ ModvegeEnvironment = R6Class(
                                                         self$param_file))
       self$weather = WeatherData$new(file.path(self$input_dir,
                                                self$weather_file))
-      self$parameters = ModvegeParameters$new(file.path(self$input_dir,
-                                                        self$param_file))
+      self$management = ManagementData$new(file.path(self$input_dir,
+                                                     self$management_file))
     },
 
-    #' Ensure a readable filename for given *run_name*.
+    #' @description Ensure a readable filename for given *run_name*.
+    #'
+    #' @param run_name Name of run to be converted into a filename.
+    #'
+    #' @note Deprecated.
     #'
     make_filename_for_run = function(run_name) {
       # Interpret the "-" symbol as an empty run name
@@ -107,25 +112,23 @@ ModvegeEnvironment = R6Class(
       return(run_name_in_filename)
     },
 
-    #' "Static" convenience function to retrieve environmental and management 
-    #' inputs for given *year* from multi-year data containers.
+    #' @description Get weather and environment for given year
+    #'
+    #' Convenience function to retrieve environmental and management
+    #' inputs for given *year* from multi-year data containers `self$weather` 
+    #' and `self$management`.
     #'
     #' @param year int; year for which to extract data.
-    #' @param WD list; contains weather data lists for different years. As 
-    #'   present in self$weather_list[[run]].
-    #' @param MD list; contains management data lists for different years. As 
-    #'   present in self$management_list[[run]].
     #'
-    #' @return list(W, M)
+    #' @return `list(W, M)` where `W` is the WeatherData and `M` the 
+    #'   ManagementData object for given year.
     #'
-    get_environment_for_year = function(run, year) {
-      WD = self$weather_list[[run]]
-      MD = self$management_list[[run]]
-      W = WD$get_weather_for_year(year)
-      iC = which(MD[["cut_years"]] == year)
-      M = MD
-      M[["cut_DOY"]] = MD[["cut_DOYs"]][iC]
-      M[["n_cuts"]] = length(M[["cut_DOY"]])
+    #' @seealso [WeatherData$get_weather_for_year()], 
+    #'   [ManagementData$get_management_for_year()]
+    #'
+    get_environment_for_year = function(year) {
+      W = self$weather$get_weather_for_year(year)
+      M = self$management$get_management_for_year(year)
       return(list(W=W, M=M))
     }
 

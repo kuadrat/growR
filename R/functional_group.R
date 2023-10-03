@@ -49,6 +49,7 @@ FunctionalGroup = R6Class(
     #' Constructor
     #'
     #' @param ... Key-value pairs of parameters to be set.
+    #'
     #' @seealso [FunctionalGroup$set_parameters()]
     initialize = function(...) {
       self$set_parameters(...)

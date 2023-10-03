@@ -20,10 +20,19 @@ the configuration of an rmodvege simulation run.
 \if{html}{\out{<a id="method-ModvegeParameters-new"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeParameters-new}{}}}
 \subsection{Method \code{new()}}{
+Constructor
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$new(param_file = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{param_file}}{Name of file containing the site and vegetation 
+parameters.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeParameters-read_parameters"></a>}}

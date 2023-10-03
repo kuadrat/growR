@@ -17,6 +17,13 @@ All inputs are read in from data files through the respective data classes
 [WeatherData], [ManagementData] and [ModvegeParameters]. These parameters 
 can be simultaneously specified through a config file.
 }
+\note{
+Deprecated.
+}
+\seealso{
+[WeatherData$get_weather_for_year()], 
+  [ManagementData$get_management_for_year()]
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -37,9 +44,9 @@ Instantiate a new ModvegeEnvironment
   site_name,
   run_name = "-",
   years = "all",
-  param_file = NULL,
-  weather_file = NULL,
-  management_file = NULL,
+  param_file = "-",
+  weather_file = "-",
+  management_file = "-",
   input_dir = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -50,13 +57,14 @@ Instantiate a new ModvegeEnvironment
 \item{\code{site_name}}{string Name of the simulated site.}
 
 \item{\code{run_name}}{string Name of the simulation run. Used to 
-differentiate between different simulation conditions at the same site.}
+differentiate between different simulation conditions at the same site.
+Defaults to "-", which indicates no specific run name.}
 
 \item{\code{years}}{numeric Vector of integer years to be simulated.}
 
 \item{\code{param_file}}{string Name of file that contains site and 
-vegetation parameters. If not provided, it is assumed to be 
-"SITENAME_parameters.csv".}
+vegetation parameters. If default value `"-"` is  provided, it is 
+assumed to be "SITENAME_parameters.csv".}
 
 \item{\code{weather_file}}{string Analogous to *param_file*.}
 
@@ -77,11 +85,6 @@ Load simulation inputs.
 Stores parameters, management and weather data from files specified in 
 self$parameter_file, self$weather_file and self$management_file, 
 respectively.
-
-Ensure a readable filename for given *run_name*.
-
-"Static" convenience function to retrieve environmental and management 
-inputs for given *year* from multi-year data containers.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$load_inputs()}\if{html}{\out{</div>}}
 }
@@ -91,34 +94,42 @@ inputs for given *year* from multi-year data containers.
 \if{html}{\out{<a id="method-ModvegeEnvironment-make_filename_for_run"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeEnvironment-make_filename_for_run}{}}}
 \subsection{Method \code{make_filename_for_run()}}{
+Ensure a readable filename for given *run_name*.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$make_filename_for_run(run_name)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{run_name}}{Name of run to be converted into a filename.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeEnvironment-get_environment_for_year"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeEnvironment-get_environment_for_year}{}}}
 \subsection{Method \code{get_environment_for_year()}}{
+Get weather and environment for given year
+
+Convenience function to retrieve environmental and management
+inputs for given *year* from multi-year data containers `self$weather` 
+and `self$management`.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$get_environment_for_year(run, year)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$get_environment_for_year(year)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{year}}{int; year for which to extract data.}
-
-\item{\code{WD}}{list; contains weather data lists for different years. As 
-present in self$weather_list[[run]].}
-
-\item{\code{MD}}{list; contains management data lists for different years. As 
-present in self$management_list[[run]].}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-list(W, M)
+`list(W, M)` where `W` is the WeatherData and `M` the 
+  ManagementData object for given year.
 }
 }
 \if{html}{\out{<hr>}}
