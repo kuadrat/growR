@@ -318,8 +318,6 @@ management intensity..}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-run}{}}}
 \subsection{Method \code{run()}}{
 Carry out a ModVege simulation for one year.
-
-:TODO: year seems to be unused by the calculation.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$run(year, weather, management)}\if{html}{\out{</div>}}
 }
