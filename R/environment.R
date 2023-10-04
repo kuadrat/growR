@@ -6,7 +6,9 @@
 #'
 #' All inputs are read in from data files through the respective data classes
 #' [WeatherData], [ManagementData] and [ModvegeParameters]. These parameters 
-#' can be simultaneously specified through a config file.
+#' can be simultaneously specified through a config file using [read_config()].
+#'
+#' @seealso [read_config()]
 #'
 #' @export
 ModvegeEnvironment = R6Class(
@@ -17,6 +19,7 @@ ModvegeEnvironment = R6Class(
 
     site_name = NULL,
     run_name = NULL,
+    run_name_in_filename = NULL,
     years = NULL,
     param_file = NULL,
     weather_file = NULL,
@@ -53,6 +56,7 @@ ModvegeEnvironment = R6Class(
       # Set instance variables
       self$site_name = site_name
       self$run_name = run_name
+      self$run_name_in_filename = self$make_filename_for_run(run_name)
       self$years = years
       # Revert to defaults for the not provided values.
       if (param_file == "-") {
@@ -99,7 +103,7 @@ ModvegeEnvironment = R6Class(
     #'
     #' @param run_name Name of run to be converted into a filename.
     #'
-    #' @note Deprecated.
+    #' @return A version of *run_name* that can be used in a filename.
     #'
     make_filename_for_run = function(run_name) {
       # Interpret the "-" symbol as an empty run name

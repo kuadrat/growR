@@ -119,3 +119,107 @@ append_to_table = function(data, filename, ...) {
   )
 }
 
+#' Read simulation run configurations from file
+#'
+#' The format of the configuration file is expected to contain 6 
+#' space-separated columns representing, in order: 
+#'   \describe{
+#'     \item{site_name}{Name of simulated site. This is used, for example, 
+#'           when an output file is created.}
+#'     \item{run_name}{Name of this simulation run. Used to differentiate 
+#'           between different runs at the same site. Can be `-` to indicate 
+#'           no particular name, in which case nothing will be appended in 
+#'           the resulting output file.}
+#'     \item{year(s)}{Specification of years to be simulated. Either a single 
+#'           number or a sequence in R's `:` notation, i.e. `2013:2022` to 
+#'           indicate all years from 2013 to (including) 2022.}
+#'     \item{param_file}{Filename (not full path) of parameter file to use. 
+#'           The file is assumed to be located in *input_dir* (confer 
+#'           documentation for that parameter).}
+#'     \item{weather_file}{Filename (not full path) of weather file. See also 
+#'           *param_file*.}
+#'     \item{management_file}{Filename (not full path) of management file. 
+#'           See also *param_file*. Can be set to `high`, `middle`, `low` or 
+#'           `-` if no management data is to be used and the *autocut* 
+#'           routine shall be employed to simulate cutting events.}
+#'  }
+#'  Rows starting with a `#` are skipped.
+#'
+#' @param config_file Path to the configuration file to be read.
+#' @param input_dir Path to directory where input files are located. Defaults 
+#'   to `getOptions("rmodvege.input_dir", default = file.path("input"))`.
+#'
+#' @return A list of `ModvegeEnvironment` instances corresponding to the 
+#'   configurations in the order they appear in *config_file*.
+#'
+#' @export
+#'
+read_config = function(config_file, input_dir = NULL) {
+  config = read.table(config_file)
+  # Use the running index *I* here instead of concrete indexing. This 
+  # makes it easier to adapt to a change in the structure of the config 
+  # file.
+  I = 1
+  site_names = config[[I]]
+  I = I + 1
+  run_names = config[[I]]
+  I = I + 1
+  year_strings = config[[I]]
+  I = I + 1
+  param_files = config[[I]]
+  I = I + 1
+  weather_files = config[[I]]
+  I = I + 1
+  management_files = config[[I]]
+  n_runs = length(site_names)
+  
+  run_years = parse_year_strings(year_strings)
+
+  environments = list()
+  # Load all inputs from respective files
+  for (run in 1:n_runs) {
+    sim_years = run_years[[run]]
+    E = ModvegeEnvironment$new(site_name = site_names[[run]],
+                               run_name = run_names[[run]],
+                               years = run_years[[run]],
+                               param_file = param_files[[run]],
+                               weather_file = weather_files[[run]],
+                               management_file = management_files[[run]],
+                               input_dir = input_dir)
+    environments[[run]] = E
+  }
+  return(environments)
+}
+
+#' Parse and generate lists of years.
+#' 
+#' @param year_strings A vector of strings that each either represents a 
+#'   single year or a sequence of year in the format `start:stop`.
+#'
+#' @return run_years List of integer vectors, representing the years to 
+#'   simulate for each run.
+#'
+parse_year_strings = function(year_strings) {
+  run_years = list()
+  max_n_years = 0
+  for (year_string in year_strings) {
+    # Check if a range is given
+    if (grepl(":", year_string)) {
+      split = strsplit(year_string, ":")[[1]]
+      start_year = as.integer(split[1])
+      stop_year = as.integer(split[2])
+    } else {
+      start_year = as.integer(year_string)
+      stop_year = start_year
+    }
+    years = start_year:stop_year
+    # Keep track of maximum number of years for core assignment
+    n_years = length(years)
+    if (n_years > max_n_years) {
+      max_n_years = n_years
+    }
+    run_years = append(run_years, list(years))
+  }
+  return(run_years)
+}
+

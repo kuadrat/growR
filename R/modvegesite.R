@@ -322,7 +322,6 @@ ModvegeSite = R6Class(
         self$WR[j] = max(0., 
                          min(P$WHC, 
                              self$WRp + W$liquidP[j] + W$melt[j] - self$AET[j]))
-        print(self$WR[j])
 
         # Environmental constraints.
         self$ENVfPAR[j] = fPAR(W$PAR[j])
@@ -723,8 +722,6 @@ ModvegeSite = R6Class(
 
       #' @description Carry out a ModVege simulation for one year.
       #'
-      #' :TODO: year seems to be unused by the calculation.
-      #'
       #' @param year Integer specifying the year to consider. [Unused?]
       #' @param weather Weather List for given year as returned by 
       #'   :method:`Weather$get_weather_for_year`
@@ -799,15 +796,10 @@ ModvegeSite = R6Class(
         header = sprintf("#date;%s", date())
         header = sprintf("%s\n#version;%s", header, self$version)
         # ... then add all parameters ...
-        parameter_names = names(self$parameters)
-        n_parameters = length(parameter_names)
-        for (i_param in 1:n_parameters) {
-          parameter_name = parameter_names[i_param]
-  #          if (parameter_name %in% initial_condition_names) {
-  #            parameter_name = sprintf("%s%s", parameter_name, "0")
-  #          }
-          parameter_value = self$parameters[[parameter_name]]
-          header = sprintf("%s\n#%s;%s", header, parameter_name, parameter_value)
+        parameter_names = self$parameters$parameter_names
+        for (name in self$parameters$parameter_names) {
+          parameter_value = self$parameters[[name]]
+          header = sprintf("%s\n#%s;%s", header, name, parameter_value)
         }
         # Finally, for double consistency, simulation year, site and run names
         header = sprintf("%s\n#year;%s\n#site_name;%s\n#run_name;%s", 
