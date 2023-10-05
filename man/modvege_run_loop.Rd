@@ -8,7 +8,7 @@ modvege_run_loop(
   modvege_environments,
   write_files = TRUE,
   store_results = FALSE,
-  output_dir = "output/"
+  output_dir = NULL
 )
 }
 \arguments{
@@ -26,7 +26,8 @@ be written if `write_files` is `TRUE`.}
 \value{
 If `store_results == TRUE`, a list of the format 
   [[run]][[year]] containing clones of the `ModvegeSite` instances that 
-  were run. Otherwise an empty list.
+  were run. Otherwise an empty list. Defaults to 
+  getOption("rmodvege.output_dir").
 }
 \description{
 Start the loop over runs specified in the config file.

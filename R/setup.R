@@ -8,20 +8,23 @@
 #'
 #' @export
 #'
-setup_directory <- function(root = ".", include_examples = TRUE) {
-  full_path <- path.expand(root)
+setup_directory = function(root = ".", include_examples = TRUE) {
+  full_path = path.expand(root)
   # Check if directory is empty
-  contents <- list.files(full_path)
+  contents = list.files(full_path)
   empty = length(contents) == 0
   if (!empty) {
     warning(sprintf("Directory `%s` is not empty.", full_path))
   }
 
-  dirs_to_create <- c("input", "output", "data")
+  input_dir = getOption("rmodvege.input_dir", default = "input/")
+  output_dir = getOption("rmodvege.output_dir", default = "output/")
+  data_dir = getOption("rmodvege.data_dir", default = "data/")
+  dirs_to_create = c(input_dir, output_dir, data_dir)
   for (d in dirs_to_create) {
     path = file.path(full_path, d)
     if (dir.exists(path)) {
-      warning(sprintf("Directory `%s` already exists. Skipping...", path))
+      warning(sprintf("Directory `%s` already exists.", path))
       next
     }
     dir.create(path)
@@ -47,7 +50,7 @@ setup_directory <- function(root = ".", include_examples = TRUE) {
                               function(site) {
                                 paste0(site, "_", input_types)
                               }))
-  destination = file.path(full_path, "input/")
+  destination = file.path(full_path, input_dir)
   for (input_file in input_files) {
     original = file.path(origin, input_file)
     origins = c(origins, original)
@@ -55,7 +58,7 @@ setup_directory <- function(root = ".", include_examples = TRUE) {
   }
   # Then all data files
   subsites = c("1", "2")
-  destination = file.path(full_path, "data/")
+  destination = file.path(full_path, data_dir)
   for (site in sites) {
     for (subsite in subsites) {
       data_filename = paste0(site, subsite, ".csv")

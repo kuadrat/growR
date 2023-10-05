@@ -16,14 +16,15 @@
 #'
 #' @return If `store_results == TRUE`, a list of the format 
 #'   [[run]][[year]] containing clones of the `ModvegeSite` instances that 
-#'   were run. Otherwise an empty list.
+#'   were run. Otherwise an empty list. Defaults to 
+#'   getOption("rmodvege.output_dir").
 #'
 #' @export
 #' 
 modvege_run_loop = function(modvege_environments,
                             write_files = TRUE,
                             store_results = FALSE,
-                            output_dir = "output/") {
+                            output_dir = NULL) {
   n_runs = length(modvege_environments)
   results = list()
   for (run in 1:n_runs) {
@@ -49,6 +50,9 @@ modvege_run_loop = function(modvege_environments,
       #-Write-output------------------------------------------------------------
 
       if (write_files) {
+        if (is.null(output_dir)) {
+          output_dir = getOption("rmodvege.output_dir", default = "output/")
+        }
         out_file = sprintf("%s%s%s_%s.dat",
                            output_dir, 
                            run_environment$site_name,
