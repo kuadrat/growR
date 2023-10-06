@@ -1,0 +1,295 @@
+<!DOCTYPE html><html><head><title>R: rmodvege environment data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>ModvegeEnvironment</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>rmodvege environment data</h2>
+
+<h3>Description</h3>
+
+<p>Data structure that contains inputs (parameters pertaining to a site, to 
+the vegetation, to the weather and to the management) to rmodvege simulations.
+</p>
+
+
+<h3>Details</h3>
+
+<p>This class contains site parameters, weather and management data for 
+one simulation run of rmodvege on a given site over several years. 
+Methods are provided to allow access to relevant data for a given year.
+</p>
+<p>All inputs are read in from data files through the respective data classes
+[WeatherData], [ManagementData] and [ModvegeParameters]. These parameters 
+can be simultaneously specified through a config file using [read_config()].
+</p>
+
+
+<h3>Public fields</h3>
+
+<div class="r6-fields">
+
+<dl>
+<dt><code>site_name</code></dt><dd><p>Name of site to be simulated.</p>
+</dd>
+<dt><code>run_name</code></dt><dd><p>Name of simulation run. Allows distinguishing between 
+different simulations at the same site. Defaults to &quot;-&quot; for *no name*.</p>
+</dd>
+<dt><code>run_name_in_filename</code></dt><dd><p>How the run name will be represented in an 
+output file. If 'run_name' is the default &quot;-&quot;, indicating no name, this 
+will be an empty string. Otherwise, it will be the 'run_name' prepended 
+by and underscore '_'.</p>
+</dd>
+<dt><code>years</code></dt><dd><p>Years for which environment data (weather &amp; management) is 
+present.</p>
+</dd>
+<dt><code>param_file</code></dt><dd><p>Name of supplied parameter file.</p>
+</dd>
+<dt><code>weather_file</code></dt><dd><p>Name of supplied weather file.</p>
+</dd>
+<dt><code>management_file</code></dt><dd><p>Name of supplied management file.</p>
+</dd>
+<dt><code>parameters</code></dt><dd><p>A ModvegeParameters object.</p>
+</dd>
+<dt><code>weather</code></dt><dd><p>A WeatherData object.</p>
+</dd>
+<dt><code>management</code></dt><dd><p>A ManagementData object.</p>
+</dd>
+<dt><code>input_dir</code></dt><dd><p>Directory in which parameter, weather and management 
+files are searched for. Defaults to 'getOption(&quot;rmodvege.input_dir&quot;).</p>
+</dd>
+</dl>
+
+</div>
+
+
+<h3>Methods</h3>
+
+
+
+<h4>Public methods</h4>
+
+
+<ul>
+<li> <p><a href="#method-ModvegeEnvironment-new"><code>ModvegeEnvironment$new()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-ModvegeEnvironment-load_inputs"><code>ModvegeEnvironment$load_inputs()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-ModvegeEnvironment-make_filename_for_run"><code>ModvegeEnvironment$make_filename_for_run()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-ModvegeEnvironment-get_environment_for_year"><code>ModvegeEnvironment$get_environment_for_year()</code></a>
+</p>
+</li>
+<li> <p><a href="#method-ModvegeEnvironment-clone"><code>ModvegeEnvironment$clone()</code></a>
+</p>
+</li></ul>
+
+
+<hr>
+<a id="method-ModvegeEnvironment-new"></a>
+
+
+
+<h4>Method <code>new()</code></h4>
+
+<p>Instantiate a new ModvegeEnvironment
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>ModvegeEnvironment$new(
+  site_name,
+  run_name = "-",
+  years = "all",
+  param_file = "-",
+  weather_file = "-",
+  management_file = "-",
+  input_dir = NULL
+)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>site_name</code></dt><dd><p>string Name of the simulated site.</p>
+</dd>
+<dt><code>run_name</code></dt><dd><p>string Name of the simulation run. Used to 
+differentiate between different simulation conditions at the same site.
+Defaults to &quot;-&quot;, which indicates no specific run name.</p>
+</dd>
+<dt><code>years</code></dt><dd><p>numeric Vector of integer years to be simulated.</p>
+</dd>
+<dt><code>param_file</code></dt><dd><p>string Name of file that contains site and 
+vegetation parameters. If default value '&quot;-&quot;' is  provided, it is 
+assumed to be &quot;SITENAME_parameters.csv&quot;.</p>
+</dd>
+<dt><code>weather_file</code></dt><dd><p>string Analogous to *param_file*.</p>
+</dd>
+<dt><code>management_file</code></dt><dd><p>string Analogous to *param_file*.</p>
+</dd>
+<dt><code>input_dir</code></dt><dd><p>string Path to directory containing input files. 
+Defaults to 'getOption(&quot;rmodvege.input_dir&quot;)'.</p>
+</dd>
+</dl>
+
+</div>
+
+
+<hr>
+<a id="method-ModvegeEnvironment-load_inputs"></a>
+
+
+
+<h4>Method <code>load_inputs()</code></h4>
+
+<p>Load simulation inputs.
+</p>
+<p>Stores parameters, management and weather data from files specified in 
+self$parameter_file, self$weather_file and self$management_file, 
+respectively.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>ModvegeEnvironment$load_inputs()</pre></div>
+
+
+<hr>
+<a id="method-ModvegeEnvironment-make_filename_for_run"></a>
+
+
+
+<h4>Method <code>make_filename_for_run()</code></h4>
+
+<p>Ensure a readable filename for given *run_name*.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>ModvegeEnvironment$make_filename_for_run(run_name)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>run_name</code></dt><dd><p>Name of run to be converted into a filename.</p>
+</dd>
+</dl>
+
+</div>
+
+
+
+<h5>Returns</h5>
+
+<p>A version of *run_name* that can be used in a filename.
+</p>
+
+
+<hr>
+<a id="method-ModvegeEnvironment-get_environment_for_year"></a>
+
+
+
+<h4>Method <code>get_environment_for_year()</code></h4>
+
+<p>Get weather and environment for given year
+</p>
+<p>Convenience function to retrieve environmental and management
+inputs for given *year* from multi-year data containers 'self$weather' 
+and 'self$management'.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>ModvegeEnvironment$get_environment_for_year(year)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>year</code></dt><dd><p>int; year for which to extract data.</p>
+</dd>
+</dl>
+
+</div>
+
+
+
+<h5>Returns</h5>
+
+<p>'list(W, M)' where 'W' is the WeatherData and 'M' the 
+ManagementData object for given year.
+</p>
+
+
+<hr>
+<a id="method-ModvegeEnvironment-clone"></a>
+
+
+
+<h4>Method <code>clone()</code></h4>
+
+<p>The objects of this class are cloneable with this method.
+</p>
+
+
+<h5>Usage</h5>
+
+<div class="r"><pre>ModvegeEnvironment$clone(deep = FALSE)</pre></div>
+
+
+
+<h5>Arguments</h5>
+
+<div class="arguments">
+
+<dl>
+<dt><code>deep</code></dt><dd><p>Whether to make a deep clone.</p>
+</dd>
+</dl>
+
+</div>
+
+
+
+
+<h3>See Also</h3>
+
+<p>[read_config()]
+</p>
+<p>[WeatherData$get_weather_for_year()], 
+[ManagementData$get_management_for_year()]
+</p>
+
+
+</div>
+</body></html>

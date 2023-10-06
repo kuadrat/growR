@@ -55,9 +55,81 @@ initial_state_variables = list(
 #' ModvegeSite
 #'
 #' @description
-#' Contains model and site parameters and state variables as attributes.
-#' Has methods for running ModVege with weather and management input.
+#' Implements the modvege grass growth model based off of Jouven et al. (2006).
+#' 
+#' This class contains model and site parameters and state variables as 
+#' attributes and has methods for running modvege with weather and management 
+#' input.
 #'
+#' Use the `run()` method to carry out a simulation for a given year. The 
+#' results are stored in the state variables in this instance and can be written 
+#' to file using `write_output()`.
+#'
+#' @details
+#' # Model variables
+#' See Jouven et al. (2006) for a thorough description of all model variables.
+#' 
+#' ## State Variables
+#' ```{r child = "man/state_variables.Rmd"}
+#' ```
+#'
+#' ## Initial conditions
+#' ```{r child = "man/initial_conditions.Rmd"}
+#' ```
+#'
+#' @field time_step Used time step in the model in days (untested).
+#' @field state_variable_namse Vector containing the names of the model's 
+#'   state variables.
+#' @field n_state_variables Number of state variables.
+#' @field version Version number of the rmodvege package. Is written into 
+#'   output files.
+#' @field site_name Name of the site to be simulated.
+#' @field run_name Name of the simulation run. Used to distinguish between 
+#'   different runs at the same site.
+#' @field year Year to be simulated.
+#' @field j_start_of_growing_season Index (DOY) of the day the growing season 
+#'   was determined to begin.
+#' @field cut_height Height of remaining grass after cut in m.
+#' @field parameters A ModvegeParameters object.
+#' @field determine_cut Function used to decide whether a cut occurs on a 
+#'   given DOY. Is overloaded depending on whether management data is 
+#'   provided or not.
+#' @field cut_DOYs List of DOYs on which a cut occurred.
+#' @field cut_during_growth_preriod Boolean to indicate whether a cut 
+#'   occurred during the growth period, in which case reproductive growth is 
+#'   stopped.
+#' @field last_DOY_for_initial_cut **autocut** Start cutting after this DOY, 
+#'   even if yield target is not reached.
+#' @field max_cut_period **autocut** Maximum period to wait between 
+#'   subsequent cuts.
+#' @field dry_precipitation_limit **autocut** Maximum amount of allowed 
+#'   precipitation (mm) to consider a day.
+#' @field dry_days_before_cut **autocut** Number of days that shold be dry 
+#'   before a cut is made.
+#' @field dry_days_after_cut **autocut** Number of days that shold be dry 
+#'   after a cut is made.
+#' @field max_cut_delay **autocut** Number of days a farmer is willing to 
+#'   wait for dry conditions before a cut is made anyways.
+#' @field cut_delays **autocut** Vector to keep track of cut delay times.
+#'   wait for dry conditions before a cut is made anyways.
+#' @field dry_window **autocut** Logical that indicates if DOY at index is 
+#'   considered dry enough to cut.
+#' @field target_biomass **autocut** Biomass amount that should to be reached 
+#'   by given DOY for a cut to be made.
+#' @field end_of_cutting_season **autocut** Determined DOY after which no 
+#'   more cuts are made.
+#' @field BM_after_cut **autocut** Amount of biomass that remains after a cut 
+#'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
+#'   BDDR).
+#' @field weather A WeatherData object.
+#' @field management A ManagementData object. If its `is_empty` field is `TRUE`, 
+#'   the autocut routine will be employed.
+#'
+#' @references{
+#'  \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
+#' }
+#'
+#' @md
 #' @export
 ModvegeSite = R6Class(
   "ModvegeSite",
@@ -76,18 +148,13 @@ ModvegeSite = R6Class(
       run_name = NULL,
       year = NULL,
       days_per_year = 365,
-      current_DOY = 1,
       j_start_of_growing_season = NULL,
       cut_height = 0.05,
-      REP_ON = 0.25,
       parameters = NULL,
       determine_cut = NULL,
       cut_DOYs = c(),
       cut_during_growth_preriod = NULL,
-      # [autocut] Start cutting after this DOY, even if yield target is not 
-      # reached.
       last_DOY_for_initial_cut = 150,
-      # [autocut] Maximum period to wait between subsequent cuts.
       max_cut_period = 55,
       # [autocut] Max amount of allowed precipitation (mm) to consider a day 
       # "dry".
@@ -127,7 +194,7 @@ ModvegeSite = R6Class(
         self$n_state_variables = length(self$state_variable_names)
 
         # Precalculate constants
-        self$REP_ON = (0.25 + (0.75 * (parameters$NI - 0.35)) / 0.65) 
+        private$REP_ON = (0.25 + (0.75 * (parameters$NI - 0.35)) / 0.65) 
         # Limit for biomass that remains after a cut
         self$BM_after_cut = self$cut_height * 10. * sum(parameters$BDGV,
                                                         parameters$BDGR,
@@ -247,7 +314,7 @@ ModvegeSite = R6Class(
       #' previously used position.
       #'
       carry_over_from_last_day = function() {
-        j = self$current_DOY
+        j = private$current_DOY
         if (j == 1) { return(0) }
         self$AgeGVp = self$AgeGV[j - 1]
         self$AgeGRp = self$AgeGR[j - 1]
@@ -280,7 +347,7 @@ ModvegeSite = R6Class(
         # Create shorthands
         W = self$get_weather()
         P = self$parameters
-        j = self$current_DOY
+        j = private$current_DOY
 
         # LAI for computing PGRO
         self$LAIGV[j] = P$SLA * P$pcLAM * self$BMGVp / 10.
@@ -348,7 +415,7 @@ ModvegeSite = R6Class(
       #'
       calculate_ageing = function() {
         # Create shorthands
-        j = self$current_DOY
+        j = private$current_DOY
         P = self$parameters
         W = self$get_weather()
         T_average = W$Ta[j]
@@ -359,7 +426,7 @@ ModvegeSite = R6Class(
         if (!self$cut_during_growth_preriod & 
             self$ST[j] >= P$ST1 & 
             self$ST[j] <= P$ST2) {
-          self$REP[j] = self$REP_ON
+          self$REP[j] = private$REP_ON
         } else {
           self$REP[j] = 0
         }
@@ -486,7 +553,7 @@ ModvegeSite = R6Class(
       #' compartment.
       #'
       update_biomass = function() {
-        j = self$current_DOY
+        j = private$current_DOY
         P = self$parameters
         dBMGV = self$GROGV - self$SENGV
         self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
@@ -517,7 +584,7 @@ ModvegeSite = R6Class(
       #'
       calculate_digestibility = function() {
         P = self$parameters
-        j = self$current_DOY
+        j = private$current_DOY
         # OMDGV[j] = max(minOMDGV,
         #                ifelse(j == 1, maxOMDGV,
         #                       maxOMDGV - AgeGV[j]*(maxOMDGV - minOMDGV)/LLS))
@@ -541,10 +608,8 @@ ModvegeSite = R6Class(
 
       #' @description Simulate the effects of cuts on the grass growth.
       #'
-      #' @note This function updates variables inside its parent environment.
-      #'
       apply_cuts = function() {
-        j = self$current_DOY
+        j = private$current_DOY
         P = self$parameters
         M = self$get_management()
 
@@ -701,7 +766,7 @@ ModvegeSite = R6Class(
       #' https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
       #'
       #' @param DOY Integer day of the year to consider.
-      #' @param intensity One of ["high", "middle", "low"] specifying 
+      #' @param intensity One of {"high", "middle", "low"} specifying 
       #'   management intensity..
       get_target_biomass = function(DOY, intensity = "high") {
         # For DOY < 130, use the value at DOY = 130
@@ -722,7 +787,7 @@ ModvegeSite = R6Class(
 
       #' @description Carry out a ModVege simulation for one year.
       #'
-      #' @param year Integer specifying the year to consider. [Unused?]
+      #' @param year Integer specifying the year to consider. (Unused?)
       #' @param weather Weather List for given year as returned by 
       #'   :method:`Weather$get_weather_for_year`
       #' @param management Management List for given year as provided by 
@@ -771,7 +836,7 @@ ModvegeSite = R6Class(
         # :TODO: Avoid if j==1 statements by increasing vector sizes by one.
         logger("Starting loop over days of the year.", level = TRACE)
         for (j in 1:self$days_per_year) {
-          self$current_DOY = j
+          private$current_DOY = j
           self$carry_over_from_last_day()
           self$calculate_growth()
           self$calculate_ageing()
@@ -867,6 +932,8 @@ ModvegeSite = R6Class(
 
   private = list(
 #    vars_to_exclude = c("PET", "OMDDV", "OMDDR"),
-    vars_to_exclude = c("OMDDV", "OMDDR")
+    vars_to_exclude = c("OMDDV", "OMDDR"),
+    current_DOY = 1,
+    REP_ON = NULL
   ) # End of private attributes
 )

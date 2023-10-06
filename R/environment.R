@@ -1,5 +1,10 @@
-#' Data structure that contains inputs to rmodvege simulations
+#' rmodvege environment data
 #'
+#' @description
+#' Data structure that contains inputs (parameters pertaining to a site, to 
+#' the vegetation, to the weather and to the management) to rmodvege simulations.
+#'
+#' @details
 #' This class contains site parameters, weather and management data for 
 #' one simulation run of rmodvege on a given site over several years. 
 #' Methods are provided to allow access to relevant data for a given year.
@@ -7,6 +12,24 @@
 #' All inputs are read in from data files through the respective data classes
 #' [WeatherData], [ManagementData] and [ModvegeParameters]. These parameters 
 #' can be simultaneously specified through a config file using [read_config()].
+#'
+#' @field site_name Name of site to be simulated.
+#' @field run_name Name of simulation run. Allows distinguishing between 
+#'   different simulations at the same site. Defaults to "-" for *no name*.
+#' @field run_name_in_filename How the run name will be represented in an 
+#'   output file. If `run_name` is the default "-", indicating no name, this 
+#'  will be an empty string. Otherwise, it will be the `run_name` prepended 
+#'  by and underscore `_`.
+#' @field years Years for which environment data (weather & management) is 
+#'   present.
+#' @field param_file Name of supplied parameter file.
+#' @field weather_file Name of supplied weather file.
+#' @field management_file Name of supplied management file.
+#' @field parameters A ModvegeParameters object.
+#' @field weather A WeatherData object.
+#' @field management A ManagementData object.
+#' @field input_dir Directory in which parameter, weather and management 
+#'   files are searched for. Defaults to `getOption("rmodvege.input_dir").
 #'
 #' @seealso [read_config()]
 #'

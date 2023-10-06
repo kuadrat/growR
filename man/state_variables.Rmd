@@ -1,0 +1,26 @@
+\describe{
+\item{BM}{Standing biomass in kg DM per ha.}
+\item{BMG}{Standing green biomass (kg DM / ha).}
+\item{cBM}{Cumulativeley grown biomass (kg DM / ha).}
+\item{dBM}{Daily grown biomass (kg DM / ha).}
+\item{hvBM}{Cumulative harvested biomass (kg DM / ha).}
+\item{OMD}{Organic matter digestibility (kg / kg).}
+\item{OMDG}{OMD of green matter (kg / kg).}
+\item{ST}{Temperature sum in degree Celsius days.}
+\item{REP}{Reproductive function. Gives the fraction of growth that is 
+assigned to reproductive growth. The remainder goes into vegetative growth. 
+Dimensionless.}
+\item{PGRO}{Potential growth in kg DM / ha.}
+\item{GRO}{Effective growth in kg DM / ha.}
+\item{LAI}{Leaf area index, accounting for the proportion of light 
+intercepted by the sward. Dimensionless.}
+\item{LAIGV}{LAI of green vegetative biomass. Dimensionless.}
+\item{AET}{Actual evapotranspiration in mm.}
+\item{WR}{Water reserves in mm.}
+\item{ENV}{Function representing environmental effects on growth. Acts as a 
+multiplicative factor. Dimensionless.}
+\item{ENVfPAR}{Part of ENV due to strength of incident radiation. Dimensionless.}
+\item{ENVfT}{Part of ENV due to temperature. Dimensionless.}
+\item{ENVfW}{Part of ENV due to water limitation. Dimensionless.}
+}
+

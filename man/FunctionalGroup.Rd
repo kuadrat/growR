@@ -4,27 +4,75 @@
 \alias{FunctionalGroup}
 \title{Representation of a grassland plant population}
 \description{
-A functional group is a representation of a grassland plant population 
+A functional group is a representation of a grassland plant population
 with certain functional attributes.
 
 It contains many plant parameters that are collected under the hood of
-functional groups. The class implements S3 style operator overloading such 
-that one can do things like 
-```
-mixed_functional_group = 0.8 * FG_A + 0.2 * FG_B
-```
+functional groups. The class implements S3 style operator overloading such
+that one can do things like
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{mixed_functional_group = 0.8 * FG_A + 0.2 * FG_B
+}\if{html}{\out{</div>}}
 }
-\details{
+\section{Public fields}{
+\describe{
+\item{\code{SLA}}{Specific Leaf Area in m^2 per g.}
+
+\item{\code{pcLAM}}{Percentage of laminae (number between 0 and 1).}
+
+\item{\code{ST1}}{Temperature sum in degree Celsiues days after which the
+seasonality function \code{SEA} starts to decrease from its maximum plateau.
+See also \code{\link[=SEA]{SEA()}}.}
+
+\item{\code{ST2}}{Temperature sum in degree Celsiues days after which the
+seasonality function \code{SEA} has decreased back to its minimum value.
+See also \code{\link[=SEA]{SEA()}}.}
+
+\item{\code{maxSEA}}{Maximum value of the seasonality function \code{\link[=SEA]{SEA()}}.}
+
+\item{\code{minSEA}}{Minimum value of the seasonality function \code{\link[=SEA]{SEA()}}. Usually,
+\code{minSEA = 1 - (maxSEA - 1)}.}
+
+\item{\code{maxOMDGV}}{Maximum organic matter digestability for green vegetative
+matter in arbitrary units.}
+
+\item{\code{minOMDGV}}{Minimum organic matter digestability for green vegetative
+matter in arbitrary units.}
+
+\item{\code{maxOMDGR}}{Maximum organic matter digestability for green reproductive
+matter in arbitrary units.}
+
+\item{\code{minOMDGR}}{Minimum organic matter digestability for green reproductive
+matter in arbitrary units.}
+
+\item{\code{BDGV}}{Bulk density of green vegetative dry matter in g per m^3.}
+
+\item{\code{BDDV}}{Bulk density of dead vegetative dry matter in g per m^3.}
+
+\item{\code{BDGR}}{Bulk density of green reproductive dry matter in g per m^3.}
+
+\item{\code{BDDR}}{Bulk density of dead reproductive dry matter in g per m^3.}
+
+\item{\code{fg_parameter_names}}{Vector of strings of the variable names of all
+vegetation parameters governed by functional group composition.}
+}
+
 Default values for parameters are taken from functional group A in
 Jouven et al.
 }
+
 \references{
 {
- \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
+\insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
 }
 }
-\seealso{
-[FunctionalGroup$set_parameters()]
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{fg_parameter_names}}{Names of the vegetation parameters governed by
+functional group composition.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -109,8 +157,8 @@ Efficient setter, assumes parameters come in known order.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{ordered_parameter_values}}{Parameter values to be set. Need to be 
-in the same order as `FunctionalGroup$fg_parameter_names`.}
+\item{\code{ordered_parameter_values}}{Parameter values to be set. Need to be
+in the same order as \code{FunctionalGroup$fg_parameter_names}.}
 }
 \if{html}{\out{</div>}}
 }

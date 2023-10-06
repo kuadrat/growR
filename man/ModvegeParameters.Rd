@@ -4,8 +4,163 @@
 \alias{ModvegeParameters}
 \title{Parameter Data Object}
 \description{
-Data structure that contains site and vegetation parameters necessary for 
+Data structure that contains site and vegetation parameters necessary for
 the configuration of an rmodvege simulation run.
+}
+\note{
+Programmatically speaking, all parameters described under \emph{Parameter
+description} are also fields of this R6Class.
+}
+\section{Parameter description}{
+The following is a list and description of model parameters, including
+the vegetation parameters, which are defined through the functional group
+composition.
+\subsection{Site and model parameters}{
+
+\describe{
+\item{LON}{geographic longitude of site in degree.}
+
+\item{LAT}{geographic latitude of site in degree.}
+
+\item{ELV}{geographic elevation of site in m.a.s.l.}
+
+\item{WHC}{water-holding capacity of site in mm.}
+
+\item{NI}{site nutritional index (dimensionless).}
+
+\item{RUEmax}{maximum radiuation use efficiency in g DM per MJ.}
+
+\item{w_FGA}{relative weight of functional group A.}
+
+\item{w_FGB}{relative weight of functional group B.}
+
+\item{w_FGC}{relative weight of functional group C.}
+
+\item{w_FGD}{relative weight of functional group D.}
+
+\item{sigmaGV}{rate of GV respirative biomass loss (dimensionless).}
+
+\item{sigmaGR}{rate of GR respirative biomass loss (dimensionless).}
+
+\item{T0}{photosynthesis activation temperature (degree C).}
+
+\item{T1}{photosynthesis plateau temperature (degree C).}
+
+\item{T2}{photosynthesis max temperature (degree C).}
+
+\item{KGV}{basic senescence rate GV (dimensionless).}
+
+\item{KGR}{basic senescence rate GR (dimensionless).}
+
+\item{KlGV}{basic abscission rate GV (dimensionless).}
+
+\item{KlGR}{basic abscission rate GR (dimensionless).}
+
+\item{maxOMDDV}{organic matter digestibility in gram per gram DV.}
+
+\item{minOMDDR}{organic matter digestibility in gram per gram DR.}
+}
+}
+
+\subsection{Initial conditions}{
+
+\describe{
+\item{AgeGV}{Age of green vegetative matter in degree Celsius days.}
+
+\item{AgeGR}{Age of green reproductive matter in degree Celsius days.}
+
+\item{AgeDV}{Age of dead vegetative matter in degree Celsius days.}
+
+\item{AgeDR}{Age of dead reproductive matter in degree Celsius days.}
+
+\item{BMGV}{biomass of GV (kg DM per ha).}
+
+\item{BMGR}{biomass of GR (kg DM per ha).}
+
+\item{BMDV}{biomass of DV (kg DM per ha).}
+
+\item{BMDR}{biomass of DR (kg DM per ha).}
+
+\item{BMDR}{biomass of DR (kg DM per ha).}
+
+\item{SENGV}{senescence of GV (kg DM per ha).}
+
+\item{SENGV}{senescence of GR (kg DM per ha).}
+
+\item{ABSGV}{abscission of DV (kg DM per ha).}
+
+\item{ABSGV}{abscission of DR (kg DM per ha).}
+
+\item{ST}{thermal time (degree days).}
+
+\item{cBM}{cumulative total biomass (kg per ha).}
+
+}
+}
+
+\subsection{Vegetation parameters}{
+
+\describe{
+\item{\code{SLA}}{Specific Leaf Area in m^2 per g.}
+
+\item{\code{pcLAM}}{Percentage of laminae (number between 0 and 1).}
+
+\item{\code{ST1}}{Temperature sum in degree Celsiues days after which the
+seasonality function \code{SEA} starts to decrease from its maximum plateau.
+See also \code{\link[=SEA]{SEA()}}.}
+
+\item{\code{ST2}}{Temperature sum in degree Celsiues days after which the
+seasonality function \code{SEA} has decreased back to its minimum value.
+See also \code{\link[=SEA]{SEA()}}.}
+
+\item{\code{maxSEA}}{Maximum value of the seasonality function \code{\link[=SEA]{SEA()}}.}
+
+\item{\code{minSEA}}{Minimum value of the seasonality function \code{\link[=SEA]{SEA()}}. Usually,
+\code{minSEA = 1 - (maxSEA - 1)}.}
+
+\item{\code{maxOMDGV}}{Maximum organic matter digestability for green vegetative
+matter in arbitrary units.}
+
+\item{\code{minOMDGV}}{Minimum organic matter digestability for green vegetative
+matter in arbitrary units.}
+
+\item{\code{maxOMDGR}}{Maximum organic matter digestability for green reproductive
+matter in arbitrary units.}
+
+\item{\code{minOMDGR}}{Minimum organic matter digestability for green reproductive
+matter in arbitrary units.}
+
+\item{\code{BDGV}}{Bulk density of green vegetative dry matter in g per m^3.}
+
+\item{\code{BDDV}}{Bulk density of dead vegetative dry matter in g per m^3.}
+
+\item{\code{BDGR}}{Bulk density of green reproductive dry matter in g per m^3.}
+
+\item{\code{BDDR}}{Bulk density of dead reproductive dry matter in g per m^3.}
+
+\item{\code{fg_parameter_names}}{Vector of strings of the variable names of all
+vegetation parameters governed by functional group composition.}
+}
+}
+}
+
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{parameter_names}}{Names of all parameters and state variables.}
+
+\item{\code{n_parameters}}{Number of total parameters.}
+
+\item{\code{functional_group}}{The functional group object holding the vegetation
+parameters.}
+
+\item{\code{fg_parameter_names}}{Names of vegetation parameters defined by the
+functional group composition.}
+
+\item{\code{param_file}}{Name of the parameter file from which initial parameter
+values were read.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -28,7 +183,7 @@ Constructor
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{param_file}}{Name of file containing the site and vegetation 
+\item{\code{param_file}}{Name of file containing the site and vegetation
 parameters.}
 }
 \if{html}{\out{</div>}}
@@ -40,11 +195,11 @@ parameters.}
 \subsection{Method \code{read_parameters()}}{
 Read parameters from parameter file
 
-Reads in parameters from the supplied *param_file* and stores them in 
+Reads in parameters from the supplied \emph{param_file} and stores them in
 internal fields.
 
-This function carries out some basic sanity checks of 
-the supplied *param_file* and reports on unidentified and missing 
+This function carries out some basic sanity checks of
+the supplied \emph{param_file} and reports on unidentified and missing
 parameter names.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$read_parameters(param_file)}\if{html}{\out{</div>}}
@@ -58,8 +213,8 @@ parameter names.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-P List with field names as in the class variable 
-  `parameter_names`.
+P List with field names as in the class variable
+\code{parameter_names}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -68,8 +223,8 @@ P List with field names as in the class variable
 \subsection{Method \code{update_functional_group()}}{
 Update functional group parameters
 
-Should be run whenever the functional group composition is changed in 
-order to reflect the changes in the parameter list `self$P`.
+Should be run whenever the functional group composition is changed in
+order to reflect the changes in the parameter list \code{self$P}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$update_functional_group()}\if{html}{\out{</div>}}
 }

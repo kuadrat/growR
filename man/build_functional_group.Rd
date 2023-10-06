@@ -8,7 +8,7 @@ build_functional_group(P)
 }
 \arguments{
 \item{P}{list; name-value pairs of parameters. Has to contain w_FGX with X 
-in [A, B, C, D].}
+in (A, B, C, D).}
 }
 \value{
 A modified list, where all functional group parameters are updated 
@@ -18,4 +18,7 @@ A modified list, where all functional group parameters are updated
 \description{
 Uses the weights found in :param:`P` to construct the effective functional 
 groups and updates functional group parameters in P.
+}
+\seealso{
+FunctionalGroup
 }

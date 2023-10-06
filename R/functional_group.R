@@ -12,13 +12,21 @@
 #' ```
 #' 
 #' @details
+#' # Public fields
+#' ```{r child = "man/parameters_fg.Rmd"}
+#' ```
+#'
 #' Default values for parameters are taken from functional group A in
 #' Jouven et al.
 #'
+#' @field fg_parameter_names Names of the vegetation parameters governed by 
+#'   functional group composition.
+#' 
 #' @references{
 #'  \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
 #' }
 #' 
+#' @md
 #' @export
 FunctionalGroup = R6Class(
   "FunctionalGroup",
@@ -50,7 +58,6 @@ FunctionalGroup = R6Class(
     #'
     #' @param ... Key-value pairs of parameters to be set.
     #'
-    #' @seealso [FunctionalGroup$set_parameters()]
     initialize = function(...) {
       self$set_parameters(...)
     },
@@ -225,10 +232,14 @@ FG_D = FunctionalGroup$new(
 #' groups and updates functional group parameters in P.
 #'
 #' @param P list; name-value pairs of parameters. Has to contain w_FGX with X 
-#'   in [A, B, C, D].
+#'   in (A, B, C, D).
 #' @return A modified list, where all functional group parameters are updated 
 #'   to the values of the effective functional group according to the weights 
 #'   w_FGX.
+#'
+#' @seealso FunctionalGroup
+#'
+#' @export
 #'
 build_functional_group = function(P) {
   w_A = P[["w_FGA"]]

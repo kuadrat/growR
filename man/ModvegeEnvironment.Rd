@@ -2,11 +2,10 @@
 % Please edit documentation in R/environment.R
 \name{ModvegeEnvironment}
 \alias{ModvegeEnvironment}
-\title{Data structure that contains inputs to rmodvege simulations}
+\title{rmodvege environment data}
 \description{
-Data structure that contains inputs to rmodvege simulations
-
-Data structure that contains inputs to rmodvege simulations
+Data structure that contains inputs (parameters pertaining to a site, to 
+the vegetation, to the weather and to the management) to rmodvege simulations.
 }
 \details{
 This class contains site parameters, weather and management data for 
@@ -22,6 +21,39 @@ can be simultaneously specified through a config file using [read_config()].
 
 [WeatherData$get_weather_for_year()], 
   [ManagementData$get_management_for_year()]
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{site_name}}{Name of site to be simulated.}
+
+\item{\code{run_name}}{Name of simulation run. Allows distinguishing between 
+different simulations at the same site. Defaults to "-" for *no name*.}
+
+\item{\code{run_name_in_filename}}{How the run name will be represented in an 
+ output file. If `run_name` is the default "-", indicating no name, this 
+will be an empty string. Otherwise, it will be the `run_name` prepended 
+by and underscore `_`.}
+
+\item{\code{years}}{Years for which environment data (weather & management) is 
+present.}
+
+\item{\code{param_file}}{Name of supplied parameter file.}
+
+\item{\code{weather_file}}{Name of supplied weather file.}
+
+\item{\code{management_file}}{Name of supplied management file.}
+
+\item{\code{parameters}}{A ModvegeParameters object.}
+
+\item{\code{weather}}{A WeatherData object.}
+
+\item{\code{management}}{A ManagementData object.}
+
+\item{\code{input_dir}}{Directory in which parameter, weather and management 
+files are searched for. Defaults to `getOption("rmodvege.input_dir").}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{

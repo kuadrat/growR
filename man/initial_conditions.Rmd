@@ -1,0 +1,33 @@
+\describe{
+\item{AgeGV}{Age of green vegetative matter in degree Celsius days.}
+
+\item{AgeGR}{Age of green reproductive matter in degree Celsius days.}
+
+\item{AgeDV}{Age of dead vegetative matter in degree Celsius days.}
+
+\item{AgeDR}{Age of dead reproductive matter in degree Celsius days.}
+
+\item{BMGV}{biomass of GV (kg DM per ha).}
+
+\item{BMGR}{biomass of GR (kg DM per ha).}
+
+\item{BMDV}{biomass of DV (kg DM per ha).}
+
+\item{BMDR}{biomass of DR (kg DM per ha).}
+
+\item{BMDR}{biomass of DR (kg DM per ha).}
+
+\item{SENGV}{senescence of GV (kg DM per ha).}
+
+\item{SENGV}{senescence of GR (kg DM per ha).}
+
+\item{ABSGV}{abscission of DV (kg DM per ha).}
+
+\item{ABSGV}{abscission of DR (kg DM per ha).}
+
+\item{ST}{thermal time (degree days).}
+
+\item{cBM}{cumulative total biomass (kg per ha).}
+
+}
+

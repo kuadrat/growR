@@ -4,19 +4,183 @@
 \alias{ModvegeSite}
 \title{ModvegeSite}
 \description{
-Contains model and site parameters and state variables as attributes.
-Has methods for running ModVege with weather and management input.
+Implements the modvege grass growth model based off of Jouven et al. (2006).
+
+This class contains model and site parameters and state variables as
+attributes and has methods for running modvege with weather and management
+input.
+
+Use the \code{run()} method to carry out a simulation for a given year. The
+results are stored in the state variables in this instance and can be written
+to file using \code{write_output()}.
 }
 \note{
-Technically, not all of the variables listed in 
-`state_variable_names` are re-initialized, as some of them already hold 
+Technically, not all of the variables listed in
+\code{state_variable_names} are re-initialized, as some of them already hold
 the right values for the simulation. Particularly, this is the case for:
 OMDDV, OMDDR
+}
+\section{Model variables}{
+See Jouven et al. (2006) for a thorough description of all model variables.
+\subsection{State Variables}{
 
-This function updates variables inside its parent environment.
+\describe{
+\item{BM}{Standing biomass in kg DM per ha.}
+\item{BMG}{Standing green biomass (kg DM / ha).}
+\item{cBM}{Cumulativeley grown biomass (kg DM / ha).}
+\item{dBM}{Daily grown biomass (kg DM / ha).}
+\item{hvBM}{Cumulative harvested biomass (kg DM / ha).}
+\item{OMD}{Organic matter digestibility (kg / kg).}
+\item{OMDG}{OMD of green matter (kg / kg).}
+\item{ST}{Temperature sum in degree Celsius days.}
+\item{REP}{Reproductive function. Gives the fraction of growth that is
+assigned to reproductive growth. The remainder goes into vegetative growth.
+Dimensionless.}
+\item{PGRO}{Potential growth in kg DM / ha.}
+\item{GRO}{Effective growth in kg DM / ha.}
+\item{LAI}{Leaf area index, accounting for the proportion of light
+intercepted by the sward. Dimensionless.}
+\item{LAIGV}{LAI of green vegetative biomass. Dimensionless.}
+\item{AET}{Actual evapotranspiration in mm.}
+\item{WR}{Water reserves in mm.}
+\item{ENV}{Function representing environmental effects on growth. Acts as a
+multiplicative factor. Dimensionless.}
+\item{ENVfPAR}{Part of ENV due to strength of incident radiation. Dimensionless.}
+\item{ENVfT}{Part of ENV due to temperature. Dimensionless.}
+\item{ENVfW}{Part of ENV due to water limitation. Dimensionless.}
+}
+}
+
+\subsection{Initial conditions}{
+
+\describe{
+\item{AgeGV}{Age of green vegetative matter in degree Celsius days.}
+
+\item{AgeGR}{Age of green reproductive matter in degree Celsius days.}
+
+\item{AgeDV}{Age of dead vegetative matter in degree Celsius days.}
+
+\item{AgeDR}{Age of dead reproductive matter in degree Celsius days.}
+
+\item{BMGV}{biomass of GV (kg DM per ha).}
+
+\item{BMGR}{biomass of GR (kg DM per ha).}
+
+\item{BMDV}{biomass of DV (kg DM per ha).}
+
+\item{BMDR}{biomass of DR (kg DM per ha).}
+
+\item{BMDR}{biomass of DR (kg DM per ha).}
+
+\item{SENGV}{senescence of GV (kg DM per ha).}
+
+\item{SENGV}{senescence of GR (kg DM per ha).}
+
+\item{ABSGV}{abscission of DV (kg DM per ha).}
+
+\item{ABSGV}{abscission of DR (kg DM per ha).}
+
+\item{ST}{thermal time (degree days).}
+
+\item{cBM}{cumulative total biomass (kg per ha).}
+
+}
+}
+}
+
+\references{
+{
+\insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
+}
 }
 \seealso{
-:func:`get_target_biomass`
+:func:\code{get_target_biomass}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{time_step}}{Used time step in the model in days (untested).}
+
+\item{\code{state_variable_namse}}{Vector containing the names of the model's
+state variables.}
+
+\item{\code{n_state_variables}}{Number of state variables.}
+
+\item{\code{version}}{Version number of the rmodvege package. Is written into
+output files.}
+
+\item{\code{site_name}}{Name of the site to be simulated.}
+
+\item{\code{run_name}}{Name of the simulation run. Used to distinguish between
+different runs at the same site.}
+
+\item{\code{year}}{Year to be simulated.}
+
+\item{\code{j_start_of_growing_season}}{Index (DOY) of the day the growing season
+was determined to begin.}
+
+\item{\code{cut_height}}{Height of remaining grass after cut in m.}
+
+\item{\code{parameters}}{A ModvegeParameters object.}
+
+\item{\code{determine_cut}}{Function used to decide whether a cut occurs on a
+given DOY. Is overloaded depending on whether management data is
+provided or not.}
+
+\item{\code{cut_DOYs}}{List of DOYs on which a cut occurred.}
+
+\item{\code{cut_during_growth_preriod}}{Boolean to indicate whether a cut
+occurred during the growth period, in which case reproductive growth is
+stopped.}
+
+\item{\code{last_DOY_for_initial_cut}}{\strong{autocut} Start cutting after this DOY,
+even if yield target is not reached.}
+
+\item{\code{max_cut_period}}{\strong{autocut} Maximum period to wait between
+subsequent cuts.}
+
+\item{\code{dry_precipitation_limit}}{\strong{autocut} Maximum amount of allowed
+precipitation (mm) to consider a day.}
+
+\item{\code{dry_days_before_cut}}{\strong{autocut} Number of days that shold be dry
+before a cut is made.}
+
+\item{\code{dry_days_after_cut}}{\strong{autocut} Number of days that shold be dry
+after a cut is made.}
+
+\item{\code{max_cut_delay}}{\strong{autocut} Number of days a farmer is willing to
+wait for dry conditions before a cut is made anyways.}
+
+\item{\code{cut_delays}}{\strong{autocut} Vector to keep track of cut delay times.
+wait for dry conditions before a cut is made anyways.}
+
+\item{\code{dry_window}}{\strong{autocut} Logical that indicates if DOY at index is
+considered dry enough to cut.}
+
+\item{\code{target_biomass}}{\strong{autocut} Biomass amount that should to be reached
+by given DOY for a cut to be made.}
+
+\item{\code{end_of_cutting_season}}{\strong{autocut} Determined DOY after which no
+more cuts are made.}
+
+\item{\code{BM_after_cut}}{\strong{autocut} Amount of biomass that remains after a cut
+(determined through cut_height and biomass densities BDGV, BDDV, BDGR,
+BDDR).}
+
+\item{\code{weather}}{A WeatherData object.}
+
+\item{\code{management}}{A ManagementData object. If its \code{is_empty} field is \code{TRUE},
+the autocut routine will be employed.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{state_variable_namse}}{Vector containing the names of the model's
+state variables.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -59,7 +223,7 @@ Constructor
 
 \item{\code{site_name}}{string Name of the simulated site.}
 
-\item{\code{run_name}}{string Name of the simulation run. Used to 
+\item{\code{run_name}}{string Name of the simulation run. Used to
 differentiate between different simulation conditions at the same site.
 Defaults to "-", which indicates no specific run name.}
 }
@@ -72,9 +236,9 @@ Defaults to "-", which indicates no specific run name.}
 \subsection{Method \code{initialize_state_variables()}}{
 Initialize all relevant state variables
 
-Firstly, an empty vector of length *days_per_year* is created for each 
-variable name in the vector `self$state_variable_names`.
-Then, some additional variables relating to management and water balance 
+Firstly, an empty vector of length \emph{days_per_year} is created for each
+variable name in the vector \code{self$state_variable_names}.
+Then, some additional variables relating to management and water balance
 are also initialized.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$initialize_state_variables()}\if{html}{\out{</div>}}
@@ -117,13 +281,13 @@ Get index (or, equivalently, DOY) of the start of the growing season.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{critical_temperature}}{Daily average temperature in degree 
+\item{\code{critical_temperature}}{Daily average temperature in degree
 Celsius required for a day being considered "warm enough" for growth.}
 
-\item{\code{consider_snow}}{Toggle whether the effect of snow cover is to be 
+\item{\code{consider_snow}}{Toggle whether the effect of snow cover is to be
 considered.}
 
-\item{\code{critical_snow}}{Minimum daily snowfall in mm for a day to be 
+\item{\code{critical_snow}}{Minimum daily snowfall in mm for a day to be
 considered snowy.}
 }
 \if{html}{\out{</div>}}
@@ -133,7 +297,7 @@ considered snowy.}
 \if{html}{\out{<a id="method-ModvegeSite-carry_over_from_last_day"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-carry_over_from_last_day}{}}}
 \subsection{Method \code{carry_over_from_last_day()}}{
-Set calculation values to the values stored in 
+Set calculation values to the values stored in
 previously used position.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$carry_over_from_last_day()}\if{html}{\out{</div>}}
@@ -144,7 +308,7 @@ previously used position.
 \if{html}{\out{<a id="method-ModvegeSite-calculate_growth"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-calculate_growth}{}}}
 \subsection{Method \code{calculate_growth()}}{
-Update all variables which change on a daily basis and 
+Update all variables which change on a daily basis and
 calculate biomass production.
 
 This function updates the following attributes:
@@ -166,7 +330,7 @@ GRO
 \if{html}{\out{<a id="method-ModvegeSite-calculate_ageing"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-calculate_ageing}{}}}
 \subsection{Method \code{calculate_ageing()}}{
-Calculate the ageing, senescence and abscission of different biomass 
+Calculate the ageing, senescence and abscission of different biomass
 compartments.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$calculate_ageing()}\if{html}{\out{</div>}}
@@ -177,7 +341,7 @@ compartments.
 \if{html}{\out{<a id="method-ModvegeSite-update_biomass"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-update_biomass}{}}}
 \subsection{Method \code{update_biomass()}}{
-Calculate and update the amount of biomass in each 
+Calculate and update the amount of biomass in each
 compartment.
 
 :TODO: These derived values can be calculated vectorially upon request.
@@ -192,7 +356,7 @@ compartment.
 \subsection{Method \code{calculate_digestibility()}}{
 Caclulate the organic matter digestibility of each compartment.
 
-:TODO: These derived values can be calculated vectorially upon 
+:TODO: These derived values can be calculated vectorially upon
 request and thus do not need to be part of a for loop.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$calculate_digestibility()}\if{html}{\out{</div>}}
@@ -213,7 +377,7 @@ Simulate the effects of cuts on the grass growth.
 \if{html}{\out{<a id="method-ModvegeSite-determine_cut_from_input"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-determine_cut_from_input}{}}}
 \subsection{Method \code{determine_cut_from_input()}}{
-Read from the input whether a cut occurs on day *j*.
+Read from the input whether a cut occurs on day \emph{j}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$determine_cut_from_input(DOY)}\if{html}{\out{</div>}}
 }
@@ -230,28 +394,28 @@ Read from the input whether a cut occurs on day *j*.
 \if{html}{\out{<a id="method-ModvegeSite-determine_cut_automatically"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-determine_cut_automatically}{}}}
 \subsection{Method \code{determine_cut_automatically()}}{
-Decide based on simple criteria whether day of year *DOY* would be a 
+Decide based on simple criteria whether day of year \emph{DOY} would be a
 good day to cut.
 
 This follows an implementation described in
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-of Management Events for Assessing Impacts of Climate Change on 
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-128 (August 1, 2021): 126306. 
+Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A.
+Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation
+of Management Events for Assessing Impacts of Climate Change on
+Pre-Alpine Grassland Productivity.” European Journal of Agronomy
+128 (August 1, 2021): 126306.
 https://doi.org/10.1016/j.eja.2021.126306.
 
 The decision to cut is made based on two criteria.
-First, it is checked whether a *target biomass* is reached on given 
-DOY. The defined target depends on the DOY and is given through 
-:func:`get_target_biomass`. If said biomass is present, return `TRUE`.
+First, it is checked whether a \emph{target biomass} is reached on given
+DOY. The defined target depends on the DOY and is given through
+:func:\code{get_target_biomass}. If said biomass is present, return \code{TRUE}.
 
-Otherwise, it is checked whether a given amount of time has passed 
-since the last cut. Depending on whether this is the first cut of 
-the season or not, the relevant parameters are 
-:int:`last_DOY_for_initial_cut` and :int:`max_cut_period`.
-If that amount of time has passed, return `TRUE`, otherwise return 
-`FALSE`.
+Otherwise, it is checked whether a given amount of time has passed
+since the last cut. Depending on whether this is the first cut of
+the season or not, the relevant parameters are
+:int:\code{last_DOY_for_initial_cut} and :int:\code{max_cut_period}.
+If that amount of time has passed, return \code{TRUE}, otherwise return
+\code{FALSE}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$determine_cut_automatically(DOY)}\if{html}{\out{</div>}}
 }
@@ -268,8 +432,8 @@ If that amount of time has passed, return `TRUE`, otherwise return
 \if{html}{\out{<a id="method-ModvegeSite-check_dry_days"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-check_dry_days}{}}}
 \subsection{Method \code{check_dry_days()}}{
-Return TRUE if there are only *dry* days in the next *n* 
-days from given *DOY*.
+Return TRUE if there are only \emph{dry} days in the next \emph{n}
+days from given \emph{DOY}.
 
 :TODO:
 \subsection{Usage}{
@@ -281,22 +445,22 @@ days from given *DOY*.
 \if{html}{\out{<a id="method-ModvegeSite-get_target_biomass"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-get_target_biomass}{}}}
 \subsection{Method \code{get_target_biomass()}}{
-Get target value of biomass on given *DOY*, which determines whether 
+Get target value of biomass on given \emph{DOY}, which determines whether
 a cut is to occur.
 
-The regression for the target biomass is based on Fig. S2 in the 
-supplementary material of 
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-of Management Events for Assessing Impacts of Climate Change on 
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-128 (August 1, 2021): 126306. 
+The regression for the target biomass is based on Fig. S2 in the
+supplementary material of
+Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A.
+Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation
+of Management Events for Assessing Impacts of Climate Change on
+Pre-Alpine Grassland Productivity.” European Journal of Agronomy
+128 (August 1, 2021): 126306.
 https://doi.org/10.1016/j.eja.2021.126306.
 
-A refinement to expected yield as function of altitude has been 
+A refinement to expected yield as function of altitude has been
 implemented according to Table 1a in
-Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz, 
-8, (6), 2017, 
+Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz,
+8, (6), 2017,
 https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$get_target_biomass(DOY, intensity = "high")}\if{html}{\out{</div>}}
@@ -307,7 +471,7 @@ https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
 \describe{
 \item{\code{DOY}}{Integer day of the year to consider.}
 
-\item{\code{intensity}}{One of ["high", "middle", "low"] specifying 
+\item{\code{intensity}}{One of {"high", "middle", "low"} specifying
 management intensity..}
 }
 \if{html}{\out{</div>}}
@@ -325,13 +489,13 @@ Carry out a ModVege simulation for one year.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{year}}{Integer specifying the year to consider. [Unused?]}
+\item{\code{year}}{Integer specifying the year to consider. (Unused?)}
 
-\item{\code{weather}}{Weather List for given year as returned by 
-:method:`Weather$get_weather_for_year`}
+\item{\code{weather}}{Weather List for given year as returned by
+:method:\code{Weather$get_weather_for_year}}
 
-\item{\code{management}}{Management List for given year as provided by 
-:class:`ModvegeEnvironment`'s :method:`get_environment_for_year`.}
+\item{\code{management}}{Management List for given year as provided by
+:class:\code{ModvegeEnvironment}'s :method:\code{get_environment_for_year}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -340,7 +504,7 @@ Carry out a ModVege simulation for one year.
 \if{html}{\out{<a id="method-ModvegeSite-make_header"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-make_header}{}}}
 \subsection{Method \code{make_header()}}{
-Construct a string full of meta information on a ModVege 
+Construct a string full of meta information on a ModVege
 run that can be inserted as a header to an output file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$make_header()}\if{html}{\out{</div>}}
@@ -370,9 +534,9 @@ A header with metadata is prepended to the actual data.
 \if{html}{\out{<a id="method-ModvegeSite-set_parameters"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-set_parameters}{}}}
 \subsection{Method \code{set_parameters()}}{
-Savely update the values in `self$parameters`.
+Savely update the values in \code{self$parameters}.
 
-Special care is taken to account for potential changes to 
+Special care is taken to account for potential changes to
 functional group weights.
 
 :TODO: This could be implemented using just a list as input.
@@ -383,11 +547,11 @@ functional group weights.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{param_names}}{Vector containing the names of the parameters to be 
+\item{\code{param_names}}{Vector containing the names of the parameters to be
 updated.}
 
-\item{\code{param_values}}{Vector containing the corresponding values to the 
-parameters in *param_names*.}
+\item{\code{param_values}}{Vector containing the corresponding values to the
+parameters in \emph{param_names}.}
 }
 \if{html}{\out{</div>}}
 }

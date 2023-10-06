@@ -68,6 +68,38 @@ for (name in c("WR0", "OMDGV0", "OMDGR0")) {
 #' Data structure that contains site and vegetation parameters necessary for 
 #' the configuration of an rmodvege simulation run.
 #'
+#' @details 
+#' # Parameter description
+#' The following is a list and description of model parameters, including 
+#' the vegetation parameters, which are defined through the functional group 
+#' composition.
+#'
+#' ## Site and model parameters
+#' ```{r child = "man/parameters.Rmd"}
+#' ```
+#' 
+#' ## Initial conditions
+#' ```{r child = "man/initial_conditions.Rmd"}
+#' ```
+#'
+#' ## Vegetation parameters
+#' ```{r child = "man/parameters_fg.Rmd"}
+#' ```
+#'
+#' @field parameter_names Names of all parameters and state variables.
+#' @field n_parameters Number of total parameters.
+#' @field functional_group The functional group object holding the vegetation 
+#'   parameters.
+#' @field fg_parameter_names Names of vegetation parameters defined by the 
+#'   functional group composition.
+#' @field param_file Name of the parameter file from which initial parameter 
+#'   values were read.
+#'
+#' @note
+#' Programmatically speaking, all parameters described under *Parameter 
+#' description* are also fields of this R6Class.
+#'
+#' @md
 #' @export
 ModvegeParameters = R6Class(
   "ModvegeParameters",
