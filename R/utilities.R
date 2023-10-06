@@ -1,3 +1,36 @@
+#' Check if *package* is available
+#'
+#' Some functions not pertaining to the package core require additional 
+#' libraries. These libraries are listed as *suggested* in the `DESCRIPTION` 
+#' When such a function is called by a user who does not have the respective 
+#' libraries installed, we should notice that and notify the user. This is the 
+#' purpose of this *function* `check_for_package`.
+#'
+#' The function checks if *package* is installed and loaded. If not, it 
+#' either produces a warning or throws an error, depending on the value of 
+#' *stop*.
+#'
+#' @param package Name of the package to check for.
+#' @param stop Toggle whether an error should be thrown (`TRUE`) or a warning 
+#'   generated (`FALSE`).
+#'
+#' @return `TRUE` if the package was found. `FALSE` if it wasn't found and 
+#'   *stop* is `FALSE`. Otherwise, an error will be thrown.
+#'
+check_for_package = function(package, stop = TRUE) {
+  if (!requireNamespace(package, quietly = TRUE)) {
+    message = sprintf("Package `%s` is required for this function to run, but 
+                      it was not found.")
+    if (stop) {
+      stop(paste(message, "Exiting."), call. = FALSE)
+    } else {
+      warning(paste(message, "Using alternative code."))
+      return(FALSE)
+    }
+  }
+  return(TRUE)
+}
+
 #' Constants representing different debug levels to be used internally.
 ERROR = 1
 WARNING = 2
@@ -221,5 +254,40 @@ parse_year_strings = function(year_strings) {
     run_years = append(run_years, list(years))
   }
   return(run_years)
+}
+
+#' Endpoint smoother
+#' 
+#' @description
+#' Smooth data in vector *x* to its endpoint.
+#'
+#' @details
+#' Employ an endpoint box filter (aka "running mean" or midpoint smoother) to the 
+#' 1-D data in *x*:
+#' `x_smoothed[i] = mean(x[i-box_width:i])`
+#' Where *x* is considered to be *zero-padded* vor values of *i-box_width* < 1.
+#'
+#' @param x 1D data to be smoothed.
+#' @param box_width Width (in units of vector steps) of the box used for 
+#'   smoothing.
+#'
+#' @return x_smooth Smoothened version of *x*.
+#'
+#' @export
+box_smooth = function(x, box_width = 28) {
+  # Do nothing for box_width <= 1
+  if (box_width <= 1) {
+    return(x)
+  }
+  
+  n = length(x)
+  x_smooth = numeric(n)
+  # Employ the smoothing
+  for (i in 1:n) {
+    # Endpoint smoothing/integrating
+    i_start = max(1, (i-box_width))
+    x_smooth[i] = mean(x[i_start:i])
+  }
+  return(x_smooth)
 }
 

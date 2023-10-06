@@ -19,6 +19,7 @@ License: MIT + file LICENSE
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 Imports: R6, utils, Rdpack
+Suggests: ggplot2, patchwork
 Depends: 
     R (>= 2.10)
 RdMacros: Rdpack

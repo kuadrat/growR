@@ -36,7 +36,8 @@ setup_directory = function(root = ".", include_examples = TRUE) {
     return(0)
   }
 
-  origin = system.file("extdata", package = "rmodvege")
+  extdata = system.file("extdata", package = "rmodvege")
+  scripts = system.file("scripts", package = "rmodvege")
   origins = c()
   destinations = c()
 
@@ -52,7 +53,7 @@ setup_directory = function(root = ".", include_examples = TRUE) {
                               }))
   destination = file.path(full_path, input_dir)
   for (input_file in input_files) {
-    original = file.path(origin, input_file)
+    original = file.path(extdata, input_file)
     origins = c(origins, original)
     destinations = c(destinations, destination)
   }
@@ -62,14 +63,20 @@ setup_directory = function(root = ".", include_examples = TRUE) {
   for (site in sites) {
     for (subsite in subsites) {
       data_filename = paste0(site, subsite, ".csv")
-      original = file.path(origin, data_filename)
+      original = file.path(extdata, data_filename)
       origins = c(origins, original)
       destinations = c(destinations, destination)
     }
   }
-  # Finally, an example config file
-  origins = c(origins, file.path(origin, "example_config.txt"))
-  destinations = c(destinations, file.path(full_path))
+  # Finally, files that should go to the rmodvege working dir
+  filenames = c(file.path(extdata, "example_config.txt"),
+                file.path(scripts, "compare.R"))
+  destination = file.path(full_path)
+  for (filename in filenames) {
+    origins = c(origins, filename)
+    destinations = c(destinations, destination)
+  }
+  # Now that origins and destinations are defined, carry out the copying.
   for (i in 1:length(origins)) {
     original = origins[i]
     destination = destinations[i]
