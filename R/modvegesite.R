@@ -76,54 +76,7 @@ initial_state_variables = list(
 #' ## Initial conditions
 #' ```{r child = "man/initial_conditions.Rmd"}
 #' ```
-#'
-#' @field time_step Used time step in the model in days (untested).
-#' @field state_variable_namse Vector containing the names of the model's 
-#'   state variables.
-#' @field n_state_variables Number of state variables.
-#' @field version Version number of the rmodvege package. Is written into 
-#'   output files.
-#' @field site_name Name of the site to be simulated.
-#' @field run_name Name of the simulation run. Used to distinguish between 
-#'   different runs at the same site.
-#' @field year Year to be simulated.
-#' @field j_start_of_growing_season Index (DOY) of the day the growing season 
-#'   was determined to begin.
-#' @field cut_height Height of remaining grass after cut in m.
-#' @field parameters A ModvegeParameters object.
-#' @field determine_cut Function used to decide whether a cut occurs on a 
-#'   given DOY. Is overloaded depending on whether management data is 
-#'   provided or not.
-#' @field cut_DOYs List of DOYs on which a cut occurred.
-#' @field cut_during_growth_preriod Boolean to indicate whether a cut 
-#'   occurred during the growth period, in which case reproductive growth is 
-#'   stopped.
-#' @field last_DOY_for_initial_cut **autocut** Start cutting after this DOY, 
-#'   even if yield target is not reached.
-#' @field max_cut_period **autocut** Maximum period to wait between 
-#'   subsequent cuts.
-#' @field dry_precipitation_limit **autocut** Maximum amount of allowed 
-#'   precipitation (mm) to consider a day.
-#' @field dry_days_before_cut **autocut** Number of days that shold be dry 
-#'   before a cut is made.
-#' @field dry_days_after_cut **autocut** Number of days that shold be dry 
-#'   after a cut is made.
-#' @field max_cut_delay **autocut** Number of days a farmer is willing to 
-#'   wait for dry conditions before a cut is made anyways.
-#' @field cut_delays **autocut** Vector to keep track of cut delay times.
-#'   wait for dry conditions before a cut is made anyways.
-#' @field dry_window **autocut** Logical that indicates if DOY at index is 
-#'   considered dry enough to cut.
-#' @field target_biomass **autocut** Biomass amount that should to be reached 
-#'   by given DOY for a cut to be made.
-#' @field end_of_cutting_season **autocut** Determined DOY after which no 
-#'   more cuts are made.
-#' @field BM_after_cut **autocut** Amount of biomass that remains after a cut 
-#'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
-#'   BDDR).
-#' @field weather A WeatherData object.
-#' @field management A ManagementData object. If its `is_empty` field is `TRUE`, 
-#'   the autocut routine will be employed.
+#' @seealso \link[=autocut]{autocut}
 #'
 #' @references{
 #'  \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
@@ -139,40 +92,81 @@ ModvegeSite = R6Class(
     initial_run_variables,
 
     list(
-#-Public-attributes-------------------------------------------------------------
+  #-Public-attributes-------------------------------------------------------------
+#' @field time_step Used time step in the model in days (untested).
       time_step = 1.,
+#' @field state_variable_namse Vector containing the names of the model's 
+#'   state variables.
       state_variable_names = NULL,
+#' @field n_state_variables Number of state variables.
       n_state_variables = NULL,
+#' @field version Version number of the rmodvege package. Is written into 
+#'   output files.
       version = packageVersion("rmodvege"),
+#' @field site_name Name of the site to be simulated.
       site_name = NULL,
+#' @field run_name Name of the simulation run. Used to distinguish between 
+#'   different runs at the same site.
       run_name = NULL,
+#' @field year Year to be simulated.
       year = NULL,
+#' @field days_per_year Number of days in this year.
       days_per_year = 365,
+#' @field j_start_of_growing_season Index (DOY) of the day the growing season 
+#'   was determined to begin.
       j_start_of_growing_season = NULL,
+#' @field cut_height Height of remaining grass after cut in m.
       cut_height = 0.05,
+#' @field parameters A ModvegeParameters object.
       parameters = NULL,
+#' @field determine_cut Function used to decide whether a cut occurs on a 
+#'   given DOY. Is overloaded depending on whether management data is 
+#'   provided or not.
       determine_cut = NULL,
+#' @field cut_DOYs List of DOYs on which a cut occurred.
       cut_DOYs = c(),
+#' @field cut_during_growth_preriod Boolean to indicate whether a cut 
+#'   occurred during the growth period, in which case reproductive growth is 
+#'   stopped.
       cut_during_growth_preriod = NULL,
+#' @field last_DOY_for_initial_cut **autocut** Start cutting after this DOY, 
+#'   even if yield target is not reached.
       last_DOY_for_initial_cut = 150,
+#' @field max_cut_period **autocut** Maximum period to wait between 
+#'   subsequent cuts.
       max_cut_period = 55,
-      # [autocut] Max amount of allowed precipitation (mm) to consider a day 
-      # "dry".
+#' @field dry_precipitation_limit **autocut** Maximum amount of allowed 
+#'   precipitation (mm) to consider a day.
       dry_precipitation_limit = 1,
-      # [autocut]  Number of days that should be dry before a cut is made.
+#' @field dry_days_before_cut **autocut** Number of days that shold be dry 
+#'   before a cut is made.
       dry_days_before_cut = 1,
-      #  [autocut] Number of days that should be dry after a cut was made.
+#' @field dry_days_after_cut **autocut** Number of days that shold be dry 
+#'   after a cut is made.
       dry_days_after_cut = 2,
-      # [autocut] Number of days a farmer is willing to wait for dry 
-      # conditions before a cut is made anyways.
+#' @field max_cut_delay **autocut** Number of days a farmer is willing to 
+#'   wait for dry conditions before a cut is made anyways.
       max_cut_delay = 5,
-      # [autocut] Vector to keep track of cut delay times.
+#' @field cut_delays **autocut** Vector to keep track of cut delay times.
+#'   wait for dry conditions before a cut is made anyways.
       cut_delays = c(0),
+#' @field dry_window **autocut** Logical that indicates if DOY at index is 
+#'   considered dry enough to cut.
       dry_window = NULL,
+#' @field target_biomass **autocut** Biomass amount that should to be reached 
+#'   by given DOY for a cut to be made.
       target_biomass = NULL,
+#' @field end_of_cutting_season **autocut** Determined DOY after which no 
+#'   more cuts are made.
       end_of_cutting_season = NULL,
+#' @field BM_after_cut **autocut** Amount of biomass that remains after a cut 
+#'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
+#'   BDDR).
       BM_after_cut = NULL,
+#' @field weather A WeatherData object.
       weather = NULL,
+#' @field management A ManagementData object. If its `is_empty` field is `TRUE`, 
+#'   the autocut routine will be employed.
       management = NULL,
 
   #-Public-methods----------------------------------------------------------------
@@ -202,63 +196,6 @@ ModvegeSite = R6Class(
                                                         parameters$BDDR)
       },
 
-      #' @description Initialize all relevant state variables
-      #'
-      #' Firstly, an empty vector of length *days_per_year* is created for each 
-      #' variable name in the vector `self$state_variable_names`.
-      #' Then, some additional variables relating to management and water balance 
-      #' are also initialized.
-      #'
-      #' @note Technically, not all of the variables listed in 
-      #' `state_variable_names` are re-initialized, as some of them already hold 
-      #' the right values for the simulation. Particularly, this is the case for:
-      #' OMDDV, OMDDR
-      #' 
-      initialize_state_variables = function() {
-        # Create empty state variable vectors
-        for (i in 1:self$n_state_variables) {
-          var_name = self$state_variable_names[i] 
-          if (!var_name %in% private$vars_to_exclude) {
-            self[[var_name]] = rep(0, self$days_per_year)
-          }
-        } 
-        P = self$parameters
-        # For some vectors the initial value is known
-        self[["hvBM"]][1] = 0
-        self[["OMDGV"]][1] = P$OMDGV0
-        self[["OMDGR"]][1] = P$OMDGR0
-
-        # (minSEA + maxSEA)/2 = 1
-        self$parameters[["minSEA"]] = 2 - P[["maxSEA"]]
-
-        # Management:
-        # Initialize a pointer that indicates whether there has been a cut 
-        # during reproductive growth. In this case, reproductive growth is
-        # ceased.
-        self$cut_during_growth_preriod = FALSE
-        self$cut_DOYs = c()
-        self$cut_delays = c(0)
-
-        # Water balance and growth
-        self[["SENGV"]] = P$SENGV0
-        self[["SENGR"]] = P$SENGR0
-        self[["ABSDV"]] = P$ABSDV0
-        self[["ABSDR"]] = P$ABSDR0
-
-        # Further initial values
-        self[["AgeGVp"]] = P$AgeGV0
-        self[["AgeGRp"]] = P$AgeGR0
-        self[["AgeDRp"]] = P$AgeDR0
-        self[["AgeDVp"]] = P$AgeDV0
-        self[["BMGVp"]]  = P$BMGV0
-        self[["BMGRp"]]  = P$BMGR0
-        self[["BMDRp"]]  = P$BMDR0
-        self[["BMDVp"]]  = P$BMDV0
-        self[["STp"]]    = P$ST0
-        self[["cBMp"]]   = P$cBM0
-        self[["WRp"]]    = P$WR0
-      },
-
       #' @description Return weather data if it exists
       #'
       get_weather = function() {
@@ -277,389 +214,6 @@ ModvegeSite = R6Class(
         } else {
           return(self$management)
         }
-      },
-
-      #' @description
-      #' Get index (or, equivalently, DOY) of the start of the growing season.
-      #'
-      #' @param critical_temperature Daily average temperature in degree 
-      #'   Celsius required for a day being considered "warm enough" for growth.
-      #' @param consider_snow Toggle whether the effect of snow cover is to be 
-      #'   considered.
-      #' @param critical_snow Minimum daily snowfall in mm for a day to be 
-      #'   considered snowy.
-      #'
-      get_start_of_growing_season = function(critical_temperature = 5.,
-                                             consider_snow = FALSE,
-                                             critical_snow = 1.) {
-        W = self$get_weather()
-        # Find the last day of the first half of the year that still had snow 
-        # cover. Assume that growth can only start after that day.
-        if (consider_snow) {
-          # Go one day beyond the last day with too much snow
-          j_snow = max(which(W[["snow"]][1:180] > critical_snow)) + 1
-        } else {
-          j_snow = 1
-        }
-
-        # The other criterion is that the temperature should be above a 
-        # critical temperature for a given time interval (ensured by 
-        # "smoothened" T data).
-        j_t_critical = min(which(W[["Ta_sm"]] >= critical_temperature))
-        self$j_start_of_growing_season = max(j_snow, j_t_critical)
-        return(self$j_start_of_growing_season)
-      },
-
-      #' @description Set calculation values to the values stored in 
-      #' previously used position.
-      #'
-      carry_over_from_last_day = function() {
-        j = private$current_DOY
-        if (j == 1) { return(0) }
-        self$AgeGVp = self$AgeGV[j - 1]
-        self$AgeGRp = self$AgeGR[j - 1]
-        self$AgeDRp = self$AgeDR[j - 1]
-        self$AgeDVp = self$AgeDV[j - 1]
-        self$BMGVp  = self$BMGV[j - 1]
-        self$BMGRp  = self$BMGR[j - 1]
-        self$BMDRp  = self$BMDR[j - 1]
-        self$BMDVp  = self$BMDV[j - 1]
-        self$STp    = self$ST[j - 1]
-        self$cBMp   = self$cBM[j - 1]
-        self$WRp    = self$WR[j - 1]
-      },
-
-      #' @description Update all variables which change on a daily basis and 
-      #' calculate biomass production.
-      #'
-      #' This function updates the following attributes:
-      #' LAIGV
-      #' AET
-      #' WR
-      #' ENVfPAR
-      #' ENVfT
-      #' ENVfW
-      #' ENV
-      #' PGRO
-      #' GRO
-      #'
-      calculate_growth = function() {
-        # Create shorthands
-        W = self$get_weather()
-        P = self$parameters
-        j = private$current_DOY
-
-        # LAI for computing PGRO
-        self$LAIGV[j] = P$SLA * P$pcLAM * self$BMGVp / 10.
-
-        # Increase temperature sum
-        self$ST[j] = self$STp + max(W$Ta[j], 0) * self$time_step
-
-        # LAI for computing AET
-        LAI.ET = P$SLA * P$pcLAM * (self$BMGVp + self$BMGRp) / 10.
-
-        # Actual evapotranspiration.
-        # PET is first partitioned into potential transpiration, PTr, and
-        # potential soil evaporation, PEv, using the same factor,
-        # 1. - exp(-0.6*LAIGVGR), as used to compute intercepted radiation.
-        # Then impose water stress limitation, fW. In the case of soil
-        # evaporation use an fW appropriate for high values of PET (PETmx).
-        PETmn  = .2
-        PETmx  = 8.
-
-      #  PETeff = ifelse(snow[j] > 5, PETmn, 
-      #                    ifelse(PP[j] > 1, 0.7*PET[j], PET[j])) 
-
-        if (W$snow[j] > 5) {
-          # Snow cover
-          PETeff = PETmn
-        } else {
-          # Less evapotranspiration when there is precipitation.
-          PETeff = ifelse(W$PP[j] > 1, 0.7 * W$PET[j], W$PET[j])
-        }
-        PETeff = PETeff * fCO2_transpiration_mod(W$aCO2)
-        PTr = PETeff * (1. - exp(-0.6 * LAI.ET))
-
-        ATr = PTr * fW(self$WRp / P$WHC, PETeff)
-        PEv = PETeff -  PTr
-        AEv = PEv * fW(self$WRp / P$WHC, PETmx)
-        self$AET[j] = ATr + AEv
-
-        # Soil moisture budget
-        self$WR[j] = max(0., 
-                         min(P$WHC, 
-                             self$WRp + W$liquidP[j] + W$melt[j] - self$AET[j]))
-
-        # Environmental constraints.
-        self$ENVfPAR[j] = fPAR(W$PAR[j])
-        self$ENVfT[j]   = fT(W$Ta[j], P$T0, P$T1, P$T2)
-        self$ENVfW[j]   = fW(self$WR[j] / P$WHC, W$PET[j])
-        self$ENV[j]     = self$ENVfPAR[j] * self$ENVfT[j] * self$ENVfW[j]
-
-        if (j < self$j_start_of_growing_season) {
-          # Growing season has not started yet.
-          self$PGRO[j] = 0
-          self$GRO[j] = 0
-        } else {
-          self$PGRO[j] = W$PAR[j] * P$RUEmax * 
-            (1. - exp(-0.6 * self$LAIGV[j])) * 10. * 
-            fCO2_growth_mod(W$aCO2, P$CO2_growth_factor)
-          self$GRO[j]  = P$NI * self$PGRO[j] * self$ENV[j] * 
-            SEA(self$ST[j], P$minSEA, P$maxSEA, P$ST1, P$ST2)
-        }
-      },
-
-      #' @description
-      #' Calculate the ageing, senescence and abscission of different biomass 
-      #' compartments.
-      #'
-      calculate_ageing = function() {
-        # Create shorthands
-        j = private$current_DOY
-        P = self$parameters
-        W = self$get_weather()
-        T_average = W$Ta[j]
-
-        # Calculate proportion of reproductive growth (REP):
-        # REP only occurs during the degree-time interval [ST1, ST2] and is 
-        # stopped if there has been a cut during that interval.
-        if (!self$cut_during_growth_preriod & 
-            self$ST[j] >= P$ST1 & 
-            self$ST[j] <= P$ST2) {
-          self$REP[j] = private$REP_ON
-        } else {
-          self$REP[j] = 0
-        }
-
-        # Split growth into vegetative and reproductive compartments.
-        self$GROGV = self$GRO[j] * (1. - self$REP[j])
-        self$GROGR = self$GRO[j] * self$REP[j]
-
-        # Calculate ageing of GV & GR.
-        # The ifelse's are to prevent division by 0.
-        if (self$BMGVp - self$SENGV + self$GROGV != 0.) {
-          dAgeGV = (self$BMGVp - self$SENGV) / 
-                   (self$BMGVp - self$SENGV + self$GROGV) * 
-                   (self$AgeGVp + max(0., T_average)) - 
-                   self$AgeGVp
-        } else {
-          dAgeGV = -self$AgeGVp
-        }
-        self$AgeGV[j] = self$AgeGVp + dAgeGV * self$time_step
-        
-        if (self$BMGRp - self$SENGR + self$GROGR != 0.) {
-          dAgeGR = (self$BMGRp - self$SENGR) / 
-                   (self$BMGRp - self$SENGR + self$GROGR) *
-                   (self$AgeGRp + max(0., T_average)) - 
-                   self$AgeGRp
-        } else {
-          dAgeGR = -self$AgeGRp
-        }
-        self$AgeGR[j] = self$AgeGRp + dAgeGR * self$time_step
-       
-        # Begin preliminary calculations for determination of senescence.
-        # :TODO: Certain if statements and calculation blocks can be avoided.
-        ratio1 = self$AgeGV[j] / P$LLS
-        fAgeGV = if (ratio1 < 1./3.) {
-          fAgeGV = 1.
-        } else if (ratio1 < 1.) {
-          fAgeGV = 3. * ratio1
-        } else {
-          fAgeGV =  3.
-        }
-        ratio2 = self$AgeGR[j] / (P$ST2 - P$ST1)
-        if (ratio2 < 1./3.) {
-          fAgeGR = 1.
-        } else if (ratio2 < 1.) {
-          fAgeGR = 3. * ratio2 
-        } else {
-          fAgeGR = 3.
-        }
-        
-        # Calculate senescence for next day.
-        if (T_average > P$T0) {
-          # Warm enough for photosynthesis
-          self$SENGV = P$KGV * self$BMGVp * T_average * fAgeGV
-          self$SENGR = P$KGR * self$BMGRp * T_average * fAgeGR
-        } else if (T_average > 0.) {
-          # Too cold for photosynthesis, but above freezing
-          self$SENGV = 0.
-          self$SENGR = 0.
-        } else {
-          # Below 0 temperature-> freezing damage
-          self$SENGV = -P$KGV * self$BMGVp * T_average
-          self$SENGR = -P$KGR * self$BMGRp * T_average
-        }
-
-        # Put a cap on senescence.
-        # :NOTE: The following two lines were not part of the original model 
-        # formulation.
-        if (abs(self$SENGV) > 0.7 * abs(self$GROGV)) { 
-          self$SENGV = 0.7 * self$GROGV 
-        }
-        if (abs(self$SENGR) > 0.7 * abs(self$GROGR)) { 
-          self$SENGR = 0.7 * self$GROGR 
-        }
-       
-        # Calculate ageing for compartments DV & DR.
-        # The ifelse is to prevent zerodivision.
-        if (self$BMDVp - self$ABSDV + self$SENGV != 0.) {
-          dAgeDV = (self$BMDVp - self$ABSDV) / 
-            (self$BMDVp - self$ABSDV + self$SENGV) *
-            (self$AgeDVp + max(0., T_average)) - self$AgeDVp
-        } else {
-          dAgeDV = -self$AgeDVp
-        }
-        self$AgeDV[j] = self$AgeDVp + dAgeDV * self$time_step
-        
-        if (self$BMDRp - self$ABSDR + self$SENGR != 0.) {
-          dAgeDR = (self$BMDRp - self$ABSDR) /
-            (self$BMDRp - self$ABSDR + self$SENGR) *
-            (self$AgeDRp + max(0., T_average)) - self$AgeDRp
-        } else {
-          dAgeDR = -self$AgeDRp
-        }
-        self$AgeDR[j] = self$AgeDRp + dAgeDR * self$time_step
-        
-        # Preliminary calculations for abscission.
-        ratio3 = self$AgeDV[j] / P$LLS
-        if (ratio3 < 1./3.) {
-          fAgeDV = 1.
-        } else if (ratio3 < 2./3.) {
-          fAgeDV = 2.
-        } else {
-          fAgeDV = 3.
-        }
-
-        ratio4 = self$AgeDR[j] / (P$ST2 - P$ST1)
-        if (ratio4 < 1./3.) {
-          fAgeDR = 1.
-        } else if (ratio4 < 1.) {
-          fAgeDR = 2.
-        } else {
-          fAgeDR = 3.
-        }
-
-        # Calculate the abscission for the next day.
-        self$ABSDV = ifelse(T_average > 0., 
-                            P$KlDV * self$BMDVp * T_average * fAgeDV,
-                            0.)
-        self$ABSDR = ifelse(T_average > 0.,
-                            P$KlDR * self$BMDRp * T_average * fAgeDR,
-                            0.)
-      },
-
-      #' @description Calculate and update the amount of biomass in each 
-      #' compartment.
-      #'
-      update_biomass = function() {
-        j = private$current_DOY
-        P = self$parameters
-        dBMGV = self$GROGV - self$SENGV
-        self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
-                           0.01 * 10. * P$BDGV)
-        dBMGR = self$GROGR - self$SENGR
-        self$BMGR[j] = max(self$BMGRp + dBMGR * self$time_step, 
-                           0.01 * 10. * P$BDGR)
-        
-        dBMDV = (1. - P$sigmaGV) * self$SENGV - self$ABSDV
-        self$BMDV[j] = max(self$BMDVp + dBMDV * self$time_step, 0.)
-        dBMDR = (1. - P$sigmaGR) * self$SENGR - self$ABSDR
-        self$BMDR[j] = max(self$BMDRp + dBMDR * self$time_step, 0.)
-        
-        # Current (BM) and cumulative (cBM) biomass and today's biomass change (dBM).
-        self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
-        self$dBM[j] = max(0., dBMGV + dBMGR + dBMDV + dBMDR)
-        self$cBM[j] = max(0., self$cBMp + self$dBM[j])
-
-        # Green biomass
-      #' :TODO: These derived values can be calculated vectorially upon request.
-        self$BMG[j] = self$BMGV[j] + self$BMGR[j]
-      },
-
-      #' @description Caclulate the organic matter digestibility of each compartment.
-      #'
-      #' :TODO: These derived values can be calculated vectorially upon 
-      #' request and thus do not need to be part of a for loop.
-      #'
-      calculate_digestibility = function() {
-        P = self$parameters
-        j = private$current_DOY
-        # OMDGV[j] = max(minOMDGV,
-        #                ifelse(j == 1, maxOMDGV,
-        #                       maxOMDGV - AgeGV[j]*(maxOMDGV - minOMDGV)/LLS))
-        # OMDGR[j] = max(minOMDGR,
-        #                ifelse(j == 1, maxOMDGR,
-        #                       maxOMDGR - AgeGR[j]*(maxOMDGR - minOMDGR)/(ST2 - ST1)))
-        self$OMDGV[j] = P$maxOMDGV - self$AgeGV[j] * 
-          (P$maxOMDGV - P$minOMDGV) / P$LLS
-        self$OMDGR[j] = P$maxOMDGR - self$AgeGR[j] * 
-          (P$maxOMDGR - P$minOMDGR) / (P$ST2 - P$ST1)
-        
-        # Total digestibility
-        self$OMD[j] = (self$OMDGV[j] * self$BMGV[j] + self$OMDGR[j] * 
-                       self$BMGR[j] + P$OMDDV * self$BMDV[j] + P$OMDDR * 
-                       self$BMDR[j]) / self$BM[j]
-        
-        # Digestibility of green biomass
-        self$OMDG[j] = (self$OMDGV[j] * self$BMGV[j] + 
-                        self$OMDGR[j] * self$BMGR[j]) / self$BMG[j]
-      },
-
-      #' @description Simulate the effects of cuts on the grass growth.
-      #'
-      apply_cuts = function() {
-        j = private$current_DOY
-        P = self$parameters
-        M = self$get_management()
-
-        # If there's no cut today, nothing is harvested.
-        cut_occurred = self$determine_cut(j)
-
-        if (!cut_occurred) {
-          # No cuts occurred
-          if (j != 1) {
-            self$hvBM[j] = self$hvBM[j - 1]
-          }
-          return(0)
-        }
-
-        # Keep track of applied cuts
-        self$cut_DOYs = c(self$cut_DOYs, j)
-
-        # If defoliation occurs when ST1 < ST < ST2, reproductive growth is 
-        # stopped, if it hasn't already.
-        if (!self$cut_during_growth_preriod & 
-            self$ST[j] >= P$ST1 & 
-            self$ST[j] <= P$ST2) { 
-          # This only happens once. Afterwards, above conditional always 
-          # gives FALSE.
-          self$cut_during_growth_preriod = TRUE 
-        }
-        
-        # Calculate the harvested biomass.
-        # Can only harvest if the respective compartments have grown larger than 
-        # the cut_height. In this case, cut down biomass to cut_height * density
-        # :NOTE: This implicitly discards today's growth by using BMXXp instead of 
-        # BMXX[i].
-        self$BMGV[j] = ifelse(self$BMGVp > self$cut_height * 10. * P$BDGV,
-                              self$cut_height * 10. * P$BDGV,
-                              self$BMGVp)
-        self$BMDV[j] = ifelse(self$BMDVp > self$cut_height * 10. * P$BDDV,
-                              self$cut_height * 10. * P$BDDV,
-                              self$BMDVp)
-        self$BMGR[j] = ifelse(self$BMGRp > self$cut_height * 10. * P$BDGR,
-                              self$cut_height * 10. * P$BDGR,
-                              self$BMGRp)
-        self$BMDR[j] = ifelse(self$BMDRp > self$cut_height * 10. * P$BDDR,
-                              self$cut_height * 10. * P$BDDR,
-                              self$BMDRp)
-        
-        # Harvested biomass is difference to BM before and after cut.
-        self$hvBM[j] = self$hvBM[j - 1] + (self$BMGVp - self$BMGV[j]) +
-                                  (self$BMGRp - self$BMGR[j]) +
-                                  (self$BMDVp - self$BMDV[j]) +
-                                  (self$BMDRp - self$BMDR[j])
       },
 
       #' @description Read from the input whether a cut occurs on day *j*.
@@ -738,14 +292,6 @@ ModvegeSite = R6Class(
         }
       },
 
-      #' @description Return TRUE if there are only *dry* days in the next *n* 
-      #' days from given *DOY*.
-      #'
-      #' :TODO:
-      #'
-      check_dry_days = function() {
-      },
-
       #' @description
       #' Get target value of biomass on given *DOY*, which determines whether 
       #' a cut is to occur.
@@ -798,8 +344,8 @@ ModvegeSite = R6Class(
         self$weather = weather
         self$management = management
         self$year = year
-        self$initialize_state_variables()
-        self$get_start_of_growing_season()
+        private$initialize_state_variables()
+        private$get_start_of_growing_season()
 
         # Determine whether cuts are to be read from input or to be 
         # determined algorithmically.
@@ -837,12 +383,12 @@ ModvegeSite = R6Class(
         logger("Starting loop over days of the year.", level = TRACE)
         for (j in 1:self$days_per_year) {
           private$current_DOY = j
-          self$carry_over_from_last_day()
-          self$calculate_growth()
-          self$calculate_ageing()
-          self$update_biomass()
-          self$calculate_digestibility()
-          self$apply_cuts()
+          private$carry_over_from_last_day()
+          private$calculate_growth()
+          private$calculate_ageing()
+          private$update_biomass()
+          private$calculate_digestibility()
+          private$apply_cuts()
 
           # Re-align LAI to BMGV
           P = self$parameters
@@ -852,26 +398,6 @@ ModvegeSite = R6Class(
         logger("End of ModvegeSite$run()", level = TRACE)
       },
 
-      #' @description Construct a string full of meta information on a ModVege 
-      #' run that can be inserted as a header to an output file.
-      #'
-      make_header = function() {
-        logger("Start of ModVegeSite$make_header()", level = TRACE)
-        # Start with the date and rmodvege version ...
-        header = sprintf("#date;%s", date())
-        header = sprintf("%s\n#version;%s", header, self$version)
-        # ... then add all parameters ...
-        parameter_names = self$parameters$parameter_names
-        for (name in self$parameters$parameter_names) {
-          parameter_value = self$parameters[[name]]
-          header = sprintf("%s\n#%s;%s", header, name, parameter_value)
-        }
-        # Finally, for double consistency, simulation year, site and run names
-        header = sprintf("%s\n#year;%s\n#site_name;%s\n#run_name;%s", 
-                         header, self$year, self$site_name, self$run_name)
-        logger("End of ModVegeSite$make_header()", level = TRACE)
-        return(header)
-      },
 
       #' @description Write values of ModVege results into given file.
       #'
@@ -881,7 +407,7 @@ ModvegeSite = R6Class(
       #'
       write_output = function(filename) {
         # Build the header containing metadata
-        header = self$make_header()
+        header = private$make_header()
         
         ndays = self$days_per_year
         col_names = c("DOY", self$state_variable_names)
@@ -931,9 +457,474 @@ ModvegeSite = R6Class(
   ), # End of public attributes
 
   private = list(
+    #-Private-fields------------------------------------------------------------
 #    vars_to_exclude = c("PET", "OMDDV", "OMDDR"),
     vars_to_exclude = c("OMDDV", "OMDDR"),
     current_DOY = 1,
-    REP_ON = NULL
+    REP_ON = NULL,
+
+    #-Private-methods-----------------------------------------------------------
+
+    ## @description Initialize all relevant state variables
+    ##
+    ## Firstly, an empty vector of length *days_per_year* is created for each 
+    ## variable name in the vector `self$state_variable_names`.
+    ## Then, some additional variables relating to management and water balance 
+    ## are also initialized.
+    ##
+    ## @note Technically, not all of the variables listed in 
+    ## `state_variable_names` are re-initialized, as some of them already hold 
+    ## the right values for the simulation. Particularly, this is the case for:
+    ## OMDDV, OMDDR
+    ## 
+    initialize_state_variables = function() {
+      # Create empty state variable vectors
+      for (i in 1:self$n_state_variables) {
+        var_name = self$state_variable_names[i] 
+        if (!var_name %in% private$vars_to_exclude) {
+          self[[var_name]] = rep(0, self$days_per_year)
+        }
+      } 
+      P = self$parameters
+      # For some vectors the initial value is known
+      self[["hvBM"]][1] = 0
+      self[["OMDGV"]][1] = P$OMDGV0
+      self[["OMDGR"]][1] = P$OMDGR0
+
+      # (minSEA + maxSEA)/2 = 1
+      self$parameters[["minSEA"]] = 2 - P[["maxSEA"]]
+
+      # Management:
+      # Initialize a pointer that indicates whether there has been a cut 
+      # during reproductive growth. In this case, reproductive growth is
+      # ceased.
+      self$cut_during_growth_preriod = FALSE
+      self$cut_DOYs = c()
+      self$cut_delays = c(0)
+
+      # Water balance and growth
+      self[["SENGV"]] = P$SENGV0
+      self[["SENGR"]] = P$SENGR0
+      self[["ABSDV"]] = P$ABSDV0
+      self[["ABSDR"]] = P$ABSDR0
+
+      # Further initial values
+      self[["AgeGVp"]] = P$AgeGV0
+      self[["AgeGRp"]] = P$AgeGR0
+      self[["AgeDRp"]] = P$AgeDR0
+      self[["AgeDVp"]] = P$AgeDV0
+      self[["BMGVp"]]  = P$BMGV0
+      self[["BMGRp"]]  = P$BMGR0
+      self[["BMDRp"]]  = P$BMDR0
+      self[["BMDVp"]]  = P$BMDV0
+      self[["STp"]]    = P$ST0
+      self[["cBMp"]]   = P$cBM0
+      self[["WRp"]]    = P$WR0
+    },
+
+    ## @description
+    ## Get index (or, equivalently, DOY) of the start of the growing season.
+    ##
+    ## @param critical_temperature Daily average temperature in degree 
+    ##   Celsius required for a day being considered "warm enough" for growth.
+    ## @param consider_snow Toggle whether the effect of snow cover is to be 
+    ##   considered.
+    ## @param critical_snow Minimum daily snowfall in mm for a day to be 
+    ##   considered snowy.
+    ##
+    get_start_of_growing_season = function(critical_temperature = 5.,
+                                           consider_snow = FALSE,
+                                           critical_snow = 1.) {
+      W = self$get_weather()
+      # Find the last day of the first half of the year that still had snow 
+      # cover. Assume that growth can only start after that day.
+      if (consider_snow) {
+        # Go one day beyond the last day with too much snow
+        j_snow = max(which(W[["snow"]][1:180] > critical_snow)) + 1
+      } else {
+        j_snow = 1
+      }
+
+      # The other criterion is that the temperature should be above a 
+      # critical temperature for a given time interval (ensured by 
+      # "smoothened" T data).
+      j_t_critical = min(which(W[["Ta_sm"]] >= critical_temperature))
+      self$j_start_of_growing_season = max(j_snow, j_t_critical)
+      return(self$j_start_of_growing_season)
+    },
+
+    ## @description Set calculation values to the values stored in 
+    ## previously used position.
+    ##
+    carry_over_from_last_day = function() {
+      j = private$current_DOY
+      if (j == 1) { return(0) }
+      self$AgeGVp = self$AgeGV[j - 1]
+      self$AgeGRp = self$AgeGR[j - 1]
+      self$AgeDRp = self$AgeDR[j - 1]
+      self$AgeDVp = self$AgeDV[j - 1]
+      self$BMGVp  = self$BMGV[j - 1]
+      self$BMGRp  = self$BMGR[j - 1]
+      self$BMDRp  = self$BMDR[j - 1]
+      self$BMDVp  = self$BMDV[j - 1]
+      self$STp    = self$ST[j - 1]
+      self$cBMp   = self$cBM[j - 1]
+      self$WRp    = self$WR[j - 1]
+    },
+
+    ## @description Update all variables which change on a daily basis and 
+    ## calculate biomass production.
+    ##
+    ## This function updates the following attributes:
+    ## LAIGV
+    ## AET
+    ## WR
+    ## ENVfPAR
+    ## ENVfT
+    ## ENVfW
+    ## ENV
+    ## PGRO
+    ## GRO
+    ##
+    calculate_growth = function() {
+      # Create shorthands
+      W = self$get_weather()
+      P = self$parameters
+      j = private$current_DOY
+
+      # LAI for computing PGRO
+      self$LAIGV[j] = P$SLA * P$pcLAM * self$BMGVp / 10.
+
+      # Increase temperature sum
+      self$ST[j] = self$STp + max(W$Ta[j], 0) * self$time_step
+
+      # LAI for computing AET
+      LAI.ET = P$SLA * P$pcLAM * (self$BMGVp + self$BMGRp) / 10.
+
+      # Actual evapotranspiration.
+      # PET is first partitioned into potential transpiration, PTr, and
+      # potential soil evaporation, PEv, using the same factor,
+      # 1. - exp(-0.6*LAIGVGR), as used to compute intercepted radiation.
+      # Then impose water stress limitation, fW. In the case of soil
+      # evaporation use an fW appropriate for high values of PET (PETmx).
+      PETmn  = .2
+      PETmx  = 8.
+
+    #  PETeff = ifelse(snow[j] > 5, PETmn, 
+    #                    ifelse(PP[j] > 1, 0.7*PET[j], PET[j])) 
+
+      if (W$snow[j] > 5) {
+        # Snow cover
+        PETeff = PETmn
+      } else {
+        # Less evapotranspiration when there is precipitation.
+        PETeff = ifelse(W$PP[j] > 1, 0.7 * W$PET[j], W$PET[j])
+      }
+      PETeff = PETeff * fCO2_transpiration_mod(W$aCO2)
+      PTr = PETeff * (1. - exp(-0.6 * LAI.ET))
+
+      ATr = PTr * fW(self$WRp / P$WHC, PETeff)
+      PEv = PETeff -  PTr
+      AEv = PEv * fW(self$WRp / P$WHC, PETmx)
+      self$AET[j] = ATr + AEv
+
+      # Soil moisture budget
+      self$WR[j] = max(0., 
+                       min(P$WHC, 
+                           self$WRp + W$liquidP[j] + W$melt[j] - self$AET[j]))
+
+      # Environmental constraints.
+      self$ENVfPAR[j] = fPAR(W$PAR[j])
+      self$ENVfT[j]   = fT(W$Ta[j], P$T0, P$T1, P$T2)
+      self$ENVfW[j]   = fW(self$WR[j] / P$WHC, W$PET[j])
+      self$ENV[j]     = self$ENVfPAR[j] * self$ENVfT[j] * self$ENVfW[j]
+
+      if (j < self$j_start_of_growing_season) {
+        # Growing season has not started yet.
+        self$PGRO[j] = 0
+        self$GRO[j] = 0
+      } else {
+        self$PGRO[j] = W$PAR[j] * P$RUEmax * 
+          (1. - exp(-0.6 * self$LAIGV[j])) * 10. * 
+          fCO2_growth_mod(W$aCO2, P$CO2_growth_factor)
+        self$GRO[j]  = P$NI * self$PGRO[j] * self$ENV[j] * 
+          SEA(self$ST[j], P$minSEA, P$maxSEA, P$ST1, P$ST2)
+      }
+    },
+
+    ## @description
+    ## Calculate the ageing, senescence and abscission of different biomass 
+    ## compartments.
+    ##
+    calculate_ageing = function() {
+      # Create shorthands
+      j = private$current_DOY
+      P = self$parameters
+      W = self$get_weather()
+      T_average = W$Ta[j]
+
+      # Calculate proportion of reproductive growth (REP):
+      # REP only occurs during the degree-time interval [ST1, ST2] and is 
+      # stopped if there has been a cut during that interval.
+      if (!self$cut_during_growth_preriod & 
+          self$ST[j] >= P$ST1 & 
+          self$ST[j] <= P$ST2) {
+        self$REP[j] = private$REP_ON
+      } else {
+        self$REP[j] = 0
+      }
+
+      # Split growth into vegetative and reproductive compartments.
+      self$GROGV = self$GRO[j] * (1. - self$REP[j])
+      self$GROGR = self$GRO[j] * self$REP[j]
+
+      # Calculate ageing of GV & GR.
+      # The ifelse's are to prevent division by 0.
+      if (self$BMGVp - self$SENGV + self$GROGV != 0.) {
+        dAgeGV = (self$BMGVp - self$SENGV) / 
+                 (self$BMGVp - self$SENGV + self$GROGV) * 
+                 (self$AgeGVp + max(0., T_average)) - 
+                 self$AgeGVp
+      } else {
+        dAgeGV = -self$AgeGVp
+      }
+      self$AgeGV[j] = self$AgeGVp + dAgeGV * self$time_step
+      
+      if (self$BMGRp - self$SENGR + self$GROGR != 0.) {
+        dAgeGR = (self$BMGRp - self$SENGR) / 
+                 (self$BMGRp - self$SENGR + self$GROGR) *
+                 (self$AgeGRp + max(0., T_average)) - 
+                 self$AgeGRp
+      } else {
+        dAgeGR = -self$AgeGRp
+      }
+      self$AgeGR[j] = self$AgeGRp + dAgeGR * self$time_step
+     
+      # Begin preliminary calculations for determination of senescence.
+      # :TODO: Certain if statements and calculation blocks can be avoided.
+      ratio1 = self$AgeGV[j] / P$LLS
+      fAgeGV = if (ratio1 < 1./3.) {
+        fAgeGV = 1.
+      } else if (ratio1 < 1.) {
+        fAgeGV = 3. * ratio1
+      } else {
+        fAgeGV =  3.
+      }
+      ratio2 = self$AgeGR[j] / (P$ST2 - P$ST1)
+      if (ratio2 < 1./3.) {
+        fAgeGR = 1.
+      } else if (ratio2 < 1.) {
+        fAgeGR = 3. * ratio2 
+      } else {
+        fAgeGR = 3.
+      }
+      
+      # Calculate senescence for next day.
+      if (T_average > P$T0) {
+        # Warm enough for photosynthesis
+        self$SENGV = P$KGV * self$BMGVp * T_average * fAgeGV
+        self$SENGR = P$KGR * self$BMGRp * T_average * fAgeGR
+      } else if (T_average > 0.) {
+        # Too cold for photosynthesis, but above freezing
+        self$SENGV = 0.
+        self$SENGR = 0.
+      } else {
+        # Below 0 temperature-> freezing damage
+        self$SENGV = -P$KGV * self$BMGVp * T_average
+        self$SENGR = -P$KGR * self$BMGRp * T_average
+      }
+
+      # Put a cap on senescence.
+      # :NOTE: The following two lines were not part of the original model 
+      # formulation.
+      if (abs(self$SENGV) > 0.7 * abs(self$GROGV)) { 
+        self$SENGV = 0.7 * self$GROGV 
+      }
+      if (abs(self$SENGR) > 0.7 * abs(self$GROGR)) { 
+        self$SENGR = 0.7 * self$GROGR 
+      }
+     
+      # Calculate ageing for compartments DV & DR.
+      # The ifelse is to prevent zerodivision.
+      if (self$BMDVp - self$ABSDV + self$SENGV != 0.) {
+        dAgeDV = (self$BMDVp - self$ABSDV) / 
+          (self$BMDVp - self$ABSDV + self$SENGV) *
+          (self$AgeDVp + max(0., T_average)) - self$AgeDVp
+      } else {
+        dAgeDV = -self$AgeDVp
+      }
+      self$AgeDV[j] = self$AgeDVp + dAgeDV * self$time_step
+      
+      if (self$BMDRp - self$ABSDR + self$SENGR != 0.) {
+        dAgeDR = (self$BMDRp - self$ABSDR) /
+          (self$BMDRp - self$ABSDR + self$SENGR) *
+          (self$AgeDRp + max(0., T_average)) - self$AgeDRp
+      } else {
+        dAgeDR = -self$AgeDRp
+      }
+      self$AgeDR[j] = self$AgeDRp + dAgeDR * self$time_step
+      
+      # Preliminary calculations for abscission.
+      ratio3 = self$AgeDV[j] / P$LLS
+      if (ratio3 < 1./3.) {
+        fAgeDV = 1.
+      } else if (ratio3 < 2./3.) {
+        fAgeDV = 2.
+      } else {
+        fAgeDV = 3.
+      }
+
+      ratio4 = self$AgeDR[j] / (P$ST2 - P$ST1)
+      if (ratio4 < 1./3.) {
+        fAgeDR = 1.
+      } else if (ratio4 < 1.) {
+        fAgeDR = 2.
+      } else {
+        fAgeDR = 3.
+      }
+
+      # Calculate the abscission for the next day.
+      self$ABSDV = ifelse(T_average > 0., 
+                          P$KlDV * self$BMDVp * T_average * fAgeDV,
+                          0.)
+      self$ABSDR = ifelse(T_average > 0.,
+                          P$KlDR * self$BMDRp * T_average * fAgeDR,
+                          0.)
+    },
+
+    ## @description Calculate and update the amount of biomass in each 
+    ## compartment.
+    ##
+    update_biomass = function() {
+      j = private$current_DOY
+      P = self$parameters
+      dBMGV = self$GROGV - self$SENGV
+      self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
+                         0.01 * 10. * P$BDGV)
+      dBMGR = self$GROGR - self$SENGR
+      self$BMGR[j] = max(self$BMGRp + dBMGR * self$time_step, 
+                         0.01 * 10. * P$BDGR)
+      
+      dBMDV = (1. - P$sigmaGV) * self$SENGV - self$ABSDV
+      self$BMDV[j] = max(self$BMDVp + dBMDV * self$time_step, 0.)
+      dBMDR = (1. - P$sigmaGR) * self$SENGR - self$ABSDR
+      self$BMDR[j] = max(self$BMDRp + dBMDR * self$time_step, 0.)
+      
+      # Current (BM) and cumulative (cBM) biomass and today's biomass change (dBM).
+      self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
+      self$dBM[j] = max(0., dBMGV + dBMGR + dBMDV + dBMDR)
+      self$cBM[j] = max(0., self$cBMp + self$dBM[j])
+
+      # Green biomass
+    ## :TODO: These derived values can be calculated vectorially upon request.
+      self$BMG[j] = self$BMGV[j] + self$BMGR[j]
+    },
+
+    ## @description Caclulate the organic matter digestibility of each compartment.
+    ##
+    ## :TODO: These derived values can be calculated vectorially upon 
+    ## request and thus do not need to be part of a for loop.
+    ##
+    calculate_digestibility = function() {
+      P = self$parameters
+      j = private$current_DOY
+      # OMDGV[j] = max(minOMDGV,
+      #                ifelse(j == 1, maxOMDGV,
+      #                       maxOMDGV - AgeGV[j]*(maxOMDGV - minOMDGV)/LLS))
+      # OMDGR[j] = max(minOMDGR,
+      #                ifelse(j == 1, maxOMDGR,
+      #                       maxOMDGR - AgeGR[j]*(maxOMDGR - minOMDGR)/(ST2 - ST1)))
+      self$OMDGV[j] = P$maxOMDGV - self$AgeGV[j] * 
+        (P$maxOMDGV - P$minOMDGV) / P$LLS
+      self$OMDGR[j] = P$maxOMDGR - self$AgeGR[j] * 
+        (P$maxOMDGR - P$minOMDGR) / (P$ST2 - P$ST1)
+      
+      # Total digestibility
+      self$OMD[j] = (self$OMDGV[j] * self$BMGV[j] + self$OMDGR[j] * 
+                     self$BMGR[j] + P$OMDDV * self$BMDV[j] + P$OMDDR * 
+                     self$BMDR[j]) / self$BM[j]
+      
+      # Digestibility of green biomass
+      self$OMDG[j] = (self$OMDGV[j] * self$BMGV[j] + 
+                      self$OMDGR[j] * self$BMGR[j]) / self$BMG[j]
+    },
+
+    ## @description Simulate the effects of cuts on the grass growth.
+    ##
+    apply_cuts = function() {
+      j = private$current_DOY
+      P = self$parameters
+      M = self$get_management()
+
+      # If there's no cut today, nothing is harvested.
+      cut_occurred = self$determine_cut(j)
+
+      if (!cut_occurred) {
+        # No cuts occurred
+        if (j != 1) {
+          self$hvBM[j] = self$hvBM[j - 1]
+        }
+        return(0)
+      }
+
+      # Keep track of applied cuts
+      self$cut_DOYs = c(self$cut_DOYs, j)
+
+      # If defoliation occurs when ST1 < ST < ST2, reproductive growth is 
+      # stopped, if it hasn't already.
+      if (!self$cut_during_growth_preriod & 
+          self$ST[j] >= P$ST1 & 
+          self$ST[j] <= P$ST2) { 
+        # This only happens once. Afterwards, above conditional always 
+        # gives FALSE.
+        self$cut_during_growth_preriod = TRUE 
+      }
+      
+      # Calculate the harvested biomass.
+      # Can only harvest if the respective compartments have grown larger than 
+      # the cut_height. In this case, cut down biomass to cut_height * density
+      # :NOTE: This implicitly discards today's growth by using BMXXp instead of 
+      # BMXX[i].
+      self$BMGV[j] = ifelse(self$BMGVp > self$cut_height * 10. * P$BDGV,
+                            self$cut_height * 10. * P$BDGV,
+                            self$BMGVp)
+      self$BMDV[j] = ifelse(self$BMDVp > self$cut_height * 10. * P$BDDV,
+                            self$cut_height * 10. * P$BDDV,
+                            self$BMDVp)
+      self$BMGR[j] = ifelse(self$BMGRp > self$cut_height * 10. * P$BDGR,
+                            self$cut_height * 10. * P$BDGR,
+                            self$BMGRp)
+      self$BMDR[j] = ifelse(self$BMDRp > self$cut_height * 10. * P$BDDR,
+                            self$cut_height * 10. * P$BDDR,
+                            self$BMDRp)
+      
+      # Harvested biomass is difference to BM before and after cut.
+      self$hvBM[j] = self$hvBM[j - 1] + (self$BMGVp - self$BMGV[j]) +
+                                (self$BMGRp - self$BMGR[j]) +
+                                (self$BMDVp - self$BMDV[j]) +
+                                (self$BMDRp - self$BMDR[j])
+    },
+
+    ## @description Construct a string full of meta information on a ModVege 
+    ## run that can be inserted as a header to an output file.
+    ##
+    make_header = function() {
+      logger("Start of ModVegeSite$make_header()", level = TRACE)
+      # Start with the date and rmodvege version ...
+      header = sprintf("#date;%s", date())
+      header = sprintf("%s\n#version;%s", header, self$version)
+      # ... then add all parameters ...
+      parameter_names = self$parameters$parameter_names
+      for (name in self$parameters$parameter_names) {
+        parameter_value = self$parameters[[name]]
+        header = sprintf("%s\n#%s;%s", header, name, parameter_value)
+      }
+      # Finally, for double consistency, simulation year, site and run names
+      header = sprintf("%s\n#year;%s\n#site_name;%s\n#run_name;%s", 
+                       header, self$year, self$site_name, self$run_name)
+      logger("End of ModVegeSite$make_header()", level = TRACE)
+      return(header)
+    }
+
   ) # End of private attributes
 )

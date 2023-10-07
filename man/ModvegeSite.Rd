@@ -14,12 +14,6 @@ Use the \code{run()} method to carry out a simulation for a given year. The
 results are stored in the state variables in this instance and can be written
 to file using \code{write_output()}.
 }
-\note{
-Technically, not all of the variables listed in
-\code{state_variable_names} are re-initialized, as some of them already hold
-the right values for the simulation. Particularly, this is the case for:
-OMDDV, OMDDR
-}
 \section{Model variables}{
 See Jouven et al. (2006) for a thorough description of all model variables.
 \subsection{State Variables}{
@@ -94,6 +88,8 @@ multiplicative factor. Dimensionless.}
 }
 }
 \seealso{
+\link[=autocut]{autocut}
+
 :func:\code{get_target_biomass}
 }
 \section{Public fields}{
@@ -115,6 +111,8 @@ output files.}
 different runs at the same site.}
 
 \item{\code{year}}{Year to be simulated.}
+
+\item{\code{days_per_year}}{Number of days in this year.}
 
 \item{\code{j_start_of_growing_season}}{Index (DOY) of the day the growing season
 was determined to begin.}
@@ -186,22 +184,12 @@ state variables.}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-ModvegeSite-new}{\code{ModvegeSite$new()}}
-\item \href{#method-ModvegeSite-initialize_state_variables}{\code{ModvegeSite$initialize_state_variables()}}
 \item \href{#method-ModvegeSite-get_weather}{\code{ModvegeSite$get_weather()}}
 \item \href{#method-ModvegeSite-get_management}{\code{ModvegeSite$get_management()}}
-\item \href{#method-ModvegeSite-get_start_of_growing_season}{\code{ModvegeSite$get_start_of_growing_season()}}
-\item \href{#method-ModvegeSite-carry_over_from_last_day}{\code{ModvegeSite$carry_over_from_last_day()}}
-\item \href{#method-ModvegeSite-calculate_growth}{\code{ModvegeSite$calculate_growth()}}
-\item \href{#method-ModvegeSite-calculate_ageing}{\code{ModvegeSite$calculate_ageing()}}
-\item \href{#method-ModvegeSite-update_biomass}{\code{ModvegeSite$update_biomass()}}
-\item \href{#method-ModvegeSite-calculate_digestibility}{\code{ModvegeSite$calculate_digestibility()}}
-\item \href{#method-ModvegeSite-apply_cuts}{\code{ModvegeSite$apply_cuts()}}
 \item \href{#method-ModvegeSite-determine_cut_from_input}{\code{ModvegeSite$determine_cut_from_input()}}
 \item \href{#method-ModvegeSite-determine_cut_automatically}{\code{ModvegeSite$determine_cut_automatically()}}
-\item \href{#method-ModvegeSite-check_dry_days}{\code{ModvegeSite$check_dry_days()}}
 \item \href{#method-ModvegeSite-get_target_biomass}{\code{ModvegeSite$get_target_biomass()}}
 \item \href{#method-ModvegeSite-run}{\code{ModvegeSite$run()}}
-\item \href{#method-ModvegeSite-make_header}{\code{ModvegeSite$make_header()}}
 \item \href{#method-ModvegeSite-write_output}{\code{ModvegeSite$write_output()}}
 \item \href{#method-ModvegeSite-set_parameters}{\code{ModvegeSite$set_parameters()}}
 \item \href{#method-ModvegeSite-clone}{\code{ModvegeSite$clone()}}
@@ -231,21 +219,6 @@ Defaults to "-", which indicates no specific run name.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-initialize_state_variables"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-initialize_state_variables}{}}}
-\subsection{Method \code{initialize_state_variables()}}{
-Initialize all relevant state variables
-
-Firstly, an empty vector of length \emph{days_per_year} is created for each
-variable name in the vector \code{self$state_variable_names}.
-Then, some additional variables relating to management and water balance
-are also initialized.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$initialize_state_variables()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-get_weather"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-get_weather}{}}}
 \subsection{Method \code{get_weather()}}{
@@ -262,114 +235,6 @@ Return weather data if it exists
 Return management data if it exists
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$get_management()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-get_start_of_growing_season"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-get_start_of_growing_season}{}}}
-\subsection{Method \code{get_start_of_growing_season()}}{
-Get index (or, equivalently, DOY) of the start of the growing season.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$get_start_of_growing_season(
-  critical_temperature = 5,
-  consider_snow = FALSE,
-  critical_snow = 1
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{critical_temperature}}{Daily average temperature in degree
-Celsius required for a day being considered "warm enough" for growth.}
-
-\item{\code{consider_snow}}{Toggle whether the effect of snow cover is to be
-considered.}
-
-\item{\code{critical_snow}}{Minimum daily snowfall in mm for a day to be
-considered snowy.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-carry_over_from_last_day"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-carry_over_from_last_day}{}}}
-\subsection{Method \code{carry_over_from_last_day()}}{
-Set calculation values to the values stored in
-previously used position.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$carry_over_from_last_day()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-calculate_growth"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-calculate_growth}{}}}
-\subsection{Method \code{calculate_growth()}}{
-Update all variables which change on a daily basis and
-calculate biomass production.
-
-This function updates the following attributes:
-LAIGV
-AET
-WR
-ENVfPAR
-ENVfT
-ENVfW
-ENV
-PGRO
-GRO
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$calculate_growth()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-calculate_ageing"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-calculate_ageing}{}}}
-\subsection{Method \code{calculate_ageing()}}{
-Calculate the ageing, senescence and abscission of different biomass
-compartments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$calculate_ageing()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-update_biomass"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-update_biomass}{}}}
-\subsection{Method \code{update_biomass()}}{
-Calculate and update the amount of biomass in each
-compartment.
-
-:TODO: These derived values can be calculated vectorially upon request.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$update_biomass()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-calculate_digestibility"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-calculate_digestibility}{}}}
-\subsection{Method \code{calculate_digestibility()}}{
-Caclulate the organic matter digestibility of each compartment.
-
-:TODO: These derived values can be calculated vectorially upon
-request and thus do not need to be part of a for loop.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$calculate_digestibility()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-apply_cuts"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-apply_cuts}{}}}
-\subsection{Method \code{apply_cuts()}}{
-Simulate the effects of cuts on the grass growth.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$apply_cuts()}\if{html}{\out{</div>}}
 }
 
 }
@@ -429,19 +294,6 @@ If that amount of time has passed, return \code{TRUE}, otherwise return
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-check_dry_days"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-check_dry_days}{}}}
-\subsection{Method \code{check_dry_days()}}{
-Return TRUE if there are only \emph{dry} days in the next \emph{n}
-days from given \emph{DOY}.
-
-:TODO:
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$check_dry_days()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-get_target_biomass"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-get_target_biomass}{}}}
 \subsection{Method \code{get_target_biomass()}}{
@@ -499,17 +351,6 @@ Carry out a ModVege simulation for one year.
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-make_header"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-make_header}{}}}
-\subsection{Method \code{make_header()}}{
-Construct a string full of meta information on a ModVege
-run that can be inserted as a header to an output file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$make_header()}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-write_output"></a>}}
