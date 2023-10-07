@@ -198,6 +198,7 @@ ModvegeSite = R6Class(
 
       #' @description Return weather data if it exists
       #'
+      #' @return The WeatherData object, if it exists.
       get_weather = function() {
         if (is.null(self$weather)) {
           stop("ModvegeSite$weather has not been set.")
@@ -208,6 +209,7 @@ ModvegeSite = R6Class(
 
       #' @description Return management data if it exists
       #'
+      #' @return The ManagementData object, if it exists.
       get_management = function() {
         if (is.null(self$management)) {
           stop("ModvegeSite$management has not been set.")
@@ -452,7 +454,29 @@ ModvegeSite = R6Class(
 #          self$parameters = build_functional_group(self$parameters)
           self$parameters$update_functional_group()
         }
+      },
+
+      #' @description Create an overview plot
+      #'
+      #' Creates a simple base R plot showing the BM with cutting events and,
+      #' if applicable, target biomass, dBM, cBM and hvBM.
+      plot = function() {
+        par(mfrow = c(2, 2))
+        xlab = "DOY"
+        # BM with cuts and target biomass
+        plot(self$BM, type = "l", xlab = xlab, ylab = "BM (kg / ha)")
+        title(paste(self$site_name, self$run_name))
+        abline(v = self$cut_DOYs, col = "blue")
+        if (self$get_management()$is_empty) {
+          lines(self$target_biomass, col = "grey")
+        }
+        # dBM, cBM, hBM
+        plot(box_smooth(self$dBM, 28), type = "l", xlab = xlab, 
+             ylab = "smoothened dBM (kg / ha)")
+        plot(self$cBM, type = "l", xlab = xlab, ylab = "cBM (kg / ha)")
+        plot(self$hvBM, type = "l", xlab = xlab, ylab = "hvBM (kg / ha)")
       }
+
     )
   ), # End of public attributes
 

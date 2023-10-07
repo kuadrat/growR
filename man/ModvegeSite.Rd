@@ -192,6 +192,7 @@ state variables.}
 \item \href{#method-ModvegeSite-run}{\code{ModvegeSite$run()}}
 \item \href{#method-ModvegeSite-write_output}{\code{ModvegeSite$write_output()}}
 \item \href{#method-ModvegeSite-set_parameters}{\code{ModvegeSite$set_parameters()}}
+\item \href{#method-ModvegeSite-plot}{\code{ModvegeSite$plot()}}
 \item \href{#method-ModvegeSite-clone}{\code{ModvegeSite$clone()}}
 }
 }
@@ -227,6 +228,9 @@ Return weather data if it exists
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$get_weather()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The WeatherData object, if it exists.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-get_management"></a>}}
@@ -237,6 +241,9 @@ Return management data if it exists
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$get_management()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+The ManagementData object, if it exists.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-determine_cut_from_input"></a>}}
@@ -396,6 +403,19 @@ parameters in \emph{param_names}.}
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-plot"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-plot}{}}}
+\subsection{Method \code{plot()}}{
+Create an overview plot
+
+Creates a simple base R plot showing the BM with cutting events and,
+if applicable, target biomass, dBM, cBM and hvBM.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-clone"></a>}}

@@ -24,7 +24,6 @@ the season or not, the relevant parameters are
 If that amount of time has passed, return `TRUE`, otherwise return 
 `FALSE`.
  
-\section{Target biomass}{
 The target biomass for a given day is determined following the principles 
 described in Petersen et al.
 
@@ -37,7 +36,6 @@ implemented according to Table 1a in
 Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz, 
 8, (6), 2017, 
 https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
-}
 }
 \references{
 Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
