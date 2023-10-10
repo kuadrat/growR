@@ -4,11 +4,6 @@
 \alias{PscanPlotter}
 \title{Plot Parameter Scan Results}
 \description{
-Plot Parameter Scan Results
-
-Plot Parameter Scan Results
-}
-\details{
 This class facilitates interactive visual analysis of parameter scan
 results.
 }
