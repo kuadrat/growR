@@ -11,6 +11,7 @@ A list where each item is a sublist containing the keys \emph{func} and
 \item{func}{The function used to calculate given metric.}
 \item{target}{The value that would be reached in the case of optimal
 performance.}
+\item{limits}{Reasonable limits to be used when plotting.}
 }
 }
 \usage{

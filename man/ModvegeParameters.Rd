@@ -167,7 +167,9 @@ values were read.}
 \itemize{
 \item \href{#method-ModvegeParameters-new}{\code{ModvegeParameters$new()}}
 \item \href{#method-ModvegeParameters-read_parameters}{\code{ModvegeParameters$read_parameters()}}
+\item \href{#method-ModvegeParameters-set_parameters}{\code{ModvegeParameters$set_parameters()}}
 \item \href{#method-ModvegeParameters-update_functional_group}{\code{ModvegeParameters$update_functional_group()}}
+\item \href{#method-ModvegeParameters-check_parameters}{\code{ModvegeParameters$check_parameters()}}
 \item \href{#method-ModvegeParameters-clone}{\code{ModvegeParameters$clone()}}
 }
 }
@@ -218,6 +220,27 @@ P List with field names as in the class variable
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeParameters-set_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeParameters-set_parameters}{}}}
+\subsection{Method \code{set_parameters()}}{
+Savely update the given parameters
+
+This is the preferred method for changing the internal parameter
+values, because special care is taken to account for potential
+changes to functional group weights.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$set_parameters(params)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{params}}{List of name-value pairs of the parameters to update.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeParameters-update_functional_group"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeParameters-update_functional_group}{}}}
 \subsection{Method \code{update_functional_group()}}{
@@ -229,6 +252,36 @@ order to reflect the changes in the parameter list \code{self$P}.
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$update_functional_group()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeParameters-check_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeParameters-check_parameters}{}}}
+\subsection{Method \code{check_parameters()}}{
+Parameter Sanity Check
+
+Ensure that the supplied \emph{params} are valid modvege parameters and,
+if requested, check that all required parameters are present.
+Issues a warning for any invalid parameters and throws an error if
+completeness is not satisfied (only when \code{check_for_completeness =  TRUE}).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$check_parameters(param_names, check_for_completeness = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{param_names}}{A list of parameter names to be checked.}
+
+\item{\code{check_for_completeness}}{Boolean Toggle whether only the
+validity of supplied \emph{param_names} is checked (default) or whether we
+require all parameters to be present. In the latter case, if any
+parameter is missing, an error is thrown.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+not_known The list of unrecognized parameter names.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeParameters-clone"></a>}}

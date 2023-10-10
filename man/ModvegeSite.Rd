@@ -91,6 +91,8 @@ multiplicative factor. Dimensionless.}
 \link[=autocut]{autocut}
 
 :func:\code{get_target_biomass}
+
+\code{ModvegeParameters$set_parameters()}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -384,22 +386,17 @@ A header with metadata is prepended to the actual data.
 \subsection{Method \code{set_parameters()}}{
 Savely update the values in \code{self$parameters}.
 
-Special care is taken to account for potential changes to
-functional group weights.
-
-:TODO: This could be implemented using just a list as input.
+This is just a shorthand to the underlying \code{ModvegeParameters}
+object's \code{set_parameters()} function. Special care is taken to
+account for potential changes to functional group weights.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$set_parameters(param_names, param_values)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$set_parameters(params)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{param_names}}{Vector containing the names of the parameters to be
-updated.}
-
-\item{\code{param_values}}{Vector containing the corresponding values to the
-parameters in \emph{param_names}.}
+\item{\code{params}}{List of name-value pairs of the parameters to update.}
 }
 \if{html}{\out{</div>}}
 }

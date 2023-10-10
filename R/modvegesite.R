@@ -400,7 +400,6 @@ ModvegeSite = R6Class(
         logger("End of ModvegeSite$run()", level = TRACE)
       },
 
-
       #' @description Write values of ModVege results into given file.
       #'
       #' A header with metadata is prepended to the actual data.
@@ -434,26 +433,16 @@ ModvegeSite = R6Class(
 
       #' @description Savely update the values in `self$parameters`.
       #'
-      #' Special care is taken to account for potential changes to 
-      #' functional group weights.
+      #' This is just a shorthand to the underlying `ModvegeParameters` 
+      #' object's `set_parameters()` function. Special care is taken to 
+      #' account for potential changes to functional group weights.
       #'
-      #' :TODO: This could be implemented using just a list as input.
+      #' @param params List of name-value pairs of the parameters to update.
       #'
-      #' @param param_names Vector containing the names of the parameters to be 
-      #'   updated.
-      #' @param param_values Vector containing the corresponding values to the 
-      #'   parameters in *param_names*.
+      #' @seealso `ModvegeParameters$set_parameters()`
       #'
-      set_parameters = function(param_names, param_values) {
-        for (i in 1:length(param_names)) {
-          name = param_names[[i]]
-          self$parameters[[name]] = param_values[[i]]
-        }
-        # Check if FG composition needs to be updated
-        if (any(param_names %in% c("w_FGA", "w_FGB", "w_FGC", "w_FGD"))) {
-#          self$parameters = build_functional_group(self$parameters)
-          self$parameters$update_functional_group()
-        }
+      set_parameters = function(params) {
+        self$parameters$set_parameters(params)
       },
 
       #' @description Create an overview plot
@@ -465,7 +454,7 @@ ModvegeSite = R6Class(
         xlab = "DOY"
         # BM with cuts and target biomass
         plot(self$BM, type = "l", xlab = xlab, ylab = "BM (kg / ha)")
-        title(paste(self$site_name, self$run_name))
+        title(paste(self$site_name, self$run_name, self$year))
         abline(v = self$cut_DOYs, col = "blue")
         if (self$get_management()$is_empty) {
           lines(self$target_biomass, col = "grey")
@@ -938,7 +927,6 @@ ModvegeSite = R6Class(
       header = sprintf("#date;%s", date())
       header = sprintf("%s\n#version;%s", header, self$version)
       # ... then add all parameters ...
-      parameter_names = self$parameters$parameter_names
       for (name in self$parameters$parameter_names) {
         parameter_value = self$parameters[[name]]
         header = sprintf("%s\n#%s;%s", header, name, parameter_value)

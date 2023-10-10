@@ -160,23 +160,8 @@ ModvegeParameters = R6Class(
         n_read_parameters = length(read_parameter_names)
 
         # Sanity check: compare supplied parameters with expected.
-        not_present = setdiff(self$parameter_names, read_parameter_names)
-        not_known = setdiff(read_parameter_names, self$parameter_names)
-        # Warn if some arguments were not recognized.
-        if (length(not_known) != 0) {
-          unknown_args = paste(not_known, collapse = "\n")
-          message = paste("The following unrecognized arguments were present",
-                            "in the supplied input file (%s):\n%s")
-          logger(sprintf(message, param_file, unknown_args), level = WARNING)
-        }
-        # Give error if an argument is missing.
-        if (length(not_present) != 0 ) {
-          # Construct the error message.
-          missing_args = paste(not_present, collapse = "\n")
-          message = paste("The following arguments were missing",
-                          "from the supplied input file (%s):\n%s")
-          logger(sprintf(message, param_file, missing_args), level = ERROR)
-        }
+        not_known = self$check_parameters(read_parameter_names, 
+                                          check_for_completeness = TRUE)
 
         # Now that the input looks OK, read it into the internal fields
         self[["param_file"]] = param_file
@@ -202,6 +187,26 @@ ModvegeParameters = R6Class(
         self[["OMDGR0"]] = self[["maxOMDGR"]]
       },
 
+      #' @description Savely update the given parameters
+      #'
+      #' This is the preferred method for changing the internal parameter 
+      #'  values, because special care is taken to account for potential 
+      #' changes to functional group weights.
+      #'
+      #' @param params List of name-value pairs of the parameters to update.
+      #'
+      set_parameters = function(params) {
+        param_names = names(params)
+        for (i in 1:length(params)) {
+          name = param_names[[i]]
+          self[[name]] = params[[i]]
+        }
+        # Check if FG composition needs to be updated
+        if (any(param_names %in% c("w_FGA", "w_FGB", "w_FGC", "w_FGD"))) {
+          self$update_functional_group()
+        }
+      },
+
       #' @description Update functional group parameters
       #'
       #' Should be run whenever the functional group composition is changed in 
@@ -223,6 +228,45 @@ ModvegeParameters = R6Class(
         for (name in self$fg_parameter_names) {
           self[[name]] = fg_parameters[[name]]
         }
+      },
+
+      #' @description Parameter Sanity Check
+      #'
+      #' Ensure that the supplied *params* are valid modvege parameters and, 
+      #' if requested, check that all required parameters are present.
+      #' Issues a warning for any invalid parameters and throws an error if 
+      #' completeness is not satisfied (only when `check_for_completeness = 
+      #' TRUE`).
+      #' 
+      #' @param param_names A list of parameter names to be checked.
+      #' @param check_for_completeness Boolean Toggle whether only the 
+      #'   validity of supplied *param_names* is checked (default) or whether we 
+      #'   require all parameters to be present. In the latter case, if any 
+      #'   parameter is missing, an error is thrown.
+      #' @return not_known The list of unrecognized parameter names.
+      #'
+      #' @md
+      check_parameters = function(param_names, check_for_completeness = FALSE) {
+        not_known = setdiff(param_names, self$parameter_names)
+        # Warn if some arguments were not recognized.
+        if (length(not_known) != 0) {
+          unknown_args = paste(not_known, collapse = "\n")
+          message = paste("The following unrecognized parameters were present",
+                            "in the supplied input file (%s):\n%s")
+          logger(sprintf(message, param_file, unknown_args), level = WARNING)
+        }
+        if (check_for_completeness) {
+          # Give error if an argument is missing.
+          not_present = setdiff(self$parameter_names, param_names)
+          if (length(not_present) != 0 ) {
+            # Construct the error message.
+            missing_args = paste(not_present, collapse = "\n")
+            message = paste("The following parameters were missing",
+                            "from the supplied input file (%s):\n%s")
+            logger(sprintf(message, param_file, missing_args), level = ERROR)
+          }
+        }
+        return(not_known)
       }
     )
   )

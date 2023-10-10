@@ -15,7 +15,7 @@
 #'   be written if `write_files` is `TRUE`.
 #'
 #' @return If `store_results == TRUE`, a list of the format 
-#'   [[run]][[year]] containing clones of the `ModvegeSite` instances that 
+#'   `[[run]][[year]]` containing clones of the `ModvegeSite` instances that 
 #'   were run. Otherwise an empty list. Defaults to 
 #'   getOption("rmodvege.output_dir").
 #'

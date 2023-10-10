@@ -138,14 +138,17 @@ willmott = metric_factory(willmott_core)
 #'     \item{func}{The function used to calculate given metric.}
 #'     \item{target}{The value that would be reached in the case of optimal 
 #'       performance.}
+#'     \item{limits}{Reasonable limits to be used when plotting.}
 #'   }
 #'
 #' @md
 #' @export
 metric_map = list(
-                  bias=list(func=get_bias, target=0),
-                  RMSE=list(func=root_mean_squared, target=0),
-                  MAE=list(func=mean_absolute_error, target=0),
-                  WIMP=list(func=willmott, target=1)
+                  bias = list(func = get_bias, target = 0, limits = c(-1, 1)),
+                  RMSE = list(func = root_mean_squared, target = 0, 
+                              limits = c(0, 1)),
+                  MAE = list(func = mean_absolute_error, target = 0, 
+                             limits = c(0, 1)),
+                  WIMP = list(func = willmott, target = 1, limits = c(-1, 1))
                   )
 
