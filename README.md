@@ -1,5 +1,9 @@
 # rmodvege - R implementation of the grassland model ModVege[^1]
 
+<!-- badges: start -->
+  [![R-CMD-check](https://github.com/kuadrat/rmodvege/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/rmodvege/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
+
 ![](man/figures/logo.png)
 
 This `R` implementation of the grassland model `ModVege` by [Jouven et 

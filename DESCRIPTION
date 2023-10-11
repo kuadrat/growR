@@ -8,14 +8,14 @@ Authors@R: person(
     email = "kevin.pasqual.kramer@protonmail.ch",
     role = c("aut", "cre", "cph"),
     comment = c(ORCID = "0000-0001-5523-6924"))
-Title: R implementation of the vegetation model ModVege
-Description: The underlying grass growth model is based off of ModVege as 
-    described in Jouven, M., P. Carrère, and R. Baumont. “Model Predicting 
+Title: Implementation of the Vegetation Model ModVege
+Description: Run grass growth simulations using a grass growth model based 
+    off of ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting 
     Dynamics of Biomass, Structure and Digestibility of Herbage in Managed 
-    Permanent Pastures. 1. Model Description.” Grass and Forage Science 61, 
-    no. 2 (2006): 112–24. https://doi.org/10.1111/j.1365-2494.2006.00515.x.
-    It contains some expansions. See the project github page for a more 
-    thorough description: https://github.com/kuadrat/rmodvege/.
+    Permanent Pastures. 1. Model Description." (2006) 
+    <https://doi.org/10.1111/j.1365-2494.2006.00515.x>).
+    See the project github page for a more 
+    thorough description: <https://github.com/kuadrat/rmodvege/>.
 URL: https://github.com/kuadrat/rmodvege
 BugReports: https://github.com/kuadrat/rmodvege/issues/
 License: MIT + file LICENSE
