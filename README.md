@@ -33,27 +33,28 @@ Installing from source might make sense if...
 In this case,
 
 1. Start by cloning this repository"
-```
-$ git clone git@github.com:kuadrat/rmodvege.git
-```
-or via https:
-```
-$ git clone https://github.com/kuadrat/rmodvege.git
-```
-This will create a directory `rmodvege` in your file system.
+    ```
+    $ git clone git@github.com:kuadrat/rmodvege.git
+    ```
+    or via https:
+    ```
+    $ git clone https://github.com/kuadrat/rmodvege.git
+    ```
+    This will create a directory `rmodvege` in your file system.
+    
+    If you don't have or don't want to use *git*, you could alternatively copy 
+    the source code as a .zip file from 
+    [github](https://github.com/kuadrat/rmodvege/archive/refs/heads/master.zip).
+    Unzip the contents into a directory `rmodvege`.
 
-If you don't have or don't want to use *git*, you could alternatively copy 
-the source code as a .zip file from 
-[github](https://github.com/kuadrat/rmodvege/archive/refs/heads/master.zip).
-Unzip the contents into a directory `rmodvege`.
 2. You can now install *rmodvege* by issuing the following at the prompt of 
-an `R` session:
-```
-install.packages("/full/path/to/rmodvege", repos = NULL)
-```
-You should replace `"/full/path/to/"` with the actual path to the `rmodvege` 
-directory on your computer. Also, replace slashes (`/`) with backslashe (`\`) 
-if you're on Windows.
+    an `R` session:
+    ```
+    install.packages("/full/path/to/rmodvege", repos = NULL)
+    ```
+    You should replace `"/full/path/to/"` with the actual path to the `rmodvege` 
+    directory on your computer. Also, replace slashes (`/`) with backslashe (`\`) 
+    if you're on Windows.
 
 `rmodvege` should now be installed and available in `R` through 
 `library(rmodvege)`.
