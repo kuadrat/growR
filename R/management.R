@@ -23,6 +23,8 @@ ManagementData = R6Class(
   #-Public-attributes-----------------------------------------------------------
     management_file = NULL,
     is_empty = TRUE,
+    #' @field years List of unique years for which data is available.
+    years = NULL,
     cut_years = NULL,
     cut_DOY = NULL,
     intensity = NULL,
@@ -36,7 +38,7 @@ ManagementData = R6Class(
     #'   extracted.
     #'
     #' @seealso [ManagementData$read_management()]
-    initialize = function(management_file = NULL, years = "all") {
+    initialize = function(management_file = NULL, years = NULL) {
       if (!is.null(management_file)) {
         self$read_management(management_file, years)
       }
@@ -46,9 +48,9 @@ ManagementData = R6Class(
     #'
     #' @param management_file Path to or name of file containing management data.
     #' @param years Years for which the management is to be extracted.  
-    #'   Default is "all" to read in all found years.
+    #'   Default (NULL) is to read in all found years.
     #'
-    read_management = function(management_file, years = "all") {
+    read_management = function(management_file, years = NULL) {
       # Prepare the resulting container
       self[["management_file"]] = management_file
       if (file.exists(management_file)) {
@@ -56,13 +58,14 @@ ManagementData = R6Class(
                level = DEBUG)
         cut_data = read.table(management_file, header = TRUE)
         # Only consider specified years
-        if (years == "all") {
+        if (is.null(years)) {
           selector = TRUE
         } else {
           selector = cut_data$year %in% years
         }
         self$is_empty = FALSE
         self$cut_years = cut_data$year[selector]
+        self$years = unique(self$cut_years)
         self$cut_DOY = cut_data$DOY[selector]
         self$intensity = NA
       } else {

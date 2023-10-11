@@ -22,8 +22,13 @@ License: MIT + file LICENSE
 RoxygenNote: 7.2.3
 Encoding: UTF-8
 Imports: rlang, R6, utils, Rdpack
-Suggests: ggplot2, patchwork
+Suggests: 
+    ggplot2,
+    patchwork,
+    testthat (>= 3.0.0)
 Depends: 
     R (>= 2.10)
 RdMacros: Rdpack
 LazyData: true
+Config/testthat/edition: 3
+Config/testthat/start-first: setup, pscan, run

@@ -86,3 +86,13 @@ setup_directory = function(root = ".", include_examples = TRUE) {
   print(sprintf("Copied example files to respective directories."))
 }
 
+dirs = c("input", "output", "data")
+files = c("example_config.txt", "compare.R")
+
+## Used when testing
+clean_up_dir = function() {
+  for (dir in c(dirs, files)) {
+    unlink(dir, recursive = TRUE)
+  }
+}
+

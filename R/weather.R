@@ -80,7 +80,7 @@ WeatherData = R6Class(
     #'   extracted.
     #'
     #' @seealso WeatherData$read_weather()
-    initialize = function(weather_file = NULL, years = "all") {
+    initialize = function(weather_file = NULL, years = NULL) {
       if (!is.null(weather_file)) {
         self$read_weather(weather_file, years)
       }
@@ -90,9 +90,9 @@ WeatherData = R6Class(
     #'
     #' @param weather_file Path to or name of file containing weather data.
     #' @param years Years for which the weather is to be extracted.
-    #'   Default is "all" to read in all found years.
+    #'   Default (NULL) is to read in all found years.
     #'
-    read_weather = function(weather_file, years = "all") {
+    read_weather = function(weather_file, years = NULL) {
       self$years = years
       self$weather_file = weather_file
       # Load weather data
@@ -108,8 +108,10 @@ WeatherData = R6Class(
 
       # Only consider relevant years and omit leap days
       selector = weather$DOY < 366
-      if (years != "all") {
+      if (!is.null(years)) {
         selector = selector & weather$year %in% years
+      } else {
+        self$years = unique(weather$year)
       }
       
       # Warn if no matching data was found

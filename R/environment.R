@@ -71,7 +71,7 @@ ModvegeEnvironment = R6Class(
     #'
     initialize = function(site_name,
                           run_name = "-",
-                          years = "all",
+                          years = NULL,
                           param_file = "-",
                           weather_file = "-",
                           management_file = "-",
@@ -117,9 +117,12 @@ ModvegeEnvironment = R6Class(
       self$parameters = ModvegeParameters$new(file.path(self$input_dir, 
                                                         self$param_file))
       self$weather = WeatherData$new(file.path(self$input_dir,
-                                               self$weather_file))
+                                               self$weather_file), self$years)
       self$management = ManagementData$new(file.path(self$input_dir,
                                                      self$management_file))
+      if (is.null(self$years)) {
+        self$years = self$weather$years
+      }
     },
 
     #' @description Ensure a readable filename for given *run_name*.

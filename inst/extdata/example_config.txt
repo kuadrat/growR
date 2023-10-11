@@ -1,7 +1,7 @@
 # site name 	# run name 	# year(s) 	# param file 			# weather data 			# cut dates
 sorens1 	-  	2013:2022   	sorens_parameters.csv	sorens_weather.txt    	sorens_management1.txt
-sorens2 	-  	2013:2022   	sorens_parameters.csv	sorens_weather.txt    	sorens_management2.txt
-sorens2 	autocut  	2013:2022   	sorens_parameters.csv	sorens_weather.txt    	high
-posieux1 	-  	2013:1022   	posieux_parameters.csv	posieux_weather.txt    	posieux_management1.txt
-posieux2 	-  	2013:2022   	posieux_parameters.csv	posieux_weather.txt    	posieux_management2.txt
-posieux2 	autocut  	2013:2022   	posieux_parameters.csv	posieux_weather.txt    	high
+#sorens2 	-  	2013:2022   	sorens_parameters.csv	sorens_weather.txt    	sorens_management2.txt
+#sorens2 	autocut  	2013:2022   	sorens_parameters.csv	sorens_weather.txt    	high
+posieux1 	-  	2013:2022   	posieux_parameters.csv	posieux_weather.txt    	posieux_management1.txt
+#posieux2 	-  	2013:2022   	posieux_parameters.csv	posieux_weather.txt    	posieux_management2.txt
+#posieux2 	autocut  	2013:2022   	posieux_parameters.csv	posieux_weather.txt    	high

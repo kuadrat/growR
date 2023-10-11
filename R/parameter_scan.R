@@ -89,7 +89,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
   }
   logger("Completed parameter scan.", level = INFO)
   logger(paste0("Time used: ", Sys.time() - start_time), level = INFO)
-  if (length(outfilename) > "") {
+  if (outfilename != "") {
     logger(sprintf("Storing results as `%s`.", outfilename))
     saveRDS(results, outfilename)
   }

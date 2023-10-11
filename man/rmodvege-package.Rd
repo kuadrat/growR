@@ -6,7 +6,9 @@
 \alias{rmodvege-package}
 \title{rmodvege: R implementation of the grass growth model ModVege.}
 \description{
-The underlying grass growth model is based off of ModVege as described in Jouven, M., P. Carrère, and R. Baumont. “Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description.” Grass and Forage Science 61, no. 2 (2006): 112–24. https://doi.org/10.1111/j.1365-2494.2006.00515.x. It contains some expansions. See the project github page for a more thorough description: https://github.com/kuadrat/rmodvege/.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Run grass growth simulations using a grass growth model based off of ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description." (2006) \url{https://doi.org/10.1111/j.1365-2494.2006.00515.x}). See the project github page for a more thorough description: \url{https://github.com/kuadrat/rmodvege/}.
 }
 \seealso{
 Useful links:
