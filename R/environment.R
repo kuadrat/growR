@@ -113,12 +113,20 @@ ModvegeEnvironment = R6Class(
     #' respectively.
     #'
     load_inputs = function() {
-      self$parameters = ModvegeParameters$new(file.path(self$input_dir, 
-                                                        self$param_file))
-      self$weather = WeatherData$new(file.path(self$input_dir,
-                                               self$weather_file), self$years)
-      self$management = ManagementData$new(file.path(self$input_dir,
-                                                     self$management_file))
+      # Assume files are already given with complete paths, if input_dir is 
+      # empty
+      if (self$input_dir == "") {
+        build_path = function(filename) {
+          return(filename)
+        }
+      } else {
+        build_path = function(filename) {
+          return(file.path(self$input_dir, filename))
+        }
+      }
+      self$parameters = ModvegeParameters$new(build_path(self$param_file))
+      self$weather = WeatherData$new(build_path(self$weather_file), self$years)
+      self$management = ManagementData$new(build_path(self$management_file))
       if (is.null(self$years)) {
         self$years = self$weather$years
       }
