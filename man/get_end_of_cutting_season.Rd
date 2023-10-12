@@ -21,8 +21,8 @@ float Last (fractional) day of the year on which a cut still makes
 \description{
 Estimate the last day on which it still makes sense to cut. This is done 
 by checking at which point the expected target biomass (see 
-`get_relative_cut_contribution`) goes below the minimally harvestable standing 
-biomass.
+[get_relative_cut_contribution()]) goes below the minimally harvestable 
+standing biomass.
 }
 \examples{
 get_end_of_cutting_season(50, 1200)

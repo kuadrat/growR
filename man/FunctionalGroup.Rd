@@ -62,9 +62,7 @@ Jouven et al.
 }
 
 \references{
-{
 \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
-}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

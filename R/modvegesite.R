@@ -78,9 +78,8 @@ initial_state_variables = list(
 #' ```
 #' @seealso \link[=autocut]{autocut}
 #'
-#' @references{
-#'  \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
-#' }
+#' @references
+#' \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
 #'
 #' @md
 #' @export
@@ -431,7 +430,7 @@ ModvegeSite = R6Class(
           outf = cbind(outf, round(self[[variable_name]], 2))
         }
         if (!force) {
-          response = prompt_user(sprintf("Writing to file `%`. Continue? [Y/n]",
+          response = prompt_user(sprintf("Writing to file `%s`. Continue? [Y/n]",
                                          filename))
           if (!response %in% c("y", "Y", "")) {
             logger("Not writing file.", level = INFO)

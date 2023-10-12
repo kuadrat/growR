@@ -19,7 +19,7 @@ Retrieve CO2 concentration (in ppm) for given calendar year.
 This function defines the CO2 concentration as a function of calendar
 year. it is based on a polynomial fit to the annual CO2 data
 published by NOAA
-(https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt)
+<https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt>
 }
 \note{
 This is only approximately valid for years in the range 1949 - 2020

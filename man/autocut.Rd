@@ -3,14 +3,7 @@
 \title{autocut}
 \description{
 Simulation routine to realistically predict grass cutting events.
-This follows an implementation described in:
-
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-of Management Events for Assessing Impacts of Climate Change on 
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-128 (August 1, 2021): 126306. 
-https://doi.org/10.1016/j.eja.2021.126306.
+This follows an implementation described in Petersen et al. (2021).
 
 The decision to cut is made based on two criteria.
 First, it is checked whether a *target biomass* is reached on given 
@@ -31,23 +24,10 @@ The exact regression for the target biomass is based on Fig. S2 in the
 supplementary material of Petersen et al.
 
 A refinement to expected yield as function of altitude has been 
-implemented according to Table 1a in
-
-Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz, 
-8, (6), 2017, 
-https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
+implemented according to Table 1a in Huguenen et al. (2017).
 }
 \references{
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-of Management Events for Assessing Impacts of Climate Change on 
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-128 (August 1, 2021): 126306. 
-https://doi.org/10.1016/j.eja.2021.126306.
+    \insertRef{petersen2021DynamicSimulationManagement}{rmodvege}
 
-Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz, 
-8, (6), 2017, 
-https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
- 
-
+    \insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
 }

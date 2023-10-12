@@ -9,12 +9,13 @@ fCO2_growth_mod(c_CO2, b = 0.5, c_ref = 360)
 \arguments{
 \item{c_CO2}{numeric Atmospheric CO2 concentration in ppm}
 
-\item{b}{numeric Strength of CO2 effect on growth. Kellner et al. report 
- values bewtween 0 and 2 with the interval of highest likelihood 
-[0.1, 0.3]. However, Soltani and Sinclair discuss that b = 0.4 in C4 plants 
-and b = 0.8 in C3 plants. The difference on the output of this function 
-of choosing a small (0.1) and large (0.8) value for b has an effect on 
-the result for an atmospheric concentration of 700 ppm of roughly 40\%!.}
+\item{b}{numeric Strength of CO2 effect on growth. Kellner et al. report
+values bewtween 0 and 2 with the interval of highest likelihood
+(0.1, 0.3). However, Soltani and Sinclair discuss that b = 0.4 in C4 plants
+and b = 0.8 in C3 plants. The difference on the output of this function
+of choosing a small (0.1) and large (0.8) value for b has an effect on
+the result for an atmospheric concentration of 700 ppm of roughly 40
+percent!.}
 
 \item{c_ref}{numeric Reference CO2 concentration in ppm.}
 }
@@ -22,20 +23,17 @@ the result for an atmospheric concentration of 700 ppm of roughly 40\%!.}
 Function describing the effects of elevated CO2 on growth.
 }
 \details{
-The function for the effects on growth is as proposed by 
-
-Soltani A. and T. R. Sinclair, 2012: Modeling Physiology of Crop
-   Development, Growth and Yield. CABI, Wallingford, 322 pp.
-
-and later adapted by [equation (5)]
-
-Kellner, J., S. Multsch, T. Houska, P. Kraft, C. Mueller and L. Breuer, 2017:
-   A coupled hydrological-plant growth model for simulating the effect of
-   elevated CO2 on a temperate grassland. Agric. For. Meteotol., 246, 42-50.
+The function for the effects on growth is as proposed by Soltani et al (2012)
+and later adapted by equation (5) in Kellner et al. (2017)
 }
 \examples{
 fCO2_growth_mod(420)
 # The modifier is always relative to *c_ref*. This returns 1.
 fCO2_growth_mod(420, c_ref = 420)
 
+}
+\references{
+\insertRef{soltani2012ModelingPhysiologyCrop}{rmodvege}
+
+\insertRef{kellner2017CoupledHydrologicalplantGrowth}{rmodvege}
 }

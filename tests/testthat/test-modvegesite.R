@@ -25,7 +25,7 @@ get_example_environment = function(site = "posieux") {
 
 save_temp_output = function(MV) {
   path1 = tempfile(fileext = ".dat")
-  MV$write_output(path1)
+  MV$write_output(path1, force = TRUE)
   # Remove #date
   path2 = remove_date_line(path1)
   return(path2)

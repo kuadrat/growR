@@ -1,11 +1,3 @@
-#'
-#' The functions fPAR, fT, fW and SEA are as defined in
-#'
-#' Jouven, M., P. CarrEre and R. Baumont, 2006:
-#'    Model predicting dynamics of biomass, structure and digestibility of
-#'    herbage in managed permanent pastures. 1. Model description.
-#'    Grass Forage Sci. 61, 112-124.
-
 #' Radiation limitation
 #'
 #' Threshold function representing growth limitation due to lack of 
@@ -64,16 +56,13 @@ fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
 #'
 #' Threshold function representing growth limitation due to water stress.
 #'
-#' After equation (6) in McCall, D. G, und G. J Bishop-Hurley. A 
-#' Pasture Growth Model for Use in a Whole-Farm Dairy Production Model, 
-#' Agricultural Systems 76, Nr. 3 (1. Juni 2003): 1183 1205. 
-#' https://doi.org/10.1016/S0308-521X(02)00104-X.
-#' 
+#' After equation (6) in McCall et al. (2003).#' 
+#'
 #' @param W Water stress given as the ratio of water reserves to water 
 #'   holding capacity.
 #' @param PET Potential evapotranspiration in mm per day.
 #'
-#' @return A value in the range [0, 1], acting as a multiplicative factor to 
+#' @return A value in the range (0, 1), acting as a multiplicative factor to 
 #'   plant growth.
 #'
 #' @examples
@@ -81,6 +70,10 @@ fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
 #' fW(0.5, 5)
 #' fW(0.5, 3)
 #'
+#' @references
+#' \insertRef{mccall2003PastureGrowthModel}{rmodvege}
+#'
+#' @md
 #' @export
 fW <- function(W, PET) {
   # High values of PET
@@ -153,7 +146,7 @@ SEA <- function(ST, minSEA = 0.65, maxSEA = 1.35, ST1 = 800, ST2 = 1450) {
 #' This function defines the CO2 concentration as a function of calendar
 #' year. it is based on a polynomial fit to the annual CO2 data
 #' published by NOAA
-#' (https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt)
+#' <https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt>
 #'
 #' @note This is only approximately valid for years in the range 1949 - 2020
 #' @param year Calender year for which to extract CO2 concentration.
@@ -202,24 +195,17 @@ aCO2_inverse = function(aCO2) {
 #' Function describing the effects of elevated CO2 on growth.
 #'
 #' @details
-#' The function for the effects on growth is as proposed by 
-#'
-#' Soltani A. and T. R. Sinclair, 2012: Modeling Physiology of Crop
-#'    Development, Growth and Yield. CABI, Wallingford, 322 pp.
-#'
-#' and later adapted by [equation (5)]
-#'
-#' Kellner, J., S. Multsch, T. Houska, P. Kraft, C. Mueller and L. Breuer, 2017:
-#'    A coupled hydrological-plant growth model for simulating the effect of
-#'    elevated CO2 on a temperate grassland. Agric. For. Meteotol., 246, 42-50.
+#' The function for the effects on growth is as proposed by Soltani et al (2012)
+#' and later adapted by equation (5) in Kellner et al. (2017)
 #'
 #' @param c_CO2 numeric Atmospheric CO2 concentration in ppm
 #' @param b numeric Strength of CO2 effect on growth. Kellner et al. report 
 #'   values bewtween 0 and 2 with the interval of highest likelihood 
-#'  [0.1, 0.3]. However, Soltani and Sinclair discuss that b = 0.4 in C4 plants 
+#'  (0.1, 0.3). However, Soltani and Sinclair discuss that b = 0.4 in C4 plants 
 #'  and b = 0.8 in C3 plants. The difference on the output of this function 
 #'  of choosing a small (0.1) and large (0.8) value for b has an effect on 
-#'  the result for an atmospheric concentration of 700 ppm of roughly 40\%!.
+#'  the result for an atmospheric concentration of 700 ppm of roughly 40 
+#'  percent!.
 #' @param c_ref numeric Reference CO2 concentration in ppm.
 #'
 #' @examples
@@ -227,6 +213,12 @@ aCO2_inverse = function(aCO2) {
 #' # The modifier is always relative to *c_ref*. This returns 1.
 #' fCO2_growth_mod(420, c_ref = 420)
 #'
+#' @references
+#' \insertRef{soltani2012ModelingPhysiologyCrop}{rmodvege}
+#'
+#' \insertRef{kellner2017CoupledHydrologicalplantGrowth}{rmodvege}
+#'
+#' @md
 #' @export
 fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
   return(1 + b * log(c_CO2 / c_ref))
@@ -236,12 +228,8 @@ fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
 #'
 #' Function describing the effects of elevated CO2 on transpiration.
 #'
-#' The function for the effect on transpiration is from equations (2-6) in:
-#'
-#' Kruijt, B., J.-P. M. Witte, C. M. J. Jacobs and T. Kroon, 2008:
-#'    Effects of rising atmospheric CO2 on evapotranspiration and soil
-#'    moisture: A practical approach for the Netherlands. J. Hydrol.,
-#'    349, 257-267.
+#' The function for the effect on transpiration is from equations (2-6) in 
+#' Kruijt et al.
 #'
 #' It appears that this paper that said equations are most likely incorrect. 
 #' With the stated values, I cannot reproduce tabulated values of c close to 
@@ -262,6 +250,10 @@ fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
 #' # The modifier is always relative to *c_ref*. This returns 1.
 #' fCO2_transpiration_mod(420, c_ref = 420)
 #'
+#' @references
+#' \insertRef{kruijt2008EffectsRisingAtmospheric}{rmodvege}
+#'
+#' @md
 #' @export
 fCO2_transpiration_mod = function(c_CO2, c_ref = 360) {
   return(1 - 0.0001 * (c_CO2 - c_ref))
@@ -282,11 +274,7 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #'
 #' Based on data from Table 1a in
 #' Lookup Table of expected yield as functions of height and management 
-#' intensity after Olivier Huguenin et al. 
-#' Grundlagen für die Düngung landwirtschaftlicher Kulturen in der Schweiz 
-#' (GRUD), Kapitel 9: Düngung von Grasland
-#' ISBN 1663-7852
-#' https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
+#' intensity after Olivier Huguenin et al. (2017).
 #'
 #' @param elevation The elevation of the considered site in meters above sea 
 #'   level.
@@ -300,6 +288,9 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #' get_annual_gross_yield(1200)
 #' get_annual_gross_yield(1200, intensity = "low")
 #'
+#' @references
+#' \insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+#' @md
 #' @export
 get_annual_gross_yield = function(elevation, intensity = "high") {
   #mask = yield_parameters$intensity == intensity
@@ -350,18 +341,12 @@ get_expected_n_cuts = function(elevation, intensity = "high") {
 #' *DOY* is expected to contribute.
 #'
 #' The regression for the target biomass is based on Fig. S2 in the 
-#' supplementary material of 
-#' Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-#' Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-#' of Management Events for Assessing Impacts of Climate Change on 
-#' Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-#' 128 (August 1, 2021): 126306. 
-#' https://doi.org/10.1016/j.eja.2021.126306.
+#' supplementary material of Petersen et al. (2021).
 #'
 #' @param DOY Integer representing the day of the year on which a cut occurs.
 #'
-#' @return The fraction ([0, 1]) of biomass harvested at the cut at given *DOY* 
-#'   divided by the total annual biomass.
+#' @return The fraction (between 0 and 1) of biomass harvested at the cut at 
+#'   given *DOY* divided by the total annual biomass.
 #'
 #' @examples
 #' get_relative_cut_contribution(1)
@@ -369,6 +354,10 @@ get_expected_n_cuts = function(elevation, intensity = "high") {
 #' get_relative_cut_contribution(365)
 #' # DOYs larger than 365 are insensible
 #' get_relative_cut_contribution(600)
+#'
+#' @references
+#' \insertRef{petersen2021DynamicSimulationManagement}{rmodvege}
+#' @md
 #' @export
 get_relative_cut_contribution = function(DOY) {
   return((-0.1228 * DOY + 48.96) * 1e-2)
@@ -378,8 +367,8 @@ get_relative_cut_contribution = function(DOY) {
 #'
 #' Estimate the last day on which it still makes sense to cut. This is done 
 #' by checking at which point the expected target biomass (see 
-#' `get_relative_cut_contribution`) goes below the minimally harvestable standing 
-#' biomass.
+#' [get_relative_cut_contribution()]) goes below the minimally harvestable 
+#' standing biomass.
 #'
 #' @param min_biomass float A standing biomass below this value cannot even 
 #'   be harvested,

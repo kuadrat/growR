@@ -22,9 +22,9 @@
 #' @field fg_parameter_names Names of the vegetation parameters governed by 
 #'   functional group composition.
 #' 
-#' @references{
+#' @references
 #'  \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
-#' }
+#'
 #' 
 #' @md
 #' @export

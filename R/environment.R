@@ -174,6 +174,9 @@ ModvegeEnvironment = R6Class(
 #'   *site* which is shipped with this package.
 #'
 #' @examples
+#' extdata = system.file("extdata", package = "rmodvege") 
+#' print(extdata)
+#' list.files(extdata, recursive = TRUE)
 #' create_example_environment()
 #'
 #' @md

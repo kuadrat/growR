@@ -2,7 +2,7 @@
 % Please edit documentation in R/support_functions.R
 \name{fPAR}
 \alias{fPAR}
-\title{The functions fPAR, fT, fW and SEA are as defined in}
+\title{Radiation limitation}
 \usage{
 fPAR(PAR)
 }
@@ -14,13 +14,6 @@ A value in the range [0, 1], acting as a multiplicative factor to
   plant growth.
 }
 \description{
-Jouven, M., P. CarrEre and R. Baumont, 2006:
-   Model predicting dynamics of biomass, structure and digestibility of
-   herbage in managed permanent pastures. 1. Model description.
-   Grass Forage Sci. 61, 112-124.
-Radiation limitation
-}
-\details{
 Threshold function representing growth limitation due to lack of 
 photosynthetically active radiation (PAR).
 }

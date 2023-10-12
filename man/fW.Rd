@@ -7,27 +7,27 @@
 fW(W, PET)
 }
 \arguments{
-\item{W}{Water stress given as the ratio of water reserves to water 
+\item{W}{Water stress given as the ratio of water reserves to water
 holding capacity.}
 
 \item{PET}{Potential evapotranspiration in mm per day.}
 }
 \value{
-A value in the range [0, 1], acting as a multiplicative factor to 
-  plant growth.
+A value in the range (0, 1), acting as a multiplicative factor to
+plant growth.
 }
 \description{
 Threshold function representing growth limitation due to water stress.
 }
 \details{
-After equation (6) in McCall, D. G, und G. J Bishop-Hurley. A 
-Pasture Growth Model for Use in a Whole-Farm Dairy Production Model, 
-Agricultural Systems 76, Nr. 3 (1. Juni 2003): 1183 1205. 
-https://doi.org/10.1016/S0308-521X(02)00104-X.
+After equation (6) in McCall et al. (2003).#'
 }
 \examples{
 fW(0.5, 7)
 fW(0.5, 5)
 fW(0.5, 3)
 
+}
+\references{
+\insertRef{mccall2003PastureGrowthModel}{rmodvege}
 }

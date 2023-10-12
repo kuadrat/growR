@@ -83,9 +83,7 @@ multiplicative factor. Dimensionless.}
 }
 
 \references{
-{
 \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
-}
 }
 \seealso{
 \link[=autocut]{autocut}
@@ -384,13 +382,15 @@ Write values of ModVege results into given file.
 
 A header with metadata is prepended to the actual data.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$write_output(filename)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$write_output(filename, force = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{filename}}{Path or name of filename to be created or overwritten.}
+
+\item{\code{force}}{Boolean If \code{TRUE}, do not prompt user before writing.}
 }
 \if{html}{\out{</div>}}
 }

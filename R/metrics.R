@@ -84,14 +84,6 @@ metric_factory = function(core) {
 #' mean_absolute_error(predicted, observed)
 #' mean_absolute_error(predicted, observed, relative = FALSE)
 #'
-#' # The Willmott index "fails" in this case, as the variance in the 
-#' # observation is 0.
-#' willmott(predicted, observed)
-#'
-#' # Try with more realistic observations
-#' observed = c(20.5, 19.5, 20.0)
-#' willmott(predicted, observed)
-#'
 #' @seealso [willmott()]
 #'
 #' @md
@@ -127,8 +119,7 @@ mean_absolute_error = metric_factory(mean_absolute_error_core)
 #' Willmott Index
 #'
 #' Willmott's index of model performance as described in
-#' Willmott, Robeson and Matsuura: A refined index of model performance. 
-#' International Journal of Climatology 32: 2088-2094 (2012)
+#' Willmott (2012).
 #'
 #' This index takes on values from -1 to 1, where values closer to 1 are 
 #' generally indicating better model performance. Values close to -1 can 
@@ -142,7 +133,22 @@ mean_absolute_error = metric_factory(mean_absolute_error_core)
 #'
 #' @return willmott Value between -1 and 1
 #'
+#' @examples
+#' predicted = c(21.5, 22.2, 19.1)
+#' observed = c(20, 20, 20)
+#' # The Willmott index "fails" in this case, as the variance in the 
+#' # observation is 0.
+#' willmott(predicted, observed)
+#'
+#' # Try with more realistic observations
+#' observed = c(20.5, 19.5, 20.0)
+#' willmott(predicted, observed)
+#'
 #' @seealso [get_bias()]
+#'
+#' @references
+#'   \insertRef{willmott2012RefinedIndexModel}{rmodvege}
+#'
 #' @md
 #' @export
 willmott = metric_factory(willmott_core)

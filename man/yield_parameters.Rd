@@ -23,9 +23,8 @@ yield = a + b * altitude.
 \details{
 Lookup Table of expected yield as functions of height and management
 intensity after table 1a in Olivier Huguenin et al.
-Grundlagen für die Düngung landwirtschaftlicher Kulturen in der Schweiz
-(GRUD), Kapitel 9: Düngung von Grasland
-ISBN 1663-7852
-https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
+}
+\references{
+\insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
 }
 \keyword{datasets}

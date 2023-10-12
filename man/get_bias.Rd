@@ -63,14 +63,6 @@ root_mean_squared(predicted, observed, relative = FALSE)
 mean_absolute_error(predicted, observed)
 mean_absolute_error(predicted, observed, relative = FALSE)
 
-# The Willmott index "fails" in this case, as the variance in the 
-# observation is 0.
-willmott(predicted, observed)
-
-# Try with more realistic observations
-observed = c(20.5, 19.5, 20.0)
-willmott(predicted, observed)
-
 }
 \seealso{
 \code{\link[=willmott]{willmott()}}

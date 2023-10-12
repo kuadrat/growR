@@ -10,22 +10,16 @@ get_relative_cut_contribution(DOY)
 \item{DOY}{Integer representing the day of the year on which a cut occurs.}
 }
 \value{
-The fraction ([0, 1]) of biomass harvested at the cut at given *DOY* 
-  divided by the total annual biomass.
+The fraction (between 0 and 1) of biomass harvested at the cut at
+given \emph{DOY} divided by the total annual biomass.
 }
 \description{
-Get the fraction of the total annual harvested biomass that a cut at given 
-*DOY* is expected to contribute.
+Get the fraction of the total annual harvested biomass that a cut at given
+\emph{DOY} is expected to contribute.
 }
 \details{
-The regression for the target biomass is based on Fig. S2 in the 
-supplementary material of 
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-of Management Events for Assessing Impacts of Climate Change on 
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-128 (August 1, 2021): 126306. 
-https://doi.org/10.1016/j.eja.2021.126306.
+The regression for the target biomass is based on Fig. S2 in the
+supplementary material of Petersen et al. (2021).
 }
 \examples{
 get_relative_cut_contribution(1)
@@ -33,4 +27,8 @@ get_relative_cut_contribution(150)
 get_relative_cut_contribution(365)
 # DOYs larger than 365 are insensible
 get_relative_cut_contribution(600)
+
+}
+\references{
+\insertRef{petersen2021DynamicSimulationManagement}{rmodvege}
 }
