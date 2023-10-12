@@ -413,9 +413,10 @@ ModvegeSite = R6Class(
       #' A header with metadata is prepended to the actual data.
       #'
       #' @param filename Path or name of filename to be created or overwritten.
+      #' @param force Boolean If `TRUE`, do not prompt user before writing.
       #' @return None Writes simulation results to file *filename*.
       #'
-      write_output = function(filename) {
+      write_output = function(filename, force = FALSE) {
         # Build the header containing metadata
         header = private$make_header()
         
@@ -428,6 +429,14 @@ ModvegeSite = R6Class(
         outf = data.frame(1:ndays)
         for (variable_name in self$state_variable_names) {
           outf = cbind(outf, round(self[[variable_name]], 2))
+        }
+        if (!force) {
+          response = prompt_user(sprintf("Writing to file `%`. Continue? [Y/n]",
+                                         filename))
+          if (!response %in% c("y", "Y", "")) {
+            logger("Not writing file.", level = INFO)
+            return()
+          }
         }
         logger(paste("Writing to file", filename, "."), level = TRACE)
         write(header, file = filename)

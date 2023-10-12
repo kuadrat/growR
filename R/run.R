@@ -67,7 +67,7 @@ modvege_run_loop = function(modvege_environments,
                            run_environment$run_name_in_filename,
                            this_year)
         logger("Entering `modvege$write_output`", level = TRACE)
-        modvege$write_output(out_file)
+        modvege$write_output(out_file, force = TRUE)
       }
 
       #-Store-output------------------------------------------------------------

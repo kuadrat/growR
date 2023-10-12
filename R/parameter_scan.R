@@ -88,7 +88,11 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
   logger("Completed parameter scan.", level = INFO)
   logger(paste0("Time used: ", Sys.time() - start_time), level = INFO)
   if (outfilename != "") {
-    logger(sprintf("Storing results as `%s`.", outfilename))
+    question = "About to write results to `%s`. Continue? [Y/n] "
+    response = prompt_user(sprintf(question, outfilename))
+    if (!response %in% c("y", "Y", "")) {
+      logger(sprintf("Storing results as `%s`.", outfilename))
+    }
     saveRDS(results, outfilename)
   }
   return(results)
