@@ -2,19 +2,45 @@
 % Please edit documentation in R/setup.R
 \name{setup_directory}
 \alias{setup_directory}
-\title{Initialize the desired directory structure for working with rmodvege.}
+\title{Initialize rmodvege directory structure}
 \usage{
-setup_directory(root = ".", include_examples = TRUE)
+setup_directory(root = ".", include_examples = TRUE, force = FALSE)
 }
 \arguments{
 \item{root}{Path to directory in which to initialize.}
 
-\item{include_examples}{If `TRUE` (default), include example data and 
+\item{include_examples}{If \code{TRUE} (default), include example data and
 input parameters in the appropriate directories.}
+
+\item{force}{boolean If \code{TRUE}, the user will not be asked for permission
+before we write to the filesystem.}
 }
 \description{
-Initialize the desired directory structure for working with rmodvege.
+Creates directories in which rmodvege by default looks for or deposits
+certain files. Also, optionally populates these directories with example
+files, which are useful to familiarize oneself with the rmodvege
+simulation framework.
 }
-\seealso{
-[examples]
+\examples{
+# Prepare a temporary directory to write to
+tmp = file.path(tempdir(), "test-setup_directory")
+dir.create(tmp)
+
+# We need `force = TRUE` here in order to make the example work in 
+# non-interactive settings.
+setup_directory(root = tmp, include_examples = FALSE, force = TRUE)
+
+# The `input`, `output` and `data` directories are now present.
+list.files(tmp)
+
+# Warnings are issued if directories are already present. Example files 
+# are still copied and potentially overwritten.
+setup_directory(root = tmp, include_examples = TRUE, force = TRUE)
+
+# Example files are now present
+list.files(tmp, recursive = TRUE)
+
+# End of the example. The following code is for cleaning up.
+unlink(tmp, recursive = TRUE)
+
 }

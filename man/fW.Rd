@@ -25,3 +25,9 @@ Pasture Growth Model for Use in a Whole-Farm Dairy Production Model,
 Agricultural Systems 76, Nr. 3 (1. Juni 2003): 1183 1205. 
 https://doi.org/10.1016/S0308-521X(02)00104-X.
 }
+\examples{
+fW(0.5, 7)
+fW(0.5, 5)
+fW(0.5, 3)
+
+}

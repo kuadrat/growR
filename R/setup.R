@@ -1,15 +1,54 @@
-#' Initialize the desired directory structure for working with rmodvege.
+#' Initialize rmodvege directory structure
+#'
+#' @description
+#' Creates directories in which rmodvege by default looks for or deposits 
+#' certain files. Also, optionally populates these directories with example 
+#' files, which are useful to familiarize oneself with the rmodvege 
+#' simulation framework.
 #'
 #' @param root Path to directory in which to initialize.
 #' @param include_examples If `TRUE` (default), include example data and 
 #'   input parameters in the appropriate directories.
+#' @param force boolean If `TRUE`, the user will not be asked for permission 
+#'   before we write to the filesystem.
 #'
-#' @seealso [examples]
+#' @examples
+#' # Prepare a temporary directory to write to
+#' tmp = file.path(tempdir(), "test-setup_directory")
+#' dir.create(tmp)
 #'
+#' # We need `force = TRUE` here in order to make the example work in 
+#' # non-interactive settings.
+#' setup_directory(root = tmp, include_examples = FALSE, force = TRUE)
+#' 
+#' # The `input`, `output` and `data` directories are now present.
+#' list.files(tmp)
+#'
+#' # Warnings are issued if directories are already present. Example files 
+#' # are still copied and potentially overwritten.
+#' setup_directory(root = tmp, include_examples = TRUE, force = TRUE)
+#'
+#' # Example files are now present
+#' list.files(tmp, recursive = TRUE)
+#'
+#' # End of the example. The following code is for cleaning up.
+#' unlink(tmp, recursive = TRUE)
+#'
+#' @md
 #' @export
 #'
-setup_directory = function(root = ".", include_examples = TRUE) {
+setup_directory = function(root = ".", include_examples = TRUE, force = FALSE) {
   full_path = path.expand(root)
+  # Ask user for permission to write to the file system.
+  if (!force) {
+    message = "This function is going to create directories and files in `%s`. 
+Continue? [y/N]" 
+    response = prompt_user(sprintf(message, full_path))
+    if (response != "y") {
+      cat("Quitting.")
+      return()
+    }
+  }
   # Check if directory is empty
   contents = list.files(full_path)
   empty = length(contents) == 0
@@ -86,13 +125,7 @@ setup_directory = function(root = ".", include_examples = TRUE) {
   print(sprintf("Copied example files to respective directories."))
 }
 
-dirs = c("input", "output", "data")
-files = c("example_config.txt", "compare.R")
-
 ## Used when testing
-clean_up_dir = function() {
-  for (dir in c(dirs, files)) {
-    unlink(dir, recursive = TRUE)
-  }
+.tmpdir = function() {
+  file.path(tempdir(), "test-directory")
 }
-

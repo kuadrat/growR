@@ -35,3 +35,14 @@ ax A ggplot list (like the input *ax*).
 Add a lineplot of the *x_key* and *y_key* columns in *data* to the 
 supplied ggplot object *ax*. If none is supplied, a new one is created.
 }
+\examples{
+library(ggplot2)
+# Add first set of data
+ax = add_lines(mtcars, x_key = "wt", y_key = "mpg", label = "First Line")
+
+# Add one more line to the plot
+ax = add_lines(mtcars, ax = ax, x_key = "wt", y_key = "qsec", 
+label = "Second Line")
+
+print(ax)
+}

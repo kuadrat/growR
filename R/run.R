@@ -19,6 +19,14 @@
 #'   were run. Otherwise an empty list. Defaults to 
 #'   getOption("rmodvege.output_dir").
 #'
+#' @examples
+#' env1 = create_example_environment(site = "posieux")
+#' env2 = create_example_environment(site = "sorens")
+#'
+#' modvege_run_loop(c(env1, env2), write_files = FALSE, 
+#' store_results = TRUE)
+#'
+#' @md
 #' @export
 #' 
 modvege_run_loop = function(modvege_environments,

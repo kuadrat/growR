@@ -13,6 +13,9 @@ ensure_unique_filename(path, add_num = TRUE)
 \item{add_num}{boolean; if TRUE, add the incremental number anyways, even 
 if no filename conflict exists.}
 }
+\value{
+A unique filename.
+}
 \description{
 Replace given filename by a version that contains an incremental number 
 in order to prevent overwriting existing files.

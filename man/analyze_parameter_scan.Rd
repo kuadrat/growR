@@ -4,16 +4,52 @@
 \alias{analyze_parameter_scan}
 \title{Analyze results of a parameter scan}
 \usage{
-analyze_parameter_scan(parameter_scan_results)
+analyze_parameter_scan(parameter_scan_results, datafile = "")
 }
 \arguments{
 \item{parameter_scan_results}{String or List. If a string, it is
 interpreted as the name of a \code{rds} file that contains the results of a
 parameter scan which is then loaded using \code{\link[=readRDS]{readRDS()}}. Otherwise, it
 should be the output of \code{\link[=run_parameter_scan]{run_parameter_scan()}} directly.}
+
+\item{datafile}{Name or path to a file containing measured data. The model
+results in \emph{parameter_scan_results} are compared to the data therein. If
+empty, the site is inferred from the \code{ModvegeSite} objects in
+\emph{parameter_scan_results} and a corresponding data file is searched for
+in `getOptions("rmodvege.data_dir", default = "data").}
+}
+\value{
+analyzed A list with threy keys: \code{results}, \code{metrics} and \code{params}.
+\describe{
+\item{results}{A data.frame with \code{1 + n_params + n_metrics} columns
+where each row represents a different parameter combination.
+The first column (\code{n}) gives the row number and is used to identify a
+parameter combination. The subsequent \code{n_params} columns give the
+values of the parameters used in this combination. The final \code{n_metrics}
+columns give the resulting performance score of the model run with
+these parameters for each metric.}
+\item{params}{A vector containing the names of the scanned parameters.
+These are also the column names of columns \code{2:(n_params+1)} in
+\emph{results}.}
+\item{metrics}{A vector containing the names of the employed
+performance metrics. These are also the column names of the last
+\code{n_metrics} columns in \emph{results}.}
+}
 }
 \description{
 Analyze results of a parameter scan
+}
+\examples{
+# There needs to be data available with which the modle is to be compared.
+# For this example, use data provided by the package.
+path = system.file("extdata", package = "rmodvege")
+datafile = file.path(path, "posieux1.csv")
+print(path)
+
+# Use example parameter scan data provided by the package.
+# You would generally create your own data using `run_parameter_scan()`.
+analyze_parameter_scan(parameter_scan_example, datafile = datafile)
+
 }
 \seealso{
 \code{\link[=run_parameter_scan]{run_parameter_scan()}}, \code{\link[=readRDS]{readRDS()}}

@@ -11,6 +11,16 @@
 
 \item{B}{Second functional group.}
 }
+\value{
+C A \code{FunctionalGroup} object where each value is the sum of the
+respective values in \emph{A} and \emph{B}.
+}
 \description{
 Addition occurs by adding all FG parameters separately.
+}
+\examples{
+fg1 = FunctionalGroup$new()
+fg2 = FunctionalGroup$new(SLA = 0.02)
+fg1 + fg2
+
 }

@@ -14,6 +14,16 @@
 #'
 #' @return ax A ggplot list (like the input *ax*).
 #'
+#' @examples
+#' library(ggplot2)
+#' # Add first set of data
+#' ax = add_lines(mtcars, x_key = "wt", y_key = "mpg", label = "First Line")
+#' 
+#' # Add one more line to the plot
+#' ax = add_lines(mtcars, ax = ax, x_key = "wt", y_key = "qsec", 
+#' label = "Second Line")
+#'
+#' print(ax)
 #' @export
 add_lines = function(data, 
                      ax = NULL, 
@@ -35,6 +45,11 @@ add_lines = function(data,
   if (0 %in% dim(data)) { 
     return(ax)
   }
+
+  if (is.null(label)) {
+    label = y_key
+  }
+
   # Create a container for ggplot
   df = data.frame(x = data[[x_key]],
                   y = data[[y_key]], 
@@ -86,11 +101,6 @@ get_site_name = function(filename) {
 #' Upon loading, the cumulative biomass growth *cBM* is automatically 
 #' calculated from the given daily biomass growth *dBM* values.
 #' 
-#' @details
-#' The data files are searched for in the subdirectory 
-#' `getOptions("rmodvege.data_dir")`, which defaults to `data/`.
-#'
-#' @param sites Vector of site names for which data to load.
 #'
 #' @return measured_data list of data.frame each corresponding to one of 
 #'  the sites detected in *filenames*. Each data.frame contains the keys
@@ -98,14 +108,13 @@ get_site_name = function(filename) {
 #'  - cBM
 #'  - year
 #'  - DOY
-#'
+#' 
 #' @md
-#' @export
-load_measured_data = function(sites) {
+load_measured_data = function(filenames) {
   # Load relevant datasets
   measured_data = list()
-  for (site in sites) {
-    dt = read.table(sprintf("data/%s.csv", site), header = TRUE, sep = ";")
+  for (filename in filenames) {
+    dt = read.table(file.path(filename), header = TRUE, sep = ";")
     # Ditch all NA rows.
     dt = dt[!is.na(dt$dBM), ]
     # Calculate cumulative harvested biomass
@@ -129,9 +138,28 @@ load_measured_data = function(sites) {
         last_year = current_year
       }
     }
+    site = get_site_name(filename)
     measured_data[[site]] = dt
   }
   return(measured_data)
+}
+
+#' Load measured data based on site names
+#'
+#' @describeIn load_measured_data
+#' Data filenames are generated on the convention `SITE.csv` and are searched 
+#' for in the subdirectory `getOption("rmodvege.data_dir")`, which defaults 
+#' to `data/`.
+#'
+#' @param sites Vector of site names for which data to load.
+#'
+load_data_for_sites = function(sites) {
+  data_dir = getOption("rmodvege.data_dir", default = "data")
+  filenames = sapply(sites, function(site) {
+                              file.path(data_dir, sprintf("%s.csv", site))
+                            }
+  )
+  return(load_measured_data(filenames))
 }
 
 #' Load data matching supplied filenames
@@ -150,7 +178,6 @@ load_measured_data = function(sites) {
 #' with `x` being the site name.
 #'
 #' @md
-#' @export
 load_matching_data = function(filenames) {
   # Detect sites
   sites = c()

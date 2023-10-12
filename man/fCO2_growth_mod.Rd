@@ -33,3 +33,9 @@ Kellner, J., S. Multsch, T. Houska, P. Kraft, C. Mueller and L. Breuer, 2017:
    A coupled hydrological-plant growth model for simulating the effect of
    elevated CO2 on a temperate grassland. Agric. For. Meteotol., 246, 42-50.
 }
+\examples{
+fCO2_growth_mod(420)
+# The modifier is always relative to *c_ref*. This returns 1.
+fCO2_growth_mod(420, c_ref = 420)
+
+}

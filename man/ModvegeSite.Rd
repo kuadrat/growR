@@ -90,7 +90,7 @@ multiplicative factor. Dimensionless.}
 \seealso{
 \link[=autocut]{autocut}
 
-:func:\code{get_target_biomass}
+\code{get_target_biomass()}
 
 \code{ModvegeParameters$set_parameters()}
 }
@@ -251,7 +251,7 @@ The ManagementData object, if it exists.
 \if{html}{\out{<a id="method-ModvegeSite-determine_cut_from_input"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-determine_cut_from_input}{}}}
 \subsection{Method \code{determine_cut_from_input()}}{
-Read from the input whether a cut occurs on day \emph{j}.
+Read from the input whether a cut occurs on day \emph{DOY}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$determine_cut_from_input(DOY)}\if{html}{\out{</div>}}
 }
@@ -262,6 +262,9 @@ Read from the input whether a cut occurs on day \emph{j}.
 \item{\code{DOY}}{Integer day of the year for which to check.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Boolean \code{TRUE} if a cut happens on day \emph{DOY}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -301,6 +304,9 @@ If that amount of time has passed, return \code{TRUE}, otherwise return
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+Boolean \code{TRUE} if a cut happens on day \emph{DOY}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-get_target_biomass"></a>}}
@@ -337,6 +343,10 @@ management intensity..}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+target Biomass (kg / ha) that should be reached on day \emph{DOY}
+for this management \emph{intensity}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-run"></a>}}
@@ -356,9 +366,14 @@ Carry out a ModVege simulation for one year.
 :method:\code{Weather$get_weather_for_year}}
 
 \item{\code{management}}{Management List for given year as provided by
-:class:\code{ModvegeEnvironment}'s :method:\code{get_environment_for_year}.}
+\code{ModvegeEnvironment}'s method \code{get_environment_for_year()}.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+None Fills the state variables of this instance with the
+simulated values. Access them programmatically or write them to
+file using \code{write_output()}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -378,6 +393,9 @@ A header with metadata is prepended to the actual data.
 \item{\code{filename}}{Path or name of filename to be created or overwritten.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+None Writes simulation results to file \emph{filename}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -400,6 +418,9 @@ account for potential changes to functional group weights.
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+None Updates this object's parameter values.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-plot"></a>}}
@@ -413,6 +434,9 @@ if applicable, target biomass, dBM, cBM and hvBM.
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+None Creates a plot of the result.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ModvegeSite-clone"></a>}}

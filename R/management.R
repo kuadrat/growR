@@ -3,30 +3,30 @@
 #' Data structure that contains management data which can serve as input to 
 #' an rmodvege simulation run.
 #'
-#' @field management_file string The file that was read.
-#' @field is_empty boolean Used to determine if management data is present or 
-#'   not. In the latter case, rmodvege will simulate management decisions 
-#'   automatically.
-#' @field cut_years numeric Vector of length *N* where *N* is the total 
-#'   number of cuts read from the input file. Gives the year in which 
-#'   corresponding cut was made.
-#' @field cut_DOY numeric Vector of length *N* giving the day of year (as an 
-#'   integer) on which a cut was made.
-#' @field intensity string Management intensity for "autocut". One of 
-#'   c("high", "middle", "low").
-#'
+#' @md
 #' @export
 ManagementData = R6Class(
   "ManagementData",
 
   public = list(
   #-Public-attributes-----------------------------------------------------------
+#' @field management_file string The file that was read.
     management_file = NULL,
+#' @field is_empty boolean Used to determine if management data is present or 
+#'   not. In the latter case, rmodvege will simulate management decisions 
+#'   automatically.
     is_empty = TRUE,
-    #' @field years List of unique years for which data is available.
+#' @field years List of unique years for which data is available.
     years = NULL,
+#' @field cut_years numeric Vector of length *N* where *N* is the total 
+#'   number of cuts read from the input file. Gives the year in which 
+#'   corresponding cut was made.
     cut_years = NULL,
+#' @field cut_DOY numeric Vector of length *N* giving the day of year (as an 
+#'   integer) on which a cut was made.
     cut_DOY = NULL,
+#' @field intensity string Management intensity for "autocut". One of 
+#'   c("high", "middle", "low").
     intensity = NULL,
 
   #-Public-methods--------------------------------------------------------------
@@ -37,7 +37,7 @@ ManagementData = R6Class(
     #' @param years numeric Vector of years for which the management is to be 
     #'   extracted.
     #'
-    #' @seealso [ManagementData$read_management()]
+    #' @seealso `ManagementData$read_management()`
     initialize = function(management_file = NULL, years = NULL) {
       if (!is.null(management_file)) {
         self$read_management(management_file, years)
@@ -49,6 +49,7 @@ ManagementData = R6Class(
     #' @param management_file Path to or name of file containing management data.
     #' @param years Years for which the management is to be extracted.  
     #'   Default (NULL) is to read in all found years.
+    #' @return None The object's field are filled.
     #'
     read_management = function(management_file, years = NULL) {
       # Prepare the resulting container
@@ -88,24 +89,31 @@ ManagementData = R6Class(
       }
     },
 
-    #' Extract management data for given year
+    #' @description Extract management data for given year
     #'
     #' This simply filters out all data not matching *year* and returns a 
-    #' list with the relevant keys, i.e. \describe{
+    #' list with the relevant keys.
+    #'
+    #' @param year integer Year for which to extract management data.
+    #' @return M A list containing the keys: 
+    #'   \describe{
     #'   \item{is_empty}{boolean Used to determine if management data is 
     #'   present or not. In the latter case, rmodvege will simulate 
     #'   management decisions automatically.}
     #'   \item{cut_years}{numeric Vector of length *N* where *N* is the total 
-    #'   number of cuts read from the input file. Gives the year in which 
-    #'   corresponding cut was made.}
+    #'   number of cuts for this *year*, as read from the input file. Gives 
+    #'   the year in which corresponding cut was made.}
     #'   \item{cut_DOY}{numeric Vector of length *N* giving the day of year (as an 
     #'   integer) on which a cut was made.}
     #'   \item{intensity}{string Management intensity for "autocut". One of 
     #'   c("high", "middle", "low").}
     #'   \item{n_cuts}{integer Number of cuts occurring in given year.}
     #' }
+    #'   The two vectors in `cut_DOY` and `cut_years` 
+    #'   differ from this object's respective fields in that only data for 
+    #'   selected year is present.
     #'
-    #' @param year integer Year for which to extract management data.
+    #' @md
     get_management_for_year = function(year) {
       M = list(is_empty = self$is_empty,
                intensity = self$intensity)

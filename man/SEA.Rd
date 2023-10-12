@@ -23,3 +23,7 @@ its minimum.}
 Function representing the strategy of plants adjusting their roots:shoots 
 ratios during the season.
 }
+\examples{
+SEA(800)
+
+}

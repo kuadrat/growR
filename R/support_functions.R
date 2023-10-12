@@ -16,6 +16,9 @@
 #' @return A value in the range [0, 1], acting as a multiplicative factor to 
 #'   plant growth.
 #'
+#' @examples
+#' fPAR(4)
+#'
 #' @export
 fPAR <- function(PAR) {
   max(0., min(1., 1. - 0.0445 * (PAR - 5.))) }
@@ -36,6 +39,11 @@ fPAR <- function(PAR) {
 #'
 #' @return A value in the range [0, 1], acting as a multiplicative factor to 
 #'   plant growth.
+#'
+#' @examples
+#' fT(4)
+#' fT(10)
+#' fT(15)
 #'
 #' @export
 fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
@@ -67,6 +75,11 @@ fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
 #'
 #' @return A value in the range [0, 1], acting as a multiplicative factor to 
 #'   plant growth.
+#'
+#' @examples
+#' fW(0.5, 7)
+#' fW(0.5, 5)
+#' fW(0.5, 3)
 #'
 #' @export
 fW <- function(W, PET) {
@@ -113,6 +126,9 @@ fW <- function(W, PET) {
 #' @param ST2 float Temperature sum after which SEA reaches and remains at 
 #'   its minimum.
 #'
+#' @examples
+#' SEA(800)
+#'
 #' @export
 SEA <- function(ST, minSEA = 0.65, maxSEA = 1.35, ST1 = 800, ST2 = 1450) {
   if (ST < 200.) {
@@ -139,8 +155,15 @@ SEA <- function(ST, minSEA = 0.65, maxSEA = 1.35, ST1 = 800, ST2 = 1450) {
 #' published by NOAA
 #' (https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt)
 #'
+#' @note This is only approximately valid for years in the range 1949 - 2020
 #' @param year Calender year for which to extract CO2 concentration.
 #' @return Approximate CO2 concentration in ppm for given year.
+#'
+#' @examples
+#' atmospheric_CO2(1990)
+#' atmospheric_CO2(2020)
+#' # Insensible
+#' atmospheric_CO2(1800)
 #'
 #' @export
 atmospheric_CO2 = function(year) {
@@ -159,6 +182,12 @@ atmospheric_CO2 = function(year) {
 #' @param aCO2 Target CO2 concentration in ppm.
 #' @return year Approximate year (as floating point number) by which target 
 #'   concentration is reached.
+#'
+#' @examples
+#' aCO2_inverse(420)
+#' aCO2_inverse(700)
+#' # Insensible
+#' aCO2_inverse(100)
 #'
 #' @export
 aCO2_inverse = function(aCO2) {
@@ -193,6 +222,11 @@ aCO2_inverse = function(aCO2) {
 #'  the result for an atmospheric concentration of 700 ppm of roughly 40\%!.
 #' @param c_ref numeric Reference CO2 concentration in ppm.
 #'
+#' @examples
+#' fCO2_growth_mod(420)
+#' # The modifier is always relative to *c_ref*. This returns 1.
+#' fCO2_growth_mod(420, c_ref = 420)
+#'
 #' @export
 fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
   return(1 + b * log(c_CO2 / c_ref))
@@ -223,13 +257,14 @@ fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
 #' @param c_CO2 numeric Atmospheric CO2 concentration in ppm
 #' @param c_ref numeric Reference CO2 concentration in ppm.
 #'
+#' @examples
+#' fCO2_transpiration_mod(420)
+#' # The modifier is always relative to *c_ref*. This returns 1.
+#' fCO2_transpiration_mod(420, c_ref = 420)
+#'
 #' @export
 fCO2_transpiration_mod = function(c_CO2, c_ref = 360) {
   return(1 - 0.0001 * (c_CO2 - c_ref))
-}
-
-fCO2_transpiration_mod_pier = function(c_CO2, c_ref = 360) {
-  return(1.1 / (1 + 0.1*c_CO2/c_ref))
 }
 
 # These other functions, which address the effect of elevated CO2 on
@@ -261,12 +296,17 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #' @return Annual gross yield in t / ha (metric tons per hectare). Note that 
 #'   1 t/ha = 0.1 kg/m^2.
 #'
+#' @examples
+#' get_annual_gross_yield(1200)
+#' get_annual_gross_yield(1200, intensity = "low")
+#'
 #' @export
 get_annual_gross_yield = function(elevation, intensity = "high") {
-  mask = yield_parameters$intensity == intensity
-  a = yield_parameters[mask, ]$a
-  b = yield_parameters[mask, ]$b
-  return(a + b * max(elevation, 500))
+  #mask = yield_parameters$intensity == intensity
+  #a = yield_parameters[mask, ]$a
+  #b = yield_parameters[mask, ]$b
+  #return(a + b * max(elevation, 500))
+  return(1)
 }
 
 #' Return the number of expected cuts for a site at a given *elevation* and 
@@ -281,6 +321,10 @@ get_annual_gross_yield = function(elevation, intensity = "high") {
 #'   intensity for considered site.
 #'
 #' @return Number of expected cuts per season.
+#'
+#' @examples
+#' get_expected_n_cuts(1200)
+#' get_expected_n_cuts(1200, intensity = "low")
 #'
 #' @export
 get_expected_n_cuts = function(elevation, intensity = "high") {
@@ -319,6 +363,12 @@ get_expected_n_cuts = function(elevation, intensity = "high") {
 #' @return The fraction ([0, 1]) of biomass harvested at the cut at given *DOY* 
 #'   divided by the total annual biomass.
 #'
+#' @examples
+#' get_relative_cut_contribution(1)
+#' get_relative_cut_contribution(150)
+#' get_relative_cut_contribution(365)
+#' # DOYs larger than 365 are insensible
+#' get_relative_cut_contribution(600)
 #' @export
 get_relative_cut_contribution = function(DOY) {
   return((-0.1228 * DOY + 48.96) * 1e-2)
@@ -340,6 +390,11 @@ get_relative_cut_contribution = function(DOY) {
 #'   sense.
 #' 
 #' @seealso [get_relative_cut_contribution()]
+#' 
+#' @examples
+#' get_end_of_cutting_season(50, 1200)
+#' get_end_of_cutting_season(50, 1200, intensity = "low")
+#'
 #' @export
 get_end_of_cutting_season = function(min_biomass, elevation, 
                                      intensity = "high") {

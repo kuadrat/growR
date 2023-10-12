@@ -23,7 +23,7 @@ use the `options()` function.
         input files.}
   \item{rmodvege.output_dir}{Name of the directory into which output files
         are written.}
-  \item{rmodvegedata_dir}{Name of the directory in which to look for 
+  \item{rmodvege.data_dir}{Name of the directory in which to look for 
         measured data files.}
 }
 }

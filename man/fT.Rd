@@ -28,3 +28,9 @@ maximum at temperatures in the interval [T1, T2]. For temperatures exceeding
 *T2*, photosynthetic activity decreases again until it reaches 0 at a 
 final temperature of 40 degree Celsius.
 }
+\examples{
+fT(4)
+fT(10)
+fT(15)
+
+}

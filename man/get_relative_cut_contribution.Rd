@@ -27,3 +27,10 @@ Pre-Alpine Grassland Productivity.” European Journal of Agronomy
 128 (August 1, 2021): 126306. 
 https://doi.org/10.1016/j.eja.2021.126306.
 }
+\examples{
+get_relative_cut_contribution(1)
+get_relative_cut_contribution(150)
+get_relative_cut_contribution(365)
+# DOYs larger than 365 are insensible
+get_relative_cut_contribution(600)
+}

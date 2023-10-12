@@ -11,6 +11,15 @@
 
 \item{fg}{Functional group whose parameters are to be multiplied.}
 }
+\value{
+C A \code{FunctionalGroup} object that has all its values multiplied by
+\emph{scalar}.
+}
 \description{
 Scalar multiplication of functional group (order matters: scalar * FG)
+}
+\examples{
+fg = FunctionalGroup$new()
+3.1 * fg
+0 * fg
 }

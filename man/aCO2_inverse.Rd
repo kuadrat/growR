@@ -22,3 +22,10 @@ Does not give a reasonable result for values below 317ppm, corresponding
 to the year 1949, as this is where the minimum of the parabola is located 
 in the second order fit to the data that was used in aCO2.fct.
 }
+\examples{
+aCO2_inverse(420)
+aCO2_inverse(700)
+# Insensible
+aCO2_inverse(100)
+
+}

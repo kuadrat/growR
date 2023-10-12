@@ -21,3 +21,13 @@ year. it is based on a polynomial fit to the annual CO2 data
 published by NOAA
 (https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_gl.txt)
 }
+\note{
+This is only approximately valid for years in the range 1949 - 2020
+}
+\examples{
+atmospheric_CO2(1990)
+atmospheric_CO2(2020)
+# Insensible
+atmospheric_CO2(1800)
+
+}

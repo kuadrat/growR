@@ -218,9 +218,10 @@ ModvegeSite = R6Class(
         }
       },
 
-      #' @description Read from the input whether a cut occurs on day *j*.
+      #' @description Read from the input whether a cut occurs on day *DOY*.
       #'
       #' @param DOY Integer day of the year for which to check.
+      #' @return Boolean `TRUE` if a cut happens on day *DOY*.
       #'
       determine_cut_from_input = function(DOY) {
         M = self$get_management()
@@ -252,8 +253,9 @@ ModvegeSite = R6Class(
       #' `FALSE`.
       #'
       #' @param DOY Integer day of the year for which to make a cut decision.
+      #' @return Boolean `TRUE` if a cut happens on day *DOY*.
       #'
-      #' @seealso :func:`get_target_biomass`
+      #' @seealso `get_target_biomass()`
       #'
       determine_cut_automatically = function(DOY) {
         # Don't cut close to end-of-year
@@ -316,6 +318,9 @@ ModvegeSite = R6Class(
       #' @param DOY Integer day of the year to consider.
       #' @param intensity One of {"high", "middle", "low"} specifying 
       #'   management intensity..
+      #' @return target Biomass (kg / ha) that should be reached on day *DOY* 
+      #'   for this management *intensity*.
+      #'
       get_target_biomass = function(DOY, intensity = "high") {
         # For DOY < 130, use the value at DOY = 130
         DOY = max(130, DOY)
@@ -339,7 +344,10 @@ ModvegeSite = R6Class(
       #' @param weather Weather List for given year as returned by 
       #'   :method:`Weather$get_weather_for_year`
       #' @param management Management List for given year as provided by 
-      #'   :class:`ModvegeEnvironment`'s :method:`get_environment_for_year`.
+      #'   `ModvegeEnvironment`'s method `get_environment_for_year()`.
+      #' @return None Fills the state variables of this instance with the 
+      #'   simulated values. Access them programmatically or write them to 
+      #'   file using `write_output()`.
       #'
       run = function(year, weather, management) {
         logger("Start of ModvegeSite$run()", level = TRACE)
@@ -405,6 +413,7 @@ ModvegeSite = R6Class(
       #' A header with metadata is prepended to the actual data.
       #'
       #' @param filename Path or name of filename to be created or overwritten.
+      #' @return None Writes simulation results to file *filename*.
       #'
       write_output = function(filename) {
         # Build the header containing metadata
@@ -438,6 +447,7 @@ ModvegeSite = R6Class(
       #' account for potential changes to functional group weights.
       #'
       #' @param params List of name-value pairs of the parameters to update.
+      #' @return None Updates this object's parameter values.
       #'
       #' @seealso `ModvegeParameters$set_parameters()`
       #'
@@ -449,6 +459,9 @@ ModvegeSite = R6Class(
       #'
       #' Creates a simple base R plot showing the BM with cutting events and,
       #' if applicable, target biomass, dBM, cBM and hvBM.
+      #'
+      #' @return None Creates a plot of the result.
+      #'
       plot = function() {
         par(mfrow = c(2, 2))
         xlab = "DOY"

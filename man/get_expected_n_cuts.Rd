@@ -21,3 +21,8 @@ Number of expected cuts per season.
 This uses :data.frame:`management_parameters` as a lookup table and 
 interpolates linearly in between the specified values.
 }
+\examples{
+get_expected_n_cuts(1200)
+get_expected_n_cuts(1200, intensity = "low")
+
+}

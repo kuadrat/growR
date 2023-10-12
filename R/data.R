@@ -20,6 +20,7 @@
 #'    \item{b}{Slope *b* in t / ha / m}
 #' }
 #'
+#' @md
 "yield_parameters"
 
 #' Management practices for Swiss grasslands
@@ -46,6 +47,7 @@
 #' \item{sigma_yield}{Uncertainty on yield in t / ha}
 #' }
 #'
+#' @md
 "management_parameters"
 
 #' Example Weather Data
@@ -63,7 +65,7 @@
 #' the package. Use `system.file("extdata", package = "rmodvege")` to locate them.
 #'
 #' The *snow* column is not actually used by rmodvege but rather calculated 
-#' through precipitation and temperatures in [WeatherData$read_weather()].
+#' through precipitation and temperatures in `WeatherData$read_weather()`.
 #'
 #' Likewise, the *rSSD* column is deprecated, currently unused and only kept 
 #' for backwards compatibility.
@@ -87,6 +89,44 @@
 #'     \item{ET0}{Evapotranspiration in mm.}
 #'     \item{snow}{Precipitation in the form of snow in mm}
 #'   }
+#' @md
 #'
 "posieux_weather"
+
+#' Example results of a parameter scan
+#'
+#' @description
+#' The function [run_parameter_scan()] can take a significant time to 
+#' execute, as it typically requires a few dozen model evaluations or more.
+#' In order to still showcase what its output can look like, and to 
+#' facilitate testing and giving examples in the documentation of tools that 
+#' make use of the output of [run_parameter_scan()] (such as e.g. 
+#' [analyze_parameter_scan()]), this example dataset is provided.
+#'
+#' @details
+#' The input for the parameter scan that produced this output was:
+#' - ```param_values = list(w_FGA = seq(0.25, 1, 0.25),
+#'                          w_FGB = seq(0.25, 1, 0.25),
+#'                          w_FGC = seq(0, 0.25, 0.25),
+#'                          w_FGD = c(0),
+#'                          NI = seq(0.75, 1.0, 0.25)
+#' ```
+#' - `eps = 2e-2`
+#' )
+#'
+#' @format A list containing an entry for each supplied parameter set 
+#'   in *param_values*. Each entry is itself a list containing the following 
+#'   keys:
+#'   \describe{
+#'   \item{params}{The parameter set that was used to run modvege for this 
+#'   entry.}
+#'   \item{data}{A list containing for each simulated year a ModvegeSite 
+#'   object which was run for the respective year and therefore carries the 
+#'   respective results.}
+#'   }
+#'
+#' @seealso [run_parameter_scan()]
+#'
+#' @md
+"parameter_scan_example"
 

@@ -9,29 +9,31 @@ Management Data Class
 Management Data Class
 }
 \details{
-Data structure that contains management data which can serve as input to 
+Data structure that contains management data which can serve as input to
 an rmodvege simulation run.
 }
 \seealso{
-[ManagementData$read_management()]
+\code{ManagementData$read_management()}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{management_file}}{string The file that was read.}
 
-\item{\code{is_empty}}{boolean Used to determine if management data is present or 
-not. In the latter case, rmodvege will simulate management decisions 
+\item{\code{is_empty}}{boolean Used to determine if management data is present or
+not. In the latter case, rmodvege will simulate management decisions
 automatically.}
 
-\item{\code{cut_years}}{numeric Vector of length *N* where *N* is the total 
-number of cuts read from the input file. Gives the year in which 
+\item{\code{years}}{List of unique years for which data is available.}
+
+\item{\code{cut_years}}{numeric Vector of length \emph{N} where \emph{N} is the total
+number of cuts read from the input file. Gives the year in which
 corresponding cut was made.}
 
-\item{\code{cut_DOY}}{numeric Vector of length *N* giving the day of year (as an 
+\item{\code{cut_DOY}}{numeric Vector of length \emph{N} giving the day of year (as an
 integer) on which a cut was made.}
 
-\item{\code{intensity}}{string Management intensity for "autocut". One of 
+\item{\code{intensity}}{string Management intensity for "autocut". One of
 c("high", "middle", "low").}
 }
 \if{html}{\out{</div>}}
@@ -51,16 +53,16 @@ c("high", "middle", "low").}
 \subsection{Method \code{new()}}{
 Create a new ManagementData object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ManagementData$new(management_file = NULL, years = "all")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ManagementData$new(management_file = NULL, years = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{management_file}}{string Path to file containing the management 
+\item{\code{management_file}}{string Path to file containing the management
 data to be read.}
 
-\item{\code{years}}{numeric Vector of years for which the management is to be 
+\item{\code{years}}{numeric Vector of years for which the management is to be
 extracted.}
 }
 \if{html}{\out{</div>}}
@@ -70,9 +72,9 @@ extracted.}
 \if{html}{\out{<a id="method-ManagementData-read_management"></a>}}
 \if{latex}{\out{\hypertarget{method-ManagementData-read_management}{}}}
 \subsection{Method \code{read_management()}}{
-Read management data from supplied *management_file*.
+Read management data from supplied \emph{management_file}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ManagementData$read_management(management_file, years = "all")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ManagementData$read_management(management_file, years = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -81,32 +83,22 @@ Read management data from supplied *management_file*.
 \item{\code{management_file}}{Path to or name of file containing management data.}
 
 \item{\code{years}}{Years for which the management is to be extracted.
-  Default is "all" to read in all found years.
-
-Extract management data for given year
-
-This simply filters out all data not matching *year* and returns a 
-list with the relevant keys, i.e. \describe{
-  \item{is_empty}{boolean Used to determine if management data is 
-  present or not. In the latter case, rmodvege will simulate 
-  management decisions automatically.}
-  \item{cut_years}{numeric Vector of length *N* where *N* is the total 
-  number of cuts read from the input file. Gives the year in which 
-  corresponding cut was made.}
-  \item{cut_DOY}{numeric Vector of length *N* giving the day of year (as an 
-  integer) on which a cut was made.}
-  \item{intensity}{string Management intensity for "autocut". One of 
-  c("high", "middle", "low").}
-  \item{n_cuts}{integer Number of cuts occurring in given year.}
-}}
+Default (NULL) is to read in all found years.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+None The object's field are filled.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ManagementData-get_management_for_year"></a>}}
 \if{latex}{\out{\hypertarget{method-ManagementData-get_management_for_year}{}}}
 \subsection{Method \code{get_management_for_year()}}{
+Extract management data for given year
+
+This simply filters out all data not matching \emph{year} and returns a
+list with the relevant keys.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ManagementData$get_management_for_year(year)}\if{html}{\out{</div>}}
 }
@@ -117,6 +109,25 @@ list with the relevant keys, i.e. \describe{
 \item{\code{year}}{integer Year for which to extract management data.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+M A list containing the keys:
+\describe{
+\item{is_empty}{boolean Used to determine if management data is
+present or not. In the latter case, rmodvege will simulate
+management decisions automatically.}
+\item{cut_years}{numeric Vector of length \emph{N} where \emph{N} is the total
+number of cuts for this \emph{year}, as read from the input file. Gives
+the year in which corresponding cut was made.}
+\item{cut_DOY}{numeric Vector of length \emph{N} giving the day of year (as an
+integer) on which a cut was made.}
+\item{intensity}{string Management intensity for "autocut". One of
+c("high", "middle", "low").}
+\item{n_cuts}{integer Number of cuts occurring in given year.}
+}
+The two vectors in \code{cut_DOY} and \code{cut_years}
+differ from this object's respective fields in that only data for
+selected year is present.
 }
 }
 \if{html}{\out{<hr>}}

@@ -18,14 +18,14 @@ A data.frame with 15 rows and 5 variables:
 management_parameters
 }
 \description{
-Expected yields, uncertainties and average number of cuts as function of 
+Expected yields, uncertainties and average number of cuts as function of
 altitude and management intensity.
 }
 \details{
 Data after table 1b in
 
-Olivier Huguenin et al. 
-Grundlagen für die Düngung landwirtschaftlicher Kulturen in der Schweiz 
+Olivier Huguenin et al.
+Grundlagen für die Düngung landwirtschaftlicher Kulturen in der Schweiz
 (GRUD), Kapitel 9: Düngung von Grasland
 ISBN 1663-7852
 https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/

@@ -27,3 +27,8 @@ Grundlagen für die Düngung landwirtschaftlicher Kulturen in der Schweiz
 ISBN 1663-7852
 https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
 }
+\examples{
+get_annual_gross_yield(1200)
+get_annual_gross_yield(1200, intensity = "low")
+
+}

@@ -4,7 +4,7 @@
 \alias{create_combinations}
 \title{Create Valid Combinations}
 \usage{
-create_combinations(param_values)
+create_combinations(param_values, eps = 0.02)
 }
 \arguments{
 \item{param_values}{A list giving all options for the parameter values
@@ -12,6 +12,13 @@ which are to be combined. The format is \code{list[[param_name]] =  param_values
 respective parameter. The parameter names for functional group weights
 (\code{w_FGX} with \code{X} in (A, B, C, D)) receive special treatment and
 therefore need to be spelled correctly.}
+
+\item{eps}{Float specifying the precision to which the sum criterion for
+functional group has to be satisfied. The criterion is considered
+satisfied, if ```
+abs(w_FGA + w_FGB + w_FGC + w_FGD) - 1) <= eps
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{}\if{html}{\out{</div>}}}
 }
 \value{
 combinations An unnamed list where every entry is a list
@@ -39,4 +46,33 @@ This would generate the combinations\tabular{lll}{
    1 \tab 0 \tab 0.5 \cr
    1 \tab 0 \tab 0.9 \cr
 }
+}
+\examples{
+# Define the parameter steps you want to explore. This is a minimal example.
+# A more realistic one follows below.
+param_values = list(w_FGA = c(0, 0.5, 1),
+                    w_FGB = c(0, 0.5, 1),
+                    NI = c(0.5, 0.9)
+)
+# Create all valid combinations of the defined steps
+create_combinations(param_values)
+
+# More realistic example for an initial exploration of parameter space, 
+# where we suspect that functional groups A and B should be more prevalent 
+# than C and D. This produces 54 parameter combinations, which is a number 
+# of model evaluations that can run within a reasonable timeframe 
+# (depending on your system).
+param_values = list(w_FGA = seq(0, 1, 0.33),
+                    w_FGB = seq(0, 1, 0.33),
+                    w_FGC = seq(0, 0.7, 0.33),
+                    w_FGD = seq(0, 0.7, 0.33),
+                    NI = seq(0.5, 1.0, 0.25)
+)
+length(create_combinations(param_values))
+
+# The default value for *eps* made sure that combinations of 0.33 + 0.66 = 
+# 0.99 etc. are considered "valid". If we make *eps* too small, no valid 
+# combinations can be found:
+length(create_combinations(param_values, eps = 1e-3))
+
 }

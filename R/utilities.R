@@ -1,3 +1,13 @@
+## Helper to get user input from scripts or interactive sessions
+prompt_user = function(prompt) {
+  if (interactive()) {
+    return(readline(prompt))
+  } else {
+    cat(prompt)
+    return(readLines("stdin", n = 1))
+  }
+}
+
 #' Check if *package* is available
 #'
 #' Some functions not pertaining to the package core require additional 
@@ -48,9 +58,24 @@ DEBUG_LEVELS = c("ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
 #'   Messages with a level higher than the specified *level* are suppressed.
 #'   In other words, higher values of *level* lead to more output and vice 
 #'   versa.
+#' @return None Sets the option `"rmodvege.verbosity".
+#'
+#' @examples
+#' # At level 3, only one of the three following messages are printed.
+#' set_rmodvege_verbosity(3)
+#' logger("Message on level 5.", level = 5)
+#' logger("Message on level 4.", level = 4)
+#' logger("Message on level 3.", level = 3)
+#' # At level 5, all three are printed.
+#' set_rmodvege_verbosity(5)
+#' logger("Message on level 5.", level = 5)
+#' logger("Message on level 4.", level = 4)
+#' logger("Message on level 3.", level = 3)
+#' # Reset to default.
+#' set_rmodvege_verbosity()
 #'
 #' @export
-set_rmodvege_verbosity = function(level) {
+set_rmodvege_verbosity = function(level = 3) {
   options("rmodvege.verbosity" = level)
 }
 
@@ -61,7 +86,16 @@ set_rmodvege_verbosity = function(level) {
 #'        or equal to *DEBUG_LEVEL*
 #' @param stop_on_error Can be set to FALSE in order to continue 
 #' execution despite emitting a message of *level* ERROR.
+#' @return None Prints console output.
 #'
+#' @seealso [set_rmodvege_verbosity()]
+#'
+#' @examples
+#' logger("A standard message", level = 3)
+#' logger("A debug message", level = 4)
+#' logger("A deep debug message", level = 5)
+#'
+#' @md
 #' @export
 logger = function(msg = "", level = DEBUG, stop_on_error = TRUE) {
   DEBUG_LEVEL = getOption("rmodvege.verbosity", default = DEBUG)
@@ -84,6 +118,7 @@ logger = function(msg = "", level = DEBUG, stop_on_error = TRUE) {
 #' @param path string; Filename including path for which to check uniqueness.
 #' @param add_num boolean; if TRUE, add the incremental number anyways, even 
 #'   if no filename conflict exists.
+#' @return A unique filename.
 #'
 ensure_unique_filename = function(path, add_num = TRUE) {
   # If given filename is already unique, do nothing
@@ -185,8 +220,22 @@ append_to_table = function(data, filename, ...) {
 #' @return A list of `ModvegeEnvironment` instances corresponding to the 
 #'   configurations in the order they appear in *config_file*.
 #'
-#' @export
+#' @examples
+#' # First, we set up the expected directory structure in a temporary place
+#' tmp = file.path(tempdir(), "test-read_config")
+#' dir.create(tmp)
 #'
+#' # We need `force = TRUE` here in order to make the example work in 
+#' # non-interactive settings.
+#' setup_directory(root = tmp, include_examples = TRUE, force = TRUE)
+#' 
+#' # Now we can test `read_config`.
+#' read_config(file.path(tmp, "example_config.txt"),
+#'             input_dir = file.path(tmp, "input"))
+#'
+#'
+#' @md
+#' @export
 read_config = function(config_file, input_dir = NULL) {
   config = read.table(config_file)
   # Use the running index *I* here instead of concrete indexing. This 
@@ -272,6 +321,13 @@ parse_year_strings = function(year_strings) {
 #'   smoothing.
 #'
 #' @return x_smooth Smoothened version of *x*.
+#'
+#' @examples
+#' # Create a sine wave with noise
+#' x = seq(0, 4*pi, 0.1)
+#' y = sin(x) + runif(length(x))
+#' # Apply endpoint smoothing
+#' y_smooth = box_smooth(y, box_width = 5)
 #'
 #' @export
 box_smooth = function(x, box_width = 28) {

@@ -12,28 +12,36 @@ modvege_run_loop(
 )
 }
 \arguments{
-\item{modvege_environments}{A list of `ModvegeEnvironment` instances.}
+\item{modvege_environments}{A list of \code{ModvegeEnvironment} instances.}
 
-\item{write_files}{boolean; If TRUE, write results of 
-:class:`src.modvege_core.ModvegeSite` runs to files.}
+\item{write_files}{boolean; If TRUE, write results of
+:class:\code{src.modvege_core.ModvegeSite} runs to files.}
 
-\item{store_results}{boolean; If TRUE, return a list of the 
-:class:`src.modvege_core.ModvegeSite` objects which were run.}
+\item{store_results}{boolean; If TRUE, return a list of the
+:class:\code{src.modvege_core.ModvegeSite} objects which were run.}
 
-\item{output_dir}{string; name of directory to which output files are to 
-be written if `write_files` is `TRUE`.}
+\item{output_dir}{string; name of directory to which output files are to
+be written if \code{write_files} is \code{TRUE}.}
 }
 \value{
-If `store_results == TRUE`, a list of the format 
-  `[[run]][[year]]` containing clones of the `ModvegeSite` instances that 
-  were run. Otherwise an empty list. Defaults to 
-  getOption("rmodvege.output_dir").
+If \code{store_results == TRUE}, a list of the format
+\verb{[[run]][[year]]} containing clones of the \code{ModvegeSite} instances that
+were run. Otherwise an empty list. Defaults to
+getOption("rmodvege.output_dir").
 }
 \description{
 Start the loop over runs specified in the config file.
 }
 \details{
-By default, returns an empty list but writes output to the output files 
-as specified in `modvege_environment`. Change this behaviour through the 
-`write_files` and `store_results` arguments.
+By default, returns an empty list but writes output to the output files
+as specified in \code{modvege_environment}. Change this behaviour through the
+\code{write_files} and \code{store_results} arguments.
+}
+\examples{
+env1 = create_example_environment(site = "posieux")
+env2 = create_example_environment(site = "sorens")
+
+modvege_run_loop(c(env1, env2), write_files = FALSE, 
+store_results = TRUE)
+
 }

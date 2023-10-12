@@ -24,3 +24,11 @@ Employ an endpoint box filter (aka "running mean" or midpoint smoother) to the
 `x_smoothed[i] = mean(x[i-box_width:i])`
 Where *x* is considered to be *zero-padded* vor values of *i-box_width* < 1.
 }
+\examples{
+# Create a sine wave with noise
+x = seq(0, 4*pi, 0.1)
+y = sin(x) + runif(length(x))
+# Apply endpoint smoothing
+y_smooth = box_smooth(y, box_width = 5)
+
+}

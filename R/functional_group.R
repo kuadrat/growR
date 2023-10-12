@@ -128,6 +128,14 @@ FunctionalGroup = R6Class(
 #' 
 #' @param A First functional group.
 #' @param B Second functional group.
+#' @return C A `FunctionalGroup` object where each value is the sum of the 
+#'   respective values in *A* and *B*.
+#' @examples
+#' fg1 = FunctionalGroup$new()
+#' fg2 = FunctionalGroup$new(SLA = 0.02)
+#' fg1 + fg2
+#'
+#' @md
 #' @export
 #'
 `+.FunctionalGroup` = function(A, B) {
@@ -143,6 +151,13 @@ FunctionalGroup = R6Class(
 #'
 #' @param scalar float to multiply all FG parameters with.
 #' @param fg Functional group whose parameters are to be multiplied.
+#' @return C A `FunctionalGroup` object that has all its values multiplied by 
+#'   *scalar*.
+#' @examples
+#' fg = FunctionalGroup$new()
+#' 3.1 * fg
+#' 0 * fg
+#' @md
 #' @export
 `*.FunctionalGroup` = function(scalar, fg) {
   parameters = fg$get_parameters_ordered()
@@ -231,21 +246,32 @@ FG_D = FunctionalGroup$new(
 #' Uses the weights found in :param:`P` to construct the effective functional 
 #' groups and updates functional group parameters in P.
 #'
-#' @param P list; name-value pairs of parameters. Has to contain w_FGX with X 
-#'   in (A, B, C, D).
-#' @return A modified list, where all functional group parameters are updated 
-#'   to the values of the effective functional group according to the weights 
-#'   w_FGX.
+#' @param P list; name-value pairs of parameters. Should contain at least one
+#'   non-zero functional group weight w_FGX with X in (A, B, C, D). Any 
+#'   weights not present are assumed to be 0.
+#' @return A `FunctionalGroup` object composed of a linear combination of the 
+#'   four groups *FG_A*, *FG_B*, *FG_C* and *FG_D*.
 #'
 #' @seealso FunctionalGroup
 #'
-#' @export
+#' @examples
+#' parameters = list(w_FGA = 0.5, w_FGB = 0.5)
+#' build_functional_group(parameters)
 #'
+#' # The w_FGX weights in the input are interpreted as relative to each other.
+#' # Thus, they do not need to satisfy the sum rule. The following is 
+#' # equivalent to the previous example:
+#' parameters = list(w_FGA = 1, w_FGB = 1)
+#' build_functional_group(parameters)
+#'
+#' @md
+#' @export
 build_functional_group = function(P) {
-  w_A = P[["w_FGA"]]
-  w_B = P[["w_FGB"]]
-  w_C = P[["w_FGC"]]
-  w_D = P[["w_FGD"]]
+  param_names = names(P)
+  w_A = ifelse("w_FGA" %in% param_names, P[["w_FGA"]], 0)
+  w_B = ifelse("w_FGB" %in% param_names, P[["w_FGB"]], 0)
+  w_C = ifelse("w_FGC" %in% param_names, P[["w_FGC"]], 0)
+  w_D = ifelse("w_FGD" %in% param_names, P[["w_FGD"]], 0)
   w_tot = w_A + w_B + w_C + w_D
 
   FG_eff = w_A/w_tot * FG_A +
@@ -253,8 +279,6 @@ build_functional_group = function(P) {
            w_C/w_tot * FG_C +
            w_D/w_tot * FG_D
 
-  # Update to the new values in P
-  P = modifyList(P, FG_eff$get_parameters())
-  return(P)
+  return(FG_eff)
 }
 

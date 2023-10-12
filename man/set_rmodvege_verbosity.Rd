@@ -4,7 +4,7 @@
 \alias{set_rmodvege_verbosity}
 \title{Set verbosity of rmodvege output.}
 \usage{
-set_rmodvege_verbosity(level)
+set_rmodvege_verbosity(level = 3)
 }
 \arguments{
 \item{level}{Integer representing one of the following levels:
@@ -13,6 +13,24 @@ Messages with a level higher than the specified *level* are suppressed.
 In other words, higher values of *level* lead to more output and vice 
 versa.}
 }
+\value{
+None Sets the option `"rmodvege.verbosity".
+}
 \description{
 Set verbosity of rmodvege output.
+}
+\examples{
+# At level 3, only one of the three following messages are printed.
+set_rmodvege_verbosity(3)
+logger("Message on level 5.", level = 5)
+logger("Message on level 4.", level = 4)
+logger("Message on level 3.", level = 3)
+# At level 5, all three are printed.
+set_rmodvege_verbosity(5)
+logger("Message on level 5.", level = 5)
+logger("Message on level 4.", level = 4)
+logger("Message on level 3.", level = 3)
+# Reset to default.
+set_rmodvege_verbosity()
+
 }

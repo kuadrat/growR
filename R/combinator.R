@@ -1,14 +1,20 @@
 #' Combinator
 #'
+#' @description
 #' Helps to find all possible combinations for a given set of values.
 #'
+#' @seealso [create_combinations()]
 #' @md
 Combinator = R6Class(
   "Combinator",
   public = list(
 
+    #' @field combinations list Once run, holds all valid parameter combinations 
+    #'   as named lists.
     combinations = list(),
-    eps = 1e-2,
+    #' @field eps float Numerical precision to require when checking the 
+    #'   functional group weight sum criterion.
+    eps = 2e-2,
 
     #' @description
     #' Find possible combinations
@@ -106,15 +112,49 @@ Combinator = R6Class(
 #'   respective parameter. The parameter names for functional group weights 
 #'   (`w_FGX` with `X` in (A, B, C, D)) receive special treatment and 
 #'   therefore need to be spelled correctly.
+#' @param eps Float specifying the precision to which the sum criterion for 
+#'   functional group has to be satisfied. The criterion is considered 
+#'   satisfied, if ```
+#'   abs(w_FGA + w_FGB + w_FGC + w_FGD) - 1) <= eps
+#'   ```
 #' 
 #' @return combinations An unnamed list where every entry is a list 
 #'   containing the parameter values (named as in the input *param_values*) 
 #'   for a valid combination.
 #'
+#' @examples
+#' # Define the parameter steps you want to explore. This is a minimal example.
+#' # A more realistic one follows below.
+#' param_values = list(w_FGA = c(0, 0.5, 1),
+#'                     w_FGB = c(0, 0.5, 1),
+#'                     NI = c(0.5, 0.9)
+#' )
+#' # Create all valid combinations of the defined steps
+#' create_combinations(param_values)
+#'
+#' # More realistic example for an initial exploration of parameter space, 
+#' # where we suspect that functional groups A and B should be more prevalent 
+#' # than C and D. This produces 54 parameter combinations, which is a number 
+#' # of model evaluations that can run within a reasonable timeframe 
+#' # (depending on your system).
+#' param_values = list(w_FGA = seq(0, 1, 0.33),
+#'                     w_FGB = seq(0, 1, 0.33),
+#'                     w_FGC = seq(0, 0.7, 0.33),
+#'                     w_FGD = seq(0, 0.7, 0.33),
+#'                     NI = seq(0.5, 1.0, 0.25)
+#' )
+#' length(create_combinations(param_values))
+#'
+#' # The default value for *eps* made sure that combinations of 0.33 + 0.66 = 
+#' # 0.99 etc. are considered "valid". If we make *eps* too small, no valid 
+#' # combinations can be found:
+#' length(create_combinations(param_values, eps = 1e-3))
+#'
 #' @md
 #' @export
-create_combinations = function(param_values) {
+create_combinations = function(param_values, eps = 2e-2) {
   C = Combinator$new()
+  C$eps = eps
   C$create_combinations(param_values)
   return(C$combinations)
 }

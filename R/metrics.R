@@ -30,11 +30,11 @@ root_mean_squared_core = function(predicted, observed, relative = TRUE) {
 willmott_core = function(predicted, observed, c = 2) {
   numerator = sum(abs(predicted - observed))
   o_mean = mean(observed)
-  denominator = c*sum(abs(observed - o_mean))
+  denominator = c * sum(abs(observed - o_mean))
   if (numerator <= denominator) {
     return(1 - numerator/denominator)
   } else {
-    return(denominator/numerator -1)
+    return(denominator/numerator - 1)
   }
 }
 
@@ -71,6 +71,26 @@ metric_factory = function(core) {
 #'
 #' @return m A number representing the relative or absolute value for the 
 #'   metric.
+#'
+#' @examples
+#' predicted = c(21.5, 22.2, 19.1)
+#' observed = c(20, 20, 20)
+#' get_bias(predicted, observed)
+#' get_bias(predicted, observed, relative = FALSE)
+#'
+#' root_mean_squared(predicted, observed)
+#' root_mean_squared(predicted, observed, relative = FALSE)
+#'
+#' mean_absolute_error(predicted, observed)
+#' mean_absolute_error(predicted, observed, relative = FALSE)
+#'
+#' # The Willmott index "fails" in this case, as the variance in the 
+#' # observation is 0.
+#' willmott(predicted, observed)
+#'
+#' # Try with more realistic observations
+#' observed = c(20.5, 19.5, 20.0)
+#' willmott(predicted, observed)
 #'
 #' @seealso [willmott()]
 #'

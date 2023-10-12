@@ -33,3 +33,9 @@ The factors s_gs, s_T and F_T for grasslands are taken from pages 260 and
 261 in Kruijt et al. where we averaged over the stated ranges to get:
 c ~= 1 + 0.0001 * deltaCO2
 }
+\examples{
+fCO2_transpiration_mod(420)
+# The modifier is always relative to *c_ref*. This returns 1.
+fCO2_transpiration_mod(420, c_ref = 420)
+
+}

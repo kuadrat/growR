@@ -4,10 +4,17 @@
 \alias{plot_parameter_scan}
 \title{Plot Parameter Scan Results}
 \usage{
-plot_parameter_scan(results)
+plot_parameter_scan(analyzed, interactive = TRUE)
 }
 \arguments{
-\item{results}{Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}}
+\item{analyzed}{Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
+
+\item{interactive}{boolean Toggle between just creating a static plot
+(\code{interactive = FALSE}) or entering a small, interactive analysis
+setting (\code{interactive = TRUE}, default).}
+}
+\value{
+A \code{PscanPlotter} object.
 }
 \description{
 Visualize the results of a parameter scan and allow interactive inspection
@@ -16,6 +23,23 @@ of model performance in parameter space.
 \details{
 Under the hood this function just creates a PscanPlotter object and calls its
 \code{analyze} method.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# There needs to be data available with which the modle is to be compared.
+# For this example, use data provided by the package.
+path = system.file("extdata", package = "rmodvege")
+datafile = file.path(path, "posieux1.csv")
+
+# Analyze example output of `run_parameter_scan()`.
+results = analyze_parameter_scan(parameter_scan_example, datafile = datafile)
+# The following plots the results.
+psp = plot_parameter_scan(results, interactive = FALSE)
+
+# The interactive session can still be entered later from the returned 
+# PscanPlotter object
+psp$analyze()
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}, \code{PscanPlotter$analyze()}

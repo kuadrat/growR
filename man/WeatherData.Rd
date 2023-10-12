@@ -90,7 +90,7 @@ weather data only for a given year. The keys in the list are:
 \subsection{Method \code{new()}}{
 Create a new WeatherData object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{WeatherData$new(weather_file = NULL, years = "all")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$new(weather_file = NULL, years = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -111,7 +111,7 @@ extracted.}
 \subsection{Method \code{read_weather()}}{
 Read weather data from supplied \emph{weather_file}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{WeatherData$read_weather(weather_file, years = "all")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$read_weather(weather_file, years = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -120,7 +120,7 @@ Read weather data from supplied \emph{weather_file}.
 \item{\code{weather_file}}{Path to or name of file containing weather data.}
 
 \item{\code{years}}{Years for which the weather is to be extracted.
-Default is "all" to read in all found years.}
+Default (NULL) is to read in all found years.}
 }
 \if{html}{\out{</div>}}
 }

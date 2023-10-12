@@ -230,7 +230,7 @@ WeatherData = R6Class(
       # Use the sunset equation to calculate the hour-angle of sunset
       sunset_hourangle = acos(-tan(latitude)*tan(solar_declination))
       # Convert hour-angle to hours of sunshine (factor two since sunset and 
-      # sunrise are symmetric around noon for the hour-angle. Angular 
+      # sunrise are symmetric around noon for the hour-angle). Angular 
       # velocity of Earth around itself is roughly 15 degrees per hour.
 #      day_length_vec = 24. * sunset_hourangle / pi
       day_length_vec = 2 * sunset_hourangle / (15*pi/180)

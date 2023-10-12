@@ -1,19 +1,22 @@
 test_that("Creation of empty directory structure", {
-  expect_warning(setup_directory(include_examples = FALSE), 
-                 regexp = "is not empty.")
-  for (dir in dirs) {
-    expect_true(file.exists(file.path(".", dir)))
+  unlink(.tmpdir(), recursive = TRUE)
+  dir.create(.tmpdir())
+  warnings = capture_warnings(setup_directory(.tmpdir(), 
+                                              include_examples = FALSE,
+                                              force = TRUE))
+  for (dir in c("data", "input", "output")) {
+    expect_true(file.exists(file.path(.tmpdir(), dir)))
   }
-  clean_up_dir()
 })
 
 test_that("Creation of directory structure with example files", {
-  expect_warning(setup_directory(), 
-                 regexp = "is not empty.")
-
-  expect_true(file.exists(file.path(".", "example_config.txt")))
-  expect_true(file.exists(file.path(".", "input", "posieux_parameters.csv")))
-
-#  clean_up_dir()
+  warnings = capture_warnings(setup_directory(.tmpdir(), force = TRUE))
+  regexp = ".*already exists.|.*is not empty."
+  for (warning in warnings) {
+    expect_match(warning, regexp)
+  }
+  expect_true(file.exists(file.path(.tmpdir(), "example_config.txt")))
+  expect_true(file.exists(file.path(.tmpdir(), "input", 
+                                    "posieux_parameters.csv")))
 })
 

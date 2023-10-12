@@ -4,12 +4,21 @@
 \alias{Combinator}
 \title{Combinator}
 \description{
-Combinator
-
-Combinator
-}
-\details{
 Helps to find all possible combinations for a given set of values.
+}
+\seealso{
+\code{\link[=create_combinations]{create_combinations()}}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{combinations}}{list Once run, holds all valid parameter combinations
+as named lists.}
+
+\item{\code{eps}}{float Numerical precision to require when checking the
+functional group weight sum criterion.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{

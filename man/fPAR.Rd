@@ -24,3 +24,7 @@ Radiation limitation
 Threshold function representing growth limitation due to lack of 
 photosynthetically active radiation (PAR).
 }
+\examples{
+fPAR(4)
+
+}

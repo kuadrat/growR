@@ -51,6 +51,27 @@ prediction and observation:
 \note{
 NA values are completely ignored.
 }
+\examples{
+predicted = c(21.5, 22.2, 19.1)
+observed = c(20, 20, 20)
+get_bias(predicted, observed)
+get_bias(predicted, observed, relative = FALSE)
+
+root_mean_squared(predicted, observed)
+root_mean_squared(predicted, observed, relative = FALSE)
+
+mean_absolute_error(predicted, observed)
+mean_absolute_error(predicted, observed, relative = FALSE)
+
+# The Willmott index "fails" in this case, as the variance in the 
+# observation is 0.
+willmott(predicted, observed)
+
+# Try with more realistic observations
+observed = c(20.5, 19.5, 20.0)
+willmott(predicted, observed)
+
+}
 \seealso{
 \code{\link[=willmott]{willmott()}}
 }

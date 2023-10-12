@@ -212,21 +212,16 @@ ModvegeParameters = R6Class(
       #' Should be run whenever the functional group composition is changed in 
       #' order to reflect the changes in the parameter list `self$P`.
       update_functional_group = function() {
-        w_A = self[["w_FGA"]]
-        w_B = self[["w_FGB"]]
-        w_C = self[["w_FGC"]]
-        w_D = self[["w_FGD"]]
-        w_tot = w_A + w_B + w_C + w_D
+        p = list()
+        for (fg_weight in c("w_FGA", "w_FGB", "w_FGC", "w_FGD")) {
+          p[[fg_weight]] = self[[fg_weight]]
+        }
+        new_FG = build_functional_group(p)
+        self$functional_group = new_FG
 
-        FG_eff = w_A/w_tot * FG_A +
-                 w_B/w_tot * FG_B +
-                 w_C/w_tot * FG_C +
-                 w_D/w_tot * FG_D
-
-        # Update to the new values in P
-        fg_parameters = FG_eff$get_parameters()
+        # Update to the new values
         for (name in self$fg_parameter_names) {
-          self[[name]] = fg_parameters[[name]]
+          self[[name]] = self$functional_group[[name]]
         }
       },
 

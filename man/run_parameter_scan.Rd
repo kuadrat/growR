@@ -42,6 +42,15 @@ respective results.}
 \description{
 Run modvege for a different sets of parameters.
 }
+\examples{
+env = create_example_environment()
+# We're creating a trivial list of parameters to explore here in order to 
+# prevent the example from requiring a long time to execute. See 
+# [create_combinations()] for more realistic uses of param_values.
+param_values = list(w_FGA = c(0, 1), w_FGB = c(0, 1))
+run_parameter_scan(env, param_values, force = TRUE)
+
+}
 \seealso{
-ModvegeParameters, \code{\link[=saveRDS]{saveRDS()}}
+ModvegeParameters, \code{\link[=saveRDS]{saveRDS()}}, \code{\link[=create_combinations]{create_combinations()}}
 }

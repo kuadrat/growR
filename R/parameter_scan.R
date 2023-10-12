@@ -1,13 +1,3 @@
-## Helper to get user input from scripts or interactive sessions
-prompt_user = function(prompt) {
-  if (interactive()) {
-    return(readline(prompt))
-  } else {
-    cat(prompt)
-    return(readLines("stdin", n = 1))
-  }
-}
-
 ## Prompt user for confirmation to proceed
 ask_for_confirmation = function(n_combinations) {
   print(sprintf("Number of parameter combinations: %s", n_combinations))
@@ -51,8 +41,16 @@ ask_for_confirmation = function(n_combinations) {
 #'   respective results.}
 #'   }
 #'
-#' @seealso ModvegeParameters, [saveRDS()]
+#' @seealso ModvegeParameters, [saveRDS()], [create_combinations()]
 #'
+#' @examples
+#' env = create_example_environment()
+#' # We're creating a trivial list of parameters to explore here in order to 
+#' # prevent the example from requiring a long time to execute. See 
+#' # [create_combinations()] for more realistic uses of param_values.
+#' param_values = list(w_FGA = c(0, 1), w_FGB = c(0, 1))
+#' run_parameter_scan(env, param_values, force = TRUE)
+#' 
 #' @md
 #' @export
 run_parameter_scan = function(environment, param_values, force = FALSE, 
@@ -102,12 +100,44 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #'   interpreted as the name of a `rds` file that contains the results of a 
 #'   parameter scan which is then loaded using [readRDS()]. Otherwise, it 
 #'   should be the output of [run_parameter_scan()] directly.
+#' @param datafile Name or path to a file containing measured data. The model 
+#'   results in *parameter_scan_results* are compared to the data therein. If 
+#'   empty, the site is inferred from the `ModvegeSite` objects in 
+#'   *parameter_scan_results* and a corresponding data file is searched for 
+#'    in `getOptions("rmodvege.data_dir", default = "data").
+#' @return analyzed A list with threy keys: `results`, `metrics` and `params`.
+#'  \describe{
+#'    \item{results}{A data.frame with `1 + n_params + n_metrics` columns 
+#'      where each row represents a different parameter combination. 
+#'      The first column (`n`) gives the row number and is used to identify a 
+#'      parameter combination. The subsequent `n_params` columns give the 
+#'      values of the parameters used in this combination. The final `n_metrics`
+#'      columns give the resulting performance score of the model run with 
+#'      these parameters for each metric.}
+#'    \item{params}{A vector containing the names of the scanned parameters. 
+#'      These are also the column names of columns `2:(n_params+1)` in 
+#'      *results*.}
+#'    \item{metrics}{A vector containing the names of the employed 
+#'      performance metrics. These are also the column names of the last 
+#'      `n_metrics` columns in *results*.}
+#'  }
 #'
 #' @seealso [run_parameter_scan()], [readRDS()]
 #'
+#' @examples
+#' # There needs to be data available with which the modle is to be compared.
+#' # For this example, use data provided by the package.
+#' path = system.file("extdata", package = "rmodvege")
+#' datafile = file.path(path, "posieux1.csv")
+#' print(path)
+#'
+#' # Use example parameter scan data provided by the package.
+#' # You would generally create your own data using `run_parameter_scan()`.
+#' analyze_parameter_scan(parameter_scan_example, datafile = datafile)
+#' 
 #' @md
 #' @export
-analyze_parameter_scan = function(parameter_scan_results) {
+analyze_parameter_scan = function(parameter_scan_results, datafile = "") {
   metrics_to_use = c("bias", "MAE", "RMSE")
 
   # Read results from .Rds file, if applicable
@@ -122,8 +152,12 @@ analyze_parameter_scan = function(parameter_scan_results) {
   n_years = length(years)
   
   # Load measured data for detected site
-  site = results[[1]]$data[[1]]$site_name
-  measured_data = load_measured_data(c(site))[[1]]
+  if (datafile == "") {
+    site = results[[1]]$data[[1]]$site_name
+    measured_data = load_data_for_sites(c(site))[[1]]
+  } else {
+    measured_data = load_measured_data(datafile)[[1]]
+  }
   # Reduce to relevant years
   relevant_data = measured_data[measured_data$year %in% years, ]
   # Construct a selector for the DOYs present in relevant data
@@ -153,7 +187,21 @@ analyze_parameter_scan = function(parameter_scan_results) {
       results[[combination]][["dBM"]][[metric]] = m_dBM
     }
   }
-  return(results)
+
+  # Reformat results to a data.frame
+  analyzed = data.frame(n = 1:n_combinations)
+  params = names(results[[1]][["params"]])
+  for (i_param in 1:length(params)) {
+    param_name = params[[i_param]]
+    analyzed[[param_name]] = extract_results(results, "params", i_param)
+  }
+  for (i_metric in 1:length(metrics_to_use)) {
+    metric_name = metrics_to_use[[i_metric]]
+    analyzed[[metric_name]] = extract_results(results, "dBM", i_metric)
+  }
+  return(list(results = analyzed,
+              metrics = metrics_to_use,
+              params = params))
 }
 
 extract_results = function(results, key, index) {
@@ -203,37 +251,25 @@ PscanPlotter = R6Class(
     #' @description
     #' Construct and set up a PscanPlotter instance.
     #'
-    #' @param results Output of [analyze_parameter_scan()].
+    #' @param analyzed Output of [analyze_parameter_scan()].
     #'
     #' @seealso [analyze_parameter_scan()]
     #'
     #' @md
-    initialize = function(results) {
+    initialize = function(analyzed) {
       # Get the number of metrics and the number of parameters from the data
-      first = results[[1]]
-      self$params = names(first[["params"]])
+      self$params = analyzed[["params"]]
       self$n_params = length(self$params)
-      self$metrics = names(first[["dBM"]])
+      self$metrics = analyzed[["metrics"]]
       self$n_metrics = length(self$metrics)
 
-      # Reformat results :TODO: Maybe do this in [analyze_parameter_scan()]
-      self$n_combinations = length(results)
-      res = data.frame(n = 1:self$n_combinations)
-      for (i_param in 1:self$n_params) {
-        param_name = self$params[[i_param]]
-        res[[param_name]] = extract_results(results, "params", i_param)
-      }
-      for (i_metric in 1:self$n_metrics) {
-        metric_name = self$metrics[[i_metric]]
-        res[[metric_name]] = extract_results(results, "dBM", i_metric)
-      }
-      self$res = res
+      self$res = analyzed[["results"]]
 
       # Create different orderings for every metric
       sorted = list()
       for (metric in self$metrics) {
-        performance = abs(res[[metric]] - metric_map[[metric]]$target)
-        sorted[[metric]] = res[order(performance), ]
+        performance = abs(self$res[[metric]] - metric_map[[metric]]$target)
+        sorted[[metric]] = self$res[order(performance), ]
       }
       self$sorted = sorted
     },
@@ -455,13 +491,37 @@ b   Highlight best performers. You will be queried to select a metric.
 #' Under the hood this function just creates a PscanPlotter object and calls its 
 #' `analyze` method.
 #'
-#' @param results Output of [analyze_parameter_scan()]
+#' @param analyzed Output of [analyze_parameter_scan()].
+#' @param interactive boolean Toggle between just creating a static plot 
+#'   (`interactive = FALSE`) or entering a small, interactive analysis 
+#'   setting (`interactive = TRUE`, default).
+#' @return A `PscanPlotter` object.
 #'
 #' @seealso [analyze_parameter_scan()], `PscanPlotter$analyze()`
 #'
+#' @examplesIf interactive()
+#' # There needs to be data available with which the modle is to be compared.
+#' # For this example, use data provided by the package.
+#' path = system.file("extdata", package = "rmodvege")
+#' datafile = file.path(path, "posieux1.csv")
+#'
+#' # Analyze example output of `run_parameter_scan()`.
+#' results = analyze_parameter_scan(parameter_scan_example, datafile = datafile)
+#' # The following plots the results.
+#' psp = plot_parameter_scan(results, interactive = FALSE)
+#'
+#' # The interactive session can still be entered later from the returned 
+#' # PscanPlotter object
+#' psp$analyze()
+#' 
 #' @md
 #' @export
-plot_parameter_scan = function(results) {
-  PSP = PscanPlotter$new(results)
-  PSP$analyze()
+plot_parameter_scan = function(analyzed, interactive = TRUE) {
+  PSP = PscanPlotter$new(analyzed)
+  if (interactive) {
+    PSP$analyze()
+  } else {
+    PSP$plot()
+  }
+  return(PSP)
 }

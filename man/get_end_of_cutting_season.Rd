@@ -24,6 +24,11 @@ by checking at which point the expected target biomass (see
 `get_relative_cut_contribution`) goes below the minimally harvestable standing 
 biomass.
 }
+\examples{
+get_end_of_cutting_season(50, 1200)
+get_end_of_cutting_season(50, 1200, intensity = "low")
+
+}
 \seealso{
 [get_relative_cut_contribution()]
 }

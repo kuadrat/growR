@@ -58,13 +58,13 @@ combinations (column \code{n} in \code{self$res}) that is to be highlighted.}
 \subsection{Method \code{new()}}{
 Construct and set up a PscanPlotter instance.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PscanPlotter$new(results)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PscanPlotter$new(analyzed)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{results}}{Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
+\item{\code{analyzed}}{Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
 }
 \if{html}{\out{</div>}}
 }

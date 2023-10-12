@@ -7,17 +7,28 @@
 build_functional_group(P)
 }
 \arguments{
-\item{P}{list; name-value pairs of parameters. Has to contain w_FGX with X 
-in (A, B, C, D).}
+\item{P}{list; name-value pairs of parameters. Should contain at least one
+non-zero functional group weight w_FGX with X in (A, B, C, D). Any
+weights not present are assumed to be 0.}
 }
 \value{
-A modified list, where all functional group parameters are updated 
-  to the values of the effective functional group according to the weights 
-  w_FGX.
+A \code{FunctionalGroup} object composed of a linear combination of the
+four groups \emph{FG_A}, \emph{FG_B}, \emph{FG_C} and \emph{FG_D}.
 }
 \description{
-Uses the weights found in :param:`P` to construct the effective functional 
+Uses the weights found in :param:\code{P} to construct the effective functional
 groups and updates functional group parameters in P.
+}
+\examples{
+parameters = list(w_FGA = 0.5, w_FGB = 0.5)
+build_functional_group(parameters)
+
+# The w_FGX weights in the input are interpreted as relative to each other.
+# Thus, they do not need to satisfy the sum rule. The following is 
+# equivalent to the previous example:
+parameters = list(w_FGA = 1, w_FGB = 1)
+build_functional_group(parameters)
+
 }
 \seealso{
 FunctionalGroup

@@ -9,12 +9,24 @@ logger(msg = "", level = DEBUG, stop_on_error = TRUE)
 \arguments{
 \item{msg}{The message to print.}
 
-\item{level}{The message will only be printed if its *level* is lower 
-or equal to *DEBUG_LEVEL*}
+\item{level}{The message will only be printed if its \emph{level} is lower
+or equal to \emph{DEBUG_LEVEL}}
 
-\item{stop_on_error}{Can be set to FALSE in order to continue 
-execution despite emitting a message of *level* ERROR.}
+\item{stop_on_error}{Can be set to FALSE in order to continue
+execution despite emitting a message of \emph{level} ERROR.}
+}
+\value{
+None Prints console output.
 }
 \description{
 Primitive logger for debugging.
+}
+\examples{
+logger("A standard message", level = 3)
+logger("A debug message", level = 4)
+logger("A deep debug message", level = 5)
+
+}
+\seealso{
+\code{\link[=set_rmodvege_verbosity]{set_rmodvege_verbosity()}}
 }

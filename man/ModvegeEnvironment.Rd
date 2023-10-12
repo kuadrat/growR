@@ -74,7 +74,7 @@ Instantiate a new ModvegeEnvironment
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$new(
   site_name,
   run_name = "-",
-  years = "all",
+  years = NULL,
   param_file = "-",
   weather_file = "-",
   management_file = "-",
