@@ -7,7 +7,7 @@
 ![](man/figures/logo.png)
 
 This `R` implementation of the grassland model `ModVege` by [Jouven et 
-al.](https://doi.org/10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
+al.](doi:10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
 `R` implementation created by Pierluigi Calanca[^2].
 
 The implementation in this package contains a few additions to the above 
@@ -108,11 +108,11 @@ available, though unmaintained at https://github.com/kuadrat/rmodvege-scripts/.
 [^1]: Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of 
 Biomass, Structure and Digestibility of Herbage in Managed Permanent 
 Pastures. 1. Model Description“. Grass and Forage Science 61, Nr. 2 (2006): 
-112–24. [https://doi.org/10.1111/j.1365-2494.2006.00515.x](https://doi.org/10.1111/j.1365-2494.2006.00515.x).
+112–24. [doi:10.1111/j.1365-2494.2006.00515.x](doi:10.1111/j.1365-2494.2006.00515.x).
 
 [^2]: Calanca, Pierluigi, Claire Deléglise, Raphaël Martin, Pascal Carrère, 
 und Eric Mosimann. „Testing the Ability of a Simple Grassland Model to 
 Simulate the Seasonal Effects of Drought on Herbage Growth“. Field Crops 
 Research 187 (Februar 2016): 12–23. 
-[https://doi.org/10.1016/j.fcr.2015.12.008](12–23. https://doi.org/10.1016/j.fcr.2015.12.008).
+[doi:10.1016/j.fcr.2015.12.008](doi:10.1016/j.fcr.2015.12.008).
 
