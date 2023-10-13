@@ -119,7 +119,7 @@ was determined to begin.}
 
 \item{\code{cut_height}}{Height of remaining grass after cut in m.}
 
-\item{\code{parameters}}{A ModvegeParameters object.}
+\item{\code{parameters}}{A \link{ModvegeParameters} object.}
 
 \item{\code{determine_cut}}{Function used to decide whether a cut occurs on a
 given DOY. Is overloaded depending on whether management data is
@@ -165,9 +165,9 @@ more cuts are made.}
 (determined through cut_height and biomass densities BDGV, BDDV, BDGR,
 BDDR).}
 
-\item{\code{weather}}{A WeatherData object.}
+\item{\code{weather}}{A \link{WeatherData} object.}
 
-\item{\code{management}}{A ManagementData object. If its \code{is_empty} field is \code{TRUE},
+\item{\code{management}}{A \link{ManagementData} object. If its \code{is_empty} field is \code{TRUE},
 the autocut routine will be employed.}
 }
 \if{html}{\out{</div>}}
@@ -208,7 +208,7 @@ Constructor
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{parameters}}{A ModvegeParameters object.}
+\item{\code{parameters}}{A \link{ModvegeParameters} object.}
 
 \item{\code{site_name}}{string Name of the simulated site.}
 
@@ -358,13 +358,13 @@ Carry out a ModVege simulation for one year.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{year}}{Integer specifying the year to consider. (Unused?)}
+\item{\code{year}}{Integer specifying the year to consider.}
 
-\item{\code{weather}}{Weather List for given year as returned by
-:method:\code{Weather$get_weather_for_year}}
+\item{\code{weather}}{Weather list for given year as returned by
+\link{WeatherData}\verb{$get_weather_for_year}.}
 
-\item{\code{management}}{Management List for given year as provided by
-\code{ModvegeEnvironment}'s method \code{get_environment_for_year()}.}
+\item{\code{management}}{Management list for given year as provided by
+\link{ModvegeEnvironment}\verb{$get_environment_for_year()}.}
 }
 \if{html}{\out{</div>}}
 }

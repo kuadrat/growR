@@ -1,21 +1,22 @@
-#' Run a growR simulation
+#' Run growR simulations
 #'
 #' Start the loop over runs specified in the config file.
 #'
 #' By default, returns an empty list but writes output to the output files 
-#' as specified in `modvege_environment`. Change this behaviour through the 
+#' as specified in the *site_name* and *run_name* fields of the supplied 
+#' [ModvegeEnvironment] instances. Change this behaviour through the 
 #' `write_files` and `store_results` arguments.
 #'
-#' @param modvege_environments A list of `ModvegeEnvironment` instances.
-#' @param write_files boolean; If TRUE, write results of `ModvegeSite$run()` 
+#' @param modvege_environments A list of [ModvegeEnvironment] instances.
+#' @param write_files boolean; If TRUE, write results of [ModvegeSite]`$run()` 
 #'   to files.
-#' @param store_results boolean; If TRUE, return a list of the ModvegeSite` 
+#' @param store_results boolean; If TRUE, return a list of the [ModvegeSite] 
 #'   objects which were run.
 #' @param output_dir string; name of directory to which output files are to 
 #'   be written if `write_files` is `TRUE`.
 #'
 #' @return If `store_results == TRUE`, a list of the format 
-#'   `[[run]][[year]]` containing clones of the `ModvegeSite` instances that 
+#'   `[[run]][[year]]` containing clones of the [ModvegeSite] instances that 
 #'   were run. Otherwise an empty list. Defaults to 
 #'   getOption("growR.output_dir").
 #'

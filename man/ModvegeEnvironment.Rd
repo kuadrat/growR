@@ -44,11 +44,11 @@ present.}
 
 \item{\code{management_file}}{Name of supplied management file.}
 
-\item{\code{parameters}}{A ModvegeParameters object.}
+\item{\code{parameters}}{A \link{ModvegeParameters} object.}
 
-\item{\code{weather}}{A WeatherData object.}
+\item{\code{weather}}{A \link{WeatherData} object.}
 
-\item{\code{management}}{A ManagementData object.}
+\item{\code{management}}{A \link{ManagementData} object.}
 
 \item{\code{input_dir}}{Directory in which parameter, weather and management
 files are searched for. Defaults to `getOption("growR.input_dir").}

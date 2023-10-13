@@ -11,7 +11,7 @@ create_example_environment(site = "posieux")
 Options: \code{"posieux"}, \code{"sorens"}.}
 }
 \value{
-E A \code{ModvegeEnvironment} instance based on the example data for
+E A \verb{[ModvegeEnvironment]} instance based on the example data for
 \emph{site} which is shipped with this package.
 }
 \description{

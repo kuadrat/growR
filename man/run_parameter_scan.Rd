@@ -7,15 +7,15 @@
 run_parameter_scan(environment, param_values, force = FALSE, outfilename = "")
 }
 \arguments{
-\item{environment}{Either a \code{ModvegeEnvironment} instance with all the site,
-management and weather inputs expected by \code{ModvegeSite$run()} \strong{or} a
+\item{environment}{Either a \link{ModvegeEnvironment} instance with all the site,
+management and weather inputs expected by \link{ModvegeSite}\verb{$run()} \strong{or} a
 string representing the name of a config file to read in order to
-generate the \code{ModvegeEnvironment} with \code{\link[=read_config]{read_config()}}. Note that, in
+generate the \link{ModvegeEnvironment} with \code{\link[=read_config]{read_config()}}. Note that, in
 the latter case, only the first found configuration is used if there are
 more than one valid uncommented lines in the config file.}
 
 \item{param_values}{A named list where each key stands for a ModVege
-parameter, i.e. a member of \code{ModvegeParameters$parameter_names}. Each
+parameter, i.e. a member of \link{ModvegeParameters}\verb{$parameter_names}. Each
 list entry then has to be a vector containing the allowed values for the
 respective parameter. All possible allowed combinations of these
 parameter values are then generated and fed into a ModVege run.}
@@ -34,7 +34,7 @@ keys:
 \describe{
 \item{params}{The parameter set that was used to run ModVege for this
 entry.}
-\item{data}{A list containing for each simulated year a ModvegeSite
+\item{data}{A list containing for each simulated year a \link{ModvegeSite}
 object which was run for the respective year and therefore carries the
 respective results.}
 }
@@ -52,5 +52,5 @@ run_parameter_scan(env, param_values, force = TRUE)
 
 }
 \seealso{
-ModvegeParameters, \code{\link[=saveRDS]{saveRDS()}}, \code{\link[=create_combinations]{create_combinations()}}
+\link{ModvegeParameters}, \code{\link[=saveRDS]{saveRDS()}}, \code{\link[=create_combinations]{create_combinations()}}
 }

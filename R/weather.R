@@ -79,7 +79,7 @@ WeatherData = R6Class(
     #' @param years numeric Vector of years for which the weather is to be 
     #'   extracted.
     #'
-    #' @seealso WeatherData$read_weather()
+    #' @seealso [WeatherData]`$read_weather()`
     initialize = function(weather_file = NULL, years = NULL) {
       if (!is.null(weather_file)) {
         self$read_weather(weather_file, years)

@@ -57,20 +57,18 @@
 #' if the `include_examples` option is set to `TRUE` (default).
 #'
 #' @details
-#' For use in growR, a WeatherData object has to be created from a plain 
+#' For use in growR, a [WeatherData] object has to be created from a plain 
 #' text file. Therefore, this dataset is only provided for convenient 
 #' inspection. In order to run growR, use the plain text files provided by 
 #' the package. Use `system.file("extdata", package = "growR")` to locate them.
 #'
 #' The *snow* column is not actually used by growR but rather calculated 
-#' through precipitation and temperatures in `WeatherData$read_weather()`.
+#' through precipitation and temperatures in [WeatherData]`$read_weather()`.
 #'
 #' Likewise, the *rSSD* column is deprecated, currently unused and only kept 
 #' for backwards compatibility.
 #'
-#' @family {weather_datasets}
-#'
-#' @seealso [setup_directory()]
+#' @seealso [setup_directory()], [WeatherData]
 #'
 #' @format A data.frame with 3652 rows and 10 variables:
 #'   \describe{
@@ -118,7 +116,7 @@
 #'   \describe{
 #'   \item{params}{The parameter set that was used to run growR for this 
 #'   entry.}
-#'   \item{data}{A list containing for each simulated year a ModvegeSite 
+#'   \item{data}{A list containing for each simulated year a [ModvegeSite] 
 #'   object which was run for the respective year and therefore carries the 
 #'   respective results.}
 #'   }

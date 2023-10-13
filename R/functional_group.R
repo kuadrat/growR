@@ -111,7 +111,7 @@ FunctionalGroup = R6Class(
     #' Efficient setter, assumes parameters come in known order.
     #'
     #' @param ordered_parameter_values Parameter values to be set. Need to be 
-    #'   in the same order as `FunctionalGroup$fg_parameter_names`.
+    #'   in the same order as pFunctionalGroup]`$fg_parameter_names`.
     #'
     set_parameters_ordered = function(ordered_parameter_values) {
       names = self$fg_parameter_names
@@ -128,7 +128,7 @@ FunctionalGroup = R6Class(
 #' 
 #' @param A First functional group.
 #' @param B Second functional group.
-#' @return C A `FunctionalGroup` object where each value is the sum of the 
+#' @return C A [FunctionalGroup] object where each value is the sum of the 
 #'   respective values in *A* and *B*.
 #' @examples
 #' fg1 = FunctionalGroup$new()
@@ -151,7 +151,7 @@ FunctionalGroup = R6Class(
 #'
 #' @param scalar float to multiply all FG parameters with.
 #' @param fg Functional group whose parameters are to be multiplied.
-#' @return C A `FunctionalGroup` object that has all its values multiplied by 
+#' @return C A [FunctionalGroup] object that has all its values multiplied by 
 #'   *scalar*.
 #' @examples
 #' fg = FunctionalGroup$new()
@@ -249,10 +249,10 @@ FG_D = FunctionalGroup$new(
 #' @param P list; name-value pairs of parameters. Should contain at least one
 #'   non-zero functional group weight w_FGX with X in (A, B, C, D). Any 
 #'   weights not present are assumed to be 0.
-#' @return A `FunctionalGroup` object composed of a linear combination of the 
+#' @return A [FunctionalGroup] object composed of a linear combination of the 
 #'   four groups *FG_A*, *FG_B*, *FG_C* and *FG_D*.
 #'
-#' @seealso FunctionalGroup
+#' @seealso [FunctionalGroup]
 #'
 #' @examples
 #' parameters = list(w_FGA = 0.5, w_FGB = 0.5)

@@ -14,7 +14,7 @@ should be the output of \code{\link[=run_parameter_scan]{run_parameter_scan()}} 
 
 \item{datafile}{Name or path to a file containing measured data. The model
 results in \emph{parameter_scan_results} are compared to the data therein. If
-empty, the site is inferred from the \code{ModvegeSite} objects in
+empty, the site is inferred from the \link{ModvegeSite} objects in
 \emph{parameter_scan_results} and a corresponding data file is searched for
 in `getOptions("growR.data_dir", default = "data").}
 }

@@ -12,7 +12,7 @@ non-zero functional group weight w_FGX with X in (A, B, C, D). Any
 weights not present are assumed to be 0.}
 }
 \value{
-A \code{FunctionalGroup} object composed of a linear combination of the
+A \link{FunctionalGroup} object composed of a linear combination of the
 four groups \emph{FG_A}, \emph{FG_B}, \emph{FG_C} and \emph{FG_D}.
 }
 \description{
@@ -31,5 +31,5 @@ build_functional_group(parameters)
 
 }
 \seealso{
-FunctionalGroup
+\link{FunctionalGroup}
 }

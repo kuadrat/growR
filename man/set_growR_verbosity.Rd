@@ -9,12 +9,12 @@ set_growR_verbosity(level = 3)
 \arguments{
 \item{level}{Integer representing one of the following levels:
 1: ERROR, 2: WARNING, 3: INFO, 4: DEBUG, 5: TRACE
-Messages with a level higher than the specified *level* are suppressed.
-In other words, higher values of *level* lead to more output and vice 
+Messages with a level higher than the specified \emph{level} are suppressed.
+In other words, higher values of \emph{level} lead to more output and vice
 versa.}
 }
 \value{
-None Sets the option `"growR.verbosity".
+None Sets the option ``"growR.verbosity"`.
 }
 \description{
 Set verbosity of growR output.

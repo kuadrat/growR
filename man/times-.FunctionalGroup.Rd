@@ -12,7 +12,7 @@
 \item{fg}{Functional group whose parameters are to be multiplied.}
 }
 \value{
-C A \code{FunctionalGroup} object that has all its values multiplied by
+C A \link{FunctionalGroup} object that has all its values multiplied by
 \emph{scalar}.
 }
 \description{

@@ -56,7 +56,7 @@ combinations (column \code{n} in \code{self$res}) that is to be highlighted.}
 \if{html}{\out{<a id="method-PscanPlotter-new"></a>}}
 \if{latex}{\out{\hypertarget{method-PscanPlotter-new}{}}}
 \subsection{Method \code{new()}}{
-Construct and set up a PscanPlotter instance.
+Construct and set up a \link{PscanPlotter} instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{PscanPlotter$new(analyzed)}\if{html}{\out{</div>}}
 }

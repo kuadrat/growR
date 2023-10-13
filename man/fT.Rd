@@ -16,16 +16,16 @@ fT(t, T0 = 4, T1 = 10, T2 = 20)
 \item{T2}{float Photosynthesis max temperature in degree Celsius.}
 }
 \value{
-A value in the range [0, 1], acting as a multiplicative factor to 
-  plant growth.
+A value in the range (0, 1), acting as a multiplicative factor to
+plant growth.
 }
 \description{
 Threshold function representing growth limitation by temperature.
 }
 \details{
-Photosynthesis is suppressed below *T0*, increases until it reaches its 
-maximum at temperatures in the interval [T1, T2]. For temperatures exceeding 
-*T2*, photosynthetic activity decreases again until it reaches 0 at a 
+Photosynthesis is suppressed below \emph{T0}, increases until it reaches its
+maximum at temperatures in the interval (T1, T2). For temperatures exceeding
+\emph{T2}, photosynthetic activity decreases again until it reaches 0 at a
 final temperature of 40 degree Celsius.
 }
 \examples{

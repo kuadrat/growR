@@ -9,20 +9,23 @@ box_smooth(x, box_width = 28)
 \arguments{
 \item{x}{1D data to be smoothed.}
 
-\item{box_width}{Width (in units of vector steps) of the box used for 
+\item{box_width}{Width (in units of vector steps) of the box used for
 smoothing.}
 }
 \value{
-x_smooth Smoothened version of *x*.
+x_smooth Smoothened version of \emph{x}.
 }
 \description{
-Smooth data in vector *x* to its endpoint.
+Smooth data in vector \emph{x} to its endpoint.
 }
 \details{
-Employ an endpoint box filter (aka "running mean" or midpoint smoother) to the 
-1-D data in *x*:
-`x_smoothed[i] = mean(x[i-box_width:i])`
-Where *x* is considered to be *zero-padded* vor values of *i-box_width* < 1.
+Employ an endpoint box filter (aka "running mean" or endpoint smoother) to the
+1-D data in \emph{x}:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{x_smoothed[i] = mean(x[i-box_width:i])
+}\if{html}{\out{</div>}}
+
+Where \emph{x} is considered to be \emph{zero-padded} vor values of \emph{i-box_width} < 1.
 }
 \examples{
 # Create a sine wave with noise

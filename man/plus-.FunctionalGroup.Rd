@@ -12,7 +12,7 @@
 \item{B}{Second functional group.}
 }
 \value{
-C A \code{FunctionalGroup} object where each value is the sum of the
+C A \link{FunctionalGroup} object where each value is the sum of the
 respective values in \emph{A} and \emph{B}.
 }
 \description{

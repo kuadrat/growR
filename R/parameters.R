@@ -85,16 +85,6 @@ for (name in c("WR0", "OMDGV0", "OMDGR0")) {
 #' ## Vegetation parameters
 #' ```{r child = "man/parameters_fg.Rmd"}
 #' ```
-#'
-#' @field parameter_names Names of all parameters and state variables.
-#' @field n_parameters Number of total parameters.
-#' @field functional_group The functional group object holding the vegetation 
-#'   parameters.
-#' @field fg_parameter_names Names of vegetation parameters defined by the 
-#'   functional group composition.
-#' @field param_file Name of the parameter file from which initial parameter 
-#'   values were read.
-#'
 #' @note
 #' Programmatically speaking, all parameters described under *Parameter 
 #' description* are also fields of this R6Class.
@@ -111,10 +101,18 @@ ModvegeParameters = R6Class(
 
     list(
       #-Public-attributes-----------------------------------------------------------
+#' @field parameter_names Names of all parameters and state variables.
       parameter_names = all_parameter_names,
+#' @field n_parameters Number of total parameters.
       n_parameters = length(parameter_names),
+#' @field functional_group The [FunctionalGroup] instance holding the 
+#'   vegetation parameters.
       functional_group = NULL,
+#' @field fg_parameter_names Names of vegetation parameters defined by the 
+#'   functional group composition.
       fg_parameter_names = NULL,
+#' @field param_file Name of the parameter file from which initial parameter 
+#'   values were read.
       param_file = NULL,
 
       #-Public-methods--------------------------------------------------------------

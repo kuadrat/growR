@@ -151,8 +151,8 @@ vegetation parameters governed by functional group composition.}
 
 \item{\code{n_parameters}}{Number of total parameters.}
 
-\item{\code{functional_group}}{The functional group object holding the vegetation
-parameters.}
+\item{\code{functional_group}}{The \link{FunctionalGroup} instance holding the
+vegetation parameters.}
 
 \item{\code{fg_parameter_names}}{Names of vegetation parameters defined by the
 functional group composition.}

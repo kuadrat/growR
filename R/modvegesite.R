@@ -116,7 +116,7 @@ ModvegeSite = R6Class(
       j_start_of_growing_season = NULL,
 #' @field cut_height Height of remaining grass after cut in m.
       cut_height = 0.05,
-#' @field parameters A ModvegeParameters object.
+#' @field parameters A [ModvegeParameters] object.
       parameters = NULL,
 #' @field determine_cut Function used to decide whether a cut occurs on a 
 #'   given DOY. Is overloaded depending on whether management data is 
@@ -162,9 +162,9 @@ ModvegeSite = R6Class(
 #'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
 #'   BDDR).
       BM_after_cut = NULL,
-#' @field weather A WeatherData object.
+#' @field weather A [WeatherData] object.
       weather = NULL,
-#' @field management A ManagementData object. If its `is_empty` field is `TRUE`, 
+#' @field management A [ManagementData] object. If its `is_empty` field is `TRUE`, 
 #'   the autocut routine will be employed.
       management = NULL,
 
@@ -176,7 +176,7 @@ ModvegeSite = R6Class(
       #' @param run_name string Name of the simulation run. Used to 
       #'   differentiate between different simulation conditions at the same site.
       #'   Defaults to "-", which indicates no specific run name.
-      #' @param parameters A ModvegeParameters object.
+      #' @param parameters A [ModvegeParameters] object.
       #'
       initialize = function(parameters, site_name = "-", run_name = "-") {
         self$site_name = site_name
@@ -339,11 +339,11 @@ ModvegeSite = R6Class(
 
       #' @description Carry out a ModVege simulation for one year.
       #'
-      #' @param year Integer specifying the year to consider. (Unused?)
-      #' @param weather Weather List for given year as returned by 
-      #'   :method:`Weather$get_weather_for_year`
-      #' @param management Management List for given year as provided by 
-      #'   `ModvegeEnvironment`'s method `get_environment_for_year()`.
+      #' @param year Integer specifying the year to consider.
+      #' @param weather Weather list for given year as returned by 
+      #'   [WeatherData]`$get_weather_for_year`.
+      #' @param management Management list for given year as provided by 
+      #'   [ModvegeEnvironment]`$get_environment_for_year()`.
       #' @return None Fills the state variables of this instance with the 
       #'   simulated values. Access them programmatically or write them to 
       #'   file using `write_output()`.

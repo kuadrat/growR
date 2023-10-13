@@ -58,7 +58,7 @@ DEBUG_LEVELS = c("ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
 #'   Messages with a level higher than the specified *level* are suppressed.
 #'   In other words, higher values of *level* lead to more output and vice 
 #'   versa.
-#' @return None Sets the option `"growR.verbosity".
+#' @return None Sets the option ``"growR.verbosity"`.
 #'
 #' @examples
 #' # At level 3, only one of the three following messages are printed.
@@ -74,6 +74,7 @@ DEBUG_LEVELS = c("ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
 #' # Reset to default.
 #' set_growR_verbosity()
 #'
+#' @md
 #' @export
 set_growR_verbosity = function(level = 3) {
   options("growR.verbosity" = level)
@@ -83,7 +84,7 @@ set_growR_verbosity = function(level = 3) {
 #'
 #' @param msg The message to print.
 #' @param level The message will only be printed if its *level* is lower 
-#'        or equal to *DEBUG_LEVEL*
+#'        or equal to `getOption("growR.verbosity")`.
 #' @param stop_on_error Can be set to FALSE in order to continue 
 #' execution despite emitting a message of *level* ERROR.
 #' @return None Prints console output.
@@ -217,7 +218,7 @@ append_to_table = function(data, filename, ...) {
 #' @param input_dir Path to directory where input files are located. Defaults 
 #'   to `getOptions("growR.input_dir", default = file.path("input"))`.
 #'
-#' @return A list of `ModvegeEnvironment` instances corresponding to the 
+#' @return A list of [ModvegeEnvironment] instances corresponding to the 
 #'   configurations in the order they appear in *config_file*.
 #'
 #' @examples
@@ -311,9 +312,11 @@ parse_year_strings = function(year_strings) {
 #' Smooth data in vector *x* to its endpoint.
 #'
 #' @details
-#' Employ an endpoint box filter (aka "running mean" or midpoint smoother) to the 
+#' Employ an endpoint box filter (aka "running mean" or endpoint smoother) to the 
 #' 1-D data in *x*:
-#' `x_smoothed[i] = mean(x[i-box_width:i])`
+#' ```
+#' x_smoothed[i] = mean(x[i-box_width:i])
+#' ```
 #' Where *x* is considered to be *zero-padded* vor values of *i-box_width* < 1.
 #'
 #' @param x 1D data to be smoothed.
@@ -329,6 +332,7 @@ parse_year_strings = function(year_strings) {
 #' # Apply endpoint smoothing
 #' y_smooth = box_smooth(y, box_width = 5)
 #'
+#' @md
 #' @export
 box_smooth = function(x, box_width = 28) {
   # Do nothing for box_width <= 1

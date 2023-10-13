@@ -20,14 +20,17 @@ Kruijt et al.
 
 It appears that this paper that said equations are most likely incorrect.
 With the stated values, I cannot reproduce tabulated values of c close to
-1, as in their table 3. Instead,I conclude that equation (4) should read::
+1, as in their table 3. Instead,I conclude that equation (4) should read:
 
-c = 1 + s_gs * s_T * F_T * deltaCO2
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  c = 1 + s_gs * s_T * F_T * deltaCO2
+}\if{html}{\out{</div>}}
 
 with the multiplicative terms giving small negative numbers.
 The factors s_gs, s_T and F_T for grasslands are taken from pages 260 and
 261 in Kruijt et al. where we averaged over the stated ranges to get:
-c ~= 1 + 0.0001 * deltaCO2
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{  c ~= 1 + 0.0001 * deltaCO2
+}\if{html}{\out{</div>}}
 }
 \examples{
 fCO2_transpiration_mod(420)

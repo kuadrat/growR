@@ -13,7 +13,7 @@ read_config(config_file, input_dir = NULL)
 to \code{getOptions("growR.input_dir", default = file.path("input"))}.}
 }
 \value{
-A list of \code{ModvegeEnvironment} instances corresponding to the
+A list of \link{ModvegeEnvironment} instances corresponding to the
 configurations in the order they appear in \emph{config_file}.
 }
 \description{

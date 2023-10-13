@@ -2,7 +2,7 @@
 % Please edit documentation in R/run.R
 \name{growR_run_loop}
 \alias{growR_run_loop}
-\title{Run a growR simulation}
+\title{Run growR simulations}
 \usage{
 growR_run_loop(
   modvege_environments,
@@ -12,12 +12,12 @@ growR_run_loop(
 )
 }
 \arguments{
-\item{modvege_environments}{A list of \code{ModvegeEnvironment} instances.}
+\item{modvege_environments}{A list of \link{ModvegeEnvironment} instances.}
 
-\item{write_files}{boolean; If TRUE, write results of \code{ModvegeSite$run()}
+\item{write_files}{boolean; If TRUE, write results of \link{ModvegeSite}\verb{$run()}
 to files.}
 
-\item{store_results}{boolean; If TRUE, return a list of the ModvegeSite`
+\item{store_results}{boolean; If TRUE, return a list of the \link{ModvegeSite}
 objects which were run.}
 
 \item{output_dir}{string; name of directory to which output files are to
@@ -25,7 +25,7 @@ be written if \code{write_files} is \code{TRUE}.}
 }
 \value{
 If \code{store_results == TRUE}, a list of the format
-\verb{[[run]][[year]]} containing clones of the \code{ModvegeSite} instances that
+\verb{[[run]][[year]]} containing clones of the \link{ModvegeSite} instances that
 were run. Otherwise an empty list. Defaults to
 getOption("growR.output_dir").
 }
@@ -34,7 +34,8 @@ Start the loop over runs specified in the config file.
 }
 \details{
 By default, returns an empty list but writes output to the output files
-as specified in \code{modvege_environment}. Change this behaviour through the
+as specified in the \emph{site_name} and \emph{run_name} fields of the supplied
+\link{ModvegeEnvironment} instances. Change this behaviour through the
 \code{write_files} and \code{store_results} arguments.
 }
 \examples{

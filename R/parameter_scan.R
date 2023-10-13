@@ -12,14 +12,14 @@ ask_for_confirmation = function(n_combinations) {
 #'
 #' Run ModVege for a different sets of parameters.
 #'
-#' @param environment Either a `ModvegeEnvironment` instance with all the site, 
-#'   management and weather inputs expected by `ModvegeSite$run()` **or** a 
+#' @param environment Either a [ModvegeEnvironment] instance with all the site, 
+#'   management and weather inputs expected by [ModvegeSite]`$run()` **or** a 
 #'   string representing the name of a config file to read in order to 
-#'   generate the `ModvegeEnvironment` with [read_config()]. Note that, in 
+#'   generate the [ModvegeEnvironment] with [read_config()]. Note that, in 
 #'   the latter case, only the first found configuration is used if there are 
 #'   more than one valid uncommented lines in the config file.
 #' @param param_values A named list where each key stands for a ModVege 
-#'   parameter, i.e. a member of `ModvegeParameters$parameter_names`. Each 
+#'   parameter, i.e. a member of [ModvegeParameters]`$parameter_names`. Each 
 #'   list entry then has to be a vector containing the allowed values for the 
 #'   respective parameter. All possible allowed combinations of these 
 #'   parameter values are then generated and fed into a ModVege run.
@@ -36,12 +36,12 @@ ask_for_confirmation = function(n_combinations) {
 #'   \describe{
 #'   \item{params}{The parameter set that was used to run ModVege for this 
 #'   entry.}
-#'   \item{data}{A list containing for each simulated year a ModvegeSite 
+#'   \item{data}{A list containing for each simulated year a [ModvegeSite] 
 #'   object which was run for the respective year and therefore carries the 
 #'   respective results.}
 #'   }
 #'
-#' @seealso ModvegeParameters, [saveRDS()], [create_combinations()]
+#' @seealso [ModvegeParameters], [saveRDS()], [create_combinations()]
 #'
 #' @examples
 #' env = create_example_environment()
@@ -106,7 +106,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #'   should be the output of [run_parameter_scan()] directly.
 #' @param datafile Name or path to a file containing measured data. The model 
 #'   results in *parameter_scan_results* are compared to the data therein. If 
-#'   empty, the site is inferred from the `ModvegeSite` objects in 
+#'   empty, the site is inferred from the [ModvegeSite] objects in 
 #'   *parameter_scan_results* and a corresponding data file is searched for 
 #'    in `getOptions("growR.data_dir", default = "data").
 #' @return analyzed A list with threy keys: `results`, `metrics` and `params`.
@@ -253,7 +253,7 @@ PscanPlotter = R6Class(
   #-Public-methods--------------------------------------------------------------
 
     #' @description
-    #' Construct and set up a PscanPlotter instance.
+    #' Construct and set up a [PscanPlotter] instance.
     #'
     #' @param analyzed Output of [analyze_parameter_scan()].
     #'
@@ -492,16 +492,16 @@ b   Highlight best performers. You will be queried to select a metric.
 #' of model performance in parameter space.
 #'
 #' @details
-#' Under the hood this function just creates a PscanPlotter object and calls its 
+#' Under the hood this function just creates a [PscanPlotter] object and calls its 
 #' `analyze` method.
 #'
 #' @param analyzed Output of [analyze_parameter_scan()].
 #' @param interactive boolean Toggle between just creating a static plot 
 #'   (`interactive = FALSE`) or entering a small, interactive analysis 
 #'   setting (`interactive = TRUE`, default).
-#' @return A `PscanPlotter` object.
+#' @return A [PscanPlotter] object.
 #'
-#' @seealso [analyze_parameter_scan()], `PscanPlotter$analyze()`
+#' @seealso [analyze_parameter_scan()], [PscanPlotter]`$analyze()`
 #'
 #' @examplesIf interactive()
 #' # There needs to be data available with which the modle is to be compared.

@@ -11,7 +11,7 @@ keys:
 \describe{
 \item{params}{The parameter set that was used to run growR for this
 entry.}
-\item{data}{A list containing for each simulated year a ModvegeSite
+\item{data}{A list containing for each simulated year a \link{ModvegeSite}
 object which was run for the respective year and therefore carries the
 respective results.}
 }

@@ -42,11 +42,11 @@ ModvegeEnvironment = R6Class(
     weather_file = NULL,
 #' @field management_file Name of supplied management file.
     management_file = NULL,
-#' @field parameters A ModvegeParameters object.
+#' @field parameters A [ModvegeParameters] object.
     parameters = NULL,
-#' @field weather A WeatherData object.
+#' @field weather A [WeatherData] object.
     weather = NULL,
-#' @field management A ManagementData object.
+#' @field management A [ManagementData] object.
     management = NULL,
 #' @field input_dir Directory in which parameter, weather and management 
 #'   files are searched for. Defaults to `getOption("growR.input_dir").
@@ -179,7 +179,7 @@ ModvegeEnvironment = R6Class(
 #'
 #' @param site Choose for which example site an environment is to be created. 
 #'   Options: `"posieux"`, `"sorens"`.
-#' @return E A `ModvegeEnvironment` instance based on the example data for 
+#' @return E A `[ModvegeEnvironment]` instance based on the example data for 
 #'   *site* which is shipped with this package.
 #'
 #' @examples

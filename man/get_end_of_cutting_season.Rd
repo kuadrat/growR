@@ -7,7 +7,7 @@
 get_end_of_cutting_season(min_biomass, elevation, intensity = "high")
 }
 \arguments{
-\item{min_biomass}{float A standing biomass below this value cannot even 
+\item{min_biomass}{float A standing biomass below this value cannot even
 be harvested,}
 
 \item{elevation}{float Altitude in m.a.s.l.}
@@ -15,13 +15,13 @@ be harvested,}
 \item{intensity}{string Management intensity. One of "high", "middle", "low"}
 }
 \value{
-float Last (fractional) day of the year on which a cut still makes 
-  sense.
+float Last (fractional) day of the year on which a cut still makes
+sense.
 }
 \description{
-Estimate the last day on which it still makes sense to cut. This is done 
-by checking at which point the expected target biomass (see 
-[get_relative_cut_contribution()]) goes below the minimally harvestable 
+Estimate the last day on which it still makes sense to cut. This is done
+by checking at which point the expected target biomass (see
+\code{\link[=get_relative_cut_contribution]{get_relative_cut_contribution()}}) goes below the minimally harvestable
 standing biomass.
 }
 \examples{
@@ -30,5 +30,5 @@ get_end_of_cutting_season(50, 1200, intensity = "low")
 
 }
 \seealso{
-[get_relative_cut_contribution()]
+\code{\link[=get_relative_cut_contribution]{get_relative_cut_contribution()}}
 }

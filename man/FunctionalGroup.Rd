@@ -156,7 +156,7 @@ Efficient setter, assumes parameters come in known order.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{ordered_parameter_values}}{Parameter values to be set. Need to be
-in the same order as \code{FunctionalGroup$fg_parameter_names}.}
+in the same order as pFunctionalGroup]\verb{$fg_parameter_names}.}
 }
 \if{html}{\out{</div>}}
 }

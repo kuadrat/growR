@@ -11,7 +11,7 @@ get_annual_gross_yield(elevation, intensity = "high")
 \item{elevation}{The elevation of the considered site in meters above sea
 level.}
 
-\item{intensity}{One of ["high", "middle", "low", "extensive". Management
+\item{intensity}{One of ("high", "middle", "low", "extensive"). Management
 intensity for considered site.}
 }
 \value{

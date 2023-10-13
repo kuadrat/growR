@@ -31,19 +31,18 @@ automatically found in the \code{input} directory created by \code{\link[=setup_
 if the \code{include_examples} option is set to \code{TRUE} (default).
 }
 \details{
-For use in growR, a WeatherData object has to be created from a plain
+For use in growR, a \link{WeatherData} object has to be created from a plain
 text file. Therefore, this dataset is only provided for convenient
 inspection. In order to run growR, use the plain text files provided by
 the package. Use \code{system.file("extdata", package = "growR")} to locate them.
 
 The \emph{snow} column is not actually used by growR but rather calculated
-through precipitation and temperatures in \code{WeatherData$read_weather()}.
+through precipitation and temperatures in \link{WeatherData}\verb{$read_weather()}.
 
 Likewise, the \emph{rSSD} column is deprecated, currently unused and only kept
 for backwards compatibility.
 }
 \seealso{
-\code{\link[=setup_directory]{setup_directory()}}
+\code{\link[=setup_directory]{setup_directory()}}, \link{WeatherData}
 }
-\concept{{weather_datasets}}
 \keyword{datasets}

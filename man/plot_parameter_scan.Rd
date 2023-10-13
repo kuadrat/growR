@@ -14,14 +14,14 @@ plot_parameter_scan(analyzed, interactive = TRUE)
 setting (\code{interactive = TRUE}, default).}
 }
 \value{
-A \code{PscanPlotter} object.
+A \link{PscanPlotter} object.
 }
 \description{
 Visualize the results of a parameter scan and allow interactive inspection
 of model performance in parameter space.
 }
 \details{
-Under the hood this function just creates a PscanPlotter object and calls its
+Under the hood this function just creates a \link{PscanPlotter} object and calls its
 \code{analyze} method.
 }
 \examples{
@@ -42,5 +42,5 @@ psp$analyze()
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}, \code{PscanPlotter$analyze()}
+\code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}, \link{PscanPlotter}\verb{$analyze()}
 }

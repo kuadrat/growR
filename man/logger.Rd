@@ -10,7 +10,7 @@ logger(msg = "", level = DEBUG, stop_on_error = TRUE)
 \item{msg}{The message to print.}
 
 \item{level}{The message will only be printed if its \emph{level} is lower
-or equal to \emph{DEBUG_LEVEL}}
+or equal to \code{getOption("growR.verbosity")}.}
 
 \item{stop_on_error}{Can be set to FALSE in order to continue
 execution despite emitting a message of \emph{level} ERROR.}

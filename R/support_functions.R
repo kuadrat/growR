@@ -20,7 +20,7 @@ fPAR <- function(PAR) {
 #' Threshold function representing growth limitation by temperature.
 #'
 #' Photosynthesis is suppressed below *T0*, increases until it reaches its 
-#' maximum at temperatures in the interval [T1, T2]. For temperatures exceeding 
+#' maximum at temperatures in the interval (T1, T2). For temperatures exceeding 
 #' *T2*, photosynthetic activity decreases again until it reaches 0 at a 
 #' final temperature of 40 degree Celsius.
 #'
@@ -29,7 +29,7 @@ fPAR <- function(PAR) {
 #' @param T1 float Photosynthesis plateau temperature in degree Celsius.
 #' @param T2 float Photosynthesis max temperature in degree Celsius.
 #'
-#' @return A value in the range [0, 1], acting as a multiplicative factor to 
+#' @return A value in the range (0, 1), acting as a multiplicative factor to 
 #'   plant growth.
 #'
 #' @examples
@@ -37,6 +37,7 @@ fPAR <- function(PAR) {
 #' fT(10)
 #' fT(15)
 #'
+#' @md
 #' @export
 fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
   if (t < T0) {
@@ -233,18 +234,22 @@ fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
 #'
 #' It appears that this paper that said equations are most likely incorrect. 
 #' With the stated values, I cannot reproduce tabulated values of c close to 
-#' 1, as in their table 3. Instead,I conclude that equation (4) should read::
-#'
+#' 1, as in their table 3. Instead,I conclude that equation (4) should read:
+#' ```
 #'   c = 1 + s_gs * s_T * F_T * deltaCO2
+#' ```
 #'
 #' with the multiplicative terms giving small negative numbers.
 #' The factors s_gs, s_T and F_T for grasslands are taken from pages 260 and 
 #' 261 in Kruijt et al. where we averaged over the stated ranges to get:
-#' c ~= 1 + 0.0001 * deltaCO2
+#' ```
+#'   c ~= 1 + 0.0001 * deltaCO2
+#' ```
 #'
 #' @param c_CO2 numeric Atmospheric CO2 concentration in ppm
 #' @param c_ref numeric Reference CO2 concentration in ppm.
 #'
+#' @md
 #' @examples
 #' fCO2_transpiration_mod(420)
 #' # The modifier is always relative to *c_ref*. This returns 1.
@@ -278,12 +283,13 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #'
 #' @param elevation The elevation of the considered site in meters above sea 
 #'   level.
-#' @param intensity One of ["high", "middle", "low", "extensive". Management 
+#' @param intensity One of ("high", "middle", "low", "extensive"). Management 
 #'   intensity for considered site.
 #'
 #' @return Annual gross yield in t / ha (metric tons per hectare). Note that 
 #'   1 t/ha = 0.1 kg/m^2.
 #'
+#' @md
 #' @examples
 #' get_annual_gross_yield(1200)
 #' get_annual_gross_yield(1200, intensity = "low")
@@ -300,19 +306,22 @@ get_annual_gross_yield = function(elevation, intensity = "high") {
   return(1)
 }
 
+#' Get number of expected cuts
+#'
 #' Return the number of expected cuts for a site at a given *elevation* and 
 #' management *intensity*.
 #'
-#' This uses :data.frame:`management_parameters` as a lookup table and 
+#' This uses data.frame `management_parameters` as a lookup table and 
 #' interpolates linearly in between the specified values.
 #'
 #' @param elevation The elevation of the considered site in meters above sea 
 #'   level.
-#' @param intensity One of ["high", "middle", "low", "extensive". Management 
+#' @param intensity One of ("high", "middle", "low", "extensive"). Management 
 #'   intensity for considered site.
 #'
 #' @return Number of expected cuts per season.
 #'
+#' @md
 #' @examples
 #' get_expected_n_cuts(1200)
 #' get_expected_n_cuts(1200, intensity = "low")
@@ -348,6 +357,7 @@ get_expected_n_cuts = function(elevation, intensity = "high") {
 #' @return The fraction (between 0 and 1) of biomass harvested at the cut at 
 #'   given *DOY* divided by the total annual biomass.
 #'
+#' @md
 #' @examples
 #' get_relative_cut_contribution(1)
 #' get_relative_cut_contribution(150)
@@ -380,6 +390,7 @@ get_relative_cut_contribution = function(DOY) {
 #' 
 #' @seealso [get_relative_cut_contribution()]
 #' 
+#' @md
 #' @examples
 #' get_end_of_cutting_season(50, 1200)
 #' get_end_of_cutting_season(50, 1200, intensity = "low")
