@@ -20,7 +20,7 @@ Description: Run grass growth simulations using a grass growth model based
     regions, such as the Swiss Alps. The package also contains routines for 
     calibrating the model and helpful tools for analysing model outputs and 
     performance.
-URL: https://github.com/kuadrat/growR
+URL: https://github.com/kuadrat/growR, https://kuadrat.github.io/growR/
 BugReports: https://github.com/kuadrat/growR/issues
 License: MIT + file LICENSE
 RoxygenNote: 7.2.3
