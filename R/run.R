@@ -1,4 +1,4 @@
-#' Run a rmodvege simulation
+#' Run a growR simulation
 #'
 #' Start the loop over runs specified in the config file.
 #'
@@ -7,32 +7,32 @@
 #' `write_files` and `store_results` arguments.
 #'
 #' @param modvege_environments A list of `ModvegeEnvironment` instances.
-#' @param write_files boolean; If TRUE, write results of 
-#'   :class:`src.modvege_core.ModvegeSite` runs to files.
-#' @param store_results boolean; If TRUE, return a list of the 
-#'   :class:`src.modvege_core.ModvegeSite` objects which were run.
+#' @param write_files boolean; If TRUE, write results of `ModvegeSite$run()` 
+#'   to files.
+#' @param store_results boolean; If TRUE, return a list of the ModvegeSite` 
+#'   objects which were run.
 #' @param output_dir string; name of directory to which output files are to 
 #'   be written if `write_files` is `TRUE`.
 #'
 #' @return If `store_results == TRUE`, a list of the format 
 #'   `[[run]][[year]]` containing clones of the `ModvegeSite` instances that 
 #'   were run. Otherwise an empty list. Defaults to 
-#'   getOption("rmodvege.output_dir").
+#'   getOption("growR.output_dir").
 #'
 #' @examples
 #' env1 = create_example_environment(site = "posieux")
 #' env2 = create_example_environment(site = "sorens")
 #'
-#' modvege_run_loop(c(env1, env2), write_files = FALSE, 
+#' growR_run_loop(c(env1, env2), write_files = FALSE, 
 #' store_results = TRUE)
 #'
 #' @md
 #' @export
 #' 
-modvege_run_loop = function(modvege_environments,
-                            write_files = TRUE,
-                            store_results = FALSE,
-                            output_dir = NULL) {
+growR_run_loop = function(modvege_environments,
+                          write_files = TRUE,
+                          store_results = FALSE,
+                          output_dir = NULL) {
   n_runs = length(modvege_environments)
   results = list()
   for (run in 1:n_runs) {
@@ -59,14 +59,14 @@ modvege_run_loop = function(modvege_environments,
 
       if (write_files) {
         if (is.null(output_dir)) {
-          output_dir = getOption("rmodvege.output_dir", default = "output/")
+          output_dir = getOption("growR.output_dir", default = "output/")
         }
         out_file = sprintf("%s%s%s_%s.dat",
                            output_dir, 
                            run_environment$site_name,
                            run_environment$run_name_in_filename,
                            this_year)
-        logger("Entering `modvege$write_output`", level = TRACE)
+        logger("Entering `ModvegeSite$write_output`", level = TRACE)
         modvege$write_output(out_file, force = TRUE)
       }
 

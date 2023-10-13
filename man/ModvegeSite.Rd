@@ -4,10 +4,10 @@
 \alias{ModvegeSite}
 \title{ModvegeSite}
 \description{
-Implements the modvege grass growth model based off of Jouven et al. (2006).
+Implements the ModVege grass growth model based off of Jouven et al. (2006).
 
 This class contains model and site parameters and state variables as
-attributes and has methods for running modvege with weather and management
+attributes and has methods for running ModVege with weather and management
 input.
 
 Use the \code{run()} method to carry out a simulation for a given year. The
@@ -83,7 +83,7 @@ multiplicative factor. Dimensionless.}
 }
 
 \references{
-\insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
+\insertRef{jouven2006ModelPredictingDynamics}{growR}
 }
 \seealso{
 \link[=autocut]{autocut}
@@ -102,7 +102,7 @@ state variables.}
 
 \item{\code{n_state_variables}}{Number of state variables.}
 
-\item{\code{version}}{Version number of the rmodvege package. Is written into
+\item{\code{version}}{Version number of the growR package. Is written into
 output files.}
 
 \item{\code{site_name}}{Name of the site to be simulated.}

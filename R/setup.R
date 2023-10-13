@@ -1,9 +1,9 @@
-#' Initialize rmodvege directory structure
+#' Initialize growR directory structure
 #'
 #' @description
-#' Creates directories in which rmodvege by default looks for or deposits 
+#' Creates directories in which growR by default looks for or deposits 
 #' certain files. Also, optionally populates these directories with example 
-#' files, which are useful to familiarize oneself with the rmodvege 
+#' files, which are useful to familiarize oneself with the growR 
 #' simulation framework.
 #'
 #' @param root Path to directory in which to initialize.
@@ -56,9 +56,9 @@ Continue? [y/N]"
     warning(sprintf("Directory `%s` is not empty.", full_path))
   }
 
-  input_dir = getOption("rmodvege.input_dir", default = "input/")
-  output_dir = getOption("rmodvege.output_dir", default = "output/")
-  data_dir = getOption("rmodvege.data_dir", default = "data/")
+  input_dir = getOption("growR.input_dir", default = "input/")
+  output_dir = getOption("growR.output_dir", default = "output/")
+  data_dir = getOption("growR.data_dir", default = "data/")
   dirs_to_create = c(input_dir, output_dir, data_dir)
   for (d in dirs_to_create) {
     path = file.path(full_path, d)
@@ -75,8 +75,8 @@ Continue? [y/N]"
     return(0)
   }
 
-  extdata = system.file("extdata", package = "rmodvege")
-  scripts = system.file("scripts", package = "rmodvege")
+  extdata = system.file("extdata", package = "growR")
+  scripts = system.file("scripts", package = "growR")
   origins = c()
   destinations = c()
 
@@ -107,7 +107,7 @@ Continue? [y/N]"
       destinations = c(destinations, destination)
     }
   }
-  # Finally, files that should go to the rmodvege working dir
+  # Finally, files that should go to the growR working dir
   filenames = c(file.path(extdata, "example_config.txt"),
                 file.path(scripts, "compare.R"))
   destination = file.path(full_path)

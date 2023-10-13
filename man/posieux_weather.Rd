@@ -25,18 +25,18 @@ PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6}
 posieux_weather
 }
 \description{
-Datasets containing the weather input parameters as used by rmodvege. The
+Datasets containing the weather input parameters as used by growR. The
 same data is made available as plain text files by the package and
 automatically found in the \code{input} directory created by \code{\link[=setup_directory]{setup_directory()}}
 if the \code{include_examples} option is set to \code{TRUE} (default).
 }
 \details{
-For use in rmodvege, a WeatherData object has to be created from a plain
+For use in growR, a WeatherData object has to be created from a plain
 text file. Therefore, this dataset is only provided for convenient
-inspection. In order to run rmodvege, use the plain text files provided by
-the package. Use \code{system.file("extdata", package = "rmodvege")} to locate them.
+inspection. In order to run growR, use the plain text files provided by
+the package. Use \code{system.file("extdata", package = "growR")} to locate them.
 
-The \emph{snow} column is not actually used by rmodvege but rather calculated
+The \emph{snow} column is not actually used by growR but rather calculated
 through precipitation and temperatures in \code{WeatherData$read_weather()}.
 
 Likewise, the \emph{rSSD} column is deprecated, currently unused and only kept

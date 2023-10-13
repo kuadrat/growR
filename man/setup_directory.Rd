@@ -2,7 +2,7 @@
 % Please edit documentation in R/setup.R
 \name{setup_directory}
 \alias{setup_directory}
-\title{Initialize rmodvege directory structure}
+\title{Initialize growR directory structure}
 \usage{
 setup_directory(root = ".", include_examples = TRUE, force = FALSE)
 }
@@ -16,9 +16,9 @@ input parameters in the appropriate directories.}
 before we write to the filesystem.}
 }
 \description{
-Creates directories in which rmodvege by default looks for or deposits
+Creates directories in which growR by default looks for or deposits
 certain files. Also, optionally populates these directories with example
-files, which are useful to familiarize oneself with the rmodvege
+files, which are useful to familiarize oneself with the growR
 simulation framework.
 }
 \examples{

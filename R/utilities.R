@@ -51,32 +51,32 @@ TRACE = 5
 #' Names of debug levels.
 DEBUG_LEVELS = c("ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
 
-#' Set verbosity of rmodvege output.
+#' Set verbosity of growR output.
 #'
 #' @param level Integer representing one of the following levels:
 #'   1: ERROR, 2: WARNING, 3: INFO, 4: DEBUG, 5: TRACE
 #'   Messages with a level higher than the specified *level* are suppressed.
 #'   In other words, higher values of *level* lead to more output and vice 
 #'   versa.
-#' @return None Sets the option `"rmodvege.verbosity".
+#' @return None Sets the option `"growR.verbosity".
 #'
 #' @examples
 #' # At level 3, only one of the three following messages are printed.
-#' set_rmodvege_verbosity(3)
+#' set_growR_verbosity(3)
 #' logger("Message on level 5.", level = 5)
 #' logger("Message on level 4.", level = 4)
 #' logger("Message on level 3.", level = 3)
 #' # At level 5, all three are printed.
-#' set_rmodvege_verbosity(5)
+#' set_growR_verbosity(5)
 #' logger("Message on level 5.", level = 5)
 #' logger("Message on level 4.", level = 4)
 #' logger("Message on level 3.", level = 3)
 #' # Reset to default.
-#' set_rmodvege_verbosity()
+#' set_growR_verbosity()
 #'
 #' @export
-set_rmodvege_verbosity = function(level = 3) {
-  options("rmodvege.verbosity" = level)
+set_growR_verbosity = function(level = 3) {
+  options("growR.verbosity" = level)
 }
 
 #' Primitive logger for debugging.
@@ -88,7 +88,7 @@ set_rmodvege_verbosity = function(level = 3) {
 #' execution despite emitting a message of *level* ERROR.
 #' @return None Prints console output.
 #'
-#' @seealso [set_rmodvege_verbosity()]
+#' @seealso [set_growR_verbosity()]
 #'
 #' @examples
 #' logger("A standard message", level = 3)
@@ -98,7 +98,7 @@ set_rmodvege_verbosity = function(level = 3) {
 #' @md
 #' @export
 logger = function(msg = "", level = DEBUG, stop_on_error = TRUE) {
-  DEBUG_LEVEL = getOption("rmodvege.verbosity", default = DEBUG)
+  DEBUG_LEVEL = getOption("growR.verbosity", default = DEBUG)
    # Do nothing if the supplied level is insufficient
   if (level > DEBUG_LEVEL) {
     return()
@@ -215,7 +215,7 @@ append_to_table = function(data, filename, ...) {
 #'
 #' @param config_file Path to the configuration file to be read.
 #' @param input_dir Path to directory where input files are located. Defaults 
-#'   to `getOptions("rmodvege.input_dir", default = file.path("input"))`.
+#'   to `getOptions("growR.input_dir", default = file.path("input"))`.
 #'
 #' @return A list of `ModvegeEnvironment` instances corresponding to the 
 #'   configurations in the order they appear in *config_file*.

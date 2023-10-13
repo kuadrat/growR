@@ -71,7 +71,7 @@ fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
 #' fW(0.5, 3)
 #'
 #' @references
-#' \insertRef{mccall2003PastureGrowthModel}{rmodvege}
+#' \insertRef{mccall2003PastureGrowthModel}{growR}
 #'
 #' @md
 #' @export
@@ -214,9 +214,9 @@ aCO2_inverse = function(aCO2) {
 #' fCO2_growth_mod(420, c_ref = 420)
 #'
 #' @references
-#' \insertRef{soltani2012ModelingPhysiologyCrop}{rmodvege}
+#' \insertRef{soltani2012ModelingPhysiologyCrop}{growR}
 #'
-#' \insertRef{kellner2017CoupledHydrologicalplantGrowth}{rmodvege}
+#' \insertRef{kellner2017CoupledHydrologicalplantGrowth}{growR}
 #'
 #' @md
 #' @export
@@ -251,7 +251,7 @@ fCO2_growth_mod = function(c_CO2, b = 0.5, c_ref = 360) {
 #' fCO2_transpiration_mod(420, c_ref = 420)
 #'
 #' @references
-#' \insertRef{kruijt2008EffectsRisingAtmospheric}{rmodvege}
+#' \insertRef{kruijt2008EffectsRisingAtmospheric}{growR}
 #'
 #' @md
 #' @export
@@ -289,7 +289,7 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #' get_annual_gross_yield(1200, intensity = "low")
 #'
 #' @references
-#' \insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+#' \insertRef{huguenin2017GrundlagenDuengung}{growR}
 #' @md
 #' @export
 get_annual_gross_yield = function(elevation, intensity = "high") {
@@ -356,7 +356,7 @@ get_expected_n_cuts = function(elevation, intensity = "high") {
 #' get_relative_cut_contribution(600)
 #'
 #' @references
-#' \insertRef{petersen2021DynamicSimulationManagement}{rmodvege}
+#' \insertRef{petersen2021DynamicSimulationManagement}{growR}
 #' @md
 #' @export
 get_relative_cut_contribution = function(DOY) {

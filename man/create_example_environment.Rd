@@ -18,7 +18,7 @@ E A \code{ModvegeEnvironment} instance based on the example data for
 This is intended for testing and for the examples in the documentation.
 }
 \examples{
-extdata = system.file("extdata", package = "rmodvege") 
+extdata = system.file("extdata", package = "growR") 
 print(extdata)
 list.files(extdata, recursive = TRUE)
 create_example_environment()

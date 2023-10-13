@@ -147,7 +147,7 @@ mean_absolute_error = metric_factory(mean_absolute_error_core)
 #' @seealso [get_bias()]
 #'
 #' @references
-#'   \insertRef{willmott2012RefinedIndexModel}{rmodvege}
+#'   \insertRef{willmott2012RefinedIndexModel}{growR}
 #'
 #' @md
 #' @export

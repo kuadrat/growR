@@ -1,6 +1,6 @@
-Package: rmodvege
+Package: growR
 Type: Package
-Version: 2.1.3
+Version: 0.0.1
 Date: 2023-09-27
 Authors@R: person(
     given = "Kevin",
@@ -13,11 +13,15 @@ Description: Run grass growth simulations using a grass growth model based
     off of ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting 
     Dynamics of Biomass, Structure and Digestibility of Herbage in Managed 
     Permanent Pastures. 1. Model Description." (2006) 
-    <https://doi.org/10.1111/j.1365-2494.2006.00515.x>).
-    See the project github page for a more 
-    thorough description: <https://github.com/kuadrat/rmodvege/>.
-URL: https://github.com/kuadrat/rmodvege
-BugReports: https://github.com/kuadrat/rmodvege/issues/
+    <https://doi.org/10.1111/j.1365-2494.2006.00515.x>). The implementation in
+    this package contains a few additions to the above cited version of ModVege,
+    such as simulations of management decisions, and influences of snow cover.
+    As such, the model is fit to simulate grass growth in mountainous 
+    regions, such as the Swiss Alps. The package also contains routines for 
+    calibrating the model and helpful tools for analysing model outputs and 
+    performance.
+URL: https://github.com/kuadrat/growR
+BugReports: https://github.com/kuadrat/growR/issues/
 License: MIT + file LICENSE
 RoxygenNote: 7.2.3
 Encoding: UTF-8

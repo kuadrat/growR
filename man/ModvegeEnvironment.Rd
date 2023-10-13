@@ -2,40 +2,40 @@
 % Please edit documentation in R/environment.R
 \name{ModvegeEnvironment}
 \alias{ModvegeEnvironment}
-\title{rmodvege environment data}
+\title{growR environment data}
 \description{
-Data structure that contains inputs (parameters pertaining to a site, to 
-the vegetation, to the weather and to the management) to rmodvege simulations.
+Data structure that contains inputs (parameters pertaining to a site, to
+the vegetation, to the weather and to the management) to growR simulations.
 }
 \details{
-This class contains site parameters, weather and management data for 
-one simulation run of rmodvege on a given site over several years. 
+This class contains site parameters, weather and management data for
+one simulation run of growR on a given site over several years.
 Methods are provided to allow access to relevant data for a given year.
 
 All inputs are read in from data files through the respective data classes
-[WeatherData], [ManagementData] and [ModvegeParameters]. These parameters 
-can be simultaneously specified through a config file using [read_config()].
+\link{WeatherData}, \link{ManagementData} and \link{ModvegeParameters}. These parameters
+can be simultaneously specified through a config file using \code{\link[=read_config]{read_config()}}.
 }
 \seealso{
-[read_config()]
+\code{\link[=read_config]{read_config()}}
 
-[WeatherData$get_weather_for_year()], 
-  [ManagementData$get_management_for_year()]
+\link{WeatherData}\verb{$get_weather_for_year()},
+\link{ManagementData}\verb{$get_management_for_year()}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{site_name}}{Name of site to be simulated.}
 
-\item{\code{run_name}}{Name of simulation run. Allows distinguishing between 
-different simulations at the same site. Defaults to "-" for *no name*.}
+\item{\code{run_name}}{Name of simulation run. Allows distinguishing between
+different simulations at the same site. Defaults to "-" for \emph{no name}.}
 
-\item{\code{run_name_in_filename}}{How the run name will be represented in an 
- output file. If `run_name` is the default "-", indicating no name, this 
-will be an empty string. Otherwise, it will be the `run_name` prepended 
-by and underscore `_`.}
+\item{\code{run_name_in_filename}}{How the run name will be represented in an
+output file. If \code{run_name} is the default "-", indicating no name, this
+will be an empty string. Otherwise, it will be the \code{run_name} prepended
+by and underscore \verb{_}.}
 
-\item{\code{years}}{Years for which environment data (weather & management) is 
+\item{\code{years}}{Years for which environment data (weather & management) is
 present.}
 
 \item{\code{param_file}}{Name of supplied parameter file.}
@@ -50,8 +50,8 @@ present.}
 
 \item{\code{management}}{A ManagementData object.}
 
-\item{\code{input_dir}}{Directory in which parameter, weather and management 
-files are searched for. Defaults to `getOption("rmodvege.input_dir").}
+\item{\code{input_dir}}{Directory in which parameter, weather and management
+files are searched for. Defaults to `getOption("growR.input_dir").}
 }
 \if{html}{\out{</div>}}
 }
@@ -87,22 +87,22 @@ Instantiate a new ModvegeEnvironment
 \describe{
 \item{\code{site_name}}{string Name of the simulated site.}
 
-\item{\code{run_name}}{string Name of the simulation run. Used to 
+\item{\code{run_name}}{string Name of the simulation run. Used to
 differentiate between different simulation conditions at the same site.
 Defaults to "-", which indicates no specific run name.}
 
 \item{\code{years}}{numeric Vector of integer years to be simulated.}
 
-\item{\code{param_file}}{string Name of file that contains site and 
-vegetation parameters. If default value `"-"` is  provided, it is 
+\item{\code{param_file}}{string Name of file that contains site and
+vegetation parameters. If default value \code{"-"} is  provided, it is
 assumed to be "SITENAME_parameters.csv".}
 
-\item{\code{weather_file}}{string Analogous to *param_file*.}
+\item{\code{weather_file}}{string Analogous to \emph{param_file}.}
 
-\item{\code{management_file}}{string Analogous to *param_file*.}
+\item{\code{management_file}}{string Analogous to \emph{param_file}.}
 
-\item{\code{input_dir}}{string Path to directory containing input files. 
-Defaults to `getOption("rmodvege.input_dir")`.}
+\item{\code{input_dir}}{string Path to directory containing input files.
+Defaults to \code{getOption("growR.input_dir")}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -113,8 +113,8 @@ Defaults to `getOption("rmodvege.input_dir")`.}
 \subsection{Method \code{load_inputs()}}{
 Load simulation inputs.
 
-Stores parameters, management and weather data from files specified in 
-self$parameter_file, self$weather_file and self$management_file, 
+Stores parameters, management and weather data from files specified in
+self$parameter_file, self$weather_file and self$management_file,
 respectively.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$load_inputs()}\if{html}{\out{</div>}}
@@ -125,7 +125,7 @@ respectively.
 \if{html}{\out{<a id="method-ModvegeEnvironment-make_filename_for_run"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeEnvironment-make_filename_for_run}{}}}
 \subsection{Method \code{make_filename_for_run()}}{
-Ensure a readable filename for given *run_name*.
+Ensure a readable filename for given \emph{run_name}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$make_filename_for_run(run_name)}\if{html}{\out{</div>}}
 }
@@ -138,7 +138,7 @@ Ensure a readable filename for given *run_name*.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A version of *run_name* that can be used in a filename.
+A version of \emph{run_name} that can be used in a filename.
 }
 }
 \if{html}{\out{<hr>}}
@@ -148,8 +148,8 @@ A version of *run_name* that can be used in a filename.
 Get weather and environment for given year
 
 Convenience function to retrieve environmental and management
-inputs for given *year* from multi-year data containers `self$weather` 
-and `self$management`.
+inputs for given \emph{year} from multi-year data containers \code{self$weather}
+and \code{self$management}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$get_environment_for_year(year)}\if{html}{\out{</div>}}
 }
@@ -162,8 +162,8 @@ and `self$management`.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-`list(W, M)` where `W` is the WeatherData and `M` the 
-  ManagementData object for given year.
+\code{list(W, M)} where \code{W} is the WeatherData and \code{M} the
+ManagementData object for given year.
 }
 }
 \if{html}{\out{<hr>}}

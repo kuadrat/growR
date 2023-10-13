@@ -29,5 +29,5 @@ fW(0.5, 3)
 
 }
 \references{
-\insertRef{mccall2003PastureGrowthModel}{rmodvege}
+\insertRef{mccall2003PastureGrowthModel}{growR}
 }

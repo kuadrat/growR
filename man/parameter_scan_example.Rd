@@ -9,7 +9,7 @@ A list containing an entry for each supplied parameter set
 in \emph{param_values}. Each entry is itself a list containing the following
 keys:
 \describe{
-\item{params}{The parameter set that was used to run modvege for this
+\item{params}{The parameter set that was used to run growR for this
 entry.}
 \item{data}{A list containing for each simulated year a ModvegeSite
 object which was run for the respective year and therefore carries the

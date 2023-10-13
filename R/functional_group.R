@@ -23,7 +23,7 @@
 #'   functional group composition.
 #' 
 #' @references
-#'  \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
+#'  \insertRef{jouven2006ModelPredictingDynamics}{growR}
 #'
 #' 
 #' @md

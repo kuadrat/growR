@@ -14,11 +14,11 @@ generate the \code{ModvegeEnvironment} with \code{\link[=read_config]{read_confi
 the latter case, only the first found configuration is used if there are
 more than one valid uncommented lines in the config file.}
 
-\item{param_values}{A named list where each key stands for a modvege
+\item{param_values}{A named list where each key stands for a ModVege
 parameter, i.e. a member of \code{ModvegeParameters$parameter_names}. Each
 list entry then has to be a vector containing the allowed values for the
 respective parameter. All possible allowed combinations of these
-parameter values are then generated and fed into a modvege run.}
+parameter values are then generated and fed into a ModVege run.}
 
 \item{force}{Boolean. By default (\code{force = FALSE}), the function first
 counts the number of parameter combinations that need to be run and asks
@@ -32,7 +32,7 @@ results A list containing an entry for each supplied parameter set
 in \emph{param_values}. Each entry is itself a list containing the following
 keys:
 \describe{
-\item{params}{The parameter set that was used to run modvege for this
+\item{params}{The parameter set that was used to run ModVege for this
 entry.}
 \item{data}{A list containing for each simulated year a ModvegeSite
 object which was run for the respective year and therefore carries the
@@ -40,7 +40,7 @@ respective results.}
 }
 }
 \description{
-Run modvege for a different sets of parameters.
+Run ModVege for a different sets of parameters.
 }
 \examples{
 env = create_example_environment()

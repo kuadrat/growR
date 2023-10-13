@@ -36,5 +36,5 @@ fCO2_transpiration_mod(420, c_ref = 420)
 
 }
 \references{
-\insertRef{kruijt2008EffectsRisingAtmospheric}{rmodvege}
+\insertRef{kruijt2008EffectsRisingAtmospheric}{growR}
 }

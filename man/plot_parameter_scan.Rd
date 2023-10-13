@@ -28,7 +28,7 @@ Under the hood this function just creates a PscanPlotter object and calls its
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # There needs to be data available with which the modle is to be compared.
 # For this example, use data provided by the package.
-path = system.file("extdata", package = "rmodvege")
+path = system.file("extdata", package = "growR")
 datafile = file.path(path, "posieux1.csv")
 
 # Analyze example output of `run_parameter_scan()`.

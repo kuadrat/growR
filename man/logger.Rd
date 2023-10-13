@@ -28,5 +28,5 @@ logger("A deep debug message", level = 5)
 
 }
 \seealso{
-\code{\link[=set_rmodvege_verbosity]{set_rmodvege_verbosity()}}
+\code{\link[=set_growR_verbosity]{set_growR_verbosity()}}
 }

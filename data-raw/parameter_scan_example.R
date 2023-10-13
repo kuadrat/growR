@@ -1,5 +1,5 @@
 library(usethis)
-library(rmodvege)
+library(growR)
 
 # Create data for the results of an exemplary parameter scan.
 env = create_example_environment()

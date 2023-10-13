@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(rmodvege)
+library(growR)
 
-test_check("rmodvege")
+test_check("growR")

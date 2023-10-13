@@ -10,7 +10,7 @@ ask_for_confirmation = function(n_combinations) {
 
 #' Parameter Scan
 #'
-#' Run modvege for a different sets of parameters.
+#' Run ModVege for a different sets of parameters.
 #'
 #' @param environment Either a `ModvegeEnvironment` instance with all the site, 
 #'   management and weather inputs expected by `ModvegeSite$run()` **or** a 
@@ -18,11 +18,11 @@ ask_for_confirmation = function(n_combinations) {
 #'   generate the `ModvegeEnvironment` with [read_config()]. Note that, in 
 #'   the latter case, only the first found configuration is used if there are 
 #'   more than one valid uncommented lines in the config file.
-#' @param param_values A named list where each key stands for a modvege 
+#' @param param_values A named list where each key stands for a ModVege 
 #'   parameter, i.e. a member of `ModvegeParameters$parameter_names`. Each 
 #'   list entry then has to be a vector containing the allowed values for the 
 #'   respective parameter. All possible allowed combinations of these 
-#'   parameter values are then generated and fed into a modvege run.
+#'   parameter values are then generated and fed into a ModVege run.
 #' @param force Boolean. By default (`force = FALSE`), the function first 
 #'   counts the number of parameter combinations that need to be run and asks 
 #'   the user, if it should proceed. This can be suppressed by letting `force 
@@ -34,7 +34,7 @@ ask_for_confirmation = function(n_combinations) {
 #'   in *param_values*. Each entry is itself a list containing the following 
 #'   keys:
 #'   \describe{
-#'   \item{params}{The parameter set that was used to run modvege for this 
+#'   \item{params}{The parameter set that was used to run ModVege for this 
 #'   entry.}
 #'   \item{data}{A list containing for each simulated year a ModvegeSite 
 #'   object which was run for the respective year and therefore carries the 
@@ -78,9 +78,9 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
            level = INFO
     )
     environment$parameters$set_parameters(parameter_sets[[i]])
-    mvs = modvege_run_loop(c(environment), 
-                           write_files = FALSE,
-                           store_results = TRUE
+    mvs = growR_run_loop(c(environment), 
+                         write_files = FALSE,
+                         store_results = TRUE
     )
     results[[i]] = list(params = parameter_sets[[i]],
                         data = mvs[[1]])
@@ -108,7 +108,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #'   results in *parameter_scan_results* are compared to the data therein. If 
 #'   empty, the site is inferred from the `ModvegeSite` objects in 
 #'   *parameter_scan_results* and a corresponding data file is searched for 
-#'    in `getOptions("rmodvege.data_dir", default = "data").
+#'    in `getOptions("growR.data_dir", default = "data").
 #' @return analyzed A list with threy keys: `results`, `metrics` and `params`.
 #'  \describe{
 #'    \item{results}{A data.frame with `1 + n_params + n_metrics` columns 
@@ -131,7 +131,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #' @examples
 #' # There needs to be data available with which the modle is to be compared.
 #' # For this example, use data provided by the package.
-#' path = system.file("extdata", package = "rmodvege")
+#' path = system.file("extdata", package = "growR")
 #' datafile = file.path(path, "posieux1.csv")
 #' print(path)
 #'
@@ -506,7 +506,7 @@ b   Highlight best performers. You will be queried to select a metric.
 #' @examplesIf interactive()
 #' # There needs to be data available with which the modle is to be compared.
 #' # For this example, use data provided by the package.
-#' path = system.file("extdata", package = "rmodvege")
+#' path = system.file("extdata", package = "growR")
 #' datafile = file.path(path, "posieux1.csv")
 #'
 #' # Analyze example output of `run_parameter_scan()`.

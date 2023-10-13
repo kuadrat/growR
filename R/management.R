@@ -1,7 +1,7 @@
 #' Management Data Class
 #'
 #' Data structure that contains management data which can serve as input to 
-#' an rmodvege simulation run.
+#' a `ModvegeSite` simulation run.
 #'
 #' @md
 #' @export
@@ -13,7 +13,7 @@ ManagementData = R6Class(
 #' @field management_file string The file that was read.
     management_file = NULL,
 #' @field is_empty boolean Used to determine if management data is present or 
-#'   not. In the latter case, rmodvege will simulate management decisions 
+#'   not. In the latter case, `ModvegeSite` will simulate management decisions 
 #'   automatically.
     is_empty = TRUE,
 #' @field years List of unique years for which data is available.
@@ -98,7 +98,7 @@ ManagementData = R6Class(
     #' @return M A list containing the keys: 
     #'   \describe{
     #'   \item{is_empty}{boolean Used to determine if management data is 
-    #'   present or not. In the latter case, rmodvege will simulate 
+    #'   present or not. In the latter case, `ModvegeSite` will simulate 
     #'   management decisions automatically.}
     #'   \item{cut_years}{numeric Vector of length *N* where *N* is the total 
     #'   number of cuts for this *year*, as read from the input file. Gives 

@@ -17,7 +17,7 @@
 #' }
 #'
 #' @references
-#' \insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+#' \insertRef{huguenin2017GrundlagenDuengung}{growR}
 #'
 #' @md
 "yield_parameters"
@@ -43,7 +43,7 @@
 #' }
 #'
 #' @references
-#' \insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+#' \insertRef{huguenin2017GrundlagenDuengung}{growR}
 #'
 #' @md
 "management_parameters"
@@ -51,18 +51,18 @@
 #' Example Weather Data
 #'
 #' @description
-#' Datasets containing the weather input parameters as used by rmodvege. The 
+#' Datasets containing the weather input parameters as used by growR. The 
 #' same data is made available as plain text files by the package and 
 #' automatically found in the `input` directory created by [setup_directory()] 
 #' if the `include_examples` option is set to `TRUE` (default).
 #'
 #' @details
-#' For use in rmodvege, a WeatherData object has to be created from a plain 
+#' For use in growR, a WeatherData object has to be created from a plain 
 #' text file. Therefore, this dataset is only provided for convenient 
-#' inspection. In order to run rmodvege, use the plain text files provided by 
-#' the package. Use `system.file("extdata", package = "rmodvege")` to locate them.
+#' inspection. In order to run growR, use the plain text files provided by 
+#' the package. Use `system.file("extdata", package = "growR")` to locate them.
 #'
-#' The *snow* column is not actually used by rmodvege but rather calculated 
+#' The *snow* column is not actually used by growR but rather calculated 
 #' through precipitation and temperatures in `WeatherData$read_weather()`.
 #'
 #' Likewise, the *rSSD* column is deprecated, currently unused and only kept 
@@ -116,7 +116,7 @@
 #'   in *param_values*. Each entry is itself a list containing the following 
 #'   keys:
 #'   \describe{
-#'   \item{params}{The parameter set that was used to run modvege for this 
+#'   \item{params}{The parameter set that was used to run growR for this 
 #'   entry.}
 #'   \item{data}{A list containing for each simulated year a ModvegeSite 
 #'   object which was run for the respective year and therefore carries the 

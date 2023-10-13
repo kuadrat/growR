@@ -66,7 +66,7 @@ for (name in c("WR0", "OMDGV0", "OMDGR0")) {
 #'
 #' @description
 #' Data structure that contains site and vegetation parameters necessary for 
-#' the configuration of an rmodvege simulation run.
+#' the configuration of an growR simulation run.
 #'
 #' @details 
 #' # Parameter description
@@ -227,7 +227,7 @@ ModvegeParameters = R6Class(
 
       #' @description Parameter Sanity Check
       #'
-      #' Ensure that the supplied *params* are valid modvege parameters and, 
+      #' Ensure that the supplied *params* are valid ModVege parameters and, 
       #' if requested, check that all required parameters are present.
       #' Issues a warning for any invalid parameters and throws an error if 
       #' completeness is not satisfied (only when `check_for_completeness = 

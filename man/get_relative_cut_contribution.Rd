@@ -30,5 +30,5 @@ get_relative_cut_contribution(600)
 
 }
 \references{
-\insertRef{petersen2021DynamicSimulationManagement}{rmodvege}
+\insertRef{petersen2021DynamicSimulationManagement}{growR}
 }

@@ -29,5 +29,5 @@ get_annual_gross_yield(1200, intensity = "low")
 
 }
 \references{
-\insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+\insertRef{huguenin2017GrundlagenDuengung}{growR}
 }

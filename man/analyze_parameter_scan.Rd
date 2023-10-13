@@ -16,7 +16,7 @@ should be the output of \code{\link[=run_parameter_scan]{run_parameter_scan()}} 
 results in \emph{parameter_scan_results} are compared to the data therein. If
 empty, the site is inferred from the \code{ModvegeSite} objects in
 \emph{parameter_scan_results} and a corresponding data file is searched for
-in `getOptions("rmodvege.data_dir", default = "data").}
+in `getOptions("growR.data_dir", default = "data").}
 }
 \value{
 analyzed A list with threy keys: \code{results}, \code{metrics} and \code{params}.
@@ -42,7 +42,7 @@ Analyze results of a parameter scan
 \examples{
 # There needs to be data available with which the modle is to be compared.
 # For this example, use data provided by the package.
-path = system.file("extdata", package = "rmodvege")
+path = system.file("extdata", package = "growR")
 datafile = file.path(path, "posieux1.csv")
 print(path)
 

@@ -55,10 +55,10 @@ initial_state_variables = list(
 #' ModvegeSite
 #'
 #' @description
-#' Implements the modvege grass growth model based off of Jouven et al. (2006).
+#' Implements the ModVege grass growth model based off of Jouven et al. (2006).
 #' 
 #' This class contains model and site parameters and state variables as 
-#' attributes and has methods for running modvege with weather and management 
+#' attributes and has methods for running ModVege with weather and management 
 #' input.
 #'
 #' Use the `run()` method to carry out a simulation for a given year. The 
@@ -79,7 +79,7 @@ initial_state_variables = list(
 #' @seealso \link[=autocut]{autocut}
 #'
 #' @references
-#' \insertRef{jouven2006ModelPredictingDynamics}{rmodvege}
+#' \insertRef{jouven2006ModelPredictingDynamics}{growR}
 #'
 #' @md
 #' @export
@@ -99,9 +99,9 @@ ModvegeSite = R6Class(
       state_variable_names = NULL,
 #' @field n_state_variables Number of state variables.
       n_state_variables = NULL,
-#' @field version Version number of the rmodvege package. Is written into 
+#' @field version Version number of the growR package. Is written into 
 #'   output files.
-      version = packageVersion("rmodvege"),
+      version = packageVersion("growR"),
 #' @field site_name Name of the site to be simulated.
       site_name = NULL,
 #' @field run_name Name of the simulation run. Used to distinguish between 
@@ -944,7 +944,7 @@ ModvegeSite = R6Class(
     ##
     make_header = function() {
       logger("Start of ModVegeSite$make_header()", level = TRACE)
-      # Start with the date and rmodvege version ...
+      # Start with the date and growR version ...
       header = sprintf("#date;%s", date())
       header = sprintf("%s\n#version;%s", header, self$version)
       # ... then add all parameters ...

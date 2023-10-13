@@ -27,6 +27,6 @@ Data after table 1b in
 Olivier Huguenin et al.
 }
 \references{
-\insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+\insertRef{huguenin2017GrundlagenDuengung}{growR}
 }
 \keyword{datasets}

@@ -1,12 +1,12 @@
-#' rmodvege environment data
+#' growR environment data
 #'
 #' @description
 #' Data structure that contains inputs (parameters pertaining to a site, to 
-#' the vegetation, to the weather and to the management) to rmodvege simulations.
+#' the vegetation, to the weather and to the management) to growR simulations.
 #'
 #' @details
 #' This class contains site parameters, weather and management data for 
-#' one simulation run of rmodvege on a given site over several years. 
+#' one simulation run of growR on a given site over several years. 
 #' Methods are provided to allow access to relevant data for a given year.
 #'
 #' All inputs are read in from data files through the respective data classes
@@ -15,6 +15,7 @@
 #'
 #' @seealso [read_config()]
 #'
+#' @md
 #' @export
 ModvegeEnvironment = R6Class(
   "ModvegeEnvironment",
@@ -48,7 +49,7 @@ ModvegeEnvironment = R6Class(
 #' @field management A ManagementData object.
     management = NULL,
 #' @field input_dir Directory in which parameter, weather and management 
-#'   files are searched for. Defaults to `getOption("rmodvege.input_dir").
+#'   files are searched for. Defaults to `getOption("growR.input_dir").
     input_dir = NULL,
 
 #-Public-methods----------------------------------------------------------------
@@ -66,7 +67,7 @@ ModvegeEnvironment = R6Class(
     #' @param weather_file string Analogous to *param_file*.
     #' @param management_file string Analogous to *param_file*.
     #' @param input_dir string Path to directory containing input files. 
-    #'   Defaults to `getOption("rmodvege.input_dir")`.
+    #'   Defaults to `getOption("growR.input_dir")`.
     #'
     initialize = function(site_name,
                           run_name = "-",
@@ -97,7 +98,7 @@ ModvegeEnvironment = R6Class(
         self$management_file = management_file
       }
       if (is.null(input_dir)) {
-        self$input_dir = getOption("rmodvege.input_dir", 
+        self$input_dir = getOption("growR.input_dir", 
                                    default = file.path("input"))
       } else {
         self$input_dir = input_dir
@@ -160,8 +161,8 @@ ModvegeEnvironment = R6Class(
     #' @return `list(W, M)` where `W` is the WeatherData and `M` the 
     #'   ManagementData object for given year.
     #'
-    #' @seealso [WeatherData$get_weather_for_year()], 
-    #'   [ManagementData$get_management_for_year()]
+    #' @seealso [WeatherData]`$get_weather_for_year()`, 
+    #'   [ManagementData]`$get_management_for_year()`
     #'
     get_environment_for_year = function(year) {
       W = self$weather$get_weather_for_year(year)
@@ -182,7 +183,7 @@ ModvegeEnvironment = R6Class(
 #'   *site* which is shipped with this package.
 #'
 #' @examples
-#' extdata = system.file("extdata", package = "rmodvege") 
+#' extdata = system.file("extdata", package = "growR") 
 #' print(extdata)
 #' list.files(extdata, recursive = TRUE)
 #' create_example_environment()
@@ -190,7 +191,7 @@ ModvegeEnvironment = R6Class(
 #' @md
 #' @export
 create_example_environment = function(site = "posieux") {
-  extdata = system.file("extdata", package = "rmodvege")
+  extdata = system.file("extdata", package = "growR")
   param_file = file.path(extdata, paste0(site, "_parameters.csv"))
   weather_file = file.path(extdata, paste0(site, "_weather.txt"))
   management_file = file.path(extdata, paste0(site, "_management1.txt"))

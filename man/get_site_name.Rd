@@ -7,7 +7,7 @@
 get_site_name(filename)
 }
 \arguments{
-\item{filename}{String of an rmodvege output filename.}
+\item{filename}{String of a `ModvegeSite` output filename.}
 }
 \description{
 This function assumes the filenames to begin with the site name, 

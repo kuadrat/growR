@@ -10,7 +10,7 @@ Management Data Class
 }
 \details{
 Data structure that contains management data which can serve as input to
-an rmodvege simulation run.
+a \code{ModvegeSite} simulation run.
 }
 \seealso{
 \code{ManagementData$read_management()}
@@ -21,7 +21,7 @@ an rmodvege simulation run.
 \item{\code{management_file}}{string The file that was read.}
 
 \item{\code{is_empty}}{boolean Used to determine if management data is present or
-not. In the latter case, rmodvege will simulate management decisions
+not. In the latter case, \code{ModvegeSite} will simulate management decisions
 automatically.}
 
 \item{\code{years}}{List of unique years for which data is available.}
@@ -114,7 +114,7 @@ list with the relevant keys.
 M A list containing the keys:
 \describe{
 \item{is_empty}{boolean Used to determine if management data is
-present or not. In the latter case, rmodvege will simulate
+present or not. In the latter case, \code{ModvegeSite} will simulate
 management decisions automatically.}
 \item{cut_years}{numeric Vector of length \emph{N} where \emph{N} is the total
 number of cuts for this \emph{year}, as read from the input file. Gives

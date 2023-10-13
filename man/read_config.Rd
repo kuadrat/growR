@@ -10,7 +10,7 @@ read_config(config_file, input_dir = NULL)
 \item{config_file}{Path to the configuration file to be read.}
 
 \item{input_dir}{Path to directory where input files are located. Defaults
-to \code{getOptions("rmodvege.input_dir", default = file.path("input"))}.}
+to \code{getOptions("growR.input_dir", default = file.path("input"))}.}
 }
 \value{
 A list of \code{ModvegeEnvironment} instances corresponding to the

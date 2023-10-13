@@ -27,7 +27,7 @@ A refinement to expected yield as function of altitude has been
 implemented according to Table 1a in Huguenen et al. (2017).
 }
 \references{
-    \insertRef{petersen2021DynamicSimulationManagement}{rmodvege}
+    \insertRef{petersen2021DynamicSimulationManagement}{growR}
 
-    \insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+    \insertRef{huguenin2017GrundlagenDuengung}{growR}
 }

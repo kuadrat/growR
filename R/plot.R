@@ -83,7 +83,7 @@ add_lines = function(data,
 #' This function assumes the filenames to begin with the site name, 
 #' potentially followed by an underscore and further characters.
 #'
-#' @param filename String of an rmodvege output filename.
+#' @param filename String of a `ModvegeSite` output filename.
 #'
 get_site_name = function(filename) {
   # Strip off path in front
@@ -148,13 +148,13 @@ load_measured_data = function(filenames) {
 #'
 #' @describeIn load_measured_data
 #' Data filenames are generated on the convention `SITE.csv` and are searched 
-#' for in the subdirectory `getOption("rmodvege.data_dir")`, which defaults 
+#' for in the subdirectory `getOption("growR.data_dir")`, which defaults 
 #' to `data/`.
 #'
 #' @param sites Vector of site names for which data to load.
 #'
 load_data_for_sites = function(sites) {
-  data_dir = getOption("rmodvege.data_dir", default = "data")
+  data_dir = getOption("growR.data_dir", default = "data")
   filenames = sapply(sites, function(site) {
                               file.path(data_dir, sprintf("%s.csv", site))
                             }

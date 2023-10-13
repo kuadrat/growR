@@ -25,6 +25,6 @@ Lookup Table of expected yield as functions of height and management
 intensity after table 1a in Olivier Huguenin et al.
 }
 \references{
-\insertRef{huguenin2017GrundlagenDuengung}{rmodvege}
+\insertRef{huguenin2017GrundlagenDuengung}{growR}
 }
 \keyword{datasets}

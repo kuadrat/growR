@@ -33,7 +33,7 @@ fCO2_growth_mod(420, c_ref = 420)
 
 }
 \references{
-\insertRef{soltani2012ModelingPhysiologyCrop}{rmodvege}
+\insertRef{soltani2012ModelingPhysiologyCrop}{growR}
 
-\insertRef{kellner2017CoupledHydrologicalplantGrowth}{rmodvege}
+\insertRef{kellner2017CoupledHydrologicalplantGrowth}{growR}
 }

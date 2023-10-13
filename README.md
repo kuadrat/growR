@@ -1,7 +1,7 @@
-# rmodvege - R implementation of the grassland model ModVege[^1]
+# growR - R implementation of the grassland model ModVege[^1]
 
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/kuadrat/rmodvege/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/rmodvege/actions/workflows/R-CMD-check.yaml)
+  [![R-CMD-check](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml)
   <!-- badges: end -->
 
 ![](man/figures/logo.png)
@@ -9,6 +9,14 @@
 This `R` implementation of the grassland model `ModVege` by [Jouven et 
 al.](https://doi.org/10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
 `R` implementation created by Pierluigi Calanca[^2].
+
+The implementation in this package contains a few additions to the above 
+cited version of ModVege, such as simulations of management decisions, and 
+influences of snow cover. As such, the model is fit to simulate grass growth 
+in mountainous regions, such as the Swiss Alps.
+
+The package also contains routines for calibrating the model and helpful 
+tools for analysing model outputs and performance.
 
 ## Installation
 
@@ -20,7 +28,7 @@ This `R` package can be installed as usual from
 [CRAN](https://cran.r-project.org/) by issuing the following at the prompt of 
 an `R` session:
 ```
-install.packages("rmodvege")
+install.packages("growR")
 ```
 
 ### From source
@@ -34,49 +42,66 @@ In this case,
 
 1. Start by cloning this repository"
     ```
-    $ git clone git@github.com:kuadrat/rmodvege.git
+    $ git clone git@github.com:kuadrat/growR.git
     ```
     or via https:
     ```
-    $ git clone https://github.com/kuadrat/rmodvege.git
+    $ git clone https://github.com/kuadrat/growR.git
     ```
-    This will create a directory `rmodvege` in your file system.
+    This will create a directory `growR` in your file system.
     
     If you don't have or don't want to use *git*, you could alternatively copy 
     the source code as a .zip file from 
-    [github](https://github.com/kuadrat/rmodvege/archive/refs/heads/master.zip).
-    Unzip the contents into a directory `rmodvege`.
+    [github](https://github.com/kuadrat/growR/archive/refs/heads/master.zip).
+    Unzip the contents into a directory `growR`.
 
-2. You can now install *rmodvege* by issuing the following at the prompt of 
+2. You can now install *growR* by issuing the following at the prompt of 
     an `R` session:
     ```
-    install.packages("/full/path/to/rmodvege", repos = NULL)
+    install.packages("/full/path/to/growR", repos = NULL)
     ```
-    You should replace `"/full/path/to/"` with the actual path to the `rmodvege` 
+    You should replace `"/full/path/to/"` with the actual path to the `growR` 
     directory on your computer. Also, replace slashes (`/`) with backslashe (`\`) 
     if you're on Windows.
 
-`rmodvege` should now be installed and available in `R` through 
-`library(rmodvege)`.
+`growR` should now be installed and available in `R` through 
+`library(growR)`.
 
-If you make changes to the source files in the `rmodvege` directory, just 
-uninstall the current version (issue `remove.packages("rmodvege")` in `R`) 
+If you make changes to the source files in the `growR` directory, just 
+uninstall the current version (issue `remove.packages("growR")` in `R`) 
 and repeat step 2 above.
 
 ### Non-package version
 
-If you just want to focus on using and adjusting the modvege model and feel 
+If you just want to focus on using and adjusting the ModVege model and feel 
 that the structure of an `R` package is more of a hindrance than a help to 
 your cause, there is a third option.
-Simply use the pre-`R`-package version of `rmodvege`, which is essentially a 
-collection of `R` scripts.
+Simply use the pre-`R`-package version of `growR`, called `rmodvege`, 
+which is essentially a collection of `R` scripts.
 Some users might be more familiar or comfortable working in this manner 
 instead of working with package code.
 
 Go to https://github.com/kuadrat/rmodvege-scripts to access the script-based 
-implementation of modvege. Note, however, that the script based version is 
+implementation of ModVege. Note, however, that the script based version is 
 not maintained and might therefore lack some functionality which is provided 
-by the `rmodvege` package.
+by the `growR` package.
+
+## Glossary
+
+Terms used in this project
+
+- `growR`
+Name of this project and the corresponding R package. The shown 
+capitalization is adhered to even when used in function or object names in 
+the code base.
+- `ModVege`
+The basis for the underlying grassland model implemented here. The naming 
+convention of objects overrides the capitalization shown here, when the model 
+name is referred to in function and object names.
+- `rmodvege`
+Early name of this project and still the name of a legacy project that was 
+not factored as an R package, but rather as a collection of R scripts. Still 
+available, though unmaintained at https://github.com/kuadrat/rmodvege-scripts/.
 
 ## References
 

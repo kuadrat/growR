@@ -1,5 +1,5 @@
 get_param_file_path = function(site = "posieux") {
-  input_dir = system.file("extdata", package = "rmodvege")
+  input_dir = system.file("extdata", package = "growR")
   param_file = file.path(input_dir, sprintf("%s_parameters.csv", site))
   return(param_file)
 }
@@ -11,7 +11,7 @@ instantiate_MV = function(param_file) {
 }
 
 get_example_environment = function(site = "posieux") {
-  input_dir = system.file("extdata", package = "rmodvege")
+  input_dir = system.file("extdata", package = "growR")
   param_file = sprintf("%s_parameters.csv", site)
   weather_file = sprintf("%s_weather.txt", site)
   management_file = sprintf("%s_management1.txt", site)

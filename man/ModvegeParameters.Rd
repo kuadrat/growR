@@ -5,7 +5,7 @@
 \title{Parameter Data Object}
 \description{
 Data structure that contains site and vegetation parameters necessary for
-the configuration of an rmodvege simulation run.
+the configuration of an growR simulation run.
 }
 \note{
 Programmatically speaking, all parameters described under \emph{Parameter
@@ -259,7 +259,7 @@ order to reflect the changes in the parameter list \code{self$P}.
 \subsection{Method \code{check_parameters()}}{
 Parameter Sanity Check
 
-Ensure that the supplied \emph{params} are valid modvege parameters and,
+Ensure that the supplied \emph{params} are valid ModVege parameters and,
 if requested, check that all required parameters are present.
 Issues a warning for any invalid parameters and throws an error if
 completeness is not satisfied (only when \code{check_for_completeness =  TRUE}).

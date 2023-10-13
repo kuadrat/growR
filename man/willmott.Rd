@@ -40,7 +40,7 @@ willmott(predicted, observed)
 
 }
 \references{
-\insertRef{willmott2012RefinedIndexModel}{rmodvege}
+\insertRef{willmott2012RefinedIndexModel}{growR}
 }
 \seealso{
 \code{\link[=get_bias]{get_bias()}}
