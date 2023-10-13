@@ -16,130 +16,78 @@ The following is a list and description of model parameters, including
 the vegetation parameters, which are defined through the functional group
 composition.
 \subsection{Site and model parameters}{
-
-\describe{
-\item{LON}{geographic longitude of site in degree.}
-
-\item{LAT}{geographic latitude of site in degree.}
-
-\item{ELV}{geographic elevation of site in m.a.s.l.}
-
-\item{WHC}{water-holding capacity of site in mm.}
-
-\item{NI}{site nutritional index (dimensionless).}
-
-\item{RUEmax}{maximum radiuation use efficiency in g DM per MJ.}
-
-\item{w_FGA}{relative weight of functional group A.}
-
-\item{w_FGB}{relative weight of functional group B.}
-
-\item{w_FGC}{relative weight of functional group C.}
-
-\item{w_FGD}{relative weight of functional group D.}
-
-\item{sigmaGV}{rate of GV respirative biomass loss (dimensionless).}
-
-\item{sigmaGR}{rate of GR respirative biomass loss (dimensionless).}
-
-\item{T0}{photosynthesis activation temperature (degree C).}
-
-\item{T1}{photosynthesis plateau temperature (degree C).}
-
-\item{T2}{photosynthesis max temperature (degree C).}
-
-\item{KGV}{basic senescence rate GV (dimensionless).}
-
-\item{KGR}{basic senescence rate GR (dimensionless).}
-
-\item{KlGV}{basic abscission rate GV (dimensionless).}
-
-\item{KlGR}{basic abscission rate GR (dimensionless).}
-
-\item{maxOMDDV}{organic matter digestibility in gram per gram DV.}
-
-\item{minOMDDR}{organic matter digestibility in gram per gram DR.}
+\itemize{
+\item \code{LON} geographic longitude of site in degree.
+\item \code{LAT} geographic latitude of site in degree.
+\item \code{ELV} geographic elevation of site in m.a.s.l.
+\item \code{WHC} water-holding capacity of site in mm.
+\item \code{NI} site nutritional index (dimensionless).
+\item \code{RUEmax} maximum radiuation use efficiency in g DM per MJ.
+\item \code{w_FGA} relative weight of functional group A.
+\item \code{w_FGB} relative weight of functional group B.
+\item \code{w_FGC} relative weight of functional group C.
+\item \code{w_FGD} relative weight of functional group D.
+\item \code{sigmaGV} rate of GV respirative biomass loss (dimensionless).
+\item \code{sigmaGR} rate of GR respirative biomass loss (dimensionless).
+\item \code{T0} photosynthesis activation temperature (degree C).
+\item \code{T1} photosynthesis plateau temperature (degree C).
+\item \code{T2} photosynthesis max temperature (degree C).
+\item \code{KGV} basic senescence rate GV (dimensionless).
+\item \code{KGR} basic senescence rate GR (dimensionless).
+\item \code{KlGV} basic abscission rate GV (dimensionless).
+\item \code{KlGR} basic abscission rate GR (dimensionless).
+\item \code{maxOMDDV} organic matter digestibility in gram per gram DV.
+\item \code{minOMDDR} organic matter digestibility in gram per gram DR.
 }
 }
 
 \subsection{Initial conditions}{
-
-\describe{
-\item{AgeGV}{Age of green vegetative matter in degree Celsius days.}
-
-\item{AgeGR}{Age of green reproductive matter in degree Celsius days.}
-
-\item{AgeDV}{Age of dead vegetative matter in degree Celsius days.}
-
-\item{AgeDR}{Age of dead reproductive matter in degree Celsius days.}
-
-\item{BMGV}{biomass of GV (kg DM per ha).}
-
-\item{BMGR}{biomass of GR (kg DM per ha).}
-
-\item{BMDV}{biomass of DV (kg DM per ha).}
-
-\item{BMDR}{biomass of DR (kg DM per ha).}
-
-\item{BMDR}{biomass of DR (kg DM per ha).}
-
-\item{SENGV}{senescence of GV (kg DM per ha).}
-
-\item{SENGV}{senescence of GR (kg DM per ha).}
-
-\item{ABSGV}{abscission of DV (kg DM per ha).}
-
-\item{ABSGV}{abscission of DR (kg DM per ha).}
-
-\item{ST}{thermal time (degree days).}
-
-\item{cBM}{cumulative total biomass (kg per ha).}
-
+\itemize{
+\item \code{AgeGV} Age of green vegetative matter in degree Celsius days.
+\item \code{AgeGR} Age of green reproductive matter in degree Celsius days.
+\item \code{AgeDV} Age of dead vegetative matter in degree Celsius days.
+\item \code{AgeDR} Age of dead reproductive matter in degree Celsius days.
+\item \code{BMGV} biomass of GV (kg DM per ha).
+\item \code{BMGR} biomass of GR (kg DM per ha).
+\item \code{BMDV} biomass of DV (kg DM per ha).
+\item \code{BMDR} biomass of DR (kg DM per ha).
+\item \code{BMDR} biomass of DR (kg DM per ha).
+\item \code{SENG} senescence of GV (kg DM per ha).
+\item \code{SENG} senescence of GR (kg DM per ha).
+\item \code{ABSG} abscission of DV (kg DM per ha).
+\item \code{ABSG} abscission of DR (kg DM per ha).
+\item \code{ST} thermal time (degree days).
+\item \code{cBM} cumulative total biomass (kg per ha).
 }
 }
 
 \subsection{Vegetation parameters}{
-
-\describe{
-\item{\code{SLA}}{Specific Leaf Area in m^2 per g.}
-
-\item{\code{pcLAM}}{Percentage of laminae (number between 0 and 1).}
-
-\item{\code{ST1}}{Temperature sum in degree Celsiues days after which the
+\itemize{
+\item \code{SLA} Specific Leaf Area in m^2^ per g.
+\item \code{pcLAM} Percentage of laminae (number between 0 and 1).
+\item \code{ST1} Temperature sum in degree Celsiues days after which the
 seasonality function \code{SEA} starts to decrease from its maximum plateau.
-See also \code{\link[=SEA]{SEA()}}.}
-
-\item{\code{ST2}}{Temperature sum in degree Celsiues days after which the
+See also \code{\link[=SEA]{SEA()}}.
+\item \code{ST2} Temperature sum in degree Celsiues days after which the
 seasonality function \code{SEA} has decreased back to its minimum value.
-See also \code{\link[=SEA]{SEA()}}.}
-
-\item{\code{maxSEA}}{Maximum value of the seasonality function \code{\link[=SEA]{SEA()}}.}
-
-\item{\code{minSEA}}{Minimum value of the seasonality function \code{\link[=SEA]{SEA()}}. Usually,
-\code{minSEA = 1 - (maxSEA - 1)}.}
-
-\item{\code{maxOMDGV}}{Maximum organic matter digestability for green vegetative
-matter in arbitrary units.}
-
-\item{\code{minOMDGV}}{Minimum organic matter digestability for green vegetative
-matter in arbitrary units.}
-
-\item{\code{maxOMDGR}}{Maximum organic matter digestability for green reproductive
-matter in arbitrary units.}
-
-\item{\code{minOMDGR}}{Minimum organic matter digestability for green reproductive
-matter in arbitrary units.}
-
-\item{\code{BDGV}}{Bulk density of green vegetative dry matter in g per m^3.}
-
-\item{\code{BDDV}}{Bulk density of dead vegetative dry matter in g per m^3.}
-
-\item{\code{BDGR}}{Bulk density of green reproductive dry matter in g per m^3.}
-
-\item{\code{BDDR}}{Bulk density of dead reproductive dry matter in g per m^3.}
-
-\item{\code{fg_parameter_names}}{Vector of strings of the variable names of all
-vegetation parameters governed by functional group composition.}
+See also \code{\link[=SEA]{SEA()}}.
+\item \code{maxSEA} Maximum value of the seasonality function \code{\link[=SEA]{SEA()}}
+\item \code{minSEA} Minimum value of the seasonality function \code{\link[=SEA]{SEA()}}. Usually,
+\code{minSEA = 1 - (maxSEA - 1)}.
+\item \code{maxOMDGV} Maximum organic matter digestability for green vegetative
+matter in arbitrary units.
+\item \code{minOMDGV} Minimum organic matter digestability for green vegetative
+matter in arbitrary units.
+\item \code{maxOMDGR} Maximum organic matter digestability for green reproductive
+matter in arbitrary units.
+\item \code{minOMDGR} Minimum organic matter digestability for green reproductive
+matter in arbitrary units.
+\item \code{BDGV} Bulk density of green vegetative dry matter in g per m^3^.
+\item \code{BDDV} Bulk density of dead vegetative dry matter in g per m^3^.
+\item \code{BDGR} Bulk density of green reproductive dry matter in g per m^3^.
+\item \code{BDDR} Bulk density of dead reproductive dry matter in g per m^3^.
+\item \code{fg_parameter_names} Vector of strings of the variable names of all
+vegetation parameters governed by functional group composition.
 }
 }
 }

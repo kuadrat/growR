@@ -70,11 +70,11 @@ initial_state_variables = list(
 #' See Jouven et al. (2006) for a thorough description of all model variables.
 #' 
 #' ## State Variables
-#' ```{r child = "man/state_variables.Rmd"}
+#' ```{r child = "vignettes/children/state_variables.Rmd"}
 #' ```
 #'
 #' ## Initial conditions
-#' ```{r child = "man/initial_conditions.Rmd"}
+#' ```{r child = "vignettes/children/initial_conditions.Rmd"}
 #' ```
 #' @seealso \link[=autocut]{autocut}
 #'

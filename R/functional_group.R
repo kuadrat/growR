@@ -13,7 +13,7 @@
 #' 
 #' @details
 #' # Public fields
-#' ```{r child = "man/parameters_fg.Rmd"}
+#' ```{r child = "vignettes/children/parameters_fg.Rmd"}
 #' ```
 #'
 #' Default values for parameters are taken from functional group A in
@@ -137,6 +137,7 @@ FunctionalGroup = R6Class(
 #'
 #' @md
 #' @export
+#' @keywords internal
 #'
 `+.FunctionalGroup` = function(A, B) {
   parameters_A = A$get_parameters_ordered()
@@ -158,6 +159,7 @@ FunctionalGroup = R6Class(
 #' 3.1 * fg
 #' 0 * fg
 #' @md
+#' @keywords internal
 #' @export
 `*.FunctionalGroup` = function(scalar, fg) {
   parameters = fg$get_parameters_ordered()

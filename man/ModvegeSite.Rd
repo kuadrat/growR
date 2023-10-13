@@ -17,67 +17,68 @@ to file using \code{write_output()}.
 \section{Model variables}{
 See Jouven et al. (2006) for a thorough description of all model variables.
 \subsection{State Variables}{
-
-\describe{
-\item{BM}{Standing biomass in kg DM per ha.}
-\item{BMG}{Standing green biomass (kg DM / ha).}
-\item{cBM}{Cumulativeley grown biomass (kg DM / ha).}
-\item{dBM}{Daily grown biomass (kg DM / ha).}
-\item{hvBM}{Cumulative harvested biomass (kg DM / ha).}
-\item{OMD}{Organic matter digestibility (kg / kg).}
-\item{OMDG}{OMD of green matter (kg / kg).}
-\item{ST}{Temperature sum in degree Celsius days.}
-\item{REP}{Reproductive function. Gives the fraction of growth that is
+\itemize{
+\item \code{BM}
+Standing biomass in kg DM per ha.
+\item \code{BMG}
+Standing green biomass (kg DM / ha).
+\item \code{cBM}
+Cumulativeley grown biomass (kg DM / ha).
+\item \code{dBM}
+Daily grown biomass (kg DM / ha).
+\item \code{hvBM}
+Cumulative harvested biomass (kg DM / ha).
+\item \code{OMD}
+Organic matter digestibility (kg / kg).
+\item \code{OMDG}
+OMD of green matter (kg / kg).
+\item \code{ST}
+Temperature sum in degree Celsius days.
+\item \code{REP} Reproductive function. Gives the fraction of growth that is
 assigned to reproductive growth. The remainder goes into vegetative growth.
-Dimensionless.}
-\item{PGRO}{Potential growth in kg DM / ha.}
-\item{GRO}{Effective growth in kg DM / ha.}
-\item{LAI}{Leaf area index, accounting for the proportion of light
-intercepted by the sward. Dimensionless.}
-\item{LAIGV}{LAI of green vegetative biomass. Dimensionless.}
-\item{AET}{Actual evapotranspiration in mm.}
-\item{WR}{Water reserves in mm.}
-\item{ENV}{Function representing environmental effects on growth. Acts as a
-multiplicative factor. Dimensionless.}
-\item{ENVfPAR}{Part of ENV due to strength of incident radiation. Dimensionless.}
-\item{ENVfT}{Part of ENV due to temperature. Dimensionless.}
-\item{ENVfW}{Part of ENV due to water limitation. Dimensionless.}
+Dimensionless.
+\item \code{PGRO}
+Potential growth in kg DM / ha.
+\item \code{GRO}
+Effective growth in kg DM / ha.
+\item \code{LAI}
+Leaf area index, accounting for the proportion of light intercepted by the
+sward. Dimensionless.
+\item \code{LAIGV}
+LAI of green vegetative biomass. Dimensionless.
+\item \code{AET}
+Actual evapotranspiration in mm.
+\item \code{WR}
+Water reserves in mm.
+\item \code{ENV}
+Function representing environmental effects on growth. Acts as a
+multiplicative factor. Dimensionless.
+\item \code{ENVfPAR}
+Part of ENV due to strength of incident radiation. Dimensionless.
+\item \code{ENVfT}
+Part of ENV due to temperature. Dimensionless.
+\item \code{ENVfW}
+Part of ENV due to water limitation. Dimensionless.
 }
 }
 
 \subsection{Initial conditions}{
-
-\describe{
-\item{AgeGV}{Age of green vegetative matter in degree Celsius days.}
-
-\item{AgeGR}{Age of green reproductive matter in degree Celsius days.}
-
-\item{AgeDV}{Age of dead vegetative matter in degree Celsius days.}
-
-\item{AgeDR}{Age of dead reproductive matter in degree Celsius days.}
-
-\item{BMGV}{biomass of GV (kg DM per ha).}
-
-\item{BMGR}{biomass of GR (kg DM per ha).}
-
-\item{BMDV}{biomass of DV (kg DM per ha).}
-
-\item{BMDR}{biomass of DR (kg DM per ha).}
-
-\item{BMDR}{biomass of DR (kg DM per ha).}
-
-\item{SENGV}{senescence of GV (kg DM per ha).}
-
-\item{SENGV}{senescence of GR (kg DM per ha).}
-
-\item{ABSGV}{abscission of DV (kg DM per ha).}
-
-\item{ABSGV}{abscission of DR (kg DM per ha).}
-
-\item{ST}{thermal time (degree days).}
-
-\item{cBM}{cumulative total biomass (kg per ha).}
-
+\itemize{
+\item \code{AgeGV} Age of green vegetative matter in degree Celsius days.
+\item \code{AgeGR} Age of green reproductive matter in degree Celsius days.
+\item \code{AgeDV} Age of dead vegetative matter in degree Celsius days.
+\item \code{AgeDR} Age of dead reproductive matter in degree Celsius days.
+\item \code{BMGV} biomass of GV (kg DM per ha).
+\item \code{BMGR} biomass of GR (kg DM per ha).
+\item \code{BMDV} biomass of DV (kg DM per ha).
+\item \code{BMDR} biomass of DR (kg DM per ha).
+\item \code{BMDR} biomass of DR (kg DM per ha).
+\item \code{SENG} senescence of GV (kg DM per ha).
+\item \code{SENG} senescence of GR (kg DM per ha).
+\item \code{ABSG} abscission of DV (kg DM per ha).
+\item \code{ABSG} abscission of DR (kg DM per ha).
+\item \code{ST} thermal time (degree days).
+\item \code{cBM} cumulative total biomass (kg per ha).
 }
 }
 }

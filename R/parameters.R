@@ -75,15 +75,15 @@ for (name in c("WR0", "OMDGV0", "OMDGR0")) {
 #' composition.
 #'
 #' ## Site and model parameters
-#' ```{r child = "man/parameters.Rmd"}
+#' ```{r child = "vignettes/children/parameters.Rmd"}
 #' ```
 #' 
 #' ## Initial conditions
-#' ```{r child = "man/initial_conditions.Rmd"}
+#' ```{r child = "vignettes/children/initial_conditions.Rmd"}
 #' ```
 #'
 #' ## Vegetation parameters
-#' ```{r child = "man/parameters_fg.Rmd"}
+#' ```{r child = "vignettes/children/parameters_fg.Rmd"}
 #' ```
 #' @note
 #' Programmatically speaking, all parameters described under *Parameter 

@@ -28,7 +28,9 @@ Encoding: UTF-8
 Imports: rlang, R6, utils, Rdpack
 Suggests: 
     ggplot2,
+    knitr,
     patchwork,
+    rmarkdown,
     testthat (>= 3.0.0)
 Depends: 
     R (>= 2.10)
@@ -36,3 +38,4 @@ RdMacros: Rdpack
 LazyData: true
 Config/testthat/edition: 3
 Config/testthat/start-first: setup, pscan, run
+VignetteBuilder: knitr

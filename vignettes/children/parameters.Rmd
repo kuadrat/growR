@@ -1,0 +1,42 @@
+- `LON` geographic longitude of site in degree.
+
+- `LAT` geographic latitude of site in degree.
+
+- `ELV` geographic elevation of site in m.a.s.l.
+
+- `WHC` water-holding capacity of site in mm.
+
+- `NI` site nutritional index (dimensionless).
+
+- `RUEmax` maximum radiuation use efficiency in g DM per MJ.
+
+- `w_FGA` relative weight of functional group A.
+
+- `w_FGB` relative weight of functional group B.
+
+- `w_FGC` relative weight of functional group C.
+
+- `w_FGD` relative weight of functional group D.
+
+- `sigmaGV` rate of GV respirative biomass loss (dimensionless).
+
+- `sigmaGR` rate of GR respirative biomass loss (dimensionless).
+
+- `T0` photosynthesis activation temperature (degree C).
+
+- `T1` photosynthesis plateau temperature (degree C).
+
+- `T2` photosynthesis max temperature (degree C).
+
+- `KGV` basic senescence rate GV (dimensionless).
+
+- `KGR` basic senescence rate GR (dimensionless).
+
+- `KlGV` basic abscission rate GV (dimensionless).
+
+- `KlGR` basic abscission rate GR (dimensionless).
+
+- `maxOMDDV` organic matter digestibility in gram per gram DV.
+
+- `minOMDDR` organic matter digestibility in gram per gram DR.
+

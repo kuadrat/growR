@@ -15,20 +15,18 @@ the \emph{N} years.
 \section{Weather inputs}{
 The weather input file should be organized as 10 space separated columns
 with the following parameters as headers:
-\describe{
-\item{DOY}{day of year in given year}
-\item{Ta}{average temperature of given day (Celsius).}
-\item{Tmin}{minimum temperature of given day (Celsius).}
-\item{Tmax}{maximum temperature of given day (Celsius).}
-\item{precip}{precipitation in millimeter per day.}
-\item{rSSD}{relative sunshine duration (\%) \emph{apparently unused}.}
-\item{SRad}{average sunlight irradiance in 1/0.47 J/s/m^2. In other words, this
+\itemize{
+\item \code{DOY} day of year in given year
+\item \code{Ta} average temperature of given day (Celsius).
+\item \code{Tmin} minimum temperature of given day (Celsius).
+\item \code{Tmax} maximum temperature of given day (Celsius).
+\item \code{precip} precipitation in millimeter per day.
+\item \code{rSSD} relative sunshine duration (\%) \emph{apparently unused}.
+\item \code{SRad} average sunlight irradiance in 1/0.47 J/s/m^2^. In other words, this
 value will be converted to photosynthetically active radiation (PAR) in
-MJ/m^2 as:
-\code{PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6}}
-\item{ET0}{evapotranspiration in mm. Currently calculated here. Should be
-calculated in model from day length.}
-\item{snow}{calculated by model.}
+MJ/m^2^ as: \code{PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6}
+\item \code{ET0} evapotranspiration in mm. Currently calculated here. Should be calculated in model from day length.
+\item \code{snow} calculated by model.
 }
 
 These parameters are stored in this object in the respective PARAM_vec

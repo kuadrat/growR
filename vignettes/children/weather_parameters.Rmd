@@ -1,0 +1,20 @@
+- `DOY` day of year in given year
+
+- `Ta` average temperature of given day (Celsius).
+
+- `Tmin` minimum temperature of given day (Celsius).
+
+- `Tmax` maximum temperature of given day (Celsius).
+
+- `precip` precipitation in millimeter per day.
+
+- `rSSD` relative sunshine duration (%) *apparently unused*.
+
+- `SRad` average sunlight irradiance in 1/0.47 J/s/m^2^. In other words, this 
+  value will be converted to photosynthetically active radiation (PAR) in 
+  MJ/m^2^ as: `PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6`
+
+- `ET0` evapotranspiration in mm. Currently calculated here. Should be calculated in model from day length.
+
+- `snow` calculated by model.
+

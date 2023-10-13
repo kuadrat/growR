@@ -1,0 +1,87 @@
+url: ~
+template:
+  bootstrap: 5
+  bootswatch: darkly
+  bslib:
+    primary: "#047f36"
+
+navbar:
+  structure:
+    left: [intro, articles, reference, news]
+  components:
+    articles:
+      text: Vignettes
+      menu:
+        - text: Parameter Descriptions
+          href: articles/parameter_descriptions.html
+
+reference:
+- title: Run simulations
+  desc: The most important functions to setup `growR` and run simulations.
+- contents:
+  - setup_directory
+  - read_config
+  - growR_run_loop
+- title: Calibration
+  desc: Routines useful to calibrate model to data.
+- contents:
+  - run_parameter_scan
+  - analyze_parameter_scan
+  - plot_parameter_scan
+  - parameter_scan_example
+- title: Analysis
+  desc: Utilities for analysis of simulated results.
+- contents:
+  - get_bias
+  - willmott
+  - box_smooth
+  - load_measured_data
+  - add_lines
+- title: Behind-the-scene actors
+  desc: Underlying objects that do the real work. They can also be accessed directly in order to produce more fine-grained results.
+- subtitle: Run simulations
+- contents:
+  - ModvegeSite
+  - ModvegeEnvironment
+  - ModvegeParameters
+  - WeatherData
+  - ManagementData
+  - FunctionalGroup
+  - matches("FG_[ABCD]")
+- subtitle: Calibration
+- contents:
+  - PscanPlotter
+  - Combinator
+- title: Other
+- contents:
+  - DEBUG_LEVELS
+  - ERROR
+  - SEA
+  - aCO2_inverse
+  - append_to_table
+  - atmospheric_CO2
+  - autocut
+  - build_functional_group
+  - check_for_package
+  - compare.R
+  - create_combinations
+  - create_example_environment
+  - ensure_unique_filename
+  - fCO2_growth_mod
+  - fCO2_transpiration_mod
+  - fPAR
+  - fT
+  - fW
+  - get_annual_gross_yield
+  - get_end_of_cutting_season
+  - get_expected_n_cuts
+  - get_relative_cut_contribution
+  - get_site_name
+  - growR_package_options
+  - logger
+  - management_parameters
+  - metric_map
+  - parse_year_strings
+  - posieux_weather
+  - set_growR_verbosity
+  - yield_parameters

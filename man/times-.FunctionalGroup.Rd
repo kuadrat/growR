@@ -23,3 +23,4 @@ fg = FunctionalGroup$new()
 3.1 * fg
 0 * fg
 }
+\keyword{internal}

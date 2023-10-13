@@ -1,0 +1,40 @@
+- `SLA` Specific Leaf Area in m^2^ per g.
+
+- `pcLAM` Percentage of laminae (number between 0 and 1).
+
+- `ST1` Temperature sum in degree Celsiues days after which the
+seasonality function `SEA` starts to decrease from its maximum plateau.
+See also [SEA()].
+
+- `ST2` Temperature sum in degree Celsiues days after which the
+seasonality function `SEA` has decreased back to its minimum value.
+See also [SEA()].
+
+- `maxSEA` Maximum value of the seasonality function [SEA()]
+
+- `minSEA` Minimum value of the seasonality function [SEA()]. Usually,
+`minSEA = 1 - (maxSEA - 1)`.
+
+- `maxOMDGV` Maximum organic matter digestability for green vegetative
+matter in arbitrary units.
+
+- `minOMDGV` Minimum organic matter digestability for green vegetative
+matter in arbitrary units.
+
+- `maxOMDGR` Maximum organic matter digestability for green reproductive
+matter in arbitrary units.
+
+- `minOMDGR` Minimum organic matter digestability for green reproductive
+matter in arbitrary units.
+
+- `BDGV` Bulk density of green vegetative dry matter in g per m^3^.
+
+- `BDDV` Bulk density of dead vegetative dry matter in g per m^3^.
+
+- `BDGR` Bulk density of green reproductive dry matter in g per m^3^.
+
+- `BDDR` Bulk density of dead reproductive dry matter in g per m^3^.
+
+- `fg_parameter_names` Vector of strings of the variable names of all
+vegetation parameters governed by functional group composition.
+

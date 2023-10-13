@@ -12,9 +12,10 @@
 #' # Weather inputs
 #' The weather input file should be organized as 10 space separated columns 
 #' with the following parameters as headers:
-#' ```{r child = "man/weather_parameters.Rmd"}
+#'
+#' ```{r child = "vignettes/children/weather_parameters.Rmd"}
 #' ```
-
+#'
 #' These parameters are stored in this object in the respective PARAM_vec 
 #' fields.
 #' 

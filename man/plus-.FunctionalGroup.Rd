@@ -24,3 +24,4 @@ fg2 = FunctionalGroup$new(SLA = 0.02)
 fg1 + fg2
 
 }
+\keyword{internal}
