@@ -315,7 +315,7 @@ ModvegeSite = R6Class(
       #' https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
       #'
       #' @param DOY Integer day of the year to consider.
-      #' @param intensity One of {"high", "middle", "low"} specifying 
+      #' @param intensity One of ("high", "middle", "low") specifying 
       #'   management intensity..
       #' @return target Biomass (kg / ha) that should be reached on day *DOY* 
       #'   for this management *intensity*.

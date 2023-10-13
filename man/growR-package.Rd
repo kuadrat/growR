@@ -14,6 +14,7 @@ Run grass growth simulations using a grass growth model based off of ModVege (Jo
 Useful links:
 \itemize{
   \item \url{https://github.com/kuadrat/growR}
+  \item \url{https://kuadrat.github.io/growR/}
   \item Report bugs at \url{https://github.com/kuadrat/growR/issues}
 }
 

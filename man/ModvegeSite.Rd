@@ -337,7 +337,7 @@ https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
 \describe{
 \item{\code{DOY}}{Integer day of the year to consider.}
 
-\item{\code{intensity}}{One of {"high", "middle", "low"} specifying
+\item{\code{intensity}}{One of ("high", "middle", "low") specifying
 management intensity..}
 }
 \if{html}{\out{</div>}}
