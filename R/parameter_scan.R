@@ -3,7 +3,7 @@ ask_for_confirmation = function(n_combinations) {
   print(sprintf("Number of parameter combinations: %s", n_combinations))
   response = prompt_user("Continue? [Y/n] ")
   if (length(response) > 0 && tolower(response) %in% c("x", "n", "c", "q")) {
-    print("Quitting as requested by user.")
+    logger("Quitting as requested by user.", level = INFO)
     rlang::interrupt()
   }
 }
@@ -294,7 +294,7 @@ PscanPlotter = R6Class(
       while (!private$quit_requested) {
         private$ask_input()
       }
-      print("Goodbye!")
+      logger("Goodbye!", level = INFO)
     },
 
     #' @description Plot parameter scan results.

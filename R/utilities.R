@@ -105,11 +105,11 @@ logger = function(msg = "", level = DEBUG, stop_on_error = TRUE) {
     return()
   }
   # Construct the message and decide on the severity of how to display it
-  message = paste("[", DEBUG_LEVELS[level], "]", msg, "\n", sep="")
+  msg = paste("[", DEBUG_LEVELS[level], "]", msg, sep="")
   if (level == ERROR & stop_on_error) {
-    stop(message)
+    stop(msg)
   } else {
-    cat(message)
+    message(msg)
   }
 }
 

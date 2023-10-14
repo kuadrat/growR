@@ -68,7 +68,8 @@ Continue? [y/N]"
     }
     dir.create(path)
   }
-  print(sprintf("Initialized directory structure in `%s`.", full_path))
+  logger(sprintf("Initialized directory structure in `%s`.", full_path),
+         level = INFO)
 
   # Only continue if examples are to be provided.
   if (!include_examples) {
@@ -119,10 +120,12 @@ Continue? [y/N]"
   for (i in 1:length(origins)) {
     original = origins[i]
     destination = destinations[i]
-    print(sprintf("Copying `%s` to `%s`.", original, destination))
+    logger(sprintf("Copying `%s` to `%s`.", original, destination), 
+           level = INFO)
     file.copy(original, destination)
   }
-  print(sprintf("Copied example files to respective directories."))
+  logger(sprintf("Copied example files to respective directories."), 
+         level = INFO)
 }
 
 ## Used when testing
