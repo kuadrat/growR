@@ -8,12 +8,10 @@
 #' `write_files` and `store_results` arguments.
 #'
 #' @param modvege_environments A list of [ModvegeEnvironment] instances.
-#' @param write_files boolean; If TRUE, write results of [ModvegeSite]`$run()` 
-#'   to files.
+#' @param output_dir string; name of directory to which output files are to 
+#'   be written. If `output_dir == ""` (default), no files are written.
 #' @param store_results boolean; If TRUE, return a list of the [ModvegeSite] 
 #'   objects which were run.
-#' @param output_dir string; name of directory to which output files are to 
-#'   be written if `write_files` is `TRUE`.
 #'
 #' @return If `store_results == TRUE`, a list of the format 
 #'   `[[run]][[year]]` containing clones of the [ModvegeSite] instances that 
@@ -31,9 +29,14 @@
 #' @export
 #' 
 growR_run_loop = function(modvege_environments,
-                          write_files = TRUE,
-                          store_results = FALSE,
-                          output_dir = NULL) {
+                          output_dir = "",
+                          store_results = FALSE) {
+  # Parse output dir
+  if (output_dir == "") {
+    write_files = FALSE
+  } else {
+    write_files = TRUE
+  }
   n_runs = length(modvege_environments)
   results = list()
   for (run in 1:n_runs) {
@@ -59,9 +62,6 @@ growR_run_loop = function(modvege_environments,
       #-Write-output------------------------------------------------------------
 
       if (write_files) {
-        if (is.null(output_dir)) {
-          output_dir = getOption("growR.output_dir", default = "output/")
-        }
         out_file = sprintf("%s%s%s_%s.dat",
                            output_dir, 
                            run_environment$site_name,

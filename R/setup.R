@@ -37,7 +37,7 @@
 #' @md
 #' @export
 #'
-setup_directory = function(root = ".", include_examples = TRUE, force = FALSE) {
+setup_directory = function(root, include_examples = TRUE, force = FALSE) {
   full_path = path.expand(root)
   # Ask user for permission to write to the file system.
   if (!force) {
