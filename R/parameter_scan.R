@@ -1,5 +1,13 @@
 ## Prompt user for confirmation to proceed
-ask_for_confirmation = function(n_combinations) {
+ask_for_confirmation = function(n_combinations, force) {
+  if (force) {
+    return()
+  }
+  if (!interactive()) {
+    logger("Quitting run_parameter_scan() in non-interactive context with 
+`force == FALSE`.", level = INFO)
+    rlang::interrupt()
+  }
   print(sprintf("Number of parameter combinations: %s", n_combinations))
   response = prompt_user("Continue? [Y/n] ")
   if (length(response) > 0 && tolower(response) %in% c("x", "n", "c", "q")) {
@@ -67,9 +75,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
   # Create all parameter combinations
   parameter_sets = create_combinations(param_values)
   n_combinations = length(parameter_sets)
-  if (!force) {
-    ask_for_confirmation(n_combinations)
-  }
+  ask_for_confirmation(n_combinations, force)
 
   param_names = names(parameter_sets[[1]])
   results = list()
@@ -108,7 +114,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #'   results in *parameter_scan_results* are compared to the data therein. If 
 #'   empty, the site is inferred from the [ModvegeSite] objects in 
 #'   *parameter_scan_results* and a corresponding data file is searched for 
-#'    in `getOptions("growR.data_dir", default = "data").
+#'    in `getOption("growR.data_dir", default = "data").
 #' @return analyzed A list with threy keys: `results`, `metrics` and `params`.
 #'  \describe{
 #'    \item{results}{A data.frame with `1 + n_params + n_metrics` columns 

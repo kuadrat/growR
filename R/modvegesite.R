@@ -471,6 +471,8 @@ ModvegeSite = R6Class(
       #' @return None Creates a plot of the result.
       #'
       plot = function() {
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
         par(mfrow = c(2, 2))
         xlab = "DOY"
         # BM with cuts and target biomass
