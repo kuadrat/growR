@@ -4,24 +4,16 @@
 \alias{growR_run_loop}
 \title{Run growR simulations}
 \usage{
-growR_run_loop(
-  modvege_environments,
-  write_files = TRUE,
-  store_results = FALSE,
-  output_dir = NULL
-)
+growR_run_loop(modvege_environments, output_dir = "", store_results = FALSE)
 }
 \arguments{
 \item{modvege_environments}{A list of \link{ModvegeEnvironment} instances.}
 
-\item{write_files}{boolean; If TRUE, write results of \link{ModvegeSite}\verb{$run()}
-to files.}
+\item{output_dir}{string; name of directory to which output files are to
+be written. If \code{output_dir == ""} (default), no files are written.}
 
 \item{store_results}{boolean; If TRUE, return a list of the \link{ModvegeSite}
 objects which were run.}
-
-\item{output_dir}{string; name of directory to which output files are to
-be written if \code{write_files} is \code{TRUE}.}
 }
 \value{
 If \code{store_results == TRUE}, a list of the format
@@ -42,7 +34,7 @@ as specified in the \emph{site_name} and \emph{run_name} fields of the supplied
 env1 = create_example_environment(site = "posieux")
 env2 = create_example_environment(site = "sorens")
 
-growR_run_loop(c(env1, env2), write_files = FALSE, 
+growR_run_loop(c(env1, env2), output_dir = "", 
 store_results = TRUE)
 
 }

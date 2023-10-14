@@ -22,7 +22,7 @@
 #' env1 = create_example_environment(site = "posieux")
 #' env2 = create_example_environment(site = "sorens")
 #'
-#' growR_run_loop(c(env1, env2), write_files = FALSE, 
+#' growR_run_loop(c(env1, env2), output_dir = "", 
 #' store_results = TRUE)
 #'
 #' @md

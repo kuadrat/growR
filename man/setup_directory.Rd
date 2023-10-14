@@ -4,7 +4,7 @@
 \alias{setup_directory}
 \title{Initialize growR directory structure}
 \usage{
-setup_directory(root = ".", include_examples = TRUE, force = FALSE)
+setup_directory(root, include_examples = TRUE, force = FALSE)
 }
 \arguments{
 \item{root}{Path to directory in which to initialize.}
