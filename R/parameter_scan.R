@@ -315,10 +315,8 @@ PscanPlotter = R6Class(
     #' @md
     plot = function() {
       # Set up the plot window
-      graphics::par(mfrow = c(self$n_metrics, self$n_params),
-                mar = c(1.0, 1.0, 1.0, 1.0),
-                oma = c(2, 4, 1, 1)
-      )
+      oldpar = private$set_par()
+      on.exit(par(oldpar))
 
       for (i_metric in 1:self$n_metrics) {
         for (i_param in 1:self$n_params) {
@@ -464,6 +462,8 @@ b   Highlight best performers. You will be queried to select a metric.
       metric_values = self$res[[metric_name]]
 
       # Select correct plot
+      oldpar = private$set_par()
+      on.exit(par(oldpar))
       graphics::par(mfg = c(row, col))
       graphics::plot(param_values, metric_values, 
            xlab = "", ylab = "",
@@ -488,6 +488,15 @@ b   Highlight best performers. You will be queried to select a metric.
       if (col == 1) {
         graphics::mtext(metric_name, side = 2, line = 3)#, outer = TRUE
       }
+    },
+    ## Set up plot par() and return original par() for resetting.
+    set_par = function() {
+      oldpar = par(no.readonly = TRUE)
+      graphics::par(mfrow = c(self$n_metrics, self$n_params),
+                mar = c(1.0, 1.0, 1.0, 1.0),
+                oma = c(2, 4, 1, 1)
+      )
+      return(oldpar)
     }
   )
 )

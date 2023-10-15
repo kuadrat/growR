@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Run grass growth simulations using a grass growth model based off of ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description." (2006) \doi{10.1111/j.1365-2494.2006.00515.x}). The implementation in this package contains a few additions to the above cited version of ModVege, such as simulations of management decisions, and influences of snow cover. As such, the model is fit to simulate grass growth in mountainous regions, such as the Swiss Alps. The package also contains routines for calibrating the model and helpful tools for analysing model outputs and performance.
+Run grass growth simulations using a grass growth model based on ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description." (2006) \doi{10.1111/j.1365-2494.2006.00515.x}). The implementation in this package contains a few additions to the above cited version of ModVege, such as simulations of management decisions, and influences of snow cover. As such, the model is fit to simulate grass growth in mountainous regions, such as the Swiss Alps. The package also contains routines for calibrating the model and helpful tools for analysing model outputs and performance.
 }
 \seealso{
 Useful links:

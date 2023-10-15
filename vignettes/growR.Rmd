@@ -59,6 +59,11 @@ sessions or `Rscript` commands. To be on the safe side, for this tutorial we
 will create a temporary directory `working_dir`. All necessary or created 
 files are assumed to be located under this working directory.
 
+```{r, include = FALSE}
+# Store the original wd
+original_dir = getwd()
+```
+
 ```{r tempdir}
 working_dir = file.path(tempdir(), "growR_tutorial")
 dir.create(working_dir)
@@ -66,9 +71,8 @@ setwd(working_dir)
 ```
 
 ```{r, include = FALSE}
-# knitr resets working dir after every chunk.
-# Store the original wd and permanently move to working_dir.
-old_dir = getwd()
+# knitr resets working dir to root.dir after every chunk.
+# This makes sure we stay in working_dir
 knitr::opts_knit$set(
   root.dir = working_dir
 )
@@ -238,12 +242,11 @@ We can see how `NI` affects the total biomass production: larger `NI` leads
 to proportionally larger `cBM` and `hvBM` by the end of the season.
 
 ```{r, include = FALSE}
-# Clean up is not necessary because knitr deletes its own tmp dir when done.
 # Clean up
-#knitr::opts_knit$set(
-#  root.dir = old_dir
-#)
-#setwd(old_dir)
+knitr::opts_knit$set(
+  root.dir = original_dir
+)
+setwd(original_dir)
 #unlink(working_dir, recursive = TRUE)
 ```
 

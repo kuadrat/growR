@@ -10,7 +10,7 @@ Authors@R: person(
     comment = c(ORCID = "0000-0001-5523-6924"))
 Title: Implementation of the Vegetation Model ModVege
 Description: Run grass growth simulations using a grass growth model based 
-    off of ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting 
+    on ModVege (Jouven, M., P. Carrère, and R. Baumont "Model Predicting 
     Dynamics of Biomass, Structure and Digestibility of Herbage in Managed 
     Permanent Pastures. 1. Model Description." (2006) 
     <doi:10.1111/j.1365-2494.2006.00515.x>). The implementation in

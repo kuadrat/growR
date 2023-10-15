@@ -2,7 +2,31 @@
 
 0 errors | 0 warnings | 1 note
 
-* This is a new release.
+* This is a resubmission of a new release.
+
+## The following comments were received upon second CRAN submission
+
+* > Please make sure that you do not change the user's options, par or working directory. If you really have to do so within functions, please ensure with an *immediate* call of on.exit() that the settings are reset when the function is exited. e.g.:
+  > ...
+  > oldpar <- par(no.readonly = TRUE) # code line i
+  > on.exit(par(oldpar)) # code line i + 1
+  > ...
+  > par(mfrow=c(2,2)) # somewhere after
+  > ...
+  > e.g.: R/parameter_scan.R
+  > If you're not familiar with the function, please check ?on.exit. This function makes it possible to restore options before exiting a function even if the function breaks. Therefore it needs to be called immediately after the option change within a function.
+
+* > Please always make sure to reset to user's options(), working directory or par() after you changed it in examples and vignettes and demos. --> inst/doc/growR.R
+  > e.g.:
+  > olddir <- getwd()
+  > setwd(...)
+  > ...
+  > setwd(olddir)
+
+* > Please proof-read your description text.
+  > Currently it reads: "... Run grass growth simulations using a grass growth model based off of ModVege ..."
+  > Probably it should be: "... Run grass growth simulations using a grass growth model based on ModVege ..."
+
 
 ## The following comments were received upon first CRAN submission
 
