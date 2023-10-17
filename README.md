@@ -86,6 +86,38 @@ implementation of ModVege. Note, however, that the script based version is
 not maintained and might therefore lack some functionality which is provided 
 by the `growR` package.
 
+## Getting Started
+
+The package documentation is hosted on github pages: 
+https://kuadrat.github.io/growR/.
+Have a look to find an introductory tutorial, further information as well as 
+the complete package reference.
+
+Alternatively (in case github pages are down or you prefer an offline 
+solution), you can find the same information under *Reference manual* and 
+*Vignettes* on the CRAN package homepage: 
+https://cran.r-project.org/web/packages/growR/index.html
+
+Finally, it's also possible to directly access the package documentation and 
+vignettes from an `R` interpreter, using the `?` and `vignette()` tools, e.g.
+```
+> library(growR)
+# Get help on a function or object
+> ?growR_run_loop
+# some output...
+
+# List available vignettes
+> vignette(package = "growR")
+Vignettes in package ‘growR’:
+
+parameter_descriptions  
+                        Parameter Descriptions (source, html)
+growR                   Tutorial (source, html)
+
+# Inspect a vignette
+> vignette("growR")
+```
+
 ## Glossary
 
 Terms used in this project
