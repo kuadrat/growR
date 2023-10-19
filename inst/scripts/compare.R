@@ -9,7 +9,7 @@
 #
 # See also `?compare.R`
 #
-library(rmodvege)
+library(growR)
 library(ggplot2)
 
 #-Parameters--------------------------------------------------------------------
@@ -25,7 +25,7 @@ y_key = "dBM"
 #-Dependent-variables-----------------------------------------------------------
 
 measured_data_sites = unlist(lapply(runs, function(s) { 
-                                      strsplit(s, "_")[[1]][2] 
+                                      strsplit(s, "_")[[1]][1] 
 }))
 n_runs = length(runs)
 
@@ -49,8 +49,25 @@ for (run in runs) {
   }
 }
 
-measured_data = load_measured_data(measured_data_sites)
+measured_data = load_data_for_sites(measured_data_sites)
 measured_colors = c("#0000CC", "#00CC00", "#CC0000", "#666666")
+
+cb_palette = c(
+"#56b4e9", # skyblue
+"#e69f00", # orange
+"#009e73", # green
+"#000000", # black
+"#0072b2", # blue
+"#d55e00", # vermillion
+"#cc79a7", # purple
+"#f0e442"  # yellow
+)
+.n_colors = length(cb_palette)
+palettes = list(
+                cb_palette
+                )
+options(ggplot2.discrete.colour = palettes)
+options(ggplot2.discrete.fill = palettes)
 
 #-Plot--------------------------------------------------------------------------
 

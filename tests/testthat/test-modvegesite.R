@@ -26,20 +26,24 @@ get_example_environment = function(site = "posieux") {
 save_temp_output = function(MV) {
   path1 = tempfile(fileext = ".dat")
   MV$write_output(path1, force = TRUE)
-  # Remove #date
-  path2 = remove_date_line(path1)
+  # Remove #date and #version
+  path2 = remove_lines(path1, c("date", "version"))
   return(path2)
 }
 
-remove_date_line = function(infile) {
+remove_lines = function(infile, to_remove) {
   new_path = tempfile(fileext = ".dat")
   connection = file(infile, open = 'r')
+  grepstring = paste(sprintf("#%s;", to_remove), collapse = "|")
+  print(grepstring)
   while(TRUE) {
     line <- readLines(connection, n = 1)
     if(length(line) == 0) {
       break
-    } else if(!grepl("#date;", line)) {
-      write(line, file = new_path, append = TRUE)
+    } else {
+      if(!grepl(grepstring, line)) {
+        write(line, file = new_path, append = TRUE)
+      }
     } 
   }
   on.exit(close(connection))

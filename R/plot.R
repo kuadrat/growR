@@ -96,12 +96,12 @@ get_site_name = function(filename) {
 #' Load experimental data
 #'
 #' @description
-#' Load all datasets associated with any site present in the supplied vector.
+#' Load all datasets stored in the supplied files.
 #'
 #' Upon loading, the cumulative biomass growth *cBM* is automatically 
 #' calculated from the given daily biomass growth *dBM* values.
 #' 
-#'
+#' @param filenames Vector of paths to datafiles to be loaded.
 #' @return measured_data list of data.frame each corresponding to one of 
 #'  the sites detected in *filenames*. Each data.frame contains the keys
 #'  - dBM
@@ -109,6 +109,7 @@ get_site_name = function(filename) {
 #'  - year
 #'  - DOY
 #' 
+#' @export
 #' @md
 load_measured_data = function(filenames) {
   # Load relevant datasets
@@ -153,6 +154,7 @@ load_measured_data = function(filenames) {
 #'
 #' @param sites Vector of site names for which data to load.
 #'
+#' @export
 load_data_for_sites = function(sites) {
   data_dir = getOption("growR.data_dir", default = "data")
   filenames = sapply(sites, function(site) {
@@ -169,7 +171,7 @@ load_data_for_sites = function(sites) {
 #' [ModvegeSite]`$write_output()` out of which the site names are inferred.
 #'
 #' @param filenames Vector of strings representing simulation output 
-#'   filenames.
+#'   filenames for which matching data files are searched and loaded.
 #'
 #' @details
 #' `load_matching_data()` internally uses [get_site_name()] and makes the same 
@@ -177,6 +179,7 @@ load_data_for_sites = function(sites) {
 #' data to be located in "data/" and adhere to the filename format `x.csv`
 #' with `x` being the site name.
 #'
+#' @export
 #' @md
 load_matching_data = function(filenames) {
   # Detect sites
