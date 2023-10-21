@@ -16,7 +16,7 @@ simulation framework."><meta property="og:image" content="https://kuadrat.github
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,8 @@ simulation framework."><meta property="og:image" content="https://kuadrat.github
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <a class="dropdown-item" href="../articles/calibration.html">Calibration</a>
+    <a class="dropdown-item" href="../articles/calibration_in_depth.pdf">Calibration - In depth</a>
     <a class="dropdown-item" href="../articles/parameter_descriptions.html">Parameter Descriptions</a>
   </div>
 </li>
@@ -98,7 +100,7 @@ before we write to the filesystem.</p></dd>
 <span class="r-in"><span><span class="co"># We need `force = TRUE` here in order to make the example work in </span></span></span>
 <span class="r-in"><span><span class="co"># non-interactive settings.</span></span></span>
 <span class="r-in"><span><span class="fu">setup_directory</span><span class="op">(</span>root <span class="op">=</span> <span class="va">tmp</span>, include_examples <span class="op">=</span> <span class="cn">FALSE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Initialized directory structure in `/tmp/RtmpbuK5MO/test-setup_directory`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Initialized directory structure in `/tmp/Rtmp96RYo8/test-setup_directory`.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The `input`, `output` and `data` directories are now present.</span></span></span>
@@ -108,25 +110,25 @@ before we write to the filesystem.</p></dd>
 <span class="r-in"><span><span class="co"># Warnings are issued if directories are already present. Example files </span></span></span>
 <span class="r-in"><span><span class="co"># are still copied and potentially overwritten.</span></span></span>
 <span class="r-in"><span><span class="fu">setup_directory</span><span class="op">(</span>root <span class="op">=</span> <span class="va">tmp</span>, include_examples <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/RtmpbuK5MO/test-setup_directory` is not empty.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/RtmpbuK5MO/test-setup_directory/input/` already exists.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/RtmpbuK5MO/test-setup_directory/output/` already exists.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/RtmpbuK5MO/test-setup_directory/data/` already exists.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Initialized directory structure in `/tmp/RtmpbuK5MO/test-setup_directory`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/RtmpbuK5MO/test-setup_directory/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/RtmpbuK5MO/test-setup_directory/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/RtmpbuK5MO/test-setup_directory/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/RtmpbuK5MO/test-setup_directory/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/RtmpbuK5MO/test-setup_directory/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/RtmpbuK5MO/test-setup_directory`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/RtmpbuK5MO/test-setup_directory`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/Rtmp96RYo8/test-setup_directory` is not empty.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/Rtmp96RYo8/test-setup_directory/input/` already exists.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/Rtmp96RYo8/test-setup_directory/output/` already exists.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Directory `/tmp/Rtmp96RYo8/test-setup_directory/data/` already exists.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Initialized directory structure in `/tmp/Rtmp96RYo8/test-setup_directory`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/Rtmp96RYo8/test-setup_directory/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/Rtmp96RYo8/test-setup_directory/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/Rtmp96RYo8/test-setup_directory/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/Rtmp96RYo8/test-setup_directory/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/Rtmp96RYo8/test-setup_directory/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/Rtmp96RYo8/test-setup_directory`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/Rtmp96RYo8/test-setup_directory`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copied example files to respective directories.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example files are now present</span></span></span>

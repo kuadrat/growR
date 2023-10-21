@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,8 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <a class="dropdown-item" href="../articles/calibration.html">Calibration</a>
+    <a class="dropdown-item" href="../articles/calibration_in_depth.pdf">Calibration - In depth</a>
     <a class="dropdown-item" href="../articles/parameter_descriptions.html">Parameter Descriptions</a>
   </div>
 </li>
@@ -111,6 +113,12 @@ respective results.</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>Special care has to be taken in the creation of the <em>param_values</em> argument.
+It's possible to choose values that do not allow for any valid combination.
+Confer <code><a href="create_combinations.html">create_combinations()</a></code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="ModvegeParameters.html">ModvegeParameters</a>, <code><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">saveRDS()</a></code>, <code><a href="create_combinations.html">create_combinations()</a></code></p></div>
     </div>
@@ -138,7 +146,7 @@ respective results.</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 1/1]Simulating year 2016 (4/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]All runs completed.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Completed parameter scan.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Time used: 1.60857534408569</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Time used: 1.6749095916748</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]$params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> w_FGA w_FGB </span>

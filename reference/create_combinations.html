@@ -16,7 +16,7 @@ not fulfilled."><meta property="og:image" content="https://kuadrat.github.io/gro
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,6 +30,8 @@ not fulfilled."><meta property="og:image" content="https://kuadrat.github.io/gro
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <a class="dropdown-item" href="../articles/calibration.html">Calibration</a>
+    <a class="dropdown-item" href="../articles/calibration_in_depth.pdf">Calibration - In depth</a>
     <a class="dropdown-item" href="../articles/parameter_descriptions.html">Parameter Descriptions</a>
   </div>
 </li>
@@ -102,7 +104,18 @@ for a valid combination.</p>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Assume for example the following list as argument <em>param_values</em>:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">w_FGA =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>), <span class="at">w_FGB =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>), <span class="at">NI =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>))</span></code></pre><p></p></div>
-<p>This would generate the combinations</p><table class="table table"><tr><td>w_FGA</td><td>w_FGB</td><td>NI</td></tr><tr><td>0</td><td>1</td><td>0.5</td></tr><tr><td>0</td><td>1</td><td>0.9</td></tr><tr><td>0.5</td><td>0.5</td><td>0.5</td></tr><tr><td>0.5</td><td>0.5</td><td>0.9</td></tr><tr><td>1</td><td>0</td><td>0.5</td></tr><tr><td>1</td><td>0</td><td>0.9</td></tr></table></div>
+<p>This would generate the combinations</p><table class="table table"><tr><td>w_FGA</td><td>w_FGB</td><td>NI</td></tr><tr><td>0</td><td>1</td><td>0.5</td></tr><tr><td>0</td><td>1</td><td>0.9</td></tr><tr><td>0.5</td><td>0.5</td><td>0.5</td></tr><tr><td>0.5</td><td>0.5</td><td>0.9</td></tr><tr><td>1</td><td>0</td><td>0.5</td></tr><tr><td>1</td><td>0</td><td>0.9</td></tr></table><p>One can see that the input <em>param_values</em> has to be set up carefully: one
+has to ensure that the given <code>w_FGX</code> values <em>can</em> actually add up to 1. The
+following would be a bad counterexample, where only one single valid
+combination is found, even though many values for <code>w_FGA</code> and <code>w_FGB</code> are
+provided:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">w_FGA =</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">0.01</span>), <span class="at">w_FGB =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">0.01</span>))</span></code></pre><p></p></div>
+<p>Similarly, if the steps in the <code>w_FGX</code> don't match, we might not end up
+with many valid combinations, even though the ranges are reasonabl:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">w_FGA =</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), <span class="at">w_FGB =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>))</span></code></pre><p></p></div>
+<p>Here, no combination can be made with <code>w_FGA</code> in <code>c(0.6, 0.7, 0.8, 0.9)</code> or
+<code>w_FGB = 0.25</code>.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
