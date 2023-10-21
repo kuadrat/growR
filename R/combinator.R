@@ -106,6 +106,22 @@ Combinator = R6Class(
 #' |     1 |     0 | 0.5 |
 #' |     1 |     0 | 0.9 |
 #'
+#' One can see that the input *param_values* has to be set up carefully: one 
+#' has to ensure that the given `w_FGX` values *can* actually add up to 1. The
+#' following would be a bad counterexample, where only one single valid 
+#' combination is found, even though many values for `w_FGA` and `w_FGB` are 
+#' provided:
+#' ```
+#' list(w_FGA = seq(0.5, 1, 0.01), w_FGB = c(0.5, 1, 0.01))
+#' ```
+#' Similarly, if the steps in the `w_FGX` don't match, we might not end up 
+#' with many valid combinations, even though the ranges are reasonabl:
+#' ```
+#' list(w_FGA = seq(0.5, 1, 0.1), w_FGB = c(0, 0.5, 0.25))
+#' ```
+#' Here, no combination can be made with `w_FGA` in `c(0.6, 0.7, 0.8, 0.9)` or 
+#' `w_FGB = 0.25`.
+#'
 #' @param param_values A list giving all options for the parameter values 
 #'   which are to be combined. The format is `list[[param_name]] = 
 #'   param_values` where `param_values` is a vector with the values for the 

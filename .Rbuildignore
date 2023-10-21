@@ -5,3 +5,5 @@ data-raw
 ^docs$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^doc$
+^Meta$

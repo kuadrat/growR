@@ -131,8 +131,8 @@ environments = read_config("example_config.txt")
 As you may have already seen from the documentation of `read_config()`, this 
 reads in the given configuration file, skipping any lines starting with `#`.
 For each line, it then looks for the given input files and creates a 
-[ModvegeEnvironment] object with the data from the corresponding files.
-These [ModvegeEnvironment]s are essentially data structures that hold all the 
+`ModvegeEnvironment` object with the data from the corresponding files.
+These `ModvegeEnvironment`s are essentially data structures that hold all the 
 information needed in order to run a ModVege simulation.
 
 We are now ready to do so:
@@ -161,7 +161,7 @@ results[[1]][[1]]
 ```
 might be a little overwhelming and not very helpful, though.
 A convenient way to quickly see what has happened is to plot the resulting 
-grass growth curves. The [ModvegeSite] objects which are actually what's 
+grass growth curves. The `ModvegeSite` objects which are actually what's 
 stored in `results` provide a simple means of doing that through their 
 `plot()` method.
 

@@ -12,6 +12,10 @@ navbar:
     articles:
       text: Vignettes
       menu:
+        - text: Calibration
+          href: articles/calibration.html
+        - text: Calibration - In depth
+          href: articles/calibration_in_depth.pdf
         - text: Parameter Descriptions
           href: articles/parameter_descriptions.html
 

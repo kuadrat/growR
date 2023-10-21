@@ -46,6 +46,25 @@ This would generate the combinations\tabular{lll}{
    1 \tab 0 \tab 0.5 \cr
    1 \tab 0 \tab 0.9 \cr
 }
+
+
+One can see that the input \emph{param_values} has to be set up carefully: one
+has to ensure that the given \code{w_FGX} values \emph{can} actually add up to 1. The
+following would be a bad counterexample, where only one single valid
+combination is found, even though many values for \code{w_FGA} and \code{w_FGB} are
+provided:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{list(w_FGA = seq(0.5, 1, 0.01), w_FGB = c(0.5, 1, 0.01))
+}\if{html}{\out{</div>}}
+
+Similarly, if the steps in the \code{w_FGX} don't match, we might not end up
+with many valid combinations, even though the ranges are reasonabl:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{list(w_FGA = seq(0.5, 1, 0.1), w_FGB = c(0, 0.5, 0.25))
+}\if{html}{\out{</div>}}
+
+Here, no combination can be made with \code{w_FGA} in \code{c(0.6, 0.7, 0.8, 0.9)} or
+\code{w_FGB = 0.25}.
 }
 \examples{
 # Define the parameter steps you want to explore. This is a minimal example.

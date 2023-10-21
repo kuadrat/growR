@@ -20,6 +20,11 @@ ask_for_confirmation = function(n_combinations, force) {
 #'
 #' Run ModVege for a different sets of parameters.
 #'
+#' @note
+#' Special care has to be taken in the creation of the *param_values* argument.
+#' It's possible to choose values that do not allow for any valid combination.
+#' Confer [create_combinations()].
+#'
 #' @param environment Either a [ModvegeEnvironment] instance with all the site, 
 #'   management and weather inputs expected by [ModvegeSite]`$run()` **or** a 
 #'   string representing the name of a config file to read in order to 

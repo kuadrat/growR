@@ -42,6 +42,11 @@ respective results.}
 \description{
 Run ModVege for a different sets of parameters.
 }
+\note{
+Special care has to be taken in the creation of the \emph{param_values} argument.
+It's possible to choose values that do not allow for any valid combination.
+Confer \code{\link[=create_combinations]{create_combinations()}}.
+}
 \examples{
 env = create_example_environment()
 # We're creating a trivial list of parameters to explore here in order to 
