@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 The basis of the model is thoroughly described by 
 [@jouven2006ModelPredictingDynamics].
 
-In short, ModVege takes a values relating to daily weather conditions, 
+In short, ModVege takes values relating to daily weather conditions, 
 the nutrition availability and water holding capabilities as well as the 
 prevailing functional composition of plant population of the simulated site 
 as inputs and uses them to simulate grass growth on a daily time step.

@@ -100,22 +100,39 @@ get_site_name = function(filename) {
 #'
 #' Upon loading, the cumulative biomass growth *cBM* is automatically 
 #' calculated from the given daily biomass growth *dBM* values.
-#' 
+#'
+#' @section Data file format:
+#' The input data files are expected to consist of four columns containing 
+#' the following fileds, in order: \describe{
+#' \item{date}{Date of measurement in yyyy-mm-dd format.}
+#' \item{year}{Year of measurement. Identical to yyyy in *date* field.}
+#' \item{DOY}{Day of year of the measurement. Jan 1st corresponds to 1, Dec 
+#'   31st corresponds to 365 (except in gap years).}
+#' \item{dBM}{Observed **average daily biomass growth** since last cut in 
+#'   kg/ha.}
+#' }
+#' The first row is expected to be a header row containing the exact field 
+#' names as in the description above.
+#' Columns may be separated by an arbitrary character, specified by the *sep* 
+#' argument.
+#' The example data uses a comma (",").
+#'
 #' @param filenames Vector of paths to datafiles to be loaded.
+#' @param sep String Field separator used in the datafiles.
 #' @return measured_data list of data.frame each corresponding to one of 
 #'  the sites detected in *filenames*. Each data.frame contains the keys
-#'  - dBM
-#'  - cBM
-#'  - year
-#'  - DOY
+#'  - `dBM`: average daily biomass growth since last observation in kg/ha.
+#'  - `cBM`: cumulative biomass growth up to this DOY in kg/ha.
+#'  - `year`: year of observation.
+#'  - `DOY`: day of year of observation.
 #' 
 #' @export
 #' @md
-load_measured_data = function(filenames) {
+load_measured_data = function(filenames, sep = ",") {
   # Load relevant datasets
   measured_data = list()
   for (filename in filenames) {
-    dt = read.table(file.path(filename), header = TRUE, sep = ";")
+    dt = read.table(file.path(filename), header = TRUE, sep = sep)
     # Ditch all NA rows.
     dt = dt[!is.na(dt$dBM), ]
     # Calculate cumulative harvested biomass

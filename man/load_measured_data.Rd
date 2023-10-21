@@ -6,7 +6,7 @@
 \alias{load_matching_data}
 \title{Load experimental data}
 \usage{
-load_measured_data(filenames)
+load_measured_data(filenames, sep = ",")
 
 load_data_for_sites(sites)
 
@@ -14,7 +14,9 @@ load_matching_data(filenames)
 }
 \arguments{
 \item{filenames}{Vector of strings representing simulation output
-filenames.}
+filenames for which matching data files are searched and loaded.}
+
+\item{sep}{String Field separator used in the datafiles.}
 
 \item{sites}{Vector of site names for which data to load.}
 }
@@ -22,14 +24,14 @@ filenames.}
 measured_data list of data.frame each corresponding to one of
 the sites detected in \emph{filenames}. Each data.frame contains the keys
 \itemize{
-\item dBM
-\item cBM
-\item year
-\item DOY
+\item \code{dBM}: average daily biomass growth since last observation in kg/ha.
+\item \code{cBM}: cumulative biomass growth up to this DOY in kg/ha.
+\item \code{year}: year of observation.
+\item \code{DOY}: day of year of observation.
 }
 }
 \description{
-Load all datasets associated with any site present in the supplied vector.
+Load all datasets stored in the supplied files.
 
 Upon loading, the cumulative biomass growth \emph{cBM} is automatically
 calculated from the given daily biomass growth \emph{dBM} values.
@@ -50,3 +52,21 @@ to `data/`.
 \link{ModvegeSite}\verb{$write_output()} out of which the site names are inferred.
 
 }}
+\section{Data file format}{
+
+The input data files are expected to consist of four columns containing
+the following fileds, in order: \describe{
+\item{date}{Date of measurement in yyyy-mm-dd format.}
+\item{year}{Year of measurement. Identical to yyyy in \emph{date} field.}
+\item{DOY}{Day of year of the measurement. Jan 1st corresponds to 1, Dec
+31st corresponds to 365 (except in gap years).}
+\item{dBM}{Observed \strong{average daily biomass growth} since last cut in
+kg/ha.}
+}
+The first row is expected to be a header row containing the exact field
+names as in the description above.
+Columns may be separated by an arbitrary character, specified by the \emph{sep}
+argument.
+The example data uses a comma (",").
+}
+
