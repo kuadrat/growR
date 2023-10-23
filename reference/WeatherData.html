@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,19 +70,16 @@ the <em>N</em> years.</p>
     </div>
     <div class="section level2">
     <h2 id="weather-inputs">Weather inputs<a class="anchor" aria-label="anchor" href="#weather-inputs"></a></h2>
-    <p>The weather input file should be organized as 10 space separated columns
-with the following parameters as headers:</p><ul><li><p><code>DOY</code> day of year in given year</p></li>
+    <p>The weather input file should be organized as 7 space separated columns
+with a <code>year</code> column and the the following parameters as headers:</p><ul><li><p><code>DOY</code> day of year in given year</p></li>
 <li><p><code>Ta</code> average temperature of given day (Celsius).</p></li>
-<li><p><code>Tmin</code> minimum temperature of given day (Celsius).</p></li>
-<li><p><code>Tmax</code> maximum temperature of given day (Celsius).</p></li>
 <li><p><code>precip</code> precipitation in millimeter per day.</p></li>
-<li><p><code>rSSD</code> relative sunshine duration (%) <em>apparently unused</em>.</p></li>
-<li><p><code>SRad</code> average sunlight irradiance in 1/0.47 J/s/m^2^. In other words, this
-value will be converted to photosynthetically active radiation (PAR) in
-MJ/m^2^ as: <code>PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6</code></p></li>
-<li><p><code>ET0</code> evapotranspiration in mm. Currently calculated here. Should be calculated in model from day length.</p></li>
+<li><p><code>PAR</code> photosynthetically active radiation in MJ/m^2^. Can be calculated
+from average sunlight irradiance <code>SRad</code> in J/s/m^2^ as:
+<code>PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6</code></p></li>
+<li><p><code>ET0</code> evapotranspiration in mm.</p></li>
 <li><p><code>snow</code> calculated by model.</p></li>
-</ul><p>These parameters are stored in this object in the respective PARAM_vec
+</ul><p>These parameters are stored in this object in the respective <code>PARAM_vec</code>
 fields.</p>
     </div>
     <div class="section level2">
@@ -114,12 +111,8 @@ respective index.</p></dd>
 weather data only for a given year. The keys in the list are:</p><ul><li><p>aCO2 (atmospheric CO2 concentration in ppm)</p></li>
 <li><p>year</p></li>
 <li><p>DOY</p></li>
-<li><p>DL (day length <strong>unused</strong>)</p></li>
 <li><p>Ta</p></li>
 <li><p>Ta_sm (smoothed daily average temperature)</p></li>
-<li><p>Tn</p></li>
-<li><p>Tn_sm (smoothed daily minimum temperature)</p></li>
-<li><p>Tx</p></li>
 <li><p>PAR</p></li>
 <li><p>PP</p></li>
 <li><p>PET</p></li>
