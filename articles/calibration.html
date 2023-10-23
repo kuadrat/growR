@@ -49,7 +49,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/calibration.html">Calibration</a>
-    <a class="dropdown-item" href="../articles/calibration_in_depth.pdf">Calibration - In depth</a>
+    <a class="external-link dropdown-item" href="https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf">Calibration - In depth</a>
     <a class="dropdown-item" href="../articles/parameter_descriptions.html">Parameter Descriptions</a>
   </div>
 </li>
@@ -95,8 +95,7 @@
 <p>This vignette outlines the tools provided by <code>growR</code> for
 model calibration. It focuses on the practical aspects of which
 functions to call when. For an in-depth discussion about the calibration
-procedure as a whole, see <a href="../articles/calibration_in_depth.pdf">the respective
-article</a>.</p>
+procedure as a whole, see <a href="https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf" target="_blank" class="external-link">the respective article</a>.</p>
 <div class="section level2">
 <h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
 </h2>
@@ -109,7 +108,7 @@ file format as outlined in <code><a href="../reference/load_measured_data.html">
 simulation: weather input, a parameter file and, optionally, management
 data. Confer <a href="growR.html">the introductory tutorial</a> for
 details. Again, we are going to use the example data here (though you
-can feel free to use your own). We use the same setup as <a href="growR.html">in the introductory tutorial</a>:</p>
+can feel free to use your own). We’ll use the same setup as <a href="growR.html">in the introductory tutorial</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">working_dir</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"growR_calibration_tutorial"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">working_dir</span><span class="op">)</span></span>
@@ -119,21 +118,21 @@ can feel free to use your own). We use the same setup as <a href="growR.html">in
 <span><span class="co">#&gt; | Welcome to growR Version 1.0.1.9004! |</span></span>
 <span><span class="co">#&gt; +--------------------------------------+</span></span>
 <span><span class="fu"><a href="../reference/setup_directory.html">setup_directory</a></span><span class="op">(</span><span class="va">working_dir</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [INFO]Initialized directory structure in `/tmp/RtmppOXCG0/growR_calibration_tutorial`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/RtmppOXCG0/growR_calibration_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/RtmppOXCG0/growR_calibration_tutorial`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/RtmppOXCG0/growR_calibration_tutorial`.</span></span>
+<span><span class="co">#&gt; [INFO]Initialized directory structure in `/tmp/RtmpBB0rgK/growR_calibration_tutorial`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/RtmpBB0rgK/growR_calibration_tutorial`.</span></span>
 <span><span class="co">#&gt; [INFO]Copied example files to respective directories.</span></span></code></pre></div>
 <p>We will also already load the example configuration. For the sake of
 saving on computation time in this example, we limit the simulation to
@@ -156,8 +155,8 @@ those parameter combinations that are promising. We then evaluate the
 model with more parameter sets, now in the regions of parameter space
 where we suspect good performace. We can keep doing this until we do not
 seem to find better parameter sets anymore or until we are satisfied
-(see <a href="../articles/calibration_in_depth.pdf">the in-depth
-article</a> for a much more detailed description).</p>
+(see <a href="https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf" target="_blank" class="external-link">the in-depth article</a> for a much more detailed
+description).</p>
 <p>The three functions that facilitate this iterative procedure are
 <code><a href="../reference/run_parameter_scan.html">run_parameter_scan()</a></code>, <code><a href="../reference/analyze_parameter_scan.html">analyze_parameter_scan()</a></code>
 and <code><a href="../reference/plot_parameter_scan.html">plot_parameter_scan()</a></code>. The first makes it easy to carry
@@ -270,8 +269,8 @@ make sense to keep the functional group weights unconstrained and first
 pin down NI. In other situations you might be able to make use of some
 prior knowledge, e.g. a measurement of the plant composition, which
 gives you a hint towards which functional groups should be prevalent.
-Refer to <a href="../articles/calibration_in_depth.pdf">the in-depth
-guide</a> for a more rigorous discussion.</p>
+Refer to <a href="https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf" target="_blank" class="external-link">the in-depth guide</a> for a more rigorous
+discussion.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
