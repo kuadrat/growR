@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 This vignette outlines the tools provided by `growR` for model calibration.
 It focuses on the practical aspects of which functions to call when.
 For an in-depth discussion about the calibration procedure as a whole, see 
-[the respective article](../articles/calibration_in_depth.pdf).
+[the respective article](https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf){target="_blank"}.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ weather input, a parameter file and, optionally, management data.
 Confer [the introductory tutorial](growR.html) for details.
 Again, we are going to use the example data here (though you can feel free to 
 use your own).
-We use the same setup as [in the introductory tutorial](growR.html):
+We'll use the same setup as [in the introductory tutorial](growR.html):
 
 ```{r, include = FALSE}
 # Store the original wd
@@ -83,7 +83,7 @@ We then evaluate the model with more parameter sets, now in the regions of
 parameter space where we suspect good performace.
 We can keep doing this until we do not seem to find better parameter sets 
 anymore or until we are satisfied (see [the in-depth 
-article](../articles/calibration_in_depth.pdf) for a much more detailed 
+article](https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf){target="_blank"} for a much more detailed 
 description).
 
 The three functions that facilitate this iterative procedure are 
@@ -223,7 +223,7 @@ unconstrained and first pin down NI.
 In other situations you might be able to make use of some prior knowledge, 
 e.g. a measurement of the plant composition, which gives you a hint towards 
 which functional groups should be prevalent.
-Refer to [the in-depth guide](../articles/calibration_in_depth.pdf) for a 
+Refer to [the in-depth guide](https://github.com/kuadrat/growR/tree/master/vignettes/figs/calibration_in_depth.pdf){target="_blank"} for a 
 more rigorous discussion.
 
 ```{r, include = FALSE}
