@@ -35,7 +35,6 @@ remove_lines = function(infile, to_remove) {
   new_path = tempfile(fileext = ".dat")
   connection = file(infile, open = 'r')
   grepstring = paste(sprintf("#%s;", to_remove), collapse = "|")
-  print(grepstring)
   while(TRUE) {
     line <- readLines(connection, n = 1)
     if(length(line) == 0) {
