@@ -3,7 +3,7 @@ ask_for_confirmation = function(n_combinations, force) {
   if (force) {
     return()
   }
-  if (!interactive()) {
+  if (!interactive()) { # nocov start
     logger("Quitting run_parameter_scan() in non-interactive context with 
 `force == FALSE`.", level = INFO)
     rlang::interrupt()
@@ -13,7 +13,7 @@ ask_for_confirmation = function(n_combinations, force) {
   if (length(response) > 0 && tolower(response) %in% c("x", "n", "c", "q")) {
     logger("Quitting as requested by user.", level = INFO)
     rlang::interrupt()
-  }
+  } # nocov end
 }
 
 #' Parameter Scan
@@ -99,14 +99,14 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
   }
   logger("Completed parameter scan.", level = INFO)
   logger(paste0("Time used: ", Sys.time() - start_time), level = INFO)
-  if (outfilename != "") {
+  if (outfilename != "") { # nocov start
     question = "About to write results to `%s`. Continue? [Y/n] "
     response = prompt_user(sprintf(question, outfilename))
     if (!response %in% c("y", "Y", "")) {
       logger(sprintf("Storing results as `%s`.", outfilename))
     }
     saveRDS(results, outfilename)
-  }
+  } # nocov end
   return(results)
 }
 

@@ -40,14 +40,14 @@
 setup_directory = function(root, include_examples = TRUE, force = FALSE) {
   full_path = path.expand(root)
   # Ask user for permission to write to the file system.
-  if (!force) {
+  if (!force) { # nocov start
     message = "This function is going to create directories and files in `%s`. 
 Continue? [y/N]" 
     response = prompt_user(sprintf(message, full_path))
     if (response != "y") {
       cat("Quitting.")
       return()
-    }
+    } # nocov end
   }
   # Check if directory is empty
   contents = list.files(full_path)

@@ -3,3 +3,4 @@ docs
 inst/doc
 /doc/
 /Meta/
+.run_codecov.R

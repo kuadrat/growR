@@ -259,10 +259,6 @@ ModvegeParameters = R6Class(
         }
         if (check_for_completeness) {
           # Give error if an argument is missing.
-          print("===============================================================")
-          print(self$required_parameter_names)
-          print(param_names)
-          print("===============================================================")
           not_present = setdiff(self$required_parameter_names, param_names)
           if (length(not_present) != 0 ) {
             # Construct the error message.
