@@ -1,54 +1,57 @@
 # Define the names of the variables in the model. This is also used for a 
 # sanity check of the supplied input.
-initial_condition_names = c(
-  "AgeGV",
-  "AgeGR",
-  "AgeDV",
-  "AgeDR",
-  "BMGV",
-  "BMGR",
-  "BMDV",
-  "BMDR",
-  "SENGV",
-  "SENGR",
-  "ABSDV",
-  "ABSDR",
-  "ST",
-  "cBM"
+initial_conditions = list(
+  AgeGV = 100,
+  AgeGR = 2000,
+  AgeDV = 500,
+  AgeDR = 500,
+  BMGV = 420,
+  BMGR = 0,
+  BMDV = 300,
+  BMDR = 30,
+  SENGV = 0,
+  SENGR = 0,
+  ABSDV = 0,
+  ABSDR = 0,
+  ST = 0,
+  cBM = 0
 )
-parameter_names = c(
-  "LAT",
-  "LON",
-  "ELV",
-  "WHC",
-  "NI",
-  "w_FGA",
-  "w_FGB",
-  "w_FGC",
-  "w_FGD",
-  "RUEmax",
-  "sigmaGV",
-  "sigmaGR",
-  "T0",
-  "T1",
-  "T2",
-  "KGV",
-  "KGR",
-  "KlDV",
-  "KlDR",
-  "OMDDV",
-  "OMDDR",
-  "CO2_growth_factor"
+required_parameters = list(
+  WHC = NA,
+  NI = NA,
+  w_FGA = NA,
+  w_FGB = NA,
+  w_FGC = NA,
+  w_FGD = NA
+)
+parameter_defaults = list(
+  LAT = NA,
+  LON = NA,
+  ELV = NA,
+  RUEmax = 3,
+  sigmaGV = 0.4,
+  sigmaGR = 0.2,
+  T0 = 5,
+  T1 = 10,
+  T2 = 20,
+  KGV = 0.002,
+  KGR = 0.001,
+  KlDV = 0.001,
+  KlDR = 0.0005,
+  OMDDV = 0.45,
+  OMDDR = 0.4,
+  CO2_growth_factor = 0.5
 )
 # Create a list that can be inserted into R6 class to create many fields
-all_parameter_names = c(initial_condition_names, parameter_names)
-parameters = as.list(all_parameter_names)
-names(parameters) = all_parameter_names
-sapply(all_parameter_names, function(p) {parameters[[p]] = NA})
-# Same procedure for functional group parameters
-fg_parameters = as.list(FG_A$fg_parameter_names)
-names(fg_parameters) = FG_A$fg_parameter_names
-sapply(FG_A$fg_parameter_names, function(p) {fg_parameters[[p]] = NA})
+initial_condition_names = names(initial_conditions)
+parameter_names = names(parameter_defaults)
+required_parameter_names = names(required_parameters)
+all_parameter_names = c(initial_condition_names, parameter_names, 
+                        required_parameter_names)
+parameters = c(initial_conditions, parameter_defaults, required_parameters)
+# Similar procedure for functional group parameters, using the values of FG_A as 
+# defaults.
+fg_parameters = FG_A$get_parameters()
 # Similar procedure for initial_conditions:
 # For each value that needs to be stored as an initial condition, create a 
 # copy of the variable with an appended "0" to the variable name.
@@ -56,7 +59,7 @@ initial_condition_values = list()
 for (i_param in 1:length(initial_condition_names)) {
   old_name = initial_condition_names[i_param]
   new_name = paste0(old_name, "0")
-  initial_condition_values[[new_name]] = NA
+  initial_condition_values[[new_name]] = initial_conditions[[old_name]]
 }
 for (name in c("WR0", "OMDGV0", "OMDGR0")) {
   initial_condition_values[[name]] = NA
@@ -101,10 +104,14 @@ ModvegeParameters = R6Class(
 
     list(
       #-Public-attributes-----------------------------------------------------------
-#' @field parameter_names Names of all parameters and state variables.
+#' @field required_parameter_names Names of parameters that do not have a 
+#'   default value and are therefore strictly required.
+      required_parameter_names = required_parameter_names,
+#' @field parameter_names Names of all required and optional parameters and 
+#'   state variables.
       parameter_names = all_parameter_names,
 #' @field n_parameters Number of total parameters.
-      n_parameters = length(parameter_names),
+      n_parameters = length(all_parameter_names),
 #' @field functional_group The [FunctionalGroup] instance holding the 
 #'   vegetation parameters.
       functional_group = NULL,
@@ -233,30 +240,36 @@ ModvegeParameters = R6Class(
       #' 
       #' @param param_names A list of parameter names to be checked.
       #' @param check_for_completeness Boolean Toggle whether only the 
-      #'   validity of supplied *param_names* is checked (default) or whether we 
-      #'   require all parameters to be present. In the latter case, if any 
-      #'   parameter is missing, an error is thrown.
+      #'   validity of supplied *param_names* is checked or whether we 
+      #'   want to check that all required parameters to be present 
+      #'   (default). In the latter case, if any required parameter is 
+      #'   missing, an error is thrown.
       #' @return not_known The list of unrecognized parameter names.
       #'
       #' @md
-      check_parameters = function(param_names, check_for_completeness = FALSE) {
+      check_parameters = function(param_names, check_for_completeness = TRUE) {
         not_known = setdiff(param_names, self$parameter_names)
+        param_file = self$param_file
         # Warn if some arguments were not recognized.
         if (length(not_known) != 0) {
           unknown_args = paste(not_known, collapse = "\n")
-          message = paste("The following unrecognized parameters were present",
-                            "in the supplied input file (%s):\n%s")
-          logger(sprintf(message, param_file, unknown_args), level = WARNING)
+          msg = paste("The following unrecognized parameters were present",
+                      "in the supplied input file (%s):\n%s")
+          logger(sprintf(msg, param_file, unknown_args), level = WARNING)
         }
         if (check_for_completeness) {
           # Give error if an argument is missing.
-          not_present = setdiff(self$parameter_names, param_names)
+          print("===============================================================")
+          print(self$required_parameter_names)
+          print(param_names)
+          print("===============================================================")
+          not_present = setdiff(self$required_parameter_names, param_names)
           if (length(not_present) != 0 ) {
             # Construct the error message.
             missing_args = paste(not_present, collapse = "\n")
-            message = paste("The following parameters were missing",
-                            "from the supplied input file (%s):\n%s")
-            logger(sprintf(message, param_file, missing_args), level = WRNING)
+            msg = paste("The following parameters were missing",
+                        "from the supplied input file (%s):\n%s")
+            logger(sprintf(msg, param_file, missing_args), level = ERROR)
           }
         }
         return(not_known)

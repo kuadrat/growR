@@ -76,7 +76,8 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
   }
 
   # Ensure all supplied parameters are valid
-  environment$parameters$check_parameters(names(param_values))
+  environment$parameters$check_parameters(names(param_values),
+                                          check_for_completeness = FALSE)
   # Create all parameter combinations
   parameter_sets = create_combinations(param_values)
   n_combinations = length(parameter_sets)

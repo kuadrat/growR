@@ -13,8 +13,9 @@ other words, every variable has one value for each of the 365 of each of
 the \emph{N} years.
 }
 \section{Weather inputs}{
-The weather input file should be organized as 7 space separated columns
-with a \code{year} column and the the following parameters as headers:
+The weather input file should be organized as space separated columns
+with a \code{year} column and at least the following parameters as headers
+(further columns are ignored):
 \itemize{
 \item \code{DOY} day of year in given year
 \item \code{Ta} average temperature of given day (Celsius).
@@ -23,7 +24,6 @@ with a \code{year} column and the the following parameters as headers:
 from average sunlight irradiance \code{SRad} in J/s/m^2^ as:
 \code{PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6}
 \item \code{ET0} evapotranspiration in mm.
-\item \code{snow} calculated by model.
 }
 
 These parameters are stored in this object in the respective \code{PARAM_vec}

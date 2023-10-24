@@ -13,8 +13,9 @@
 * Input data CSV files are now actual CSV files, instead of 
   "semicolon-separated value" files.
 
-* `ParameterData` now only throws a warning on missing parameters instead of 
-  an error.
+* `ParameterData` now assumes default values for most parameters. 
+  `check_parameters` now only throws an error if any of the really  
+  *required* parameters are missing.
 
 ## Removed
 

@@ -1,6 +1,6 @@
 Package: growR
 Type: Package
-Version: 1.0.0.9005
+Version: 1.0.0.9006
 Date: 2023-09-27
 Authors@R: person(
     given = "Kevin",

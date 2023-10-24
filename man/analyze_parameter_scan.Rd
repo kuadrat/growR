@@ -4,7 +4,11 @@
 \alias{analyze_parameter_scan}
 \title{Analyze results of a parameter scan}
 \usage{
-analyze_parameter_scan(parameter_scan_results, datafile = "")
+analyze_parameter_scan(
+  parameter_scan_results,
+  datafile = "",
+  smooth_interval = 28
+)
 }
 \arguments{
 \item{parameter_scan_results}{String or List. If a string, it is
@@ -17,6 +21,10 @@ results in \emph{parameter_scan_results} are compared to the data therein. If
 empty, the site is inferred from the \link{ModvegeSite} objects in
 \emph{parameter_scan_results} and a corresponding data file is searched for
 in `getOption("growR.data_dir", default = "data").}
+
+\item{smooth_interval}{Int. Number of days over which the variable \code{dBM}
+is smoothened. Should be set to make eperimental data and simulated
+data to be as comparable as possible.}
 }
 \value{
 analyzed A list with threy keys: \code{results}, \code{metrics} and \code{params}.

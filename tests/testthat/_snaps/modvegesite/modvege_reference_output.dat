@@ -15,12 +15,6 @@
 #LAT;46.77
 #LON;7.11
 #ELV;650
-#WHC;130
-#NI;0.7
-#w_FGA;0.7
-#w_FGB;0.3
-#w_FGC;0
-#w_FGD;0
 #RUEmax;3
 #sigmaGV;0.4
 #sigmaGR;0.2
@@ -34,6 +28,12 @@
 #OMDDV;0.45
 #OMDDR;0.4
 #CO2_growth_factor;0.5
+#WHC;130
+#NI;0.7
+#w_FGA;0.7
+#w_FGB;0.3
+#w_FGC;0
+#w_FGD;0
 #year;2013
 #site_name;-
 #run_name;-

@@ -95,7 +95,11 @@ vegetation parameters governed by functional group composition.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{parameter_names}}{Names of all parameters and state variables.}
+\item{\code{required_parameter_names}}{Names of parameters that do not have a
+default value and are therefore strictly required.}
+
+\item{\code{parameter_names}}{Names of all required and optional parameters and
+state variables.}
 
 \item{\code{n_parameters}}{Number of total parameters.}
 
@@ -212,7 +216,7 @@ if requested, check that all required parameters are present.
 Issues a warning for any invalid parameters and throws an error if
 completeness is not satisfied (only when \code{check_for_completeness =  TRUE}).
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$check_parameters(param_names, check_for_completeness = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeParameters$check_parameters(param_names, check_for_completeness = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -221,9 +225,10 @@ completeness is not satisfied (only when \code{check_for_completeness =  TRUE}).
 \item{\code{param_names}}{A list of parameter names to be checked.}
 
 \item{\code{check_for_completeness}}{Boolean Toggle whether only the
-validity of supplied \emph{param_names} is checked (default) or whether we
-require all parameters to be present. In the latter case, if any
-parameter is missing, an error is thrown.}
+validity of supplied \emph{param_names} is checked or whether we
+want to check that all required parameters to be present
+(default). In the latter case, if any required parameter is
+missing, an error is thrown.}
 }
 \if{html}{\out{</div>}}
 }
