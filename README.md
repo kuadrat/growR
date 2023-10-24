@@ -2,7 +2,8 @@
 
 <!-- badges: start -->
   [![R-CMD-check](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml)
-  <!-- badges: end -->
+  [![codecov](https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV)](https://codecov.io/gh/kuadrat/growR)
+<!-- badges: end -->
 
 ![](man/figures/logo.png)
 

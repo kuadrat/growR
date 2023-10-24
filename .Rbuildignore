@@ -7,3 +7,4 @@ data-raw
 ^CRAN-SUBMISSION$
 ^doc$
 ^Meta$
+^codecov\.yml$
