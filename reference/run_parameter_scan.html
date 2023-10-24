@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,6 +126,21 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="create_example_environment.html">create_example_environment</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "==============================================================="</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "WHC"   "NI"    "w_FGA" "w_FGB" "w_FGC" "w_FGD"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "AgeGV"             "AgeGR"             "AgeDV"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "AgeDR"             "BMGV"              "BMGR"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "BMDV"              "BMDR"              "SENGV"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "SENGR"             "ABSDV"             "ABSDR"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "ST"                "cBM"               "LON"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "LAT"               "ELV"               "WHC"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "NI"                "RUEmax"            "w_FGA"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "w_FGB"             "w_FGC"             "w_FGD"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "sigmaGV"           "sigmaGR"           "T0"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "T1"                "T2"                "KGV"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "KGR"               "KlDV"              "KlDR"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "OMDDV"             "OMDDR"             "CO2_growth_factor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "==============================================================="</span>
 <span class="r-in"><span><span class="co"># We're creating a trivial list of parameters to explore here in order to </span></span></span>
 <span class="r-in"><span><span class="co"># prevent the example from requiring a long time to execute. See </span></span></span>
 <span class="r-in"><span><span class="co"># [create_combinations()] for more realistic uses of param_values.</span></span></span>
@@ -146,7 +161,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 1/1]Simulating year 2016 (4/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]All runs completed.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Completed parameter scan.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Time used: 1.60940957069397</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Time used: 1.98799133300781</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]$params</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> w_FGA w_FGB </span>
@@ -230,7 +245,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -333,7 +348,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -436,7 +451,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -539,7 +554,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -650,7 +665,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -753,7 +768,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -856,7 +871,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
@@ -959,7 +974,7 @@ Confer <code><a href="create_combinations.html">create_combinations()</a></code>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function () </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (smooth_interval = 28) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run: function (year, weather, management) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     run_name: -</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>

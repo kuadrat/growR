@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,10 +56,27 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.1" id="growr-101">growR 1.0.1<a class="anchor" aria-label="anchor" href="#growr-101"></a></h2>
+<div class="section level3">
+<h3 id="added-1-0-1">Added<a class="anchor" aria-label="anchor" href="#added-1-0-1"></a></h3>
+<ul><li>Instances where simulation results for variable <code>dBM</code> are visualized or compared to experimental data now allow specifying and integration window for <code>dBM</code>, which should be set to match the experimental reality. This concerns <code>ModvegeSite$plot()</code> and <code><a href="../reference/analyze_parameter_scan.html">analyze_parameter_scan()</a></code> as well as the <code>compare.R</code> script.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-1-0-1">Changed<a class="anchor" aria-label="anchor" href="#changed-1-0-1"></a></h3>
+<ul><li><p>Input data CSV files are now actual CSV files, instead of “semicolon-separated value” files.</p></li>
+<li><p><code>ParameterData</code> now assumes default values for most parameters. <code>check_parameters</code> now only throws an error if any of the really<br><em>required</em> parameters are missing.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="removed-1-0-1">Removed<a class="anchor" aria-label="anchor" href="#removed-1-0-1"></a></h3>
+<ul><li>Removed superfluous weather inputs.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="growr-100">growR 1.0.0<a class="anchor" aria-label="anchor" href="#growr-100"></a></h2><p class="text-muted">CRAN release: 2023-10-16</p>
 <ul><li>Initial CRAN submission.</li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

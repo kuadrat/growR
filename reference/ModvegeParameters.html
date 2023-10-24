@@ -12,7 +12,7 @@ the configuration of an growR simulation run."><meta property="og:image" content
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,8 +152,14 @@ vegetation parameters governed by functional group composition.</p></li>
     </div>
     <div class="section level2">
     <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
-    <p></p><div class="r6-fields"><dl><dt><code>parameter_names</code></dt>
-<dd><p>Names of all parameters and state variables.</p></dd>
+    <p></p><div class="r6-fields"><dl><dt><code>required_parameter_names</code></dt>
+<dd><p>Names of parameters that do not have a
+default value and are therefore strictly required.</p></dd>
+
+
+<dt><code>parameter_names</code></dt>
+<dd><p>Names of all required and optional parameters and
+state variables.</p></dd>
 
 
 <dt><code>n_parameters</code></dt>
@@ -269,7 +275,7 @@ if requested, check that all required parameters are present.
 Issues a warning for any invalid parameters and throws an error if
 completeness is not satisfied (only when <code>check_for_completeness =  TRUE</code>).</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeParameters</span><span class="op">$</span><span class="fu">check_parameters</span><span class="op">(</span><span class="va">param_names</span>, check_for_completeness <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeParameters</span><span class="op">$</span><span class="fu">check_parameters</span><span class="op">(</span><span class="va">param_names</span>, check_for_completeness <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -280,9 +286,10 @@ completeness is not satisfied (only when <code>check_for_completeness =  TRUE</c
 
 <dt><code>check_for_completeness</code></dt>
 <dd><p>Boolean Toggle whether only the
-validity of supplied <em>param_names</em> is checked (default) or whether we
-require all parameters to be present. In the latter case, if any
-parameter is missing, an error is thrown.</p></dd>
+validity of supplied <em>param_names</em> is checked or whether we
+want to check that all required parameters to be present
+(default). In the latter case, if any required parameter is
+missing, an error is thrown.</p></dd>
 
 
 </dl><p></p></div>

@@ -76,7 +76,7 @@ Rows starting with a # are skipped."><meta property="og:image" content="https://
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -191,33 +191,63 @@ configurations in the order they appear in <em>config_file</em>.</p>
 <span class="r-in"><span><span class="co"># We need `force = TRUE` here in order to make the example work in </span></span></span>
 <span class="r-in"><span><span class="co"># non-interactive settings.</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="setup_directory.html">setup_directory</a></span><span class="op">(</span>root <span class="op">=</span> <span class="va">tmp</span>, include_examples <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Initialized directory structure in `/tmp/Rtmp2l6Jah/test-read_config`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/Rtmp2l6Jah/test-read_config/input/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/Rtmp2l6Jah/test-read_config/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/Rtmp2l6Jah/test-read_config/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/Rtmp2l6Jah/test-read_config/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/Rtmp2l6Jah/test-read_config/data/`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/Rtmp2l6Jah/test-read_config`.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/Rtmp2l6Jah/test-read_config`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Initialized directory structure in `/tmp/RtmpNJuCXd/test-read_config`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/RtmpNJuCXd/test-read_config/input/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/RtmpNJuCXd/test-read_config/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/RtmpNJuCXd/test-read_config/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/RtmpNJuCXd/test-read_config/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/RtmpNJuCXd/test-read_config/data/`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/RtmpNJuCXd/test-read_config`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/RtmpNJuCXd/test-read_config`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Copied example files to respective directories.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Now we can test `read_config`.</span></span></span>
 <span class="r-in"><span><span class="fu">read_config</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"example_config.txt"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>            input_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"input"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "==============================================================="</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "WHC"   "NI"    "w_FGA" "w_FGB" "w_FGC" "w_FGD"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "AgeGV"             "AgeGR"             "AgeDV"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "AgeDR"             "BMGV"              "BMGR"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "BMDV"              "BMDR"              "SENGV"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "SENGR"             "ABSDV"             "ABSDR"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "ST"                "cBM"               "LON"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "LAT"               "ELV"               "WHC"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "NI"                "RUEmax"            "w_FGA"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "w_FGB"             "w_FGC"             "w_FGD"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "sigmaGV"           "sigmaGR"           "T0"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "T1"                "T2"                "KGV"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "KGR"               "KlDV"              "KlDR"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "OMDDV"             "OMDDR"             "CO2_growth_factor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "==============================================================="</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "==============================================================="</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "WHC"   "NI"    "w_FGA" "w_FGB" "w_FGC" "w_FGD"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "AgeGV"             "AgeGR"             "AgeDV"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "AgeDR"             "BMGV"              "BMGR"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "BMDV"              "BMDR"              "SENGV"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "SENGR"             "ABSDV"             "ABSDR"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "ST"                "cBM"               "LON"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "LAT"               "ELV"               "WHC"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "NI"                "RUEmax"            "w_FGA"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "w_FGB"             "w_FGC"             "w_FGD"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "sigmaGV"           "sigmaGR"           "T0"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "T1"                "T2"                "KGV"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "KGR"               "KlDV"              "KlDR"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "OMDDV"             "OMDDR"             "CO2_growth_factor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "==============================================================="</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ModvegeEnvironment&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_environment_for_year: function (year) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (site_name, run_name = "-", years = NULL, param_file = "-", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     input_dir: /tmp/Rtmp2l6Jah/test-read_config/input</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     input_dir: /tmp/RtmpNJuCXd/test-read_config/input</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     load_inputs: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     make_filename_for_run: function (run_name) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: ManagementData, R6</span>
@@ -237,7 +267,7 @@ configurations in the order they appear in <em>config_file</em>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_environment_for_year: function (year) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (site_name, run_name = "-", years = NULL, param_file = "-", </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     input_dir: /tmp/Rtmp2l6Jah/test-read_config/input</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     input_dir: /tmp/RtmpNJuCXd/test-read_config/input</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     load_inputs: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     make_filename_for_run: function (run_name) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: ManagementData, R6</span>
