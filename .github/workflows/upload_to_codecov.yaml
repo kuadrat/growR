@@ -1,4 +1,13 @@
-- name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v3
-  env:
-    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+name: Code Coverage
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubunutu-latest
+    name: Upload coverage reports to Codecov
+    uses: codecov/codecov-action@v3
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    steps:
+    - Rscript -e 'library(covr); codecov()'
