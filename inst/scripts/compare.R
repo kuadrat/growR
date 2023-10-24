@@ -21,6 +21,7 @@ years = 2013:2022
 
 y_key = "cBM"
 y_key = "dBM"
+box_width = 28
 
 #-Dependent-variables-----------------------------------------------------------
 
@@ -39,7 +40,7 @@ for (run in runs) {
   for (year in years) {
     data = read.table(sprintf(basename, run, year), header = TRUE)
     if (y_key == "dBM") {
-      y = box_smooth(data$dBM)
+      y = box_smooth(data$dBM, box_width = box_width)
     } else {
       y = data[[y_key]]
     }

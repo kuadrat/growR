@@ -10,8 +10,9 @@
 #' the *N* years.
 #'
 #' # Weather inputs
-#' The weather input file should be organized as 7 space separated columns 
-#' with a `year` column and the the following parameters as headers:
+#' The weather input file should be organized as space separated columns 
+#' with a `year` column and at least the following parameters as headers 
+#' (further columns are ignored):
 #'
 #' ```{r child = "vignettes/children/weather_parameters.Rmd"}
 #' ```

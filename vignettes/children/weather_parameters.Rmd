@@ -9,5 +9,3 @@
   `PAR = SRad * 0.47 * 24 * 60 * 60 / 1e6`
 
 - `ET0` evapotranspiration in mm.
-
-- `snow` calculated by model.

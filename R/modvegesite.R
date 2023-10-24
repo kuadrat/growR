@@ -468,9 +468,11 @@ ModvegeSite = R6Class(
       #' Creates a simple base R plot showing the BM with cutting events and,
       #' if applicable, target biomass, dBM, cBM and hvBM.
       #'
+      #' @param smooth_interval Int. Number of days over which the variable 
+      #'   `dBM` is smoothened.
       #' @return None Creates a plot of the result.
       #'
-      plot = function() {
+      plot = function(smooth_interval = 28) {
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(2, 2))
@@ -483,8 +485,8 @@ ModvegeSite = R6Class(
           lines(self$target_biomass, col = "grey")
         }
         # dBM, cBM, hBM
-        plot(box_smooth(self$dBM, 28), type = "l", xlab = xlab, 
-             ylab = "smoothened dBM (kg / ha)")
+        plot(box_smooth(self$dBM, smooth_interval), type = "l", 
+             xlab = xlab, ylab = "smoothened dBM (kg / ha)")
         plot(self$cBM, type = "l", xlab = xlab, ylab = "cBM (kg / ha)")
         plot(self$hvBM, type = "l", xlab = xlab, ylab = "hvBM (kg / ha)")
       }

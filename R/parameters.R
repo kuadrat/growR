@@ -256,7 +256,7 @@ ModvegeParameters = R6Class(
             missing_args = paste(not_present, collapse = "\n")
             message = paste("The following parameters were missing",
                             "from the supplied input file (%s):\n%s")
-            logger(sprintf(message, param_file, missing_args), level = ERROR)
+            logger(sprintf(message, param_file, missing_args), level = WRNING)
           }
         }
         return(not_known)

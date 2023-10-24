@@ -120,6 +120,9 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #'   empty, the site is inferred from the [ModvegeSite] objects in 
 #'   *parameter_scan_results* and a corresponding data file is searched for 
 #'    in `getOption("growR.data_dir", default = "data").
+#' @param smooth_interval Int. Number of days over which the variable `dBM` 
+#'   is smoothened. Should be set to make eperimental data and simulated 
+#'   data to be as comparable as possible.
 #' @return analyzed A list with threy keys: `results`, `metrics` and `params`.
 #'  \describe{
 #'    \item{results}{A data.frame with `1 + n_params + n_metrics` columns 
@@ -152,7 +155,8 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #' 
 #' @md
 #' @export
-analyze_parameter_scan = function(parameter_scan_results, datafile = "") {
+analyze_parameter_scan = function(parameter_scan_results, datafile = "", 
+                                  smooth_interval = 28) {
   metrics_to_use = c("bias", "MAE", "RMSE")
 
   # Read results from .Rds file, if applicable
@@ -187,7 +191,7 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "") {
     for (i_year in 1:n_years) {
       mv = modvegesites[[i_year]]
       cBM = c(cBM, mv$cBM)
-      smoothed = box_smooth(mv$dBM, box_width = 28)
+      smoothed = box_smooth(mv$dBM, box_width = smooth_interval)
       dBM = c(dBM, smoothed)
     }
     results[[combination]][["cBM"]] = list()
