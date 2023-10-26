@@ -4,12 +4,16 @@
 \alias{plot_parameter_scan}
 \title{Plot Parameter Scan Results}
 \usage{
-plot_parameter_scan(analyzed, interactive = TRUE)
+plot_parameter_scan(analyzed, variable = "dBM", interactive = TRUE)
 }
 \arguments{
-\item{analyzed}{Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
+\item{analyzed}{List; Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
 
-\item{interactive}{boolean Toggle between just creating a static plot
+\item{variable}{Str; Name of variable in \emph{analyzed} to visualize. Can
+be changed later with \code{PscanPlotter$set_variable()}. Allowed values are
+the keys in \emph{analyzed} except for \code{params} and \code{metrics}.}
+
+\item{interactive}{boolean; Toggle between just creating a static plot
 (\code{interactive = FALSE}) or entering a small, interactive analysis
 setting (\code{interactive = TRUE}, default).}
 }

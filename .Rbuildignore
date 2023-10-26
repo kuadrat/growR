@@ -8,3 +8,4 @@ data-raw
 ^doc$
 ^Meta$
 ^codecov\.yml$
+^.run_codecov.R$

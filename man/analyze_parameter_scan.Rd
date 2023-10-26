@@ -23,19 +23,28 @@ empty, the site is inferred from the \link{ModvegeSite} objects in
 in `getOption("growR.data_dir", default = "data").}
 
 \item{smooth_interval}{Int. Number of days over which the variable \code{dBM}
-is smoothened. Should be set to make eperimental data and simulated
+is smoothened. Should be set to make experimental data and simulated
 data to be as comparable as possible.}
 }
 \value{
-analyzed A list with threy keys: \code{results}, \code{metrics} and \code{params}.
+analyzed A list with five keys: \code{dBM}, \code{cBM}, \code{cBM_end}, \code{metrics}
+and \code{params}.
 \describe{
-\item{results}{A data.frame with \code{1 + n_params + n_metrics} columns
+\item{dBM}{A data.frame with \code{1 + n_params + n_metrics} columns
 where each row represents a different parameter combination.
 The first column (\code{n}) gives the row number and is used to identify a
 parameter combination. The subsequent \code{n_params} columns give the
 values of the parameters used in this combination. The final \code{n_metrics}
 columns give the resulting performance score of the model run with
-these parameters for each metric.}
+these parameters for each metric applied to model variable \code{dBM}.}
+\item{cBM}{A data.frame of same format as for the key \emph{dBM}. The first
+\code{n_params + 1} columns are identical to the data.frame in \emph{dBM}. The
+difference is that the final \code{n_metrics} columns give performance
+scores with respect to the model variable \code{cBM}.}
+\item{cBM_end}{A data.frame analogous to \emph{dBM} and \emph{cBM}, only this time
+the last \code{n_metrics} columns give performance scores with respect to
+the variable \code{cBM_end}, which is the final value of \code{cBM}, i.e. the
+cumulative grown biomass at the end of the year.}
 \item{params}{A vector containing the names of the scanned parameters.
 These are also the column names of columns \code{2:(n_params+1)} in
 \emph{results}.}
@@ -48,14 +57,14 @@ performance metrics. These are also the column names of the last
 Analyze results of a parameter scan
 }
 \examples{
-# There needs to be data available with which the modle is to be compared.
+# There needs to be data available with which the model is to be compared.
 # For this example, use data provided by the package.
 path = system.file("extdata", package = "growR")
 datafile = file.path(path, "posieux1.csv")
-print(path)
 
-# Use example parameter scan data provided by the package.
-# You would generally create your own data using `run_parameter_scan()`.
+# We also use example parameter scan data provided by the package.
+# In the real world, you would generally create your own data using 
+# `run_parameter_scan()`.
 analyze_parameter_scan(parameter_scan_example, datafile = datafile)
 
 }

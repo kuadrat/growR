@@ -17,6 +17,8 @@ results.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
+\item{\code{analyzed}}{List, as output by \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
+
 \item{\code{params}}{Vector of names of scanned parameters.}
 
 \item{\code{metrics}}{Vector of names of model performance metrics to use.}
@@ -46,6 +48,7 @@ combinations (column \code{n} in \code{self$res}) that is to be highlighted.}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-PscanPlotter-new}{\code{PscanPlotter$new()}}
+\item \href{#method-PscanPlotter-set_variable}{\code{PscanPlotter$set_variable()}}
 \item \href{#method-PscanPlotter-analyze}{\code{PscanPlotter$analyze()}}
 \item \href{#method-PscanPlotter-plot}{\code{PscanPlotter$plot()}}
 \item \href{#method-PscanPlotter-print_info}{\code{PscanPlotter$print_info()}}
@@ -58,13 +61,34 @@ combinations (column \code{n} in \code{self$res}) that is to be highlighted.}
 \subsection{Method \code{new()}}{
 Construct and set up a \link{PscanPlotter} instance.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PscanPlotter$new(analyzed)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PscanPlotter$new(analyzed, variable = "dBM")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{analyzed}}{Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
+\item{\code{analyzed}}{List; Output of \code{\link[=analyze_parameter_scan]{analyze_parameter_scan()}}.}
+
+\item{\code{variable}}{Str; Name of variable in \emph{analyzed} to visualize. Can
+be changed later with \code{set_variable()}. Allowed values are the keys
+in \emph{analyzed} except for \code{params} and \code{metrics}.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PscanPlotter-set_variable"></a>}}
+\if{latex}{\out{\hypertarget{method-PscanPlotter-set_variable}{}}}
+\subsection{Method \code{set_variable()}}{
+Choose which variable to visualize.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PscanPlotter$set_variable(variable)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{variable}}{Chosen variable name. One of "dBM", "cBM", "cBM_end"}
 }
 \if{html}{\out{</div>}}
 }

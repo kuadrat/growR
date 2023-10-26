@@ -122,17 +122,26 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #'   *parameter_scan_results* and a corresponding data file is searched for 
 #'    in `getOption("growR.data_dir", default = "data").
 #' @param smooth_interval Int. Number of days over which the variable `dBM` 
-#'   is smoothened. Should be set to make eperimental data and simulated 
+#'   is smoothened. Should be set to make experimental data and simulated 
 #'   data to be as comparable as possible.
-#' @return analyzed A list with threy keys: `results`, `metrics` and `params`.
+#' @return analyzed A list with five keys: `dBM`, `cBM`, `cBM_end`, `metrics` 
+#'   and `params`.
 #'  \describe{
-#'    \item{results}{A data.frame with `1 + n_params + n_metrics` columns 
+#'    \item{dBM}{A data.frame with `1 + n_params + n_metrics` columns 
 #'      where each row represents a different parameter combination. 
 #'      The first column (`n`) gives the row number and is used to identify a 
 #'      parameter combination. The subsequent `n_params` columns give the 
 #'      values of the parameters used in this combination. The final `n_metrics`
 #'      columns give the resulting performance score of the model run with 
-#'      these parameters for each metric.}
+#'      these parameters for each metric applied to model variable `dBM`.}
+#'    \item{cBM}{A data.frame of same format as for the key *dBM*. The first 
+#'      `n_params + 1` columns are identical to the data.frame in *dBM*. The 
+#'      difference is that the final `n_metrics` columns give performance 
+#'      scores with respect to the model variable `cBM`.}
+#'    \item{cBM_end}{A data.frame analogous to *dBM* and *cBM*, only this time 
+#'      the last `n_metrics` columns give performance scores with respect to 
+#'      the variable `cBM_end`, which is the final value of `cBM`, i.e. the 
+#'      cumulative grown biomass at the end of the year.}
 #'    \item{params}{A vector containing the names of the scanned parameters. 
 #'      These are also the column names of columns `2:(n_params+1)` in 
 #'      *results*.}
@@ -144,20 +153,21 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
 #' @seealso [run_parameter_scan()], [readRDS()]
 #'
 #' @examples
-#' # There needs to be data available with which the modle is to be compared.
+#' # There needs to be data available with which the model is to be compared.
 #' # For this example, use data provided by the package.
 #' path = system.file("extdata", package = "growR")
 #' datafile = file.path(path, "posieux1.csv")
-#' print(path)
 #'
-#' # Use example parameter scan data provided by the package.
-#' # You would generally create your own data using `run_parameter_scan()`.
+#' # We also use example parameter scan data provided by the package.
+#' # In the real world, you would generally create your own data using 
+#' # `run_parameter_scan()`.
 #' analyze_parameter_scan(parameter_scan_example, datafile = datafile)
 #' 
 #' @md
 #' @export
 analyze_parameter_scan = function(parameter_scan_results, datafile = "", 
                                   smooth_interval = 28) {
+  supported_variables = c("dBM", "cBM", "cBM_end")
   metrics_to_use = c("bias", "MAE", "RMSE")
 
   # Read results from .Rds file, if applicable
@@ -182,6 +192,13 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "",
   relevant_data = measured_data[measured_data$year %in% years, ]
   # Construct a selector for the DOYs present in relevant data
   mask = relevant_data$DOY + 365 * (relevant_data$year - relevant_data$year[1])
+  # Calculate measured cBM_end
+  measured_cBM_ends = c()
+  for (year in years) {
+    mask2 = measured_data$year == year
+    measured_cBM_end = sum(measured_data[mask2, ]$cBM)
+    measured_cBM_ends = c(measured_cBM_ends, measured_cBM_end)
+  }
 
   # Assemble metrics. 
   for (combination in 1:n_combinations) {
@@ -189,14 +206,17 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "",
     # Collect year curves into one vector and smoothen dBM
     dBM = c()
     cBM = c()
+    cBM_end = c()
     for (i_year in 1:n_years) {
       mv = modvegesites[[i_year]]
       cBM = c(cBM, mv$cBM)
+      cBM_end = c(cBM_end, mv$cBM[length(mv$cBM)])
       smoothed = box_smooth(mv$dBM, box_width = smooth_interval)
       dBM = c(dBM, smoothed)
     }
     results[[combination]][["cBM"]] = list()
     results[[combination]][["dBM"]] = list()
+    results[[combination]][["cBM_end"]] = list()
     # Employ performance metrics
     for (metric in metrics_to_use) {
       # cBM
@@ -205,23 +225,28 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "",
       # dBM
       m_dBM = metric_map[[metric]][["func"]](dBM[mask], relevant_data$dBM)
       results[[combination]][["dBM"]][[metric]] = m_dBM
+      # cBM_end
+      m_cBM_end = metric_map[[metric]][["func"]](cBM_end, measured_cBM_ends)
+      results[[combination]][["cBM_end"]][[metric]] = m_cBM_end
     }
   }
 
   # Reformat results to a data.frame
-  analyzed = data.frame(n = 1:n_combinations)
   params = names(results[[1]][["params"]])
-  for (i_param in 1:length(params)) {
-    param_name = params[[i_param]]
-    analyzed[[param_name]] = extract_results(results, "params", i_param)
+  return_list = list(metrics = metrics_to_use, params = params)
+  for (variable in supported_variables) {
+    analyzed = data.frame(n = 1:n_combinations)
+    for (i_param in 1:length(params)) {
+      param_name = params[[i_param]]
+      analyzed[[param_name]] = extract_results(results, "params", i_param)
+    }
+    for (i_metric in 1:length(metrics_to_use)) {
+      metric_name = metrics_to_use[[i_metric]]
+      analyzed[[metric_name]] = extract_results(results, variable, i_metric)
+    }
+    return_list[[variable]] = analyzed
   }
-  for (i_metric in 1:length(metrics_to_use)) {
-    metric_name = metrics_to_use[[i_metric]]
-    analyzed[[metric_name]] = extract_results(results, "dBM", i_metric)
-  }
-  return(list(results = analyzed,
-              metrics = metrics_to_use,
-              params = params))
+  return(return_list)
 }
 
 extract_results = function(results, key, index) {
@@ -242,6 +267,8 @@ PscanPlotter = R6Class(
   "PscanPlotter",
   public = list(
   #-Public-fields---------------------------------------------------------------
+    #' @field analyzed List, as output by [analyze_parameter_scan()].
+    analyzed = NULL,
     #' @field params Vector of names of scanned parameters.
     params = NULL,
     #' @field metrics Vector of names of model performance metrics to use.
@@ -271,27 +298,36 @@ PscanPlotter = R6Class(
     #' @description
     #' Construct and set up a [PscanPlotter] instance.
     #'
-    #' @param analyzed Output of [analyze_parameter_scan()].
+    #' @param analyzed List; Output of [analyze_parameter_scan()].
+    #' @param variable Str; Name of variable in *analyzed* to visualize. Can 
+    #'   be changed later with `set_variable()`. Allowed values are the keys 
+    #'   in *analyzed* except for `params` and `metrics`.
     #'
     #' @seealso [analyze_parameter_scan()]
     #'
     #' @md
-    initialize = function(analyzed) {
+    initialize = function(analyzed, variable = "dBM") {
+      self$analyzed = analyzed
       # Get the number of metrics and the number of parameters from the data
       self$params = analyzed[["params"]]
       self$n_params = length(self$params)
       self$metrics = analyzed[["metrics"]]
       self$n_metrics = length(self$metrics)
+      self$set_variable(variable)
+    },
 
-      self$res = analyzed[["results"]]
-
-      # Create different orderings for every metric
-      sorted = list()
-      for (metric in self$metrics) {
-        performance = abs(self$res[[metric]] - metric_map[[metric]]$target)
-        sorted[[metric]] = self$res[order(performance), ]
+    #' @description Choose which variable to visualize.
+    #'
+    #' @param variable Chosen variable name. One of "dBM", "cBM", "cBM_end"
+    set_variable = function(variable) {
+      choices = private$get_variable_options()
+      if (!variable %in% choices) {
+        msg = "Invalid variable `%s`. Choose one of: `%s`."
+        stop(sprintf(msg, variable, paste(choices, collapse = "`, `")))
       }
-      self$sorted = sorted
+      private$variable = variable
+      self$res = self$analyzed[[variable]]
+      private$sort_results()
     },
 
     #' @description Enter analysis loop.
@@ -310,7 +346,7 @@ PscanPlotter = R6Class(
       while (!private$quit_requested) {
         private$ask_input()
       }
-      logger("Goodbye!", level = INFO)
+      cat("[PSP]Goodbye!\n")
     },
 
     #' @description Plot parameter scan results.
@@ -328,6 +364,11 @@ PscanPlotter = R6Class(
       oldpar = private$set_par()
       on.exit(par(oldpar))
 
+      # Create new graphics device
+#      if (is.null(private$device_number)) {
+#        dev.new()
+#        private$device_number = dev.cur()
+#      }
       for (i_metric in 1:self$n_metrics) {
         for (i_param in 1:self$n_params) {
           private$draw_points(i_metric, i_param)
@@ -348,6 +389,7 @@ PscanPlotter = R6Class(
     #'   combinations (i.e. column `n` in `self$res`).
     #'
     print_info = function(selection) {
+      cat(sprintf("Performance scores for variable `%s`.\n", private$variable))
       ncol = length(self$res)
       base_string = paste("|", rep("%6.5s", ncol), collapse = " ")
       base_string = paste(base_string, "|\n")
@@ -376,9 +418,26 @@ q   Quit the parameter scan analyzer session.
 b   Highlight best performers. You will be queried to select a metric.
     The 5 best scoring parameter combinations for the selected metric will 
     then be highlighted.
+v   Select model variable for which performance is to be evaluated.
 ",
+    ## @field variable String representing the key in *self.analyzed* for 
+    ##   which performance is plotted.
+    variable = NULL,
+    device_number = NULL,
     
   #-Private-methods-------------------------------------------------------------
+
+    ## Update self$sorted
+    sort_results = function() {
+      # Create different orderings for every metric
+      sorted = list()
+      for (metric in self$metrics) {
+        performance = abs(self$res[[metric]] - metric_map[[metric]]$target)
+        sorted[[metric]] = self$res[order(performance), ]
+      }
+      self$sorted = sorted
+    },
+
     ## Prompt user for input at the "main" level.
     ask_input = function() {
       input = prompt_user(sprintf(private$base_prompt, 
@@ -397,6 +456,8 @@ b   Highlight best performers. You will be queried to select a metric.
       # Highlight *n* best performers
       } else if (input == "b") {
         private$query_best_performers()
+      } else if (input == "v") {
+        private$query_variable()
       } else {
         private$input_not_understood(input)
       }
@@ -405,29 +466,13 @@ b   Highlight best performers. You will be queried to select a metric.
     ## Ask for user input for displaying best scoring combinations.
     query_best_performers = function() {
       # First, ask user to select metric
-      cat("Select metric for which to highlight best performers: \n")
-      index = 1
-      for (metric in self$metrics) {
-        cat(sprintf("%s: %s\n", index, metric))
-        index = index + 1
-      }
-      input = prompt_user(">>> ")
+      msg = "Select metric for which to highlight best performers:"
+      input = menu(self$metrics, title = msg)
 
-      if (input == "q") {
-        private$quit_requested = TRUE
+      if (input == 0) {
         return()
       } else {
-        selection = as.integer(input)
-        if (is.na(selection)) {
-          private$input_not_understood(input)
-          return()
-        }
-        if (!selection %in% seq(1:self$n_metrics)) {
-          cat(sprintf("Invalid selection: `%s`.\n", selection))
-          return()
-        }
-        # If we reach this point, input is fine and we are ready to move on.
-        metric = self$metrics[[selection]]
+        metric = self$metrics[[input]]
       }
 
       ## Continue by querying number of points to highlight
@@ -437,6 +482,26 @@ b   Highlight best performers. You will be queried to select a metric.
       # Go!
       self$plot()
       self$print_info(self$selection)
+    },
+
+    ## Return the allowed variables, i.e. those variable names that are 
+    ## present in self$analyzed.
+    get_variable_options = function() {
+      return(setdiff(names(self$analyzed), c("params", "metrics")))
+    },
+
+    query_variable = function() {
+      msg = "Select variable for which to show performance:"
+      choices = private$get_variable_options()
+      selection = menu(choices, title = msg)
+      if (selection == 0) {
+        return()
+      } else {
+        # Input understood as integer
+        variable = choices[selection]
+      }
+      self$set_variable(variable)
+      self$plot()
     },
 
     ## Try parsing a user input of potentially comma-separated numbers
@@ -472,9 +537,7 @@ b   Highlight best performers. You will be queried to select a metric.
       metric_values = self$res[[metric_name]]
 
       # Select correct plot
-      oldpar = private$set_par()
-      on.exit(par(oldpar))
-      graphics::par(mfg = c(row, col))
+#      graphics::par(mfg = c(row, col))
       graphics::plot(param_values, metric_values, 
            xlab = "", ylab = "",
            ylim = metric_map[[metric_name]][["limits"]],
@@ -492,8 +555,12 @@ b   Highlight best performers. You will be queried to select a metric.
       yticklabels = ifelse(col == 1, TRUE, FALSE)
       graphics::Axis(side = 1, labels = xticklabels)
       graphics::Axis(side = 2, labels = yticklabels)
-      if (row == 1) {
-        graphics::title(param_name)
+      if (row == 1 & col == 1) { #as.integer(self$n_params/2 + 0.5)) {
+        ## Global title
+        graphics::title(private$variable)
+      }
+      if (row == self$n_metrics) {
+        graphics::mtext(param_name, side = 1, line = 3)
       }
       if (col == 1) {
         graphics::mtext(metric_name, side = 2, line = 3)#, outer = TRUE
@@ -504,7 +571,7 @@ b   Highlight best performers. You will be queried to select a metric.
       oldpar = par(no.readonly = TRUE)
       graphics::par(mfrow = c(self$n_metrics, self$n_params),
                 mar = c(1.0, 1.0, 1.0, 1.0),
-                oma = c(2, 4, 1, 1)
+                oma = c(4, 4, 1, 1)
       )
       return(oldpar)
     }
@@ -520,8 +587,11 @@ b   Highlight best performers. You will be queried to select a metric.
 #' Under the hood this function just creates a [PscanPlotter] object and calls its 
 #' `analyze` method.
 #'
-#' @param analyzed Output of [analyze_parameter_scan()].
-#' @param interactive boolean Toggle between just creating a static plot 
+#' @param analyzed List; Output of [analyze_parameter_scan()].
+#' @param variable Str; Name of variable in *analyzed* to visualize. Can 
+#'   be changed later with `PscanPlotter$set_variable()`. Allowed values are 
+#'   the keys in *analyzed* except for `params` and `metrics`.
+#' @param interactive boolean; Toggle between just creating a static plot 
 #'   (`interactive = FALSE`) or entering a small, interactive analysis 
 #'   setting (`interactive = TRUE`, default).
 #' @return A [PscanPlotter] object.
@@ -545,8 +615,8 @@ b   Highlight best performers. You will be queried to select a metric.
 #' 
 #' @md
 #' @export
-plot_parameter_scan = function(analyzed, interactive = TRUE) {
-  PSP = PscanPlotter$new(analyzed)
+plot_parameter_scan = function(analyzed, variable = "dBM", interactive = TRUE) {
+  PSP = PscanPlotter$new(analyzed, variable = variable)
   if (interactive) {
     PSP$analyze()
   } else {
