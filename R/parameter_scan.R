@@ -360,15 +360,17 @@ PscanPlotter = R6Class(
     #'
     #' @md
     plot = function() {
+      # Create new graphics device
+      if (is.null(private$device_number)) {
+        dev.new()
+        private$device_number = dev.cur()
+      } else {
+        dev.set(private$device_number)
+      }
       # Set up the plot window
       oldpar = private$set_par()
       on.exit(par(oldpar))
 
-      # Create new graphics device
-#      if (is.null(private$device_number)) {
-#        dev.new()
-#        private$device_number = dev.cur()
-#      }
       for (i_metric in 1:self$n_metrics) {
         for (i_param in 1:self$n_params) {
           private$draw_points(i_metric, i_param)
@@ -557,7 +559,7 @@ v   Select model variable for which performance is to be evaluated.
       graphics::Axis(side = 2, labels = yticklabels)
       if (row == 1 & col == 1) { #as.integer(self$n_params/2 + 0.5)) {
         ## Global title
-        graphics::title(private$variable)
+        graphics::title(private$variable, adj = 0)
       }
       if (row == self$n_metrics) {
         graphics::mtext(param_name, side = 1, line = 3)
