@@ -1,6 +1,7 @@
 # growR - R implementation of the grassland model ModVege[^1]
 
 <!-- badges: start -->
+  [![Documentation](https://badgen.net/badge/Documentation/github.io/cyan)](https://kuadrat.github.io/growR/)
   [![R-CMD-check](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml)
   [![codecov](https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV)](https://codecov.io/gh/kuadrat/growR)
 <!-- badges: end -->
@@ -19,6 +20,15 @@ in mountainous regions, such as the Swiss Alps.
 The package also contains routines for calibrating the model and helpful 
 tools for analysing model outputs and performance.
 
+## Contents
+
+1. [Installation](#installation)
+2. [Getting Started](#getting-started)
+4. [Contributing](#contributing)
+5. [Contact](#contact)
+3. [Glossary](#glossary)
+7. [Footnotes and References](#footnotes-and-references)
+
 ## Installation
 
 ### From CRAN
@@ -35,9 +45,12 @@ install.packages("growR")
 ### From source
 
 Installing from source might make sense if...
-    - you intend on making changes to the model,
-    - you want to contribute to package development and maintenance,
-    - for some reason installation from CRAN is not an option for you.
+
+- you intend on making changes to the model[^3],
+- you want to contribute to package development and maintenance,
+- you want to get access to the cutting edge version, which may have changes
+  not yet available on the CRAN version but is also likely less stable,
+- for some reason installation from CRAN is not an option for you.
 
 In this case,
 
@@ -119,6 +132,22 @@ growR                   Tutorial (source, html)
 > vignette("growR")
 ```
 
+## Contributing
+
+All forms of contributions to this project are warmly welcome. You are invited to:
+- provide direct feedback over e-mail.
+- submit bug reports and feature requests via [github issues](https://github.com/kuadrat/growR/issues).
+- make changes and additions to the code and submit [pull requests](https://www.howtogeek.com/devops/what-are-git-pull-requests-and-how-do-you-use-them/) to let your contributions become part of future versions.
+- suggest improvements for or write documentation and tutorials.
+- reference work that made use of `growR` here.
+
+If you intend to collaborate in a regular and ongoing manner, best get in touch with [Kevin Kramer](#contact).
+
+## Contact
+
+[Kevin Kramer](https://www.physik.uzh.ch/~kekram): kevin.pasqual.kramer@protonmail.ch
+
+
 ## Glossary
 
 Terms used in this project
@@ -136,7 +165,7 @@ Early name of this project and still the name of a legacy project that was
 not factored as an R package, but rather as a collection of R scripts. Still 
 available, though unmaintained at https://github.com/kuadrat/rmodvege-scripts/.
 
-## References
+## Footnotes and References
 
 [^1]: Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of 
 Biomass, Structure and Digestibility of Herbage in Managed Permanent 
@@ -148,4 +177,7 @@ und Eric Mosimann. „Testing the Ability of a Simple Grassland Model to
 Simulate the Seasonal Effects of Drought on Herbage Growth“. Field Crops 
 Research 187 (Februar 2016): 12–23. 
 [doi:10.1016/j.fcr.2015.12.008](doi:10.1016/j.fcr.2015.12.008).
+
+[^3]: If you make changes that generally improve `growR`, it would be great if you could 
+share them to make them available to all future users. See [Contributing](#contributing).
 
