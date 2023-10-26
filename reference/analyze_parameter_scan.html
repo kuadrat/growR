@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +88,7 @@ in `getOption("growR.data_dir", default = "data").</p></dd>
 
 <dt>smooth_interval</dt>
 <dd><p>Int. Number of days over which the variable <code>dBM</code>
-is smoothened. Should be set to make eperimental data and simulated
+is smoothened. Should be set to make experimental data and simulated
 data to be as comparable as possible.</p></dd>
 
 </dl></div>
@@ -96,14 +96,29 @@ data to be as comparable as possible.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>analyzed A list with threy keys: <code>results</code>, <code>metrics</code> and <code>params</code>.</p><dl><dt>results</dt>
+<p>analyzed A list with five keys: <code>dBM</code>, <code>cBM</code>, <code>cBM_end</code>, <code>metrics</code></p>
+
+
+<p>and <code>params</code>.</p><dl><dt>dBM</dt>
 <dd><p>A data.frame with <code>1 + n_params + n_metrics</code> columns
 where each row represents a different parameter combination.
 The first column (<code>n</code>) gives the row number and is used to identify a
 parameter combination. The subsequent <code>n_params</code> columns give the
 values of the parameters used in this combination. The final <code>n_metrics</code>
 columns give the resulting performance score of the model run with
-these parameters for each metric.</p></dd>
+these parameters for each metric applied to model variable <code>dBM</code>.</p></dd>
+
+<dt>cBM</dt>
+<dd><p>A data.frame of same format as for the key <em>dBM</em>. The first
+<code>n_params + 1</code> columns are identical to the data.frame in <em>dBM</em>. The
+difference is that the final <code>n_metrics</code> columns give performance
+scores with respect to the model variable <code>cBM</code>.</p></dd>
+
+<dt>cBM_end</dt>
+<dd><p>A data.frame analogous to <em>dBM</em> and <em>cBM</em>, only this time
+the last <code>n_metrics</code> columns give performance scores with respect to
+the variable <code>cBM_end</code>, which is the final value of <code>cBM</code>, i.e. the
+cumulative grown biomass at the end of the year.</p></dd>
 
 <dt>params</dt>
 <dd><p>A vector containing the names of the scanned parameters.
@@ -124,17 +139,22 @@ performance metrics. These are also the column names of the last
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># There needs to be data available with which the modle is to be compared.</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># There needs to be data available with which the model is to be compared.</span></span></span>
 <span class="r-in"><span><span class="co"># For this example, use data provided by the package.</span></span></span>
 <span class="r-in"><span><span class="va">path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"growR"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">datafile</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">path</span>, <span class="st">"posieux1.csv"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/growR/extdata"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Use example parameter scan data provided by the package.</span></span></span>
-<span class="r-in"><span><span class="co"># You would generally create your own data using `run_parameter_scan()`.</span></span></span>
+<span class="r-in"><span><span class="co"># We also use example parameter scan data provided by the package.</span></span></span>
+<span class="r-in"><span><span class="co"># In the real world, you would generally create your own data using </span></span></span>
+<span class="r-in"><span><span class="co"># `run_parameter_scan()`.</span></span></span>
 <span class="r-in"><span><span class="fu">analyze_parameter_scan</span><span class="op">(</span><span class="va">parameter_scan_example</span>, datafile <span class="op">=</span> <span class="va">datafile</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $metrics</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "bias" "MAE"  "RMSE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "w_FGA" "w_FGB" "w_FGC" "w_FGD" "NI"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dBM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n w_FGA w_FGB w_FGC w_FGD   NI        bias       MAE      RMSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   1  0.25  0.50  0.25     0 0.75 -0.16419980 0.4121337 0.5509299</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   2  0.25  0.50  0.25     0 1.00  0.37751388 0.5616504 0.7263866</span>
@@ -147,11 +167,31 @@ performance metrics. These are also the column names of the last
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9  0.75  0.25  0.00     0 0.75  0.12918741 0.4492931 0.6126609</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10  0.75  0.25  0.00     0 1.00  0.83592409 0.9173581 1.1348994</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $metrics</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "bias" "MAE"  "RMSE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cBM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n w_FGA w_FGB w_FGC w_FGD   NI        bias        MAE       RMSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1  0.25  0.50  0.25     0 0.75 -0.13008035 0.13186180 0.15652216</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2  0.25  0.50  0.25     0 1.00  0.38746620 0.38746620 0.42660768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3  0.25  0.75  0.00     0 0.75  0.03281790 0.06620229 0.07540092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4  0.25  0.75  0.00     0 1.00  0.64515615 0.64515615 0.72225753</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5  0.50  0.25  0.25     0 0.75 -0.08854830 0.09152647 0.11209344</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6  0.50  0.25  0.25     0 1.00  0.44361801 0.44361801 0.48903023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7  0.50  0.50  0.00     0 0.75  0.08346587 0.10527472 0.11363656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8  0.50  0.50  0.00     0 1.00  0.72353157 0.72353157 0.80873053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9  0.75  0.25  0.00     0 0.75  0.12863606 0.14195089 0.15724209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10  0.75  0.25  0.00     0 1.00  0.79117326 0.79117326 0.88505112</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $params</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "w_FGA" "w_FGB" "w_FGC" "w_FGD" "NI"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cBM_end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     n w_FGA w_FGB w_FGC w_FGD   NI       bias       MAE      RMSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1  0.25  0.50  0.25     0 0.75 -0.9204985 0.9204985 0.9204985</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2  0.25  0.50  0.25     0 1.00 -0.8683340 0.8683340 0.8683340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3  0.25  0.75  0.00     0 0.75 -0.9029277 0.9029277 0.9029277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4  0.25  0.75  0.00     0 1.00 -0.8416330 0.8416330 0.8416330</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5  0.50  0.25  0.25     0 0.75 -0.9157582 0.9157582 0.9157582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6  0.50  0.25  0.25     0 1.00 -0.8610272 0.8610272 0.8610272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7  0.50  0.50  0.00     0 0.75 -0.8972664 0.8972664 0.8972664</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8  0.50  0.50  0.00     0 1.00 -0.8325599 0.8325599 0.8325599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9  0.75  0.25  0.00     0 0.75 -0.8920878 0.8920878 0.8920878</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10  0.75  0.25  0.00     0 1.00 -0.8242270 0.8242270 0.8242270</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
