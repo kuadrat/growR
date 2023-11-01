@@ -87,8 +87,8 @@ WeatherData = R6Class(
     #'   Default (NULL) is to read in all found years.
     #'
     read_weather = function(weather_file, years = NULL) {
-      self$years = years
       self$weather_file = weather_file
+      self$years = years
       # Load weather data
       if (file.exists(weather_file)) {
         logger(sprintf("Loading weather data from %s.", weather_file), 
@@ -97,8 +97,7 @@ WeatherData = R6Class(
         stop(sprintf("Weather file `%s` not found.", weather_file))
       }
       weather = read.table(weather_file, header = TRUE)
-      # Hard fix NA values
-      weather[is.na(weather)] = 0.0
+      weather = self$ensure_file_integrity(weather)
 
       # Only consider relevant years and omit leap days
       selector = weather$DOY < 366
@@ -186,6 +185,22 @@ WeatherData = R6Class(
       self[["PET_vec"]]  = PET_vec
       self[["vec_size"]] = vec_size
       self[["Ta_smooth"]] = Ta_smooth
+    },
+
+    #' @description Check if supplied input file is formatted correctly.
+    #'
+    #' Check if required column names are present and fix NA entries.
+    #'
+    #' @param weather data.table of the read input file with `header = TRUE`.
+    #'
+    ensure_file_integrity = function(weather) {
+      required = c("year", "DOY", "Ta", "precip", "PAR", "ET0")
+      data_name = sprintf("the supplied weather file `%s`", self$weather_file)
+      ensure_table_columns(required, weather, data_name = data_name)
+
+      # Hard fix NA values
+      weather[is.na(weather)] = 0.0
+      return(weather)
     },
 
     #' @description Calculate the expected length of day based on a site's 

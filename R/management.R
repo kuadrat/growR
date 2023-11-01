@@ -58,6 +58,9 @@ ManagementData = R6Class(
         logger(sprintf("Loading management data from %s.", management_file), 
                level = DEBUG)
         cut_data = read.table(management_file, header = TRUE)
+        # Carry out basic input checks
+        self$ensure_file_integrity(cut_data)
+
         # Only consider specified years
         if (is.null(years)) {
           selector = TRUE
@@ -85,6 +88,30 @@ ManagementData = R6Class(
                          intensity))
         } else {
           self$intensity = "high"
+        }
+      }
+    },
+
+    #' @description Check that all required columns are present and that cut 
+    #' DOYs are only increasing in a given year.
+    #'
+    #' @param cut_data data.frame containing the cut data.
+    #'
+    ensure_file_integrity = function(cut_data) {
+      required = c("year", "DOY")
+      data_name = sprintf("the supplied management file `%s`", 
+                          self$management_file)
+      ensure_table_columns(required, cut_data, data_name = data_name)
+
+      # EnsureDOYs are always increasing within a year.
+      for (year in unique(cut_data$year)) {
+        this_years_DOYs = cut_data[cut_data$year == year,]$DOY
+#        monotonic = all(cummax(this_years_DOYs) == this_years_DOYs)
+        not_monotonic = is.unsorted(this_years_DOYs, strictly = TRUE)
+        if (not_monotonic) {
+          msg = paste("DOYs are not monotonically increasing in year %s in",
+                      "supplied management file `%s`.")
+          logger(sprintf(msg, year, self$management_file), level = ERROR)
         }
       }
     },

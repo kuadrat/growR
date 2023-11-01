@@ -231,7 +231,6 @@ ModvegeParameters = R6Class(
       },
 
       #' @description Parameter Sanity Check
-      #'
       #' Ensure that the supplied *params* are valid ModVege parameters and, 
       #' if requested, check that all required parameters are present.
       #' Issues a warning for any invalid parameters and throws an error if 
@@ -248,15 +247,7 @@ ModvegeParameters = R6Class(
       #'
       #' @md
       check_parameters = function(param_names, check_for_completeness = TRUE) {
-        not_known = setdiff(param_names, self$parameter_names)
         param_file = self$param_file
-        # Warn if some arguments were not recognized.
-        if (length(not_known) != 0) {
-          unknown_args = paste(not_known, collapse = "\n")
-          msg = paste("The following unrecognized parameters were present",
-                      "in the supplied input file (%s):\n%s")
-          logger(sprintf(msg, param_file, unknown_args), level = WARNING)
-        }
         if (check_for_completeness) {
           # Give error if an argument is missing.
           not_present = setdiff(self$required_parameter_names, param_names)
@@ -267,6 +258,15 @@ ModvegeParameters = R6Class(
                         "from the supplied input file (%s):\n%s")
             logger(sprintf(msg, param_file, missing_args), level = ERROR)
           }
+        }
+
+        not_known = setdiff(param_names, self$parameter_names)
+        # Warn if some arguments were not recognized.
+        if (length(not_known) != 0) {
+          unknown_args = paste(not_known, collapse = "\n")
+          msg = paste("The following unrecognized parameters were present",
+                      "in the supplied input file (%s):\n%s")
+          logger(sprintf(msg, param_file, unknown_args), level = WARNING)
         }
         return(not_known)
       }

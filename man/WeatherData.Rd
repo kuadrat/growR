@@ -70,6 +70,7 @@ weather data only for a given year. The keys in the list are:
 \itemize{
 \item \href{#method-WeatherData-new}{\code{WeatherData$new()}}
 \item \href{#method-WeatherData-read_weather}{\code{WeatherData$read_weather()}}
+\item \href{#method-WeatherData-ensure_file_integrity}{\code{WeatherData$ensure_file_integrity()}}
 \item \href{#method-WeatherData-calculate_day_length}{\code{WeatherData$calculate_day_length()}}
 \item \href{#method-WeatherData-get_weather_for_year}{\code{WeatherData$get_weather_for_year()}}
 \item \href{#method-WeatherData-clone}{\code{WeatherData$clone()}}
@@ -112,6 +113,25 @@ Read weather data from supplied \emph{weather_file}.
 
 \item{\code{years}}{Years for which the weather is to be extracted.
 Default (NULL) is to read in all found years.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WeatherData-ensure_file_integrity"></a>}}
+\if{latex}{\out{\hypertarget{method-WeatherData-ensure_file_integrity}{}}}
+\subsection{Method \code{ensure_file_integrity()}}{
+Check if supplied input file is formatted correctly.
+
+Check if required column names are present and fix NA entries.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$ensure_file_integrity(weather)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{weather}}{data.table of the read input file with \code{header = TRUE}.}
 }
 \if{html}{\out{</div>}}
 }

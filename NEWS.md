@@ -2,6 +2,11 @@
 
 ## Added
 
+* Input integrity checking for WeatherData and ManagementData.
+
+* PScanPlotter (`plot_parameter_scan`) now allows to select which variable to 
+  display (from dBM, cBM and cBM_tot).
+
 * Instances where simulation results for variable `dBM` are visualized or 
   compared to experimental data now allow specifying and integration window 
   for `dBM`, which should be set to match the experimental reality. This 

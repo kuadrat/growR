@@ -43,6 +43,7 @@ c("high", "middle", "low").}
 \itemize{
 \item \href{#method-ManagementData-new}{\code{ManagementData$new()}}
 \item \href{#method-ManagementData-read_management}{\code{ManagementData$read_management()}}
+\item \href{#method-ManagementData-ensure_file_integrity}{\code{ManagementData$ensure_file_integrity()}}
 \item \href{#method-ManagementData-get_management_for_year}{\code{ManagementData$get_management_for_year()}}
 \item \href{#method-ManagementData-clone}{\code{ManagementData$clone()}}
 }
@@ -89,6 +90,24 @@ Default (NULL) is to read in all found years.}
 }
 \subsection{Returns}{
 None The object's field are filled.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ManagementData-ensure_file_integrity"></a>}}
+\if{latex}{\out{\hypertarget{method-ManagementData-ensure_file_integrity}{}}}
+\subsection{Method \code{ensure_file_integrity()}}{
+Check that all required columns are present and that cut
+DOYs are only increasing in a given year.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ManagementData$ensure_file_integrity(cut_data)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cut_data}}{data.frame containing the cut data.}
+}
+\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}

@@ -351,3 +351,25 @@ box_smooth = function(x, box_width = 28) {
   return(x_smooth)
 }
 
+#' Check if supplied table contains all *required* variables.
+#'
+#' Logs an error if any variable is missing and lists the missing variables 
+#' in the error message along with *data_name*.
+#'
+#' @param required List of names of required variables.
+#' @param data data.frame or similar object to be checked.
+#' @param data_name Name to be displayed in the error message if any variable 
+#'   is missing.
+#'
+ensure_table_columns = function(required, data, data_name = "the data table") {
+  found = names(data)
+  not_present = setdiff(required, found)
+  if (length(not_present) != 0) {
+    # Construct the error message.
+    missing_args = paste(not_present, collapse = "\n")
+    msg = paste("The following parameters were missing",
+                "from %s:\n%s")
+    logger(sprintf(msg, data_name, missing_args), level = ERROR)
+  }
+}
+

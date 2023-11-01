@@ -210,7 +210,6 @@ order to reflect the changes in the parameter list \code{self$P}.
 \if{latex}{\out{\hypertarget{method-ModvegeParameters-check_parameters}{}}}
 \subsection{Method \code{check_parameters()}}{
 Parameter Sanity Check
-
 Ensure that the supplied \emph{params} are valid ModVege parameters and,
 if requested, check that all required parameters are present.
 Issues a warning for any invalid parameters and throws an error if

@@ -362,8 +362,9 @@ PscanPlotter = R6Class(
     plot = function() {
       # Create new graphics device
       if (is.null(private$device_number)) {
-        dev.new()
-        private$device_number = dev.cur()
+#        dev.new()
+        device_number = dev.cur()
+        private$device_number = ifelse(device_number == 1, 2, device_number)
       } else {
         dev.set(private$device_number)
       }
