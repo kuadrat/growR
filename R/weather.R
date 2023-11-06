@@ -128,9 +128,7 @@ WeatherData = R6Class(
       Kc = 1.15
       PET_vec = PET_vec * Kc
 
-      # Apply a temperature correction
-      dTc = 1.2
-      Ta_vec = Ta_vec + dTc
+      Ta_vec = Ta_vec
 
       # Smooth time series of air temperature, as needed to determine the 
       # start of the growing season.

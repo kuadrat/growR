@@ -26,6 +26,8 @@
 
 * Removed superfluous weather inputs.
 
+* Removed automatic temperature *correction*.
+
 # growR 1.0.0
 
 * Initial CRAN submission.
