@@ -2,6 +2,7 @@
 
 S3method("*",FunctionalGroup)
 S3method("+",FunctionalGroup)
+S3method(plot,ModvegeSite)
 export(FG_A)
 export(FG_B)
 export(FG_C)

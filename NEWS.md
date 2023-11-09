@@ -13,6 +13,9 @@
   concerns `ModvegeSite$plot()` and `analyze_parameter_scan()` as well as the 
   `compare.R` script.
 
+* S3 dispatch for plot method of `ModvegeSite` objects -> `plot(mvs)` is now 
+  possible if `mvs` is a `ModvegeSite` instance.
+
 ## Changed
 
 * Input data CSV files are now actual CSV files, instead of 
@@ -22,17 +25,23 @@
   `check_parameters` now only throws an error if any of the really  
   *required* parameters are missing.
 
+## Fixed
+
+* autocut: `get_annual_gross_yield` was incorrectly hardcoded to return 1.
+
 ## Removed
 
 * Removed superfluous weather inputs.
 
 * Removed automatic temperature *correction*.
 
+* Redundant argument *store_results* in `growR_run_loop`.
+
 # growR 1.0.0
 
 * Initial CRAN submission.
 
-# grower 0.0.1
+# growR 0.0.1
 
 * Renaming from `rmodvege` to `growR`.
 

@@ -431,8 +431,10 @@ Create an overview plot
 
 Creates a simple base R plot showing the BM with cutting events and,
 if applicable, target biomass, dBM, cBM and hvBM.
+Can only be sensibly run \emph{after} a simulation has been carried out,
+i.e. after this instance's \code{run()} method has been called.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot(smooth_interval = 28)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot(smooth_interval = 28, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -440,11 +442,13 @@ if applicable, target biomass, dBM, cBM and hvBM.
 \describe{
 \item{\code{smooth_interval}}{Int. Number of days over which the variable
 \code{dBM} is smoothened.}
+
+\item{\code{...}}{Further arguments are discarded.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-None Creates a plot of the result.
+NULL Creates a plot of the result in the active device.
 }
 }
 \if{html}{\out{<hr>}}

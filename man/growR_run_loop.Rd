@@ -4,22 +4,18 @@
 \alias{growR_run_loop}
 \title{Run growR simulations}
 \usage{
-growR_run_loop(modvege_environments, output_dir = "", store_results = FALSE)
+growR_run_loop(modvege_environments, output_dir = "")
 }
 \arguments{
 \item{modvege_environments}{A list of \link{ModvegeEnvironment} instances.}
 
 \item{output_dir}{string; name of directory to which output files are to
 be written. If \code{output_dir == ""} (default), no files are written.}
-
-\item{store_results}{boolean; If TRUE, return a list of the \link{ModvegeSite}
-objects which were run.}
 }
 \value{
-If \code{store_results == TRUE}, a list of the format
-\verb{[[run]][[year]]} containing clones of the \link{ModvegeSite} instances that
-were run. Otherwise an empty list. Defaults to
-getOption("growR.output_dir").
+A list of the format \verb{[[run]][[year]]} containing clones of
+the \link{ModvegeSite} instances that were run. Also write to files, if
+\emph{output_dir} is nonempty.
 }
 \description{
 Start the loop over runs specified in the config file.
@@ -34,7 +30,6 @@ as specified in the \emph{site_name} and \emph{run_name} fields of the supplied
 env1 = create_example_environment(site = "posieux")
 env2 = create_example_environment(site = "sorens")
 
-growR_run_loop(c(env1, env2), output_dir = "", 
-store_results = TRUE)
+growR_run_loop(c(env1, env2), output_dir = "")
 
 }

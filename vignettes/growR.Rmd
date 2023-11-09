@@ -138,8 +138,7 @@ information needed in order to run a ModVege simulation.
 We are now ready to do so:
 ```{r run_simulation}
 results = growR_run_loop(environments, 
-                         output_dir = file.path(working_dir, "output"), 
-                         store_results = TRUE)
+                         output_dir = file.path(working_dir, "output"))
 ```
 This will simulate grass growth for every year in every environment present 
 in `environments`. After some console output, we now have the results of 
@@ -230,7 +229,7 @@ new_envs = c(env0, env1, env2)
 
 And we're ready to run and inspect our next run of simulations:
 ```{r ni_screening}
-new_results = growR_run_loop(new_envs, store_results = TRUE)
+new_results = growR_run_loop(new_envs)
 # Plot all results
 for (run in new_results) {
   print(run[[1]]$parameters$NI)

@@ -467,12 +467,19 @@ ModvegeSite = R6Class(
       #'
       #' Creates a simple base R plot showing the BM with cutting events and,
       #' if applicable, target biomass, dBM, cBM and hvBM.
+      #' Can only be sensibly run *after* a simulation has been carried out, 
+      #' i.e. after this instance's `run()` method has been called.
       #'
       #' @param smooth_interval Int. Number of days over which the variable 
       #'   `dBM` is smoothened.
-      #' @return None Creates a plot of the result.
+      #' @param ... Further arguments are discarded.
+      #' @return NULL Creates a plot of the result in the active device.
       #'
-      plot = function(smooth_interval = 28) {
+      plot = function(smooth_interval = 28, ...) {
+        if (private$current_DOY == 1) {
+          warning("Cannot plot results because simulation has not yet been run.")
+          return()
+        }
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(2, 2))
@@ -490,7 +497,6 @@ ModvegeSite = R6Class(
         plot(self$cBM, type = "l", xlab = xlab, ylab = "cBM (kg / ha)")
         plot(self$hvBM, type = "l", xlab = xlab, ylab = "hvBM (kg / ha)")
       }
-
     )
   ), # End of public attributes
 
@@ -965,3 +971,20 @@ ModvegeSite = R6Class(
 
   ) # End of private attributes
 )
+
+## S3 dispatch methods
+
+#' Plot ModVege simulation result overview
+#'
+#' This wraps the `ModvegeSite` instance's `plot()` method.
+#'
+#' @param x A [ModvegeSite] instance.
+#' @param ... Arguments are passed on to [ModvegeSite]`$plot()`.
+#' @return NULL, but plots to the active device.
+#'
+#' @md
+#' @export
+plot.ModvegeSite = function(x, ...) {
+  x$plot(...)
+}
+

@@ -299,11 +299,11 @@ fC.ST = function(x){1} # function(x){1 + .1*(x - 360)/(720 - 360)}
 #' @md
 #' @export
 get_annual_gross_yield = function(elevation, intensity = "high") {
-  #mask = yield_parameters$intensity == intensity
-  #a = yield_parameters[mask, ]$a
-  #b = yield_parameters[mask, ]$b
-  #return(a + b * max(elevation, 500))
-  return(1)
+  mask = yield_parameters$intensity == intensity
+  a = yield_parameters[mask, ]$a
+  b = yield_parameters[mask, ]$b
+  return(a + b * max(elevation, 500))
+#  return(1)
 }
 
 #' Get number of expected cuts

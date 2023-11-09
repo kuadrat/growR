@@ -10,27 +10,21 @@
 #' @param modvege_environments A list of [ModvegeEnvironment] instances.
 #' @param output_dir string; name of directory to which output files are to 
 #'   be written. If `output_dir == ""` (default), no files are written.
-#' @param store_results boolean; If TRUE, return a list of the [ModvegeSite] 
-#'   objects which were run.
 #'
-#' @return If `store_results == TRUE`, a list of the format 
-#'   `[[run]][[year]]` containing clones of the [ModvegeSite] instances that 
-#'   were run. Otherwise an empty list. Defaults to 
-#'   getOption("growR.output_dir").
+#' @return A list of the format `[[run]][[year]]` containing clones of 
+#'   the [ModvegeSite] instances that were run. Also write to files, if 
+#'   *output_dir* is nonempty.
 #'
 #' @examples
 #' env1 = create_example_environment(site = "posieux")
 #' env2 = create_example_environment(site = "sorens")
 #'
-#' growR_run_loop(c(env1, env2), output_dir = "", 
-#' store_results = TRUE)
+#' growR_run_loop(c(env1, env2), output_dir = "")
 #'
 #' @md
 #' @export
 #' 
-growR_run_loop = function(modvege_environments,
-                          output_dir = "",
-                          store_results = FALSE) {
+growR_run_loop = function(modvege_environments, output_dir = "") {
   # Parse output dir
   if (output_dir == "") {
     write_files = FALSE
@@ -62,19 +56,17 @@ growR_run_loop = function(modvege_environments,
       #-Write-output------------------------------------------------------------
 
       if (write_files) {
-        out_file = sprintf("%s%s%s_%s.dat",
-                           output_dir, 
+        out_file = sprintf("%s%s_%s.dat",
                            run_environment$site_name,
                            run_environment$run_name_in_filename,
                            this_year)
+        out_path = file.path(output_dir, out_file)
         logger("Entering `ModvegeSite$write_output`", level = TRACE)
-        modvege$write_output(out_file, force = TRUE)
+        modvege$write_output(out_path, force = TRUE)
       }
 
       #-Store-output------------------------------------------------------------
-      if (store_results) {
-        results[[run]][[i_year]] = modvege$clone(deep = TRUE)
-      }
+      results[[run]][[i_year]] = modvege$clone(deep = TRUE)
     } # End of loop over simulation years
   } # End of loop over runs
   logger("All runs completed.", level = INFO)

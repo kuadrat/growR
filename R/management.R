@@ -85,7 +85,7 @@ ManagementData = R6Class(
         if (intensity %in% choices) {
           self$intensity = intensity
           logger(sprintf("[autocut]Setting management intensity to `%s`.", 
-                         intensity))
+                         intensity), level = INFO)
         } else {
           self$intensity = "high"
         }

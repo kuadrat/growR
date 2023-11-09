@@ -90,10 +90,7 @@ run_parameter_scan = function(environment, param_values, force = FALSE,
            level = INFO
     )
     environment$parameters$set_parameters(parameter_sets[[i]])
-    mvs = growR_run_loop(c(environment), 
-                         output_dir = "",
-                         store_results = TRUE
-    )
+    mvs = growR_run_loop(c(environment), output_dir = "")
     results[[i]] = list(params = parameter_sets[[i]],
                         data = mvs[[1]])
   }

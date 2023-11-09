@@ -7,7 +7,6 @@ test_that("growR_run_loop with example config", {
   for (env in envs) {
     env$years = env$years[[1]]
   }
-  expect_no_error(growR_run_loop(envs, 
-                                 store_results = FALSE))
+  expect_no_error(growR_run_loop(envs))
   unlink(.tmpdir(), recursive = TRUE)
 })
