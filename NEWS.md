@@ -25,6 +25,10 @@
   `check_parameters` now only throws an error if any of the really  
   *required* parameters are missing.
 
+* Number of days per year is now inferred from weather data instead of 
+  hardcoded to 365, allowing simulations to be run for years with incomplete 
+  data.
+
 ## Fixed
 
 * autocut: `get_annual_gross_yield` was incorrectly hardcoded to return 1.

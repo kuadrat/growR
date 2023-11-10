@@ -351,6 +351,9 @@ ModvegeSite = R6Class(
       run = function(year, weather, management) {
         logger("Start of ModvegeSite$run()", level = TRACE)
         self$weather = weather
+        # Infer days of this year from weather data
+        self$days_per_year = weather$ndays
+        logger(sprintf("days_per_year: %s", self$days_per_year), level = DEBUG)
         self$management = management
         self$year = year
         private$initialize_state_variables()

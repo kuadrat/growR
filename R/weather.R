@@ -238,6 +238,9 @@ WeatherData = R6Class(
     #' year and return them as a list.
     #'
     #' @param year integer Year for which to extract weather data.
+    #' @return W List containing the keys aCO2, year, DOY, Ta, Ta_sm, PAR, 
+    #'   PP, PET, liquidP, melt, snow, ndays.
+    #'
     get_weather_for_year = function(year) {
       iW = which(self$year_vec == year)
       if (!any(iW)) {
@@ -256,7 +259,7 @@ WeatherData = R6Class(
       W[["liquidP"]] = self$liquidP_vec[iW]
       W[["melt"]]  = self$melt_vec[iW] 
       W[["snow"]]  = self$snow_vec[iW]
-      W[["ndays"]] = length(self[["year"]])
+      W[["ndays"]] = length(W[["year"]])
 
       self[["W"]] = W
       return(W)

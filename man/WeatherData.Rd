@@ -171,6 +171,10 @@ year and return them as a list.
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+W List containing the keys aCO2, year, DOY, Ta, Ta_sm, PAR,
+PP, PET, liquidP, melt, snow, ndays.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-WeatherData-clone"></a>}}
