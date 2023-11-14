@@ -78,8 +78,7 @@ ModvegeEnvironment = R6Class(
                           input_dir = NULL) {
       # Set instance variables
       self$site_name = site_name
-      self$run_name = run_name
-      self$run_name_in_filename = self$make_filename_for_run(run_name)
+      self$set_run_name(run_name)
       self$years = years
       # Revert to defaults for the not provided values.
       if (param_file == "-") {
@@ -105,6 +104,16 @@ ModvegeEnvironment = R6Class(
       }
       # Read input files.
       self$load_inputs()
+    },
+
+    #' @description
+    #' Set run name and update *run_name_in_filename*.
+    #'
+    #' @param run_name Str. New value of `self$run_name`.
+    #'
+    set_run_name = function(run_name) {
+      self$run_name = run_name
+      self$run_name_in_filename = self$make_filename_for_run(run_name)
     },
 
     #' @description Load simulation inputs.

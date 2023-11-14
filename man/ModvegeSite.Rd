@@ -98,7 +98,7 @@ Part of ENV due to water limitation. Dimensionless.
 \describe{
 \item{\code{time_step}}{Used time step in the model in days (untested).}
 
-\item{\code{state_variable_namse}}{Vector containing the names of the model's
+\item{\code{state_variable_names}}{Vector containing the names of the model's
 state variables.}
 
 \item{\code{n_state_variables}}{Number of state variables.}
@@ -170,14 +170,6 @@ BDDR).}
 
 \item{\code{management}}{A \link{ManagementData} object. If its \code{is_empty} field is \code{TRUE},
 the autocut routine will be employed.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{state_variable_namse}}{Vector containing the names of the model's
-state variables.}
 }
 \if{html}{\out{</div>}}
 }

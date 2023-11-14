@@ -59,6 +59,7 @@ files are searched for. Defaults to `getOption("growR.input_dir").}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-ModvegeEnvironment-new}{\code{ModvegeEnvironment$new()}}
+\item \href{#method-ModvegeEnvironment-set_run_name}{\code{ModvegeEnvironment$set_run_name()}}
 \item \href{#method-ModvegeEnvironment-load_inputs}{\code{ModvegeEnvironment$load_inputs()}}
 \item \href{#method-ModvegeEnvironment-make_filename_for_run}{\code{ModvegeEnvironment$make_filename_for_run()}}
 \item \href{#method-ModvegeEnvironment-get_environment_for_year}{\code{ModvegeEnvironment$get_environment_for_year()}}
@@ -103,6 +104,23 @@ assumed to be "SITENAME_parameters.csv".}
 
 \item{\code{input_dir}}{string Path to directory containing input files.
 Defaults to \code{getOption("growR.input_dir")}.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeEnvironment-set_run_name"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeEnvironment-set_run_name}{}}}
+\subsection{Method \code{set_run_name()}}{
+Set run name and update \emph{run_name_in_filename}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeEnvironment$set_run_name(run_name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{run_name}}{Str. New value of \code{self$run_name}.}
 }
 \if{html}{\out{</div>}}
 }

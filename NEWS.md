@@ -1,4 +1,4 @@
-# growR 1.0.1
+# growR 1.1.0
 
 ## Added
 
@@ -15,6 +15,11 @@
 
 * S3 dispatch for plot method of `ModvegeSite` objects -> `plot(mvs)` is now 
   possible if `mvs` is a `ModvegeSite` instance.
+
+* `ParameterData` input checking: throws error on duplicate input parameter 
+  name.
+
+* Debug utility conveniences `browse` and `browse_end`.
 
 ## Changed
 
@@ -33,6 +38,9 @@
 
 * autocut: `get_annual_gross_yield` was incorrectly hardcoded to return 1.
 
+* `ParameterData$set_parameters` now updates initial condition values, if 
+  applicable.
+
 ## Removed
 
 * Removed superfluous weather inputs.
@@ -40,6 +48,8 @@
 * Removed automatic temperature *correction*.
 
 * Redundant argument *store_results* in `growR_run_loop`.
+
+* `SEA` symmetrization around 1 is not enforced anymore.
 
 # growR 1.0.0
 

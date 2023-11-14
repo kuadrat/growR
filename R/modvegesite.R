@@ -94,7 +94,7 @@ ModvegeSite = R6Class(
   #-Public-attributes-------------------------------------------------------------
 #' @field time_step Used time step in the model in days (untested).
       time_step = 1.,
-#' @field state_variable_namse Vector containing the names of the model's 
+#' @field state_variable_names Vector containing the names of the model's 
 #'   state variables.
       state_variable_names = NULL,
 #' @field n_state_variables Number of state variables.
@@ -537,9 +537,6 @@ ModvegeSite = R6Class(
       self[["hvBM"]][1] = 0
       self[["OMDGV"]][1] = P$OMDGV0
       self[["OMDGR"]][1] = P$OMDGR0
-
-      # (minSEA + maxSEA)/2 = 1
-      self$parameters[["minSEA"]] = 2 - P[["maxSEA"]]
 
       # Management:
       # Initialize a pointer that indicates whether there has been a cut 

@@ -56,9 +56,14 @@ reference:
 - contents:
   - PscanPlotter
   - Combinator
+- title: Debug Tools
+  desc: Utilities that may be of help if things go wrong.
+- contents:
+  - browse
+  - browse_end
+  - logger
 - title: Other
 - contents:
-  - DEBUG_LEVELS
   - ERROR
   - SEA
   - aCO2_inverse
@@ -82,7 +87,6 @@ reference:
   - get_relative_cut_contribution
   - get_site_name
   - growR_package_options
-  - logger
   - management_parameters
   - metric_map
   - parse_year_strings

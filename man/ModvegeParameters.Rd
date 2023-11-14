@@ -109,6 +109,8 @@ vegetation parameters.}
 \item{\code{fg_parameter_names}}{Names of vegetation parameters defined by the
 functional group composition.}
 
+\item{\code{initial_condition_names}}{Names of initial conditions.}
+
 \item{\code{param_file}}{Name of the parameter file from which initial parameter
 values were read.}
 }

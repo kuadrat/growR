@@ -41,14 +41,14 @@ check_for_package = function(package, stop = TRUE) {
   return(TRUE)
 }
 
-#' Constants representing different debug levels to be used internally.
+## Constants representing different debug levels to be used internally.
 ERROR = 1
 WARNING = 2
 INFO = 3
 DEBUG = 4
 TRACE = 5
 
-#' Names of debug levels.
+## Names of debug levels.
 DEBUG_LEVELS = c("ERROR", "WARNING", "INFO", "DEBUG", "TRACE")
 
 #' Set verbosity of growR output.
@@ -371,5 +371,69 @@ ensure_table_columns = function(required, data, data_name = "the data table") {
                 "from %s:\n%s")
     logger(sprintf(msg, data_name, missing_args), level = ERROR)
   }
+}
+
+#' Create unique DOY + year identifier
+#'
+#' Return numbers of the form YYYYDDD where YYYY is the year and DDD the DOY.
+#'
+#' @param years int vector. 
+#' @param DOYs int vector of same length as *years*.
+#'
+#' @return int vector of same length as *years* containing numbers of the 
+#'   form YYYYDDD, where the first four digits represent a year and the last 
+#'   four represent a DOY.
+make_yearDOY = function(years, DOYs) {
+  return(1000 * years + DOYs)
+}
+
+#' Debugging utilities
+#'
+#' @description
+#' Debug specified function *func* by entering a [browser()] right at the 
+#' beginning ([browse()]) or end ([browse_end()]) of the function.
+#' 
+#' @details
+#' These are convenience shorthands for R's builtin debug tools, like 
+#' [debugonce()] and the [trace()]/[untrace()] combination.
+#'
+#' @param func An R function to be browsed.
+#' @param ... Arguments to the function *func* that is to be browsed.
+#'
+#' @return Returns the result of `func(...)`. Enters a [browser()].
+#'
+#' @examplesIf interactive()
+#' # Define a simple function for this example
+#' my_func = function(a) { for (i in 1:5) { a = a + i }; return(a) }
+#'
+#' # Enter a browser at the beginning of the function
+#' browse(my_func, 0)
+#'
+#' # Enter a browser at the end of the function. This allows us to inspect 
+#' # the function's local variables without having to go through the whole loop.
+#' browse_end(my_func, 0)
+#'
+#' @seealso [browser()], [debugonce()], [trace()]
+#'
+#' @md
+#' @export
+browse = function(func, ...) {
+  debugonce(func)
+  func(...)
+}
+
+#' Enter browser at end of function execution
+#'
+#' @describeIn browse
+#' Enter [browser()] at the end of the function call to `func(...)`. This 
+#' only works, if the function can execute without error until its end. 
+#' Otherwise, the error will be thrown.
+#' 
+#' @seealso [trace()]
+#' @md
+#' @export
+browse_end = function(func, ...) {
+  trace(func, exit = browser, where = environment())
+  func(...)
 }
 

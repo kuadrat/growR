@@ -118,6 +118,9 @@ ModvegeParameters = R6Class(
 #' @field fg_parameter_names Names of vegetation parameters defined by the 
 #'   functional group composition.
       fg_parameter_names = NULL,
+#' @field initial_condition_names Names of initial conditions.
+      initial_condition_names = c(initial_condition_names, 
+                                  "WHC", "maxOMDGV", "maxOMDGR"),
 #' @field param_file Name of the parameter file from which initial parameter 
 #'   values were read.
       param_file = NULL,
@@ -179,17 +182,7 @@ ModvegeParameters = R6Class(
         # Update the functional group parameters in P.
         self$update_functional_group()
 
-        # Set initial conditions
-        for (name in initial_condition_names) {
-          old_name = name
-          new_name = paste0(old_name, "0")
-          self[[new_name]] = self[[old_name]]
-        }
-
-        # Set some more initial values 
-        self[["WR0"]] = self[["WHC"]]
-        self[["OMDGV0"]] = self[["maxOMDGV"]]
-        self[["OMDGR0"]] = self[["maxOMDGR"]]
+        private$update_initial_conditions()
       },
 
       #' @description Savely update the given parameters
@@ -205,10 +198,16 @@ ModvegeParameters = R6Class(
         for (i in 1:length(params)) {
           name = param_names[[i]]
           self[[name]] = params[[i]]
+          # :TODO: Also update initial values XXX0.
         }
         # Check if FG composition needs to be updated
         if (any(param_names %in% c("w_FGA", "w_FGB", "w_FGC", "w_FGD"))) {
           self$update_functional_group()
+        }
+
+        # Check if initial conditions need updating
+        if (any(param_names %in% self$initial_condition_names)) { 
+          private$update_initial_conditions()
         }
       },
 
@@ -230,7 +229,8 @@ ModvegeParameters = R6Class(
         }
       },
 
-      #' @description Parameter Sanity Check
+      #' @description 
+      #' Parameter Sanity Check
       #' Ensure that the supplied *params* are valid ModVege parameters and, 
       #' if requested, check that all required parameters are present.
       #' Issues a warning for any invalid parameters and throws an error if 
@@ -247,6 +247,11 @@ ModvegeParameters = R6Class(
       #'
       #' @md
       check_parameters = function(param_names, check_for_completeness = TRUE) {
+        # Check for duplicate param names
+        if (length(param_names) != length(unique(param_names))) {
+          logger("Non-unique parameter names in supplied parameters.",
+                 level = ERROR)
+        }
         param_file = self$param_file
         if (check_for_completeness) {
           # Give error if an argument is missing.
@@ -271,6 +276,22 @@ ModvegeParameters = R6Class(
         return(not_known)
       }
     )
+  ),
+
+  private = list(
+    ## Set initial conditions
+    update_initial_conditions = function() {
+      for (name in initial_condition_names) {
+        old_name = name
+        new_name = paste0(old_name, "0")
+        self[[new_name]] = self[[old_name]]
+      }
+
+      # Set some more initial values 
+      self[["WR0"]] = self[["WHC"]]
+      self[["OMDGV0"]] = self[["maxOMDGV"]]
+      self[["OMDGR0"]] = self[["maxOMDGR"]]
+    }
   )
 )
 

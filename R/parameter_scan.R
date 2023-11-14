@@ -187,8 +187,6 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "",
   }
   # Reduce to relevant years
   relevant_data = measured_data[measured_data$year %in% years, ]
-  # Construct a selector for the DOYs present in relevant data
-  mask = relevant_data$DOY + 365 * (relevant_data$year - relevant_data$year[1])
   # Calculate measured cBM_end
   measured_cBM_ends = c()
   for (year in years) {
@@ -206,10 +204,11 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "",
     cBM_end = c()
     for (i_year in 1:n_years) {
       mv = modvegesites[[i_year]]
-      cBM = c(cBM, mv$cBM)
+      mask = relevant_data$DOY[relevant_data$year == years[i_year]]
+      cBM = c(cBM, mv$cBM[mask])
       cBM_end = c(cBM_end, mv$cBM[length(mv$cBM)])
       smoothed = box_smooth(mv$dBM, box_width = smooth_interval)
-      dBM = c(dBM, smoothed)
+      dBM = c(dBM, smoothed[mask])
     }
     results[[combination]][["cBM"]] = list()
     results[[combination]][["dBM"]] = list()
@@ -217,10 +216,10 @@ analyze_parameter_scan = function(parameter_scan_results, datafile = "",
     # Employ performance metrics
     for (metric in metrics_to_use) {
       # cBM
-      m_cBM = metric_map[[metric]][["func"]](cBM[mask], relevant_data$cBM)
+      m_cBM = metric_map[[metric]][["func"]](cBM, relevant_data$cBM)
       results[[combination]][["cBM"]][[metric]] = m_cBM
       # dBM
-      m_dBM = metric_map[[metric]][["func"]](dBM[mask], relevant_data$dBM)
+      m_dBM = metric_map[[metric]][["func"]](dBM, relevant_data$dBM)
       results[[combination]][["dBM"]][[metric]] = m_dBM
       # cBM_end
       m_cBM_end = metric_map[[metric]][["func"]](cBM_end, measured_cBM_ends)
