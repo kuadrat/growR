@@ -21,6 +21,9 @@
 
 * Debug utility conveniences `browse` and `browse_end`.
 
+* `ModvegeSite$plot_XXX` functions for more insights into model behaviour, 
+  with XXX in `water`, `limitations` and `growth`.
+
 ## Changed
 
 * Input data CSV files are now actual CSV files, instead of 

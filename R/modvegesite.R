@@ -167,6 +167,10 @@ ModvegeSite = R6Class(
 #' @field management A [ManagementData] object. If its `is_empty` field is `TRUE`, 
 #'   the autocut routine will be employed.
       management = NULL,
+#' @field stubble_height float. Minimum height the grass can assume. The 
+#'    biomass will not fall below that height. This can and should therefore 
+#'    be smaller than `self$cut_height`.
+      stubble_heigt = 0.01,
 
   #-Public-methods----------------------------------------------------------------
 
@@ -479,10 +483,7 @@ ModvegeSite = R6Class(
       #' @return NULL Creates a plot of the result in the active device.
       #'
       plot = function(smooth_interval = 28, ...) {
-        if (private$current_DOY == 1) {
-          warning("Cannot plot results because simulation has not yet been run.")
-          return()
-        }
+        private$check_if_simulation_has_run()
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(2, 2))
@@ -499,6 +500,95 @@ ModvegeSite = R6Class(
              xlab = xlab, ylab = "smoothened dBM (kg / ha)")
         plot(self$cBM, type = "l", xlab = xlab, ylab = "cBM (kg / ha)")
         plot(self$hvBM, type = "l", xlab = xlab, ylab = "hvBM (kg / ha)")
+      },
+
+      #' @description Create an overview plot of limiting factors
+      #'
+      #' Creates a simple base R plot showing the different environmental 
+      #' limitation functions over time.
+      #' Can only be sensibly run *after* a simulation has been carried out, 
+      #' i.e. after this instance's `run()` method has been called.
+      #'
+      #' @param ... Further arguments are discarded.
+      #' @return NULL Creates a plot of the result in the active device.
+      #'
+      plot_limitations = function(...) {
+        private$check_if_simulation_has_run()
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
+        par(mfrow = c(2, 2))
+        xlab = "DOY"
+        ylim = c(0, 1)
+        plot(self$ENV, type = "l", xlab = xlab, ylab = "ENV", ylim = ylim)
+        title(paste(self$site_name, self$run_name, self$year))
+        plot(self$ENVfW, type = "l", xlab = xlab, ylim = ylim,
+             ylab = "water limitation ENVfW")
+        title("limitation functions")
+        plot(self$ENVfT, type = "l", xlab = xlab, ylim = ylim,
+             ylab = "temperature limitation ENVfT")
+        plot(self$ENVfPAR, type = "l", xlab = xlab, ylim = ylim,
+             ylab = "radiation limiation ENVfPAR")
+      },
+
+      #' @description Create an overview plot of the water balance
+      #'
+      #' Creates a simple base R plot showing different variables pertaining to
+      #' the water balance, namely water reserves *WR*, actual 
+      #' evapotranspiration *AET*, leaf area index *LAI* and LAI of the green 
+      #' vegetative compartment *LAIGV*. 
+      #'
+      #' Can only be sensibly run *after* a simulation has been carried out, 
+      #' i.e. after this instance's `run()` method has been called.
+      #'
+      #' @param ... Further arguments are discarded.
+      #' @return NULL Creates a plot of the result in the active device.
+      #'
+      plot_water = function(...) {
+        private$check_if_simulation_has_run()
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
+        par(mfrow = c(2, 2))
+        xlab = "DOY"
+        plot(self$WR, type = "l", xlab = xlab, ylab = "water reserves WR (mm)")
+        title(paste(self$site_name, self$run_name, self$year))
+        plot(self$AET, type = "l", xlab = xlab, 
+             ylab = "actual evapotranspiration AET (mm)")
+        title("water balance")
+        plot(self$LAI, type = "l", xlab = xlab,
+             ylab = "leaf area index LAI")
+        plot(self$LAIGV, type = "l", xlab = xlab,
+             ylab = "leaf area index of GV LAIGV")
+      },
+
+      #' @description Create an overview plot of growth dynamics
+      #'
+      #' Creates a simple base R plot showing different variables pertaining to
+      #' the growth dynamics, namely potential growth *PGRO*, effective 
+      #' growth *GRO*, the reproductive function *REP* and the temperature 
+      #' sum *ST*. 
+      #'
+      #' Can only be sensibly run *after* a simulation has been carried out, 
+      #' i.e. after this instance's `run()` method has been called.
+      #'
+      #' @param ... Further arguments are discarded.
+      #' @return NULL Creates a plot of the result in the active device.
+      #'
+      plot_growth = function(...) {
+        private$check_if_simulation_has_run()
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
+        par(mfrow = c(2, 2))
+        xlab = "DOY"
+        plot(self$PGRO, type = "l", xlab = xlab, 
+             ylab = "potential growth PGRO (kg/ha)")
+        title(paste(self$site_name, self$run_name, self$year))
+        plot(self$GRO, type = "l", xlab = xlab, 
+             ylab = "effective growth GRO (kg/ha)")
+        title("growth dynamics")
+        plot(self$REP, type = "l", xlab = xlab,
+             ylab = "reproductive function REP")
+        plot(self$ST, type = "l", xlab = xlab,
+             ylab = "temperature sum (degree-days)")
       }
     )
   ), # End of public attributes
@@ -844,10 +934,10 @@ ModvegeSite = R6Class(
       P = self$parameters
       dBMGV = self$GROGV - self$SENGV
       self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
-                         0.01 * 10. * P$BDGV)
+                         self$stubble_height * 10. * P$BDGV)
       dBMGR = self$GROGR - self$SENGR
       self$BMGR[j] = max(self$BMGRp + dBMGR * self$time_step, 
-                         0.01 * 10. * P$BDGR)
+                         self$stubble_height * 10. * P$BDGR)
       
       dBMDV = (1. - P$sigmaGV) * self$SENGV - self$ABSDV
       self$BMDV[j] = max(self$BMDVp + dBMDV * self$time_step, 0.)
@@ -967,8 +1057,16 @@ ModvegeSite = R6Class(
                        header, self$year, self$site_name, self$run_name)
       logger("End of ModVegeSite$make_header()", level = TRACE)
       return(header)
-    }
+    },
 
+    ## Plot only works, after the simulation has run.
+    ##
+    check_if_simulation_has_run = function() {
+      if (private$current_DOY == 1) {
+        warning("Cannot plot results because simulation has not yet been run.")
+        return()
+      }
+    }
   ) # End of private attributes
 )
 
