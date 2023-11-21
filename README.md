@@ -3,13 +3,13 @@
 <!-- badges: start -->
   [![Documentation](https://badgen.net/badge/Documentation/github.io/cyan)](https://kuadrat.github.io/growR/)
   [![R-CMD-check](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml)
-  [![codecov](https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV)](https://codecov.io/gh/kuadrat/growR)
+  [![codecov](https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV)](https://app.codecov.io/gh/kuadrat/growR)
 <!-- badges: end -->
 
 ![](man/figures/logo.png)
 
 This `R` implementation of the grassland model `ModVege` by [Jouven et 
-al.](doi:10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
+al.](https//doi.org/10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
 `R` implementation created by Pierluigi Calanca[^2].
 
 The implementation in this package contains a few additions to the above 
@@ -145,7 +145,7 @@ If you intend to collaborate in a regular and ongoing manner, best get in touch 
 
 ## Contact
 
-[Kevin Kramer](https://www.physik.uzh.ch/~kekram): kevin.pasqual.kramer@protonmail.ch
+[Kevin Kramer](https://www.physik.uzh.ch/~kekram/): kevin.pasqual.kramer@protonmail.ch
 
 
 ## Glossary
@@ -170,13 +170,13 @@ available, though unmaintained at https://github.com/kuadrat/rmodvege-scripts/.
 [^1]: Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of 
 Biomass, Structure and Digestibility of Herbage in Managed Permanent 
 Pastures. 1. Model Description“. Grass and Forage Science 61, Nr. 2 (2006): 
-112–24. [doi:10.1111/j.1365-2494.2006.00515.x](doi:10.1111/j.1365-2494.2006.00515.x).
+112–24. [doi:10.1111/j.1365-2494.2006.00515.x](https://doi.org/10.1111/j.1365-2494.2006.00515.x).
 
 [^2]: Calanca, Pierluigi, Claire Deléglise, Raphaël Martin, Pascal Carrère, 
 und Eric Mosimann. „Testing the Ability of a Simple Grassland Model to 
 Simulate the Seasonal Effects of Drought on Herbage Growth“. Field Crops 
 Research 187 (Februar 2016): 12–23. 
-[doi:10.1016/j.fcr.2015.12.008](doi:10.1016/j.fcr.2015.12.008).
+[doi:10.1016/j.fcr.2015.12.008](https://doi.org/10.1016/j.fcr.2015.12.008).
 
 [^3]: If you make changes that generally improve `growR`, it would be great if you could 
 share them to make them available to all future users. See [Contributing](#contributing).
