@@ -170,6 +170,19 @@ BDDR).}
 
 \item{\code{management}}{A \link{ManagementData} object. If its \code{is_empty} field is \code{TRUE},
 the autocut routine will be employed.}
+
+\item{\code{stubble_height}}{float. Minimum height the grass can assume. The
+biomass will not fall below that height. This can and should therefore
+be smaller than \code{self$cut_height}.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{stubble_height}}{float. Minimum height the grass can assume. The
+biomass will not fall below that height. This can and should therefore
+be smaller than \code{self$cut_height}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -186,6 +199,11 @@ the autocut routine will be employed.}
 \item \href{#method-ModvegeSite-write_output}{\code{ModvegeSite$write_output()}}
 \item \href{#method-ModvegeSite-set_parameters}{\code{ModvegeSite$set_parameters()}}
 \item \href{#method-ModvegeSite-plot}{\code{ModvegeSite$plot()}}
+\item \href{#method-ModvegeSite-plot_bm}{\code{ModvegeSite$plot_bm()}}
+\item \href{#method-ModvegeSite-plot_limitations}{\code{ModvegeSite$plot_limitations()}}
+\item \href{#method-ModvegeSite-plot_water}{\code{ModvegeSite$plot_water()}}
+\item \href{#method-ModvegeSite-plot_growth}{\code{ModvegeSite$plot_growth()}}
+\item \href{#method-ModvegeSite-plot_var}{\code{ModvegeSite$plot_var()}}
 \item \href{#method-ModvegeSite-clone}{\code{ModvegeSite$clone()}}
 }
 }
@@ -419,14 +437,40 @@ None Updates this object's parameter values.
 \if{html}{\out{<a id="method-ModvegeSite-plot"></a>}}
 \if{latex}{\out{\hypertarget{method-ModvegeSite-plot}{}}}
 \subsection{Method \code{plot()}}{
-Create an overview plot
+Create an overview plot for 16 state variables.
+
+Creates a simple base R plot showing the temporal evolution of 16
+modeled state variables.
+
+Can only be sensibly run \emph{after} a simulation has been carried out,
+i.e. after this instance's \code{run()} method has been called.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Further arguments are discarded.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+NULL Creates a plot of the result in the active device.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-plot_bm"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-plot_bm}{}}}
+\subsection{Method \code{plot_bm()}}{
+Create an overview plot for biomass.
 
 Creates a simple base R plot showing the BM with cutting events and,
 if applicable, target biomass, dBM, cBM and hvBM.
 Can only be sensibly run \emph{after} a simulation has been carried out,
 i.e. after this instance's \code{run()} method has been called.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot(smooth_interval = 28, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot_bm(smooth_interval = 28, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -441,6 +485,109 @@ i.e. after this instance's \code{run()} method has been called.
 }
 \subsection{Returns}{
 NULL Creates a plot of the result in the active device.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-plot_limitations"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-plot_limitations}{}}}
+\subsection{Method \code{plot_limitations()}}{
+Create an overview plot of limiting factors.
+
+Creates a simple base R plot showing the different environmental
+limitation functions over time.
+Can only be sensibly run \emph{after} a simulation has been carried out,
+i.e. after this instance's \code{run()} method has been called.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot_limitations(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Further arguments are discarded.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+NULL Creates a plot of the result in the active device.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-plot_water"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-plot_water}{}}}
+\subsection{Method \code{plot_water()}}{
+Create an overview plot of the water balance.
+
+Creates a simple base R plot showing different variables pertaining to
+the water balance, namely water reserves \emph{WR}, actual
+evapotranspiration \emph{AET}, leaf area index \emph{LAI} and LAI of the green
+vegetative compartment \emph{LAIGV}.
+
+Can only be sensibly run \emph{after} a simulation has been carried out,
+i.e. after this instance's \code{run()} method has been called.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot_water(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Further arguments are discarded.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+NULL Creates a plot of the result in the active device.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-plot_growth"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-plot_growth}{}}}
+\subsection{Method \code{plot_growth()}}{
+Create an overview plot of growth dynamics.
+
+Creates a simple base R plot showing different variables pertaining to
+the growth dynamics, namely potential growth \emph{PGRO}, effective
+growth \emph{GRO}, the reproductive function \emph{REP} and the temperature
+sum \emph{ST}.
+
+Can only be sensibly run \emph{after} a simulation has been carried out,
+i.e. after this instance's \code{run()} method has been called.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot_growth(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Further arguments are discarded.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+NULL Creates a plot of the result in the active device.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-plot_var"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-plot_var}{}}}
+\subsection{Method \code{plot_var()}}{
+Plot the temporal evolution of a modeled state variable.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$plot_var(var, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{var}}{String. Name of the state variable to plot.}
+
+\item{\code{...}}{Further arguments are passed to the base \code{\link[=plot]{plot()}} function.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+None, but plots to the current device.
 }
 }
 \if{html}{\out{<hr>}}

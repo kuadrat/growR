@@ -124,12 +124,6 @@ WeatherData = R6Class(
 
       #-Tweaks,-corrections-and-further-weather-variables-----------------------
 
-      # Apply a crop coefficient of 1.15
-      Kc = 1.15
-      PET_vec = PET_vec * Kc
-
-      Ta_vec = Ta_vec
-
       # Smooth time series of air temperature, as needed to determine the 
       # start of the growing season.
       Ta_smooth = numeric(vec_size)

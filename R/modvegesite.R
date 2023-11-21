@@ -470,7 +470,36 @@ ModvegeSite = R6Class(
         self$parameters$set_parameters(params)
       },
 
-      #' @description Create an overview plot
+      #' @description Create an overview plot for 16 state variables.
+      #'
+      #' Creates a simple base R plot showing the temporal evolution of 16 
+      #' modeled state variables.
+      #'
+      #' Can only be sensibly run *after* a simulation has been carried out, 
+      #' i.e. after this instance's `run()` method has been called.
+      #'
+      #' @param ... Further arguments are discarded.
+      #' @return NULL Creates a plot of the result in the active device.
+      #'
+      plot = function(...) {
+        oldpar = par(no.readonly = TRUE)
+        on.exit(par(oldpar))
+        par(mfrow = c(4, 4))
+        vars_to_plot = c("BM", "cBM", "hvBM", "dBM",
+                         "ENV", "ENVfT", "ENVfW", "ENVfPAR",
+                         "WR", "AET", "LAI", "LAIGV",
+                         "PGRO", "REP", "GRO", "ST")
+        n_vars_to_plot = length(vars_to_plot)
+        # Plot the first variable with a title indicating site name and year.
+        self$plot_var(vars_to_plot[1])
+        # Plot the remaining variables with the variable name as title.
+        for (i in 2:n_vars_to_plot) {
+          var = vars_to_plot[i]
+          self$plot_var(var, main = var)
+        }
+      },
+
+      #' @description Create an overview plot for biomass.
       #'
       #' Creates a simple base R plot showing the BM with cutting events and,
       #' if applicable, target biomass, dBM, cBM and hvBM.
@@ -482,7 +511,7 @@ ModvegeSite = R6Class(
       #' @param ... Further arguments are discarded.
       #' @return NULL Creates a plot of the result in the active device.
       #'
-      plot = function(smooth_interval = 28, ...) {
+      plot_bm = function(smooth_interval = 28, ...) {
         private$check_if_simulation_has_run()
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
@@ -502,7 +531,7 @@ ModvegeSite = R6Class(
         plot(self$hvBM, type = "l", xlab = xlab, ylab = "hvBM (kg / ha)")
       },
 
-      #' @description Create an overview plot of limiting factors
+      #' @description Create an overview plot of limiting factors.
       #'
       #' Creates a simple base R plot showing the different environmental 
       #' limitation functions over time.
@@ -513,24 +542,17 @@ ModvegeSite = R6Class(
       #' @return NULL Creates a plot of the result in the active device.
       #'
       plot_limitations = function(...) {
-        private$check_if_simulation_has_run()
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(2, 2))
-        xlab = "DOY"
         ylim = c(0, 1)
-        plot(self$ENV, type = "l", xlab = xlab, ylab = "ENV", ylim = ylim)
-        title(paste(self$site_name, self$run_name, self$year))
-        plot(self$ENVfW, type = "l", xlab = xlab, ylim = ylim,
-             ylab = "water limitation ENVfW")
-        title("limitation functions")
-        plot(self$ENVfT, type = "l", xlab = xlab, ylim = ylim,
-             ylab = "temperature limitation ENVfT")
-        plot(self$ENVfPAR, type = "l", xlab = xlab, ylim = ylim,
-             ylab = "radiation limiation ENVfPAR")
+        self$plot_var("ENV", ylim = ylim)
+        self$plot_var("ENVfW", ylim = ylim, main = "limitation functions")
+        self$plot_var("ENVfT", ylim = ylim, main = "limitation functions")
+        self$plot_var("ENVfPAR", ylim = ylim, main = "limitation functions")
       },
 
-      #' @description Create an overview plot of the water balance
+      #' @description Create an overview plot of the water balance.
       #'
       #' Creates a simple base R plot showing different variables pertaining to
       #' the water balance, namely water reserves *WR*, actual 
@@ -544,23 +566,16 @@ ModvegeSite = R6Class(
       #' @return NULL Creates a plot of the result in the active device.
       #'
       plot_water = function(...) {
-        private$check_if_simulation_has_run()
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(2, 2))
-        xlab = "DOY"
-        plot(self$WR, type = "l", xlab = xlab, ylab = "water reserves WR (mm)")
-        title(paste(self$site_name, self$run_name, self$year))
-        plot(self$AET, type = "l", xlab = xlab, 
-             ylab = "actual evapotranspiration AET (mm)")
-        title("water balance")
-        plot(self$LAI, type = "l", xlab = xlab,
-             ylab = "leaf area index LAI")
-        plot(self$LAIGV, type = "l", xlab = xlab,
-             ylab = "leaf area index of GV LAIGV")
+        self$plot_var("WR")
+        self$plot_var("AET", main = "water balance")
+        self$plot_var("LAI", main = "")
+        self$plot_var("LAIGV", main = "")
       },
 
-      #' @description Create an overview plot of growth dynamics
+      #' @description Create an overview plot of growth dynamics.
       #'
       #' Creates a simple base R plot showing different variables pertaining to
       #' the growth dynamics, namely potential growth *PGRO*, effective 
@@ -574,21 +589,43 @@ ModvegeSite = R6Class(
       #' @return NULL Creates a plot of the result in the active device.
       #'
       plot_growth = function(...) {
-        private$check_if_simulation_has_run()
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(2, 2))
-        xlab = "DOY"
-        plot(self$PGRO, type = "l", xlab = xlab, 
-             ylab = "potential growth PGRO (kg/ha)")
-        title(paste(self$site_name, self$run_name, self$year))
-        plot(self$GRO, type = "l", xlab = xlab, 
-             ylab = "effective growth GRO (kg/ha)")
-        title("growth dynamics")
-        plot(self$REP, type = "l", xlab = xlab,
-             ylab = "reproductive function REP")
-        plot(self$ST, type = "l", xlab = xlab,
-             ylab = "temperature sum (degree-days)")
+        self$plot_var("PGRO")
+        self$plot_var("REP", main = "growth dynamics")
+        self$plot_var("GRO", main = "")
+        self$plot_var("ST", main = "")
+      },
+
+      #' @description Plot the temporal evolution of a modeled state variable.
+      #'
+      #' @param var String. Name of the state variable to plot.
+      #' @param ... Further arguments are passed to the base [plot()] function.
+      #' @return None, but plots to the current device.
+      #'
+      plot_var = function(var, ...) {
+        private$check_if_simulation_has_run()
+        # Check for valid input.
+        if (!var %in% self$state_variable_names) {
+          message = "Variable `%s` is invalid for plotting. Use one of:\n%s"
+          vars = paste(self$state_variable_names, collapse = ", ")
+          warning(sprintf(message, var, vars))
+          return()
+        }
+        arguments = list(...)
+        # Set default values
+        if (!"type" %in% names(arguments)) {
+          arguments[["type"]] = "l"
+        }
+        if (!"main" %in% names(arguments)) {
+          arguments[["main"]] = paste(self$site_name, self$run_name, self$year)
+        }
+        arguments[["xlab"]] = "DOY"
+        arguments[["ylab"]] = private$ylabels[[var]]
+        arguments[["x"]] = self$weather$DOY
+        arguments[["y"]] = self[[var]]
+        do.call(plot, arguments)
       }
     )
   ), # End of public attributes
@@ -599,6 +636,39 @@ ModvegeSite = R6Class(
     vars_to_exclude = c("OMDDV", "OMDDR"),
     current_DOY = 1,
     REP_ON = NULL,
+    # List of labels to use for different variables when plotting.
+    ylabels  =  list(AgeGV = "AgeGV (degree days)",
+                   AgeGR = "AgeGR (degree days)",
+                   AgeDV = "AgeDV (degree days)",
+                   AgeDR = "AgeDR (degree days)",
+                   BMGV = "BMGV (kg/ha)",
+                   BMGR = "BMGR (kg/ha)",
+                   BMDV = "BMDV (kg/ha)",
+                   BMDR = "BMDR (kg/ha)",
+                   BM = "standing biomass BM (kg/ha)",
+                   BMG = "standing green biomass BMG (kg/ha)",
+                   cBM = "cumulative biomass cBM (kg/ha)",
+                   dBM = "daily biomass growth dBM (kg/ha/d)",
+                   hvBM = "total harvested biomass growth hvBM (kg/ha)",
+                   OMD = "organic matter digestibility OMD (kg/kg)",
+                   OMDG = "OMDG (kg/kg)",
+                   OMDGV = "OMDGV (kg/kg)",
+                   OMDGR = "OMDGR (kg/kg)",
+                   OMDDV = "OMDDV (kg/kg)",
+                   OMDDR = "OMDDR (kg/kg)",
+                   ST = "temperature sum (degree days)",
+                   REP = "reproductive function REP",
+                   GRO = "daily growth (kg/ha/d)",
+                   PGRO = "potential daily growth (kg/ha/d)",
+                   LAI = "leaf area index LAI",
+                   LAIGV = "LAIGV",
+                   AET = "actual evapotranspiration AET (mm)",
+                   WR = "water reserves WR (mm)",
+                   ENV = "environmental limitation ENV",
+                   ENVfPAR = "radiation limitation ENVfPAR",
+                   ENVfT = "temperature limitation ENVfT",
+                   ENVfW = "water limitation ENVfW"
+                   ),
 
     #-Private-methods-----------------------------------------------------------
 
@@ -752,7 +822,8 @@ ModvegeSite = R6Class(
         PETeff = PETmn
       } else {
         # Less evapotranspiration when there is precipitation.
-        PETeff = ifelse(W$PP[j] > 1, 0.7 * W$PET[j], W$PET[j])
+        PETeff = P$crop_coefficient * W$PET[j]
+        PETeff = ifelse(W$PP[j] > 1, 0.7 * PETeff, PETeff)
       }
       PETeff = PETeff * fCO2_transpiration_mod(W$aCO2)
       PTr = PETeff * (1. - exp(-0.6 * LAI.ET))
@@ -770,7 +841,7 @@ ModvegeSite = R6Class(
       # Environmental constraints.
       self$ENVfPAR[j] = fPAR(W$PAR[j])
       self$ENVfT[j]   = fT(W$Ta[j], P$T0, P$T1, P$T2)
-      self$ENVfW[j]   = fW(self$WR[j] / P$WHC, W$PET[j])
+      self$ENVfW[j]   = fW(self$WR[j] / P$WHC, PETeff)
       self$ENV[j]     = self$ENVfPAR[j] * self$ENVfT[j] * self$ENVfW[j]
 
       if (j < self$j_start_of_growing_season) {
@@ -859,23 +930,23 @@ ModvegeSite = R6Class(
         self$SENGV = P$KGV * self$BMGVp * T_average * fAgeGV
         self$SENGR = P$KGR * self$BMGRp * T_average * fAgeGR
       } else if (T_average > 0.) {
-        # Too cold for photosynthesis, but above freezing
+        # Too cold for photosynthesis, but above freezing.
         self$SENGV = 0.
         self$SENGR = 0.
       } else {
-        # Below 0 temperature-> freezing damage
-        self$SENGV = -P$KGV * self$BMGVp * T_average
-        self$SENGR = -P$KGR * self$BMGRp * T_average
+        # Below 0 temperature-> freezing damage.
+        self$SENGV = P$KGV * self$BMGVp * abs(T_average)
+        self$SENGR = P$KGR * self$BMGRp * abs(T_average)
       }
 
       # Put a cap on senescence.
       # :NOTE: The following two lines were not part of the original model 
       # formulation.
-      if (abs(self$SENGV) > 0.7 * abs(self$GROGV)) { 
-        self$SENGV = 0.7 * self$GROGV 
+      if (abs(self$SENGV) > P$senescence_cap * abs(self$GROGV)) { 
+        self$SENGV = P$senescence_cap * self$GROGV 
       }
-      if (abs(self$SENGR) > 0.7 * abs(self$GROGR)) { 
-        self$SENGR = 0.7 * self$GROGR 
+      if (abs(self$SENGR) > P$senescence_cap * abs(self$GROGR)) { 
+        self$SENGR = P$senescence_cap * self$GROGR 
       }
      
       # Calculate ageing for compartments DV & DR.
@@ -932,6 +1003,7 @@ ModvegeSite = R6Class(
     update_biomass = function() {
       j = private$current_DOY
       P = self$parameters
+      # SEN is always >= 0
       dBMGV = self$GROGV - self$SENGV
       self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
                          self$stubble_height * 10. * P$BDGV)

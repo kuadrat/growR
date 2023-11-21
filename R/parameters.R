@@ -40,7 +40,9 @@ parameter_defaults = list(
   KlDR = 0.0005,
   OMDDV = 0.45,
   OMDDR = 0.4,
-  CO2_growth_factor = 0.5
+  CO2_growth_factor = 0.5,
+  crop_coefficient = 1.15,
+  senescence_cap = 0.7
 )
 # Create a list that can be inserted into R6 class to create many fields
 initial_condition_names = names(initial_conditions)

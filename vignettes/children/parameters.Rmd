@@ -40,3 +40,15 @@
 
 - `minOMDDR` organic matter digestibility in gram per gram DR.
 
+- `CO2_growth_factor` strength of effect of CO2 concentration on growth. See 
+  parameter *b* in [fCO2_growth_mod()].
+
+- `crop_coefficient` multiplicative factor K~c~ by which 
+  reference evapotranspiration ET~0~ has to be multiplied to get the crop 
+  evapotranspiration ET~c~: 
+  ET~c~ = K~c~ ET~0~
+
+- `senescence_cap` fraction c~s~ of *GRO* to which *SEN* is 
+  limited: SEN~i~^max^ = c~s~ GRO~i~ 
+  for *i* in *GV*, *GR*. Makes it less likely for grass population to die out.
+  Can be set to large values in order to effectively disable senescence capping.

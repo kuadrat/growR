@@ -22,7 +22,8 @@
 * Debug utility conveniences `browse` and `browse_end`.
 
 * `ModvegeSite$plot_XXX` functions for more insights into model behaviour, 
-  with XXX in `water`, `limitations` and `growth`.
+  with XXX in `water`, `limitations`, `growth` and `plot_var` for generic 
+  variable plotting.
 
 ## Changed
 
@@ -36,6 +37,9 @@
 * Number of days per year is now inferred from weather data instead of 
   hardcoded to 365, allowing simulations to be run for years with incomplete 
   data.
+
+* Crop coefficient (`parameters$crop_coefficient`) and senescence capping are 
+  now model parameters instead of being hardcoded.
 
 ## Fixed
 
