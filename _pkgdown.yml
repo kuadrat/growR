@@ -36,6 +36,7 @@ reference:
 - title: Analysis
   desc: Utilities for analysis of simulated results.
 - contents:
+  - plot.ModvegeSite
   - get_bias
   - willmott
   - box_smooth
@@ -64,7 +65,6 @@ reference:
   - logger
 - title: Other
 - contents:
-  - ERROR
   - SEA
   - aCO2_inverse
   - append_to_table
@@ -75,6 +75,7 @@ reference:
   - compare.R
   - create_combinations
   - create_example_environment
+  - ensure_table_columns
   - ensure_unique_filename
   - fCO2_growth_mod
   - fCO2_transpiration_mod
@@ -88,6 +89,7 @@ reference:
   - get_site_name
   - growR_package_options
   - management_parameters
+  - make_yearDOY
   - metric_map
   - parse_year_strings
   - posieux_weather

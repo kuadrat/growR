@@ -38,6 +38,16 @@ composition.
 \item \code{KlGR} basic abscission rate GR (dimensionless).
 \item \code{maxOMDDV} organic matter digestibility in gram per gram DV.
 \item \code{minOMDDR} organic matter digestibility in gram per gram DR.
+\item \code{CO2_growth_factor} strength of effect of CO2 concentration on growth. See
+parameter \emph{b} in \code{\link[=fCO2_growth_mod]{fCO2_growth_mod()}}.
+\item \code{crop_coefficient} multiplicative factor K~c~ by which
+reference evapotranspiration ET~0~ has to be multiplied to get the crop
+evapotranspiration ET~c~:
+ET~c~ = K~c~ ET~0~
+\item \code{senescence_cap} fraction c~s~ of \emph{GRO} to which \emph{SEN} is
+limited: SEN~i~^max^ = c~s~ GRO~i~
+for \emph{i} in \emph{GV}, \emph{GR}. Makes it less likely for grass population to die out.
+Can be set to large values in order to effectively disable senescence capping.
 }
 }
 

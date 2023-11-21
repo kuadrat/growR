@@ -17,3 +17,6 @@ NULL, but plots to the active device.
 \description{
 This wraps the \code{ModvegeSite} instance's \code{plot()} method.
 }
+\seealso{
+The different \verb{[modvegeSite]$plot_XXX()} methods.
+}

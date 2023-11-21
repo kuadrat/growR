@@ -1152,6 +1152,8 @@ ModvegeSite = R6Class(
 #' @param ... Arguments are passed on to [ModvegeSite]`$plot()`.
 #' @return NULL, but plots to the active device.
 #'
+#' @seealso The different `[modvegeSite]$plot_XXX()` methods.
+#'
 #' @md
 #' @export
 plot.ModvegeSite = function(x, ...) {
