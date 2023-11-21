@@ -9,7 +9,7 @@
 ![](man/figures/logo.png)
 
 This `R` implementation of the grassland model `ModVege` by [Jouven et 
-al.](https//doi.org/10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
+al.](https://doi.org/10.1111/j.1365-2494.2006.00515.x)[^1] is based off an 
 `R` implementation created by Pierluigi Calanca[^2].
 
 The implementation in this package contains a few additions to the above 
