@@ -5,7 +5,7 @@ attributes and has methods for running ModVege with weather and management
 input.
 Use the run() method to carry out a simulation for a given year. The
 results are stored in the state variables in this instance and can be written
-to file using write_output()."><title>ModvegeSite — ModvegeSite • growR</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ModvegeSite — ModvegeSite"><meta property="og:description" content="Implements the ModVege grass growth model based off of Jouven et al. (2006).
+to file using write_output()."><title>ModvegeSite — ModvegeSite • growR</title><!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png"><link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png"><link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png"><link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png"><link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png"><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="ModvegeSite — ModvegeSite"><meta property="og:description" content="Implements the ModVege grass growth model based off of Jouven et al. (2006).
 This class contains model and site parameters and state variables as
 attributes and has methods for running ModVege with weather and management
 input.
@@ -22,7 +22,7 @@ to file using write_output()."><meta property="og:image" content="https://kuadra
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -168,7 +168,7 @@ ISSN 1365-2494, <a href="https://doi.org/10.1111/j.1365-2494.2006.00515.x" class
 <dd><p>Used time step in the model in days (untested).</p></dd>
 
 
-<dt><code>state_variable_namse</code></dt>
+<dt><code>state_variable_names</code></dt>
 <dd><p>Vector containing the names of the model's
 state variables.</p></dd>
 
@@ -293,13 +293,20 @@ BDDR).</p></dd>
 the autocut routine will be employed.</p></dd>
 
 
+<dt><code>stubble_height</code></dt>
+<dd><p>float. Minimum height the grass can assume. The
+biomass will not fall below that height. This can and should therefore
+be smaller than <code>self$cut_height</code>.</p></dd>
+
+
 </dl><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
-    <p></p><div class="r6-active-bindings"><dl><dt><code>state_variable_namse</code></dt>
-<dd><p>Vector containing the names of the model's
-state variables.</p></dd>
+    <p></p><div class="r6-active-bindings"><dl><dt><code>stubble_height</code></dt>
+<dd><p>float. Minimum height the grass can assume. The
+biomass will not fall below that height. This can and should therefore
+be smaller than <code>self$cut_height</code>.</p></dd>
 
 
 </dl><p></p></div>
@@ -320,6 +327,11 @@ state variables.</p></dd>
 <li><p><a href="#method-ModvegeSite-write_output"><code>ModvegeSite$write_output()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-set_parameters"><code>ModvegeSite$set_parameters()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-plot"><code>ModvegeSite$plot()</code></a></p></li>
+<li><p><a href="#method-ModvegeSite-plot_bm"><code>ModvegeSite$plot_bm()</code></a></p></li>
+<li><p><a href="#method-ModvegeSite-plot_limitations"><code>ModvegeSite$plot_limitations()</code></a></p></li>
+<li><p><a href="#method-ModvegeSite-plot_water"><code>ModvegeSite$plot_water()</code></a></p></li>
+<li><p><a href="#method-ModvegeSite-plot_growth"><code>ModvegeSite$plot_growth()</code></a></p></li>
+<li><p><a href="#method-ModvegeSite-plot_var"><code>ModvegeSite$plot_var()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-clone"><code>ModvegeSite$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-ModvegeSite-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -551,36 +563,166 @@ account for potential changes to functional group weights.</p><div class="sectio
 
 </div><p></p><hr><a id="method-ModvegeSite-plot"></a><div class="section">
 <h3 id="method-plot-">Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code><a class="anchor" aria-label="anchor" href="#method-plot-"></a></h3>
-<p>Create an overview plot</p>
-<p>Creates a simple base R plot showing the BM with cutting events and,
-if applicable, target biomass, dBM, cBM and hvBM.</p><div class="section">
+<p>Create an overview plot for 16 state variables.</p>
+<p>Creates a simple base R plot showing the temporal evolution of 16
+modeled state variables.</p>
+<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span>smooth_interval <span class="op">=</span> <span class="fl">28</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>smooth_interval</code></dt>
-<dd><p>Int. Number of days over which the variable
-<code>dBM</code> is smoothened.</p></dd>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
 <h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
-<p>None Creates a plot of the result.</p>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_bm"></a><div class="section">
+<h3 id="method-plot-bm-">Method <code>plot_bm()</code><a class="anchor" aria-label="anchor" href="#method-plot-bm-"></a></h3>
+<p>Create an overview plot for biomass.</p>
+<p>Creates a simple base R plot showing the BM with cutting events and,
+if applicable, target biomass, dBM, cBM and hvBM.
+Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_bm</span><span class="op">(</span>smooth_interval <span class="op">=</span> <span class="fl">28</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>smooth_interval</code></dt>
+<dd><p>Int. Number of days over which the variable
+<code>dBM</code> is smoothened.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_limitations"></a><div class="section">
+<h3 id="method-plot-limitations-">Method <code>plot_limitations()</code><a class="anchor" aria-label="anchor" href="#method-plot-limitations-"></a></h3>
+<p>Create an overview plot of limiting factors.</p>
+<p>Creates a simple base R plot showing the different environmental
+limitation functions over time.
+Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
+<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_limitations</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_water"></a><div class="section">
+<h3 id="method-plot-water-">Method <code>plot_water()</code><a class="anchor" aria-label="anchor" href="#method-plot-water-"></a></h3>
+<p>Create an overview plot of the water balance.</p>
+<p>Creates a simple base R plot showing different variables pertaining to
+the water balance, namely water reserves <em>WR</em>, actual
+evapotranspiration <em>AET</em>, leaf area index <em>LAI</em> and LAI of the green
+vegetative compartment <em>LAIGV</em>.</p>
+<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
+<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_water</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-11">Returns<a class="anchor" aria-label="anchor" href="#returns-11"></a></h4>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_growth"></a><div class="section">
+<h3 id="method-plot-growth-">Method <code>plot_growth()</code><a class="anchor" aria-label="anchor" href="#method-plot-growth-"></a></h3>
+<p>Create an overview plot of growth dynamics.</p>
+<p>Creates a simple base R plot showing different variables pertaining to
+the growth dynamics, namely potential growth <em>PGRO</em>, effective
+growth <em>GRO</em>, the reproductive function <em>REP</em> and the temperature
+sum <em>ST</em>.</p>
+<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
+<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_growth</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_var"></a><div class="section">
+<h3 id="method-plot-var-">Method <code>plot_var()</code><a class="anchor" aria-label="anchor" href="#method-plot-var-"></a></h3>
+<p>Plot the temporal evolution of a modeled state variable.</p><div class="section">
+<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_var</span><span class="op">(</span><span class="va">var</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>var</code></dt>
+<dd><p>String. Name of the state variable to plot.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Further arguments are passed to the base <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
+<p>None, but plots to the current device.</p>
 </div>
 
 </div><p></p><hr><a id="method-ModvegeSite-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

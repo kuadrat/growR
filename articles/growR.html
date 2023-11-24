@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Tutorial">
 <meta property="og:description" content="growR">
@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,30 +148,30 @@ step is therefore to execute the following from an <code>R</code>
 session:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kuadrat/growR" class="external-link">growR</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; +--------------------------------------+</span></span>
-<span><span class="co">#&gt; | Welcome to growR Version 1.0.0.9007! |</span></span>
-<span><span class="co">#&gt; +--------------------------------------+</span></span>
+<span><span class="co">#&gt; +---------------------------------+</span></span>
+<span><span class="co">#&gt; | Welcome to growR Version 1.1.0! |</span></span>
+<span><span class="co">#&gt; +---------------------------------+</span></span>
 <span><span class="co"># Check that working directory is correct</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">working_dir</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmpsx81J0/growR_tutorial"</span></span>
+<span><span class="co">#&gt; [1] "/tmp/Rtmpu70H1m/growR_tutorial"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "/tmp/Rtmpsx81J0/growR_tutorial"</span></span>
+<span><span class="co">#&gt; [1] "/tmp/Rtmpu70H1m/growR_tutorial"</span></span>
 <span><span class="fu"><a href="../reference/setup_directory.html">setup_directory</a></span><span class="op">(</span><span class="va">working_dir</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [INFO]Initialized directory structure in `/tmp/Rtmpsx81J0/growR_tutorial`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/Rtmpsx81J0/growR_tutorial/input/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/Rtmpsx81J0/growR_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/Rtmpsx81J0/growR_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/Rtmpsx81J0/growR_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/Rtmpsx81J0/growR_tutorial/data/`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/Rtmpsx81J0/growR_tutorial`.</span></span>
-<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/Rtmpsx81J0/growR_tutorial`.</span></span>
+<span><span class="co">#&gt; [INFO]Initialized directory structure in `/tmp/Rtmpu70H1m/growR_tutorial`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_weather.txt` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_parameters.csv` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management1.txt` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux_management2.txt` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_weather.txt` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_parameters.csv` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management1.txt` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens_management2.txt` to `/tmp/Rtmpu70H1m/growR_tutorial/input/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux1.csv` to `/tmp/Rtmpu70H1m/growR_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/posieux2.csv` to `/tmp/Rtmpu70H1m/growR_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens1.csv` to `/tmp/Rtmpu70H1m/growR_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/sorens2.csv` to `/tmp/Rtmpu70H1m/growR_tutorial/data/`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/extdata/example_config.txt` to `/tmp/Rtmpu70H1m/growR_tutorial`.</span></span>
+<span><span class="co">#&gt; [INFO]Copying `/home/runner/work/_temp/Library/growR/scripts/compare.R` to `/tmp/Rtmpu70H1m/growR_tutorial`.</span></span>
 <span><span class="co">#&gt; [INFO]Copied example files to respective directories.</span></span></code></pre></div>
 <p>We used <code>force = TRUE</code> here such that we can skip the
 safety prompt which would otherwise ask for confirmation.</p>
@@ -226,8 +226,7 @@ order to run a ModVege simulation.</p>
 <p>We are now ready to do so:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">=</span> <span class="fu"><a href="../reference/growR_run_loop.html">growR_run_loop</a></span><span class="op">(</span><span class="va">environments</span>, </span>
-<span>                         output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">working_dir</span>, <span class="st">"output"</span><span class="op">)</span>, </span>
-<span>                         store_results <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>                         output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">working_dir</span>, <span class="st">"output"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [INFO]Starting run 1 out of 2.</span></span>
 <span><span class="co">#&gt; [INFO][Run 1/2]Simulating year 2013 (1/3)</span></span>
 <span><span class="co">#&gt; [INFO][Run 1/2]Simulating year 2014 (2/3)</span></span>
@@ -260,28 +259,28 @@ through the <code>results</code> list. The output of</p>
 <span><span class="co">#&gt;   Public:</span></span>
 <span><span class="co">#&gt;     ABSDR: 0</span></span>
 <span><span class="co">#&gt;     ABSDV: 0</span></span>
-<span><span class="co">#&gt;     AET: 0.425137788528002 0.4583695833186 0.515292206584979 0.59 ...</span></span>
-<span><span class="co">#&gt;     AgeDR: 503.61 505.1 505.96 510.44 516.05 519.75 520.81 523.24 5 ...</span></span>
-<span><span class="co">#&gt;     AgeDRp: 2657.31266435763</span></span>
-<span><span class="co">#&gt;     AgeDV: 503.61 505.1 505.96 510.44 516.05 519.75 520.81 523.24 5 ...</span></span>
-<span><span class="co">#&gt;     AgeDVp: 403.031358445093</span></span>
-<span><span class="co">#&gt;     AgeGR: 0 1.49 2.35 6.83 12.44 16.14 17.2 19.63 20.83 22.84 25.2 ...</span></span>
-<span><span class="co">#&gt;     AgeGRp: 2611.15229608262</span></span>
-<span><span class="co">#&gt;     AgeGV: 103.61 105.1 105.96 110.44 116.05 119.75 120.81 123.24 1 ...</span></span>
-<span><span class="co">#&gt;     AgeGVp: 409.630100663536</span></span>
-<span><span class="co">#&gt;     BM: 774.6427 773.271684397 772.483820568807 768.389958595924 ...</span></span>
+<span><span class="co">#&gt;     AET: 0.425137788528002 0.4583695833186 0.514875174072729 0.59 ...</span></span>
+<span><span class="co">#&gt;     AgeDR: 502.41 502.7 502.7 505.98 510.39 512.89 512.89 514.12 51 ...</span></span>
+<span><span class="co">#&gt;     AgeDRp: 3059.75216179612</span></span>
+<span><span class="co">#&gt;     AgeDV: 502.41 502.7 502.7 505.98 510.39 512.89 512.89 514.12 51 ...</span></span>
+<span><span class="co">#&gt;     AgeDVp: 386.16448511003</span></span>
+<span><span class="co">#&gt;     AgeGR: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
+<span><span class="co">#&gt;     AgeGRp: 2295.17765333274</span></span>
+<span><span class="co">#&gt;     AgeGV: 102.41 102.7 102.7 105.98 110.39 112.89 112.89 114.12 11 ...</span></span>
+<span><span class="co">#&gt;     AgeGVp: 370.305478622553</span></span>
+<span><span class="co">#&gt;     BM: 747.7587 747.490907997 747.490907997 744.464666239853 74 ...</span></span>
 <span><span class="co">#&gt;     BM_after_cut: 1070</span></span>
-<span><span class="co">#&gt;     BMDR: 29.8917 29.847161367 29.8214928082244 29.6878925204435 2 ...</span></span>
-<span><span class="co">#&gt;     BMDRp: 2.25108407267156</span></span>
-<span><span class="co">#&gt;     BMDV: 296.751 295.42452303 294.662327760583 290.70206607548 28 ...</span></span>
-<span><span class="co">#&gt;     BMDVp: 269.192194321762</span></span>
-<span><span class="co">#&gt;     BMG: 448 448 448 448 448 448 448 448 448 448 448 448 448 448  ...</span></span>
-<span><span class="co">#&gt;     BMGR: 28 28 28 28 28 28 28 28 28 28 28 28 28 28 28 28 28 28 28 ...</span></span>
+<span><span class="co">#&gt;     BMDR: 29.9277 29.919020967 29.919020967 29.8208865782282 29.68 ...</span></span>
+<span><span class="co">#&gt;     BMDRp: 0.500130124356253</span></span>
+<span><span class="co">#&gt;     BMDV: 297.831 297.57188703 297.57188703 294.643779661625 290.7 ...</span></span>
+<span><span class="co">#&gt;     BMDVp: 282.480007964592</span></span>
+<span><span class="co">#&gt;     BMG: 420 420 420 420 420 420 420 420 420 420 420 420 420 420  ...</span></span>
+<span><span class="co">#&gt;     BMGR: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
 <span><span class="co">#&gt;     BMGRp: 140</span></span>
 <span><span class="co">#&gt;     BMGV: 420 420 420 420 420 420 420 420 420 420 420 420 420 420  ...</span></span>
-<span><span class="co">#&gt;     BMGVp: 502.128652267613</span></span>
+<span><span class="co">#&gt;     BMGVp: 491.4387683326</span></span>
 <span><span class="co">#&gt;     cBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
-<span><span class="co">#&gt;     cBMp: 7236.89325766174</span></span>
+<span><span class="co">#&gt;     cBMp: 7844.7239402268</span></span>
 <span><span class="co">#&gt;     clone: function (deep = FALSE) </span></span>
 <span><span class="co">#&gt;     cut_delays: 0</span></span>
 <span><span class="co">#&gt;     cut_DOYs: 106 134 162 190 218 246 274 302</span></span>
@@ -297,9 +296,9 @@ through the <code>results</code> list. The output of</p>
 <span><span class="co">#&gt;     dry_precipitation_limit: 1</span></span>
 <span><span class="co">#&gt;     dry_window: NULL</span></span>
 <span><span class="co">#&gt;     end_of_cutting_season: NULL</span></span>
-<span><span class="co">#&gt;     ENV: 0 0 0 0 0.122 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
+<span><span class="co">#&gt;     ENV: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
 <span><span class="co">#&gt;     ENVfPAR: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  ...</span></span>
-<span><span class="co">#&gt;     ENVfT: 0 0 0 0 0.122 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
+<span><span class="co">#&gt;     ENVfT: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
 <span><span class="co">#&gt;     ENVfW: 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1  ...</span></span>
 <span><span class="co">#&gt;     get_management: function () </span></span>
 <span><span class="co">#&gt;     get_target_biomass: function (DOY, intensity = "high") </span></span>
@@ -309,23 +308,28 @@ through the <code>results</code> list. The output of</p>
 <span><span class="co">#&gt;     GROGV: 0</span></span>
 <span><span class="co">#&gt;     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
 <span><span class="co">#&gt;     initialize: function (parameters, site_name = "-", run_name = "-") </span></span>
-<span><span class="co">#&gt;     j_start_of_growing_season: 69</span></span>
-<span><span class="co">#&gt;     LAI: 0.8651776 0.8651776 0.8651776 0.8651776 0.8651776 0.8651 ...</span></span>
+<span><span class="co">#&gt;     j_start_of_growing_season: 70</span></span>
+<span><span class="co">#&gt;     LAI: 0.811104 0.811104 0.811104 0.811104 0.811104 0.811104 0. ...</span></span>
 <span><span class="co">#&gt;     LAIGV: 0.811104 0.811104 0.811104 0.811104 0.811104 0.811104 0. ...</span></span>
 <span><span class="co">#&gt;     last_DOY_for_initial_cut: 150</span></span>
 <span><span class="co">#&gt;     management: list</span></span>
 <span><span class="co">#&gt;     max_cut_delay: 5</span></span>
 <span><span class="co">#&gt;     max_cut_period: 55</span></span>
 <span><span class="co">#&gt;     n_state_variables: 31</span></span>
-<span><span class="co">#&gt;     OMD: 0.685348189289133 0.685491836840731 0.685573921772576 0. ...</span></span>
+<span><span class="co">#&gt;     OMD: 0.677537527475466 0.677569768025088 0.677569768025088 0. ...</span></span>
 <span><span class="co">#&gt;     OMDDR: 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4  ...</span></span>
 <span><span class="co">#&gt;     OMDDV: 0.45 0.45 0.45 0.45 0.45 0.45 0.45 0.45 0.45 0.45 0.45 0 ...</span></span>
-<span><span class="co">#&gt;     OMDG: 0.860279780783582 0.859802516526619 0.859527048566224 0. ...</span></span>
-<span><span class="co">#&gt;     OMDGR: 0.89 0.889202204724409 0.888741732283465 0.8863429921259 ...</span></span>
-<span><span class="co">#&gt;     OMDGV: 0.858298432835821 0.857842537313433 0.857579402985075 0. ...</span></span>
+<span><span class="co">#&gt;     OMDG: 0.858665597014925 0.858576865671642 0.858576865671642 0. ...</span></span>
+<span><span class="co">#&gt;     OMDGR: 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0.89 0 ...</span></span>
+<span><span class="co">#&gt;     OMDGV: 0.858665597014925 0.858576865671642 0.858576865671642 0. ...</span></span>
 <span><span class="co">#&gt;     parameters: ModvegeParameters, R6</span></span>
 <span><span class="co">#&gt;     PGRO: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
-<span><span class="co">#&gt;     plot: function (smooth_interval = 28) </span></span>
+<span><span class="co">#&gt;     plot: function (...) </span></span>
+<span><span class="co">#&gt;     plot_bm: function (smooth_interval = 28, ...) </span></span>
+<span><span class="co">#&gt;     plot_growth: function (...) </span></span>
+<span><span class="co">#&gt;     plot_limitations: function (...) </span></span>
+<span><span class="co">#&gt;     plot_var: function (var, ...) </span></span>
+<span><span class="co">#&gt;     plot_water: function (...) </span></span>
 <span><span class="co">#&gt;     REP: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span></span>
 <span><span class="co">#&gt;     run: function (year, weather, management) </span></span>
 <span><span class="co">#&gt;     run_name: -</span></span>
@@ -333,16 +337,17 @@ through the <code>results</code> list. The output of</p>
 <span><span class="co">#&gt;     SENGV: 0</span></span>
 <span><span class="co">#&gt;     set_parameters: function (params) </span></span>
 <span><span class="co">#&gt;     site_name: sorens1</span></span>
-<span><span class="co">#&gt;     ST: 3.61 5.1 5.96 10.44 16.05 19.75 20.81 23.24 24.44 26.45  ...</span></span>
+<span><span class="co">#&gt;     ST: 2.41 2.7 2.7 5.98 10.39 12.89 12.89 14.12 14.12 14.93 16 ...</span></span>
 <span><span class="co">#&gt;     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span></span>
-<span><span class="co">#&gt;     STp: 3364.63</span></span>
+<span><span class="co">#&gt;     STp: 3005.38</span></span>
+<span><span class="co">#&gt;     stubble_heigt: 0.01</span></span>
 <span><span class="co">#&gt;     target_biomass: NULL</span></span>
 <span><span class="co">#&gt;     time_step: 1</span></span>
 <span><span class="co">#&gt;     version: package_version, numeric_version</span></span>
 <span><span class="co">#&gt;     weather: list</span></span>
-<span><span class="co">#&gt;     WR: 160 159.805206625861 159.94517316524 159.850342649062 15 ...</span></span>
+<span><span class="co">#&gt;     WR: 160 159.600913343104 159.873592083394 159.849885542053 1 ...</span></span>
 <span><span class="co">#&gt;     write_output: function (filename, force = FALSE) </span></span>
-<span><span class="co">#&gt;     WRp: 159.696976217117</span></span>
+<span><span class="co">#&gt;     WRp: 159.800708876818</span></span>
 <span><span class="co">#&gt;     year: 2013</span></span>
 <span><span class="co">#&gt;   Private:</span></span>
 <span><span class="co">#&gt;     apply_cuts: function () </span></span>
@@ -350,13 +355,15 @@ through the <code>results</code> list. The output of</p>
 <span><span class="co">#&gt;     calculate_digestibility: function () </span></span>
 <span><span class="co">#&gt;     calculate_growth: function () </span></span>
 <span><span class="co">#&gt;     carry_over_from_last_day: function () </span></span>
+<span><span class="co">#&gt;     check_if_simulation_has_run: function () </span></span>
 <span><span class="co">#&gt;     current_DOY: 365</span></span>
 <span><span class="co">#&gt;     get_start_of_growing_season: function (critical_temperature = 5, consider_snow = FALSE, critical_snow = 1) </span></span>
 <span><span class="co">#&gt;     initialize_state_variables: function () </span></span>
 <span><span class="co">#&gt;     make_header: function () </span></span>
 <span><span class="co">#&gt;     REP_ON: 0.653846153846154</span></span>
 <span><span class="co">#&gt;     update_biomass: function () </span></span>
-<span><span class="co">#&gt;     vars_to_exclude: OMDDV OMDDR</span></span></code></pre></div>
+<span><span class="co">#&gt;     vars_to_exclude: OMDDV OMDDR</span></span>
+<span><span class="co">#&gt;     ylabels: list</span></span></code></pre></div>
 <p>might be a little overwhelming and not very helpful, though. A
 convenient way to quickly see what has happened is to plot the resulting
 grass growth curves. The <code>ModvegeSite</code> objects which are
@@ -415,7 +422,7 @@ chose):</p>
 <pre><code><span><span class="va">new_envs</span> <span class="op">=</span> <span class="fu"><a href="../reference/read_config.html">read_config</a></span><span class="op">(</span><span class="st">"NI_screening.txt"</span><span class="op">)</span></span></code></pre>
 <p>And we’re ready to run and inspect our next run of simulations:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">new_results</span> <span class="op">=</span> <span class="fu"><a href="../reference/growR_run_loop.html">growR_run_loop</a></span><span class="op">(</span><span class="va">new_envs</span>, store_results <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">new_results</span> <span class="op">=</span> <span class="fu"><a href="../reference/growR_run_loop.html">growR_run_loop</a></span><span class="op">(</span><span class="va">new_envs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [INFO]Starting run 1 out of 3.</span></span>
 <span><span class="co">#&gt; [INFO][Run 1/3]Simulating year 2013 (1/1)</span></span>
 <span><span class="co">#&gt; [INFO]Starting run 2 out of 3.</span></span>

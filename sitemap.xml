@@ -46,12 +46,6 @@
     <loc>https://kuadrat.github.io/growR/reference/Combinator.html</loc>
   </url>
   <url>
-    <loc>https://kuadrat.github.io/growR/reference/DEBUG_LEVELS.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ERROR.html</loc>
-  </url>
-  <url>
     <loc>https://kuadrat.github.io/growR/reference/FG_A.html</loc>
   </url>
   <url>
@@ -109,6 +103,9 @@
     <loc>https://kuadrat.github.io/growR/reference/box_smooth.html</loc>
   </url>
   <url>
+    <loc>https://kuadrat.github.io/growR/reference/browse.html</loc>
+  </url>
+  <url>
     <loc>https://kuadrat.github.io/growR/reference/build_functional_group.html</loc>
   </url>
   <url>
@@ -122,6 +119,9 @@
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/create_example_environment.html</loc>
+  </url>
+  <url>
+    <loc>https://kuadrat.github.io/growR/reference/ensure_table_columns.html</loc>
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/ensure_unique_filename.html</loc>
@@ -178,6 +178,9 @@
     <loc>https://kuadrat.github.io/growR/reference/logger.html</loc>
   </url>
   <url>
+    <loc>https://kuadrat.github.io/growR/reference/make_yearDOY.html</loc>
+  </url>
+  <url>
     <loc>https://kuadrat.github.io/growR/reference/management_parameters.html</loc>
   </url>
   <url>
@@ -188,6 +191,9 @@
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/parse_year_strings.html</loc>
+  </url>
+  <url>
+    <loc>https://kuadrat.github.io/growR/reference/plot.ModvegeSite.html</loc>
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/plot_parameter_scan.html</loc>

@@ -24,8 +24,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Implementation of the Vegetation Model ModVege">
 <meta property="og:description" content='Run grass growth simulations using a grass growth model based 
@@ -53,7 +53,7 @@
     
     <a class="navbar-brand me-2" href="index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,14 +100,14 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="growr---r-implementation-of-the-grassland-model-modvege1">growR - R implementation of the grassland model ModVege<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description“. Grass and Forage Science 61, Nr. 2 (2006): 112–24. &lt;a href="doi:10.1111/j.1365-2494.2006.00515.x"&gt;doi:10.1111/j.1365-2494.2006.00515.x&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>
+<img src="logo.png" class="logo" alt=""><h1 id="growr---r-implementation-of-the-grassland-model-modvege1">growR - R implementation of the grassland model ModVege<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description“. Grass and Forage Science 61, Nr. 2 (2006): 112–24. &lt;a href="https://doi.org/10.1111/j.1365-2494.2006.00515.x" class="external-link"&gt;doi:10.1111/j.1365-2494.2006.00515.x&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>
 <a class="anchor" aria-label="anchor" href="#growr---r-implementation-of-the-grassland-model-modvege1"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
 <p><img src="reference/figures/logo.png"></p>
-<p>This <code>R</code> implementation of the grassland model <code>ModVege</code> by <a href="doi:10.1111/j.1365-2494.2006.00515.x">Jouven et al.</a><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description“. Grass and Forage Science 61, Nr. 2 (2006): 112–24. &lt;a href="doi:10.1111/j.1365-2494.2006.00515.x"&gt;doi:10.1111/j.1365-2494.2006.00515.x&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a> is based off an <code>R</code> implementation created by Pierluigi Calanca<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Calanca, Pierluigi, Claire Deléglise, Raphaël Martin, Pascal Carrère, und Eric Mosimann. „Testing the Ability of a Simple Grassland Model to Simulate the Seasonal Effects of Drought on Herbage Growth“. Field Crops Research 187 (Februar 2016): 12–23. &lt;a href="doi:10.1016/j.fcr.2015.12.008"&gt;doi:10.1016/j.fcr.2015.12.008&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a>.</p>
+<p>This <code>R</code> implementation of the grassland model <code>ModVege</code> by <a href="https://doi.org/10.1111/j.1365-2494.2006.00515.x" class="external-link">Jouven et al.</a><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Jouven, M., P. Carrère, und R. Baumont. „Model Predicting Dynamics of Biomass, Structure and Digestibility of Herbage in Managed Permanent Pastures. 1. Model Description“. Grass and Forage Science 61, Nr. 2 (2006): 112–24. &lt;a href="https://doi.org/10.1111/j.1365-2494.2006.00515.x" class="external-link"&gt;doi:10.1111/j.1365-2494.2006.00515.x&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a> is based off an <code>R</code> implementation created by Pierluigi Calanca<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Calanca, Pierluigi, Claire Deléglise, Raphaël Martin, Pascal Carrère, und Eric Mosimann. „Testing the Ability of a Simple Grassland Model to Simulate the Seasonal Effects of Drought on Herbage Growth“. Field Crops Research 187 (Februar 2016): 12–23. &lt;a href="https://doi.org/10.1016/j.fcr.2015.12.008" class="external-link"&gt;doi:10.1016/j.fcr.2015.12.008&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a>.</p>
 <p>The implementation in this package contains a few additions to the above cited version of ModVege, such as simulations of management decisions, and influences of snow cover. As such, the model is fit to simulate grass growth in mountainous regions, such as the Swiss Alps.</p>
 <p>The package also contains routines for calibrating the model and helpful tools for analysing model outputs and performance.</p>
 <div class="section level2">
@@ -191,7 +191,7 @@ growR                   Tutorial (source, html)
 <div class="section level2">
 <h2 id="contact">Contact<a class="anchor" aria-label="anchor" href="#contact"></a>
 </h2>
-<p><a href="https://www.physik.uzh.ch/~kekram" class="external-link">Kevin Kramer</a>: <a href="mailto:kevin.pasqual.kramer@protonmail.ch" class="email">kevin.pasqual.kramer@protonmail.ch</a></p>
+<p><a href="https://www.physik.uzh.ch/~kekram/" class="external-link">Kevin Kramer</a>: <a href="mailto:kevin.pasqual.kramer@protonmail.ch" class="email">kevin.pasqual.kramer@protonmail.ch</a></p>
 </div>
 <div class="section level2">
 <h2 id="glossary">Glossary<a class="anchor" aria-label="anchor" href="#glossary"></a>
@@ -251,7 +251,7 @@ growR                   Tutorial (source, html)
 <ul class="list-unstyled">
 <li><a href="https://kuadrat.github.io/growR/"><img src="https://badgen.net/badge/Documentation/github.io/cyan" alt="Documentation"></a></li>
 <li><a href="https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/kuadrat/growR" class="external-link"><img src="https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV" alt="codecov"></a></li>
+<li><a href="https://app.codecov.io/gh/kuadrat/growR" class="external-link"><img src="https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV" alt="codecov"></a></li>
 </ul>
 </div>
 
