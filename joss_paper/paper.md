@@ -34,7 +34,7 @@ of other ecosystem services, such as water flow and erosion regulation,
 pollination service, carbon sequestration and climate regulation 
 [@zhao2020GrasslandEcosystemServices].
 The latter two examples have radically grown in urgency in light of 
-anthropogenic climate change [@IPCC-2002-Chapter05].
+anthropogenic climate change [@IPCC2002Chapter05].
 
 There is thus ample motivation to study the properties and dynamics of 
 grasslands.
@@ -50,18 +50,18 @@ and thus comes with its own focal points and a set of advantages and
 disadvantages.
 To give just a few examples:
 
-- [The Hurley Pasture Model](@thornley1997TemperateGrasslandResponses) is a 
+- [The Hurley Pasture Model](thornley1997TemperateGrasslandResponses) is a 
   rather complete and detailed mechanistic model for managed pastures.
 - [RothC](https://www.rothamsted.ac.uk/rothamsted-carbon-model-rothc) was 
   developed for the long-term 
-  [Rothamsted Parkgrass Experiment](@jenkinson1994TrendsHerbageYields) and 
+  [Rothamsted Parkgrass Experiment](jenkinson1994TrendsHerbageYields) and 
   thus uses comparatively long time scales with a focus on the carbon balance.
-- [ModVege](@jouven2006ModelPredictingDynamics) is another mechanistic model 
+- [ModVege](jouven2006ModelPredictingDynamics) is another mechanistic model 
   that is designed to capture the dominant processes with a minimum of 
   required input parameters.
-- [The Moorepark St Gilles](@ruelle2018DevelopmentMooreparkSt) and 
-  [Gras-sim](@kokah2023ModelingDailyDynamics) models both extend 
-  [ModVege](@jouven2006ModelPredictingDynamics) by adding more processes and 
+- [The Moorepark St Gilles](ruelle2018DevelopmentMooreparkSt) and 
+  [Gras-sim](kokah2023ModelingDailyDynamics) models both extend 
+  [ModVege](jouven2006ModelPredictingDynamics) by adding more processes and 
   therefore complexity.
 
 The different existing grassland models vary in their formulation, but also 
