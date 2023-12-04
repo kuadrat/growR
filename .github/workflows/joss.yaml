@@ -21,4 +21,4 @@ jobs:
           name: paper
           # This is the output path where Pandoc will write the compiled
           # PDF. Note, this should be the same directory as the input
-          path: joss_paper/paper.md
+          path: joss_paper/paper.pdf
