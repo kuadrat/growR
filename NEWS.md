@@ -1,3 +1,19 @@
+# growR 1.1.0.9000
+
+## Added
+
+* Green biomass has a lower bound defined by a minimum grass height. This is 
+  to prevent the population from completely dying out and effectively 
+  simulates reserves.
+
+## Changed
+
+* The start of the growing season is now determined by the *multicriterial 
+  thermal definition* as described in chapter 2.3.1.3 of the dissertation of 
+  Andreas Schaumberger:
+  *Räumliche Modelle zur Vegetations- und Ertragsdynamik im 
+  Wirtschaftsgrünland*, 2011, ISBN-13: 978-3-902559-67-8
+
 # growR 1.1.0
 
 ## Added
