@@ -1,4 +1,4 @@
-# growR 1.1.0.9000
+# growR 1.2.0
 
 ## Added
 
