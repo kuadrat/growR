@@ -170,7 +170,7 @@ ModvegeSite = R6Class(
 #' @field stubble_height float. Minimum height the grass can assume. The 
 #'    biomass will not fall below that height. This can and should therefore 
 #'    be smaller than `self$cut_height`.
-      stubble_heigt = 0.05,
+      stubble_height = 0.05,
 
   #-Public-methods----------------------------------------------------------------
 
@@ -755,7 +755,7 @@ ModvegeSite = R6Class(
                                            min_daily_temperature = 2.,
                                            inner_window_width = 5,
                                            outer_window_width = 10,
-                                           first_possible_DOY = 1,
+                                           first_possible_DOY = 30,
                                            consider_snow = FALSE,
                                            critical_snow = 1.) {
       W = self$get_weather()
@@ -841,7 +841,11 @@ ModvegeSite = R6Class(
       self$LAIGV[j] = P$SLA * P$pcLAM * self$BMGVp / 10.
 
       # Increase temperature sum
-      self$ST[j] = self$STp + max(W$Ta[j], 0) * self$time_step
+      if (j >= self$j_start_of_growing_season) {
+        self$ST[j] = self$STp + max(W$Ta[j], 0) * self$time_step
+      } else {
+        self$ST[j] = self$STp
+      }
 
       # LAI for computing AET
       LAI.ET = P$SLA * P$pcLAM * (self$BMGVp + self$BMGRp) / 10.
@@ -1165,6 +1169,12 @@ ModvegeSite = R6Class(
         parameter_value = self$parameters[[name]]
         header = sprintf("%s\n#%s;%s", header, name, parameter_value)
       }
+      # Add additional info
+      for (name in c("j_start_of_growing_season")) {
+        value = self[[name]]
+        header = sprintf("%s\n#%s;%s", header, name, value)
+      }
+
       # Finally, for double consistency, simulation year, site and run names
       header = sprintf("%s\n#year;%s\n#site_name;%s\n#run_name;%s", 
                        header, self$year, self$site_name, self$run_name)

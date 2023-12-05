@@ -1,4 +1,14 @@
-# growR 1.1.0.9000
+# growR 1.2.0.9000
+
+## Added
+
+* `j_start_of_growing_season` is written to output file headers.
+
+## Changed
+
+* Temperature sum is only increased once growing season has started.
+
+# growR 1.2.0
 
 ## Added
 

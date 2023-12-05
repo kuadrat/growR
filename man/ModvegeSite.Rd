@@ -177,15 +177,6 @@ be smaller than \code{self$cut_height}.}
 }
 \if{html}{\out{</div>}}
 }
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{stubble_height}}{float. Minimum height the grass can assume. The
-biomass will not fall below that height. This can and should therefore
-be smaller than \code{self$cut_height}.}
-}
-\if{html}{\out{</div>}}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
