@@ -127,45 +127,47 @@ ModvegeSite = R6Class(
 #' @field cut_during_growth_preriod Boolean to indicate whether a cut 
 #'   occurred during the growth period, in which case reproductive growth is 
 #'   stopped.
-      cut_during_growth_preriod = NULL,
-#' @field last_DOY_for_initial_cut **autocut** Start cutting after this DOY, 
+     cut_during_growth_preriod = NULL,
+#' @field last_DOY_for_initial_cut [autocut] Start cutting after this DOY, 
 #'   even if yield target is not reached.
       last_DOY_for_initial_cut = 150,
-#' @field max_cut_period **autocut** Maximum period to wait between 
+#' @field max_cut_period [autocut] Maximum period to wait between 
 #'   subsequent cuts.
       max_cut_period = 55,
-#' @field dry_precipitation_limit **autocut** Maximum amount of allowed 
+#' @field dry_precipitation_limit [autocut] Maximum amount of allowed 
 #'   precipitation (mm) to consider a day.
       dry_precipitation_limit = 1,
-#' @field dry_days_before_cut **autocut** Number of days that shold be dry 
+#' @field dry_days_before_cut [autocut] Number of days that shold be dry 
 #'   before a cut is made.
       dry_days_before_cut = 1,
-#' @field dry_days_after_cut **autocut** Number of days that shold be dry 
+#' @field dry_days_after_cut [autocut] Number of days that shold be dry 
 #'   after a cut is made.
       dry_days_after_cut = 2,
-#' @field max_cut_delay **autocut** Number of days a farmer is willing to 
+#' @field max_cut_delay [autocut] Number of days a farmer is willing to 
 #'   wait for dry conditions before a cut is made anyways.
       max_cut_delay = 5,
-#' @field cut_delays **autocut** Vector to keep track of cut delay times.
+#' @field cut_delays [autocut] Vector to keep track of cut delay times.
 #'   wait for dry conditions before a cut is made anyways.
       cut_delays = c(0),
-#' @field dry_window **autocut** Logical that indicates if DOY at index is 
+#' @field dry_window [autocut] Logical that indicates if DOY at index is 
 #'   considered dry enough to cut.
       dry_window = NULL,
-#' @field target_biomass **autocut** Biomass amount that should to be reached 
+#' @field target_biomass [autocut] Biomass amount that should to be reached 
 #'   by given DOY for a cut to be made.
       target_biomass = NULL,
-#' @field end_of_cutting_season **autocut** Determined DOY after which no 
+#' @field end_of_cutting_season [autocut] Determined DOY after which no 
 #'   more cuts are made.
       end_of_cutting_season = NULL,
-#' @field BM_after_cut **autocut** Amount of biomass that remains after a cut 
+#' @field BM_after_cut [autocut] Amount of biomass that remains after a cut 
 #'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
 #'   BDDR).
       BM_after_cut = NULL,
-#' @field weather A [WeatherData] object.
+#' @field weather A list created by a [WeatherData] object's 
+#'   `get_weather_for_year()` method.
       weather = NULL,
-#' @field management A [ManagementData] object. If its `is_empty` field is `TRUE`, 
-#'   the autocut routine will be employed.
+#' @field management A list containing management data as returned by 
+#'    [ModvegeEnvironment]'s `get_environment_for_year()` method. If its 
+#'    `is_empty` field is `TRUE`, the [autocut] routine will be employed.
       management = NULL,
 #' @field stubble_height float. Minimum height the grass can assume. The 
 #'    biomass will not fall below that height. This can and should therefore 
@@ -320,7 +322,7 @@ ModvegeSite = R6Class(
       #'
       #' @param DOY Integer day of the year to consider.
       #' @param intensity One of ("high", "middle", "low") specifying 
-      #'   management intensity..
+      #'   management intensity.
       #' @return target Biomass (kg / ha) that should be reached on day *DOY* 
       #'   for this management *intensity*.
       #'
