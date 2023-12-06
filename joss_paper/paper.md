@@ -80,26 +80,52 @@ the [source code freely and openly
 available](https://github.com/kuadrat/growr) and thus presents a contribution 
 to the above formulated need for reproducible practices in ecosystems modelling.
 
+# Package Description
 
-# Citations
+The origin of `growR` lies in an existing, unpublished `R` implementation of 
+the same vegetation model.
+This original code base has been used to simulate grass growth dynamics and 
+the effects of drought in Switzerland [@calanca2016TestingAbilitySimple].
+It has since been refactored into an `R` package which is currently being 
+used to investigate the impacts of climate change on Swiss agriculture in the 
+framework of the [National Center for Climate Services](https://www.nccs.admin.ch/nccs/de/home/klimawandel-und-auswirkungen/nccs-impacts.html)' 
+*Impacts* program.
 
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
+The `growR` package contains classes which define data structures and 
+functionalities for parsing the model inputs, carrying out the simulation 
+grass growth simulations and providing different forms of output.
+These classes and their functionalities are wrapped in high level functions 
+which streamline the most common use cases.
+In addition to this core functionality, the package contains utilities for 
+some common tasks that arise in ecosystem modeling, like setting up a clean 
+directory structure, assessing model performance when compared to a set of 
+validation data and carrying out sweeps over parameter space in order to aid 
+model calibration.
 
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
+## Model Extensions
 
-# Figures
+The core model implementation follows the description by 
+@jouven2006ModelPredictingDynamics but it contains a number of extensions 
+that have proven to be useful.
+Use of all of these extensions is completely optional, so the user is free to 
+work with the model in its original formulation or with any combination of 
+the provided extensions.
+These additions include:
 
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
+- A cut decision algorithm, which allows the model to simulate management 
+  decisions in the absence of such input data. The decision process is based 
+  on work by @petersen2021DynamicSimulationManagement and 
+  @huguenin_elie2017DuengungGrasland.
+- Plant responses to elevated CO~2~ conditions. The evapotranspiration 
+  [@kruijt2008EffectsRisingAtmospheric] and photosynthetic rates 
+  [@soltani2012ModelingPhysiologyCrop, @kellner2017CoupledHydrologicalplantGrowth] 
+  of plants can be modified by the atmospheric CO~2~ concentration.
+- The multicriterial thermal definition as described in Chapter 2.3.1.3 of 
+  @schaumberger2011RaeumlicheModelleZur is used in order to determine the 
+  start of the growing season.
+- All model parameters default to the values provided by 
+  @jouven2006ModelPredictingDynamics, but are accessible to adjustments by 
+  the user.
 
 # Acknowledgements
 
