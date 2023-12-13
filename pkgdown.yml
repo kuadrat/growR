@@ -10,7 +10,7 @@ articles:
   weather_parameters: children/weather_parameters.html
   growR: growR.html
   parameter_descriptions: parameter_descriptions.html
-last_built: 2023-11-24T15:29Z
+last_built: 2023-12-13T11:02Z
 urls:
   reference: https://kuadrat.github.io/growR/reference
   article: https://kuadrat.github.io/growR/articles

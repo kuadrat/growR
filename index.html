@@ -142,16 +142,29 @@
 <li>you want to get access to the cutting edge version, which may have changes not yet available on the CRAN version but is also likely less stable,</li>
 <li>for some reason installation from CRAN is not an option for you.</li>
 </ul>
-<p>In this case,</p>
-<ol style="list-style-type: decimal">
-<li>
-<p>Start by cloning this repository” <code>$ git clone git@github.com:kuadrat/growR.git</code> or via https: <code>$ git clone https://github.com/kuadrat/growR.git</code> This will create a directory <code>growR</code> in your file system.</p>
+<p>In this case, start by cloning this repository</p>
+<pre><code>$ git clone git@github.com:kuadrat/growR.git</code></pre>
+<p>or via https:</p>
+<pre><code>$ git clone https://github.com/kuadrat/growR.git</code></pre>
+<p>This will create a directory <code>growR</code> in your file system.</p>
 <p>If you don’t have or don’t want to use <em>git</em>, you could alternatively copy the source code as a .zip file from <a href="https://github.com/kuadrat/growR/archive/refs/heads/master.zip" class="external-link">github</a>. Unzip the contents into a directory <code>growR</code>.</p>
-</li>
-<li><p>You can now install <em>growR</em> by issuing the following at the prompt of an <code>R</code> session: <code>install.packages("/full/path/to/growR", repos = NULL)</code> You should replace <code>"/full/path/to/"</code> with the actual path to the <code>growR</code> directory on your computer. Also, replace slashes (<code>/</code>) with backslashe (<code>\</code>) if you’re on Windows.</p></li>
-</ol>
-<p><code>growR</code> should now be installed and available in <code>R</code> through <code><a href="https://github.com/kuadrat/growR" class="external-link">library(growR)</a></code>.</p>
-<p>If you make changes to the source files in the <code>growR</code> directory, just uninstall the current version (issue <code>remove.packages("growR")</code> in <code>R</code>) and repeat step 2 above.</p>
+<div class="section level4">
+<h4 id="alternative-a">Alternative A<a class="anchor" aria-label="anchor" href="#alternative-a"></a>
+</h4>
+<p>You can now install your local version of <em>growR</em> by issuing the following at the prompt of an <code>R</code> session:</p>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"/full/path/to/growR"</span>, repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre>
+<p>You should replace <code>"/full/path/to/"</code> with the actual path to the <code>growR</code> directory on your computer. Also, replace slashes (<code>/</code>) with backslashe (<code>\</code>) if you’re on Windows.</p>
+<p><code>growR</code> should now be installed and available in <code>R</code> through <code><a href="https://github.com/kuadrat/growR" class="external-link">library(growR)</a></code>.<br>
+If you make changes to the source files in the <code>growR</code> directory, just uninstall the current version (issue <code>remove.packages("growR")</code> in <code>R</code>) and repeat this step.</p>
+</div>
+<div class="section level4">
+<h4 id="alternative-b">Alternative B<a class="anchor" aria-label="anchor" href="#alternative-b"></a>
+</h4>
+<p>If you make frequent changes to the code, it might be unpractical to uninstall and reinstall the changed version each time. In that case, <code>devtools</code> comes in very handy (if needed, install it with <code>install.packages("devtools")</code>). It allows you to load a package into an active <code>R</code> session without the need of it being properly installed. The following has practically the equivalent result as the method described in <a href="#alternative-a">alternative A</a>:</p>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="st">"/full/path/to/growR"</span><span class="op">)</span></span></code></pre>
+<p>The notes about <code>"/full/path/to"</code> as in <a href="#alternative-a">Alternative A</a> apply here as well.</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="non-package-version">Non-package version<a class="anchor" aria-label="anchor" href="#non-package-version"></a>
