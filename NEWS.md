@@ -3,6 +3,7 @@
 ## Added
 
 * `j_start_of_growing_season` is written to output file headers.
+* Output file header contains `cut_DOYs`.
 
 ## Changed
 

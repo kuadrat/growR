@@ -1172,8 +1172,12 @@ ModvegeSite = R6Class(
         header = sprintf("%s\n#%s;%s", header, name, parameter_value)
       }
       # Add additional info
-      for (name in c("j_start_of_growing_season")) {
+      for (name in c("j_start_of_growing_season", "cut_DOYs")) {
         value = self[[name]]
+        # Handle vectors
+        if (length(value) > 1) {
+          value = paste0(value, collapse = ", ")
+        }
         header = sprintf("%s\n#%s;%s", header, name, value)
       }
 
