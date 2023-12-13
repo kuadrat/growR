@@ -126,7 +126,7 @@ These additions include:
 - A cut decision algorithm, which allows the model to simulate management 
   decisions in the absence of such input data. The decision process is based 
   on work by @petersen2021DynamicSimulationManagement and 
-  @huguenin_elie2017DuengungGrasland.
+  @huguenin-elie2017DuengungGrasland.
 - Plant responses to elevated CO~2~ conditions: The evapotranspiration 
   [@kruijt2008EffectsRisingAtmospheric] and photosynthetic rates 
   [@soltani2012ModelingPhysiologyCrop; @kellner2017CoupledHydrologicalplantGrowth] 
