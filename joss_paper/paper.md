@@ -61,7 +61,7 @@ To give just a few examples:
   interactions in grass/clover mixtures.
 - The focus of PaSim [@graux2011DevelopmentPastureSimulation] is the 
   investigation of livestock production under climate change conditions.
-- ModVege [@jouven2006ModelPredictingDynamics] is another mechanistic model 
+- ModVege [@jouven2006ModelPredictingDynamics] is a mechanistic model 
   that is designed to capture the dominant processes with a minimum of 
   required input parameters.
 - The Moorepark St Gilles [@ruelle2018DevelopmentMooreparkSt] and 
@@ -152,7 +152,7 @@ quality and documentation through CRAN's submission policies.
 
 The work of K.P.K. has been supported by 
 [Agroscope](https://www.agroscope.admin.ch/), the [National Center for 
-Climate Sevices (NCCS)](https://www.nccs.admin.ch/nccs/de/home.html) and the 
+Climate Sevices](https://www.nccs.admin.ch/nccs/de/home.html) and the 
 [Federal Office for Agriculture](https://www.blw.admin.ch/blw/en/home.html).
 
 # References
