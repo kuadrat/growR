@@ -38,24 +38,28 @@ anthropogenic climate change [@IPCC2022Chapter05].
 
 There is thus ample motivation to study the properties and dynamics of 
 grasslands.
-Experimental approaches, while of fundamental importance, suffer from high 
-costs in time resources required, as a study site typically has to be maintained 
-over several years in order to make a scientific observation.
-For this reason, the method of investigating grassland dynamics by means of 
-mathematical models and simulatory approaches has found widespread 
-application, with dozens of models being formulated, employed and further 
-developed.
-Each of these models has been developed with different applications in mind 
+Mathematical models offer an efficient pathway to investigating grassland 
+dynamics.
+Additionally, such models can be employed in agricultural and political 
+decision support systems, see e.g. [GrazPlan](https://grazplan.csiro.au/) 
+[@moore1997GRAZPLANDecisionSupport].
+Simulatory approaches have therefore found widespread application, with 
+dozens of models being formulated, employed and further developed.
+Each of these models has been created with different applications in mind 
 and thus comes with its own focal points and a set of advantages and 
 disadvantages.
 To give just a few examples:
 
-- The Hurley Pasture Model [@thornley1997TemperateGrasslandResponses] is a 
-  rather complete and detailed mechanistic model for managed pastures.
-- [RothC](https://www.rothamsted.ac.uk/rothamsted-carbon-model-rothc) was 
-  developed for the long-term 
-  Rothamsted Parkgrass Experiment [@jenkinson1994TrendsHerbageYields] and 
-  thus uses comparatively long time scales with a focus on the carbon balance.
+- The [Hurley Pasture Model](https://sites.massey.ac.nz/hurleypasturemodel/hurley-pasture-model/)[@thornley1998GrasslandDynamicsEcosystem]
+  is a rather complete and detailed mechanistic model for managed pastures.
+- [BASGRA](https://github.com/davcam/BASGRA/) [@hoglind2020BASGRAModelGrassland] 
+  and its descendant [BASGRA_N](https://github.com/MarcelVanOijen/BASGRA_N) 
+  [@vanoijen2015BASGRA_2014] are multi-year grassland models which 
+  prominently include tiller dynamics.
+- PROGRASS [@lazzarotto2009DynamicsGrassClover] was developed to capture the 
+  interactions in grass/clover mixtures.
+- The focus of PaSim [@graux2011DevelopmentPastureSimulation] is the 
+  investigation of livestock production under climate change conditions.
 - ModVege @[jouven2006ModelPredictingDynamics] is another mechanistic model 
   that is designed to capture the dominant processes with a minimum of 
   required input parameters.
@@ -115,6 +119,10 @@ work with the model in its original formulation or with any combination of
 the provided extensions.
 These additions include:
 
+- Simulation of snow cover by use of a model by 
+  @kokkonen2006ConstructionDegreedaySnow and 
+  @rango1995RevisitingDegreeDayMethod, important when modelling grassland in 
+  mountainous regions.
 - A cut decision algorithm, which allows the model to simulate management 
   decisions in the absence of such input data. The decision process is based 
   on work by @petersen2021DynamicSimulationManagement and 
@@ -139,6 +147,13 @@ implementation complete with analysis tools and utilities.
 The distribution as an `R` package on [CRAN](https://cran.r-project.org/) 
 ensures an easy installation procedure and a relatively high standard of code 
 quality and documentation through CRAN's submission policies.
+
+# Acknowledgements
+
+The work of K.~K. has been supported by 
+[Agroscope](https://www.agroscope.admin.ch/), the [National Center for 
+Climate Sevices (NCCS)[https://www.nccs.admin.ch/nccs/de/home.html] and the 
+[Federal Office for Agriculture](https://www.blw.admin.ch/blw/en/home.html).
 
 # References
 

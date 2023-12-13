@@ -20,6 +20,13 @@
 #' These parameters are stored in this object in the respective `PARAM_vec` 
 #' fields.
 #' 
+#' # Snow model
+#'
+#' The precipitation and temperature inputs are used in order to estimate the 
+#' snow cover for each day by use of a snow model.
+#' The employed model is as formulated by Kokkonen et al. 2006 and makes use 
+#' of parameters from Rango and Martinec, 1995.
+#'
 #' @field weather_file Name of provided weather data file.
 #' @field years numeric Integer representation of the contained years.
 #' @field vec_size Length of the PARAM_vec vectors, which is equal to *number 
@@ -40,6 +47,10 @@
 #'   - melt
 #'   - snow
 #'   - ndays (number of days in this year)
+#'
+#' @references
+#' \insertRef{rango1995RevisitingDegreeDayMethod}{growR}
+#' \insertRef{kokkonen2006ConstructionDegreedaySnow}{growR}
 #'
 #' @md
 #' @export
@@ -137,9 +148,9 @@ WeatherData = R6Class(
       T_melt = -1.
       # melt coefficient [mm C-1 d-1] (Rango and Martinec, 1995)
       C_melt = 3.
-      # freeze coefficient [mm C-1 d-1] (Kokkonen et al, ??)
+      # freeze coefficient [mm C-1 d-1] (Kokkonen et al, 2006)
       C_freeze = 0.05
-      # liquid water retention coeff. (Kokkonen et al, ??)
+      # liquid water retention coeff. (Kokkonen et al, 2006)
       C_retention = 0.25   
 
       liquidP_vec = (1./(1. + exp(-1.5*(Ta_vec - 2.)))) * PP_vec
