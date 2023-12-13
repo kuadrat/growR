@@ -13,6 +13,7 @@ authors:
     affiliation: 1
     corresponding: true # (This is how to denote the corresponding author)
   - name: Pierluigi Calanca
+    orcid: 0000-0003-3113-2885
     equal-contrib: true
     affiliation: 1
 affiliations:
@@ -60,7 +61,7 @@ To give just a few examples:
   interactions in grass/clover mixtures.
 - The focus of PaSim [@graux2011DevelopmentPastureSimulation] is the 
   investigation of livestock production under climate change conditions.
-- ModVege @[jouven2006ModelPredictingDynamics] is another mechanistic model 
+- ModVege [@jouven2006ModelPredictingDynamics] is another mechanistic model 
   that is designed to capture the dominant processes with a minimum of 
   required input parameters.
 - The Moorepark St Gilles [@ruelle2018DevelopmentMooreparkSt] and 
@@ -69,10 +70,9 @@ To give just a few examples:
   but introducing more complexity.
 
 The different existing grassland models vary in their formulation, but also 
-in the manner in which they are implemented and distributed, ranging from  
-incoherent sets of zipped script files being shared bilaterally among 
-researchers to professionally developed and maintained (open or closed) 
-software suites.
+in the manner in which they are implemented and distributed, ranging from 
+sets of zipped script files being shared bilaterally among researchers to 
+professionally developed and maintained (open or closed) software suites.
 With this large variability in implemented models, version control, 
 transparency and clear traceability of employed model implementations becomes 
 critical for the reproduction of scientific results.
@@ -104,7 +104,7 @@ simulations and providing different forms of output.
 These classes and their functionalities are wrapped in high level functions 
 which streamline the most common use cases.
 In addition to this core functionality, the package contains utilities for 
-some common tasks that arise in ecosystem modeling (and beyond), like setting 
+some common tasks that arise in ecosystem modelling (and beyond), like setting 
 up a clean directory structure, assessing model performance when compared to 
 a set of validation data and carrying out sweeps over parameter space in 
 order to aid model calibration.
@@ -114,9 +114,9 @@ order to aid model calibration.
 The core model implementation follows the description by 
 @jouven2006ModelPredictingDynamics but it contains a number of extensions 
 that have proven valuable.
-Use of any of these additions is completely optional, so the user is free to 
-work with the model in its original formulation or with any combination of 
-the provided extensions.
+Use of any of these additions is optional, so the user is free to work with 
+the model in its original formulation or with any combination of the provided 
+extensions.
 These additions include:
 
 - Simulation of snow cover by use of a model by 
@@ -127,7 +127,7 @@ These additions include:
   decisions in the absence of such input data. The decision process is based 
   on work by @petersen2021DynamicSimulationManagement and 
   @huguenin_elie2017DuengungGrasland.
-- Plant responses to elevated CO~2~ conditions. The evapotranspiration 
+- Plant responses to elevated CO~2~ conditions: The evapotranspiration 
   [@kruijt2008EffectsRisingAtmospheric] and photosynthetic rates 
   [@soltani2012ModelingPhysiologyCrop; @kellner2017CoupledHydrologicalplantGrowth] 
   of plants can be modified by the atmospheric CO~2~ concentration.
@@ -142,7 +142,7 @@ Publications discussing and validating these extensions are in preparation.
 
 # Conclusion
 
-The `growR` package enhances the grassland modeling landscape with a model 
+The `growR` package enhances the grassland modelling landscape with a model 
 implementation complete with analysis tools and utilities.
 The distribution as an `R` package on [CRAN](https://cran.r-project.org/) 
 ensures an easy installation procedure and a relatively high standard of code 
@@ -150,9 +150,9 @@ quality and documentation through CRAN's submission policies.
 
 # Acknowledgements
 
-The work of K.~K. has been supported by 
+The work of K.P.K. has been supported by 
 [Agroscope](https://www.agroscope.admin.ch/), the [National Center for 
-Climate Sevices (NCCS)[https://www.nccs.admin.ch/nccs/de/home.html] and the 
+Climate Sevices (NCCS)](https://www.nccs.admin.ch/nccs/de/home.html) and the 
 [Federal Office for Agriculture](https://www.blw.admin.ch/blw/en/home.html).
 
 # References
