@@ -9,3 +9,4 @@ data-raw
 ^Meta$
 ^codecov\.yml$
 ^.run_codecov.R$
+^LICENSE\.md$
