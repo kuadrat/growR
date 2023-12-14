@@ -17,7 +17,7 @@ authors:
     equal-contrib: true
     affiliation: 1
 affiliations:
- - name: Agroscope, Federal Department of Economic Affairs, Education and Research, Switzerland
+ - name: Agroscope, Climate and Agriculture Group, Reckenholzstrasse 191, CH-8046 Zürich, Switzerland
    index: 1
 date: 13 December 2023
 bibliography: paper.bib
@@ -30,33 +30,32 @@ Grasslands constitute one of Earth's most widespread terrestrial ecosystems
 [@zhao2020GrasslandEcosystemServices] and managed grasslands are a core 
 element in global agriculture, providing roughly half the feed inputs for 
 global livestock systems [@herrero2013BiomassUseProduction].
-Beside their importance for global food production, they provide a catalogue 
+Beside their contribution to global food production, they provide a catalogue 
 of other ecosystem services, such as water flow and erosion regulation, 
 pollination service, carbon sequestration and climate regulation 
 [@zhao2020GrasslandEcosystemServices].
-The latter two examples have radically grown in urgency in light of 
-anthropogenic climate change [@IPCC2022Chapter05].
+The latter have become particularly important in light of anthropogenic 
+climate change [@IPCC2022Chapter05].
 
 There is thus ample motivation to study the properties and dynamics of 
 grasslands.
-Mathematical models offer an efficient pathway to investigating grassland 
-dynamics.
+Mathematical models are widely used to assess climate change impacts on 
+grassland functioning.
 Additionally, such models can be employed in agricultural and political 
-decision support systems, see e.g. [GrazPlan](https://grazplan.csiro.au/) 
+decision support, see e.g. [GrazPlan](https://grazplan.csiro.au/) 
 [@moore1997GRAZPLANDecisionSupport].
-Simulatory approaches have therefore found widespread application, with 
-dozens of models being formulated, employed and further developed.
+Dozens of models have been formulated and tested in recent decades.
 Each of these models has been created with different applications in mind 
 and thus comes with its own focal points and a set of advantages and 
 disadvantages.
 To give just a few examples:
 
 - The [Hurley Pasture Model](https://sites.massey.ac.nz/hurleypasturemodel/hurley-pasture-model/)[@thornley1998GrasslandDynamicsEcosystem]
-  is a rather complete and detailed mechanistic model for managed pastures.
-- [BASGRA](https://github.com/davcam/BASGRA/) [@hoglind2020BASGRAModelGrassland] 
+  is a detailed mechanistic model for managed pastures.
+- [BASGRA](https://github.com/davcam/BASGRA/) [@vanoijen2015BASGRA_2014] 
   and its descendant [BASGRA_N](https://github.com/MarcelVanOijen/BASGRA_N) 
-  [@vanoijen2015BASGRA_2014] are multi-year grassland models which 
-  prominently include tiller dynamics.
+  [@hoglind2020BASGRAModelGrassland] are multi-year grassland models which 
+  include tiller dynamics.
 - PROGRASS [@lazzarotto2009DynamicsGrassClover] was developed to capture the 
   interactions in grass/clover mixtures.
 - The focus of PaSim [@graux2011DevelopmentPastureSimulation] is the 
@@ -65,17 +64,17 @@ To give just a few examples:
   that is designed to capture the dominant processes with a minimum of 
   required input parameters.
 - The Moorepark St Gilles [@ruelle2018DevelopmentMooreparkSt] and 
-  Gras-sim [@kokah2023ModelingDailyDynamics] models both extend 
-  ModVege by adding more processes, addressing some of ModVege's shortcomings 
-  but introducing more complexity.
+  Gras-sim [@kokah2023ModelingDailyDynamics] models both extend ModVege in 
+  terms of soil water and nitrogen dynamics and management.
 
-The different existing grassland models vary in their formulation, but also 
-in the manner in which they are implemented and distributed, ranging from 
-sets of zipped script files being shared bilaterally among researchers to 
-professionally developed and maintained (open or closed) software suites.
+The existing grassland models vary not only in their formulation and 
+structural complexity, but also in the manner in which they are implemented 
+and distributed, ranging from sets of zipped script files being shared 
+bilaterally among researchers to professionally developed and maintained 
+(open or closed) software suites.
 With this large variability in implemented models, version control, 
 transparency and clear traceability of employed model implementations becomes 
-critical for the reproduction of scientific results.
+challenging, which is detrimental for the reproduction of scientific results.
 
 This paper describes the software package `growR`.
 `growR` is an implementation of the vegetation model 
@@ -130,9 +129,8 @@ These additions include:
   [@kruijt2008EffectsRisingAtmospheric] and photosynthetic rates 
   [@soltani2012ModelingPhysiologyCrop; @kellner2017CoupledHydrologicalplantGrowth] 
   of plants can be modified by the atmospheric CO~2~ concentration.
-- The multicriterial thermal definition as described in Chapter 2.3.1.3 of 
-  @schaumberger2011RaeumlicheModelleZur is used in order to determine the 
-  start of the growing season.
+- Use of the multicriterial thermal definition of the growing season, as 
+  proposed by @schaumberger2011RaeumlicheModelleZur.
 - All model parameters default to the values provided by 
   @jouven2006ModelPredictingDynamics, but are accessible to adjustments by 
   the user.
