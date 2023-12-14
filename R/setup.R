@@ -109,8 +109,7 @@ Continue? [y/N]"
     }
   }
   # Finally, files that should go to the growR working dir
-  filenames = c(file.path(extdata, "example_config.txt"),
-                file.path(scripts, "compare.R"))
+  filenames = c(file.path(extdata, "example_config.txt"))
   destination = file.path(full_path)
   for (filename in filenames) {
     origins = c(origins, filename)
