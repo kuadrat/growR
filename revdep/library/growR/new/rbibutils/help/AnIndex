@@ -1,0 +1,10 @@
+rbibutils-package	rbibutils-package
+bibConvert	bibConvert
+charToBib	readBib
+rbibutils	rbibutils-package
+rbibutils_formats	rbibutils_formats
+readBib	readBib
+readBibentry	readBibentry
+register_JSSextra	register_JSSextra
+writeBib	readBib
+writeBibentry	readBibentry

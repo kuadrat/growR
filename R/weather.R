@@ -50,6 +50,7 @@
 #'
 #' @references
 #' \insertRef{rango1995RevisitingDegreeDayMethod}{growR}
+#'
 #' \insertRef{kokkonen2006ConstructionDegreedaySnow}{growR}
 #'
 #' @md

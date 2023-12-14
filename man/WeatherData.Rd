@@ -30,6 +30,18 @@ These parameters are stored in this object in the respective \code{PARAM_vec}
 fields.
 }
 
+\section{Snow model}{
+The precipitation and temperature inputs are used in order to estimate the
+snow cover for each day by use of a snow model.
+The employed model is as formulated by Kokkonen et al. 2006 and makes use
+of parameters from Rango and Martinec, 1995.
+}
+
+\references{
+\insertRef{rango1995RevisitingDegreeDayMethod}{growR}
+
+\insertRef{kokkonen2006ConstructionDegreedaySnow}{growR}
+}
 \seealso{
 \link{WeatherData}\verb{$read_weather()}
 }

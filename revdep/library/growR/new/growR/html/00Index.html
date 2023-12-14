@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Implementation of the Vegetation Model ModVege</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Implementation of the Vegetation Model ModVege
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;growR&rsquo; version 1.1.0.9000</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="aCO2_inverse.html">aCO2_inverse</a></td>
+<td>Concentration representative year</td></tr>
+<tr><td style="width: 25%;"><a href="add_lines.html">add_lines</a></td>
+<td>Add data to a ggplot</td></tr>
+<tr><td style="width: 25%;"><a href="analyze_parameter_scan.html">analyze_parameter_scan</a></td>
+<td>Analyze results of a parameter scan</td></tr>
+<tr><td style="width: 25%;"><a href="append_to_table.html">append_to_table</a></td>
+<td>Write *data* to supplied file in append mode without generating a warning message.</td></tr>
+<tr><td style="width: 25%;"><a href="atmospheric_CO2.html">atmospheric_CO2</a></td>
+<td>Atmospheric CO2 concentration</td></tr>
+<tr><td style="width: 25%;"><a href="autocut.html">autocut</a></td>
+<td>autocut</td></tr>
+<tr><td style="width: 25%;"><a href="box_smooth.html">box_smooth</a></td>
+<td>Endpoint smoother</td></tr>
+<tr><td style="width: 25%;"><a href="browse.html">browse</a></td>
+<td>Debugging utilities</td></tr>
+<tr><td style="width: 25%;"><a href="browse.html">browse_end</a></td>
+<td>Debugging utilities</td></tr>
+<tr><td style="width: 25%;"><a href="build_functional_group.html">build_functional_group</a></td>
+<td>Build the effective functional group as a weighted linear combination.</td></tr>
+<tr><td style="width: 25%;"><a href="check_for_package.html">check_for_package</a></td>
+<td>Check if *package* is available</td></tr>
+<tr><td style="width: 25%;"><a href="Combinator.html">Combinator</a></td>
+<td>Combinator</td></tr>
+<tr><td style="width: 25%;"><a href="compare.R.html">compare.R</a></td>
+<td>Compare simulation results</td></tr>
+<tr><td style="width: 25%;"><a href="create_combinations.html">create_combinations</a></td>
+<td>Create Valid Combinations</td></tr>
+<tr><td style="width: 25%;"><a href="create_example_environment.html">create_example_environment</a></td>
+<td>Provide an example ModvegeEnvironment</td></tr>
+<tr><td style="width: 25%;"><a href="ensure_table_columns.html">ensure_table_columns</a></td>
+<td>Check if supplied table contains all *required* variables.</td></tr>
+<tr><td style="width: 25%;"><a href="ensure_unique_filename.html">ensure_unique_filename</a></td>
+<td>Replace given filename by a version that contains an incremental number in order to prevent overwriting existing files.</td></tr>
+<tr><td style="width: 25%;"><a href="fCO2_growth_mod.html">fCO2_growth_mod</a></td>
+<td>CO2 growth modifier</td></tr>
+<tr><td style="width: 25%;"><a href="fCO2_transpiration_mod.html">fCO2_transpiration_mod</a></td>
+<td>CO2 transpiration modifier</td></tr>
+<tr><td style="width: 25%;"><a href="FG_A.html">FG_A</a></td>
+<td>Functional group A</td></tr>
+<tr><td style="width: 25%;"><a href="FG_B.html">FG_B</a></td>
+<td>Functional group B</td></tr>
+<tr><td style="width: 25%;"><a href="FG_C.html">FG_C</a></td>
+<td>Functional group C</td></tr>
+<tr><td style="width: 25%;"><a href="FG_D.html">FG_D</a></td>
+<td>Functional group D</td></tr>
+<tr><td style="width: 25%;"><a href="fPAR.html">fPAR</a></td>
+<td>Radiation limitation</td></tr>
+<tr><td style="width: 25%;"><a href="fT.html">fT</a></td>
+<td>Temperature limitation</td></tr>
+<tr><td style="width: 25%;"><a href="FunctionalGroup.html">FunctionalGroup</a></td>
+<td>Representation of a grassland plant population</td></tr>
+<tr><td style="width: 25%;"><a href="fW.html">fW</a></td>
+<td>Water stress</td></tr>
+<tr><td style="width: 25%;"><a href="get_annual_gross_yield.html">get_annual_gross_yield</a></td>
+<td>Lookup table returning expected annual gross yields as function of elevation and management intensity.</td></tr>
+<tr><td style="width: 25%;"><a href="get_bias.html">get_bias</a></td>
+<td>Metric Functions</td></tr>
+<tr><td style="width: 25%;"><a href="get_end_of_cutting_season.html">get_end_of_cutting_season</a></td>
+<td>Last day of cutting season</td></tr>
+<tr><td style="width: 25%;"><a href="get_expected_n_cuts.html">get_expected_n_cuts</a></td>
+<td>Get number of expected cuts</td></tr>
+<tr><td style="width: 25%;"><a href="get_relative_cut_contribution.html">get_relative_cut_contribution</a></td>
+<td>Relative cut contribution</td></tr>
+<tr><td style="width: 25%;"><a href="get_site_name.html">get_site_name</a></td>
+<td>Extract the name of a site from a filename</td></tr>
+<tr><td style="width: 25%;"><a href="growR_package_options.html">growR_package_options</a></td>
+<td>Default options introduced by package growR</td></tr>
+<tr><td style="width: 25%;"><a href="growR_run_loop.html">growR_run_loop</a></td>
+<td>Run growR simulations</td></tr>
+<tr><td style="width: 25%;"><a href="load_measured_data.html">load_data_for_sites</a></td>
+<td>Load experimental data</td></tr>
+<tr><td style="width: 25%;"><a href="load_measured_data.html">load_matching_data</a></td>
+<td>Load experimental data</td></tr>
+<tr><td style="width: 25%;"><a href="load_measured_data.html">load_measured_data</a></td>
+<td>Load experimental data</td></tr>
+<tr><td style="width: 25%;"><a href="logger.html">logger</a></td>
+<td>Primitive logger for debugging.</td></tr>
+<tr><td style="width: 25%;"><a href="make_yearDOY.html">make_yearDOY</a></td>
+<td>Create unique DOY + year identifier</td></tr>
+<tr><td style="width: 25%;"><a href="ManagementData.html">ManagementData</a></td>
+<td>Management Data Class</td></tr>
+<tr><td style="width: 25%;"><a href="management_parameters.html">management_parameters</a></td>
+<td>Management practices for Swiss grasslands</td></tr>
+<tr><td style="width: 25%;"><a href="get_bias.html">mean_absolute_error</a></td>
+<td>Metric Functions</td></tr>
+<tr><td style="width: 25%;"><a href="metric_map.html">metric_map</a></td>
+<td>List of Performance Metrics</td></tr>
+<tr><td style="width: 25%;"><a href="ModvegeEnvironment.html">ModvegeEnvironment</a></td>
+<td>growR environment data</td></tr>
+<tr><td style="width: 25%;"><a href="ModvegeParameters.html">ModvegeParameters</a></td>
+<td>Parameter Data Object</td></tr>
+<tr><td style="width: 25%;"><a href="ModvegeSite.html">ModvegeSite</a></td>
+<td>ModvegeSite</td></tr>
+<tr><td style="width: 25%;"><a href="parameter_scan_example.html">parameter_scan_example</a></td>
+<td>Example results of a parameter scan</td></tr>
+<tr><td style="width: 25%;"><a href="parse_year_strings.html">parse_year_strings</a></td>
+<td>Parse and generate lists of years.</td></tr>
+<tr><td style="width: 25%;"><a href="plot.ModvegeSite.html">plot.ModvegeSite</a></td>
+<td>Plot ModVege simulation result overview</td></tr>
+<tr><td style="width: 25%;"><a href="plot_parameter_scan.html">plot_parameter_scan</a></td>
+<td>Plot Parameter Scan Results</td></tr>
+<tr><td style="width: 25%;"><a href="posieux_weather.html">posieux_weather</a></td>
+<td>Example Weather Data</td></tr>
+<tr><td style="width: 25%;"><a href="PscanPlotter.html">PscanPlotter</a></td>
+<td>Plot Parameter Scan Results</td></tr>
+<tr><td style="width: 25%;"><a href="read_config.html">read_config</a></td>
+<td>Read simulation run configurations from file</td></tr>
+<tr><td style="width: 25%;"><a href="get_bias.html">root_mean_squared</a></td>
+<td>Metric Functions</td></tr>
+<tr><td style="width: 25%;"><a href="run_parameter_scan.html">run_parameter_scan</a></td>
+<td>Parameter Scan</td></tr>
+<tr><td style="width: 25%;"><a href="SEA.html">SEA</a></td>
+<td>Seasonal effect on growth</td></tr>
+<tr><td style="width: 25%;"><a href="setup_directory.html">setup_directory</a></td>
+<td>Initialize growR directory structure</td></tr>
+<tr><td style="width: 25%;"><a href="set_growR_verbosity.html">set_growR_verbosity</a></td>
+<td>Set verbosity of growR output.</td></tr>
+<tr><td style="width: 25%;"><a href="WeatherData.html">WeatherData</a></td>
+<td>Weather Data Object</td></tr>
+<tr><td style="width: 25%;"><a href="willmott.html">willmott</a></td>
+<td>Willmott Index</td></tr>
+<tr><td style="width: 25%;"><a href="yield_parameters.html">yield_parameters</a></td>
+<td>Parameters for expected yields in Switzerland</td></tr>
+</table>
+</div></body></html>

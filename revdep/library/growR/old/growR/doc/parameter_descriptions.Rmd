@@ -1,0 +1,50 @@
+---
+title: "Parameter Descriptions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Parameter Descriptions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Parameters
+
+ModVege makes use of a sizable number of different variables. Some of them 
+are used as inputs to the simulation, some tune model behaviour and others 
+are the actual state variables of the simulated grassland system. 
+
+The following section attempt to provide an as comprehensive as possible list 
+of all of these. For a thorough understanding, the reader is referred to the 
+original publication by [@jouven2006ModelPredictingDynamics].
+
+### State Variables
+
+These values evolve during a model run and are stored in the respective 
+fields in the [ModvegeSite] instance that was run.
+
+```{r child = "children/state_variables.Rmd"}
+```
+
+### Initial conditions
+```{r child = "children/initial_conditions.Rmd"}
+```
+
+### Model parameters
+```{r child = "children/parameters.Rmd"}
+```
+
+### Functional group parameters
+```{r child = "children/parameters_fg.Rmd"}
+```
+
+### Weather variables
+```{r child = "children/weather_parameters.Rmd"}
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+

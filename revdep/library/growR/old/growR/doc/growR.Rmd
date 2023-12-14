@@ -1,0 +1,251 @@
+---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+bibliography: '`r system.file("REFERENCES.bib", package="growR")`'
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 6,
+  fig.width = 8
+)
+```
+
+`growR` implements the grassland growth model ModVege.
+The basis of the model is thoroughly described by 
+[@jouven2006ModelPredictingDynamics].
+
+In short, ModVege takes values relating to daily weather conditions, 
+the nutrition availability and water holding capabilities as well as the 
+prevailing functional composition of plant population of the simulated site 
+as inputs and uses them to simulate grass growth on a daily time step.
+
+Functions and data provided by `growR` allow users to
+
+- run grass growth simulations with ModVege,
+- calibrate site and model parameters on the basis of reference data,
+- carry out basic analysis into model outputs and performance.
+
+The following section provides a step-by-step tutorial intended to show how 
+`growR` can be used.
+Deeper insights can be gained by the `vignette("parameter_descriptions")`.
+
+## Step 0: Goal of the tutorial
+
+In this tutorial we are going to make use of the example input and reference 
+datasets to go through the whole process of 
+
+1. setting up all input files
+2. running ModVege simulations with the specified inputs
+3. have a look at the results
+4. change inputs and run a new simulation
+
+Since quite a number of input files are required to even get started with 
+`growR`, the package ships with example files for each of them. When following 
+the tutorial, the reader will have an opportunity to inspect all of them and 
+can use those as templates in order to create their own simulations with 
+their own data.
+
+When running simulations, data is loaded from and written to files. In the 
+following, we assume that we are working in an empty directory of the 
+filesystem and that this is the working directory for the running `R` 
+sessions or `Rscript` commands. To be on the safe side, for this tutorial we 
+will create a temporary directory `working_dir`. All necessary or created 
+files are assumed to be located under this working directory.
+
+```{r, include = FALSE}
+# Store the original wd
+original_dir = getwd()
+```
+
+```{r tempdir}
+working_dir = file.path(tempdir(), "growR_tutorial")
+dir.create(working_dir)
+setwd(working_dir)
+```
+
+```{r, include = FALSE}
+# knitr resets working dir to root.dir after every chunk.
+# This makes sure we stay in working_dir
+knitr::opts_knit$set(
+  root.dir = working_dir
+)
+```
+
+## Step 1: Setting up all input files
+
+To help users having a somewhat clean directory structure, the function 
+`setup_directory()` is provided.
+It also offers the option to copy all example files from the package 
+directory into appropriate location in the newly created directory structure.
+Our first step is therefore to execute the following from an `R` session:
+```{r setup_directory}
+library(growR)
+# Check that working directory is correct
+print(working_dir)
+getwd()
+setup_directory(working_dir, force = TRUE)
+```
+We used `force = TRUE` here such that we can skip the safety prompt which 
+would otherwise ask for confirmation.
+
+Afterwards, check the working directory. You should find a couple of 
+subdirectories and some files:
+
+- `output` This is where generated output will be written to, by default
+- `input` Inputs to the simulation, such as weather and management data are 
+  stored here.
+- `data` Experimentally measured, real world data comes here.
+
+First, we'll have a look at `example_config.txt`.
+We are later going to adjust and make use of this file for running our 
+simulation in this tutorial. It contains information about the types of 
+simulation we want to run and what input files should be used for each 
+simulation. Have a look at its structure and compare it to the explanations 
+given in the documentation of `read_config()`.
+
+As you can infer, in order to completely run a simulation, we require at 
+least a parameter and a weather data file (the management file is optional).
+`growR` comes with example data for two real-world experimental sites: Sorens 
+and Posieux, both in Switzerland. You can find the respective example 
+parameter files at `input/sorens_parameters.csv` and 
+`input/posieux_parameters.csv`. Likewise for the `input/..._weather.txt` and 
+`input/..._management1/2.txt` files. Again, have a look at these files and 
+the respective descriptions in `WeatherData` and `ManagementData` to 
+familiarize yourself with the required data structures and the meaning of the 
+different columns.
+
+## 2. Run ModVege with the example configuration
+
+Everything is now set up for us and we are ready to proceed with a simulation.
+Run:
+```{r read_config}
+environments = read_config("example_config.txt")
+```
+As you may have already seen from the documentation of `read_config()`, this 
+reads in the given configuration file, skipping any lines starting with `#`.
+For each line, it then looks for the given input files and creates a 
+`ModvegeEnvironment` object with the data from the corresponding files.
+These `ModvegeEnvironment`s are essentially data structures that hold all the 
+information needed in order to run a ModVege simulation.
+
+We are now ready to do so:
+```{r run_simulation}
+results = growR_run_loop(environments, 
+                         output_dir = file.path(working_dir, "output"))
+```
+This will simulate grass growth for every year in every environment present 
+in `environments`. After some console output, we now have the results of 
+these runs in the list `results`. Check the documentation of 
+`growR_run_loop()` ro see how this list is organized.
+
+Furthermore, the default value for `write_files` in `growR_run_loop()` is 
+`TRUE`. This means that the results have also been written to files in the 
+`output` directory.
+
+## 3. Have a look at the results
+
+Since we have the simulation results at our fingertips in our interactive `R` 
+sessions, the quickest way to inspect them is through the `results` list.
+The output of 
+```{r print_results}
+# Just print the first years of the first run (i.e. year 2013 at site Sorens)
+results[[1]][[1]]
+```
+might be a little overwhelming and not very helpful, though.
+A convenient way to quickly see what has happened is to plot the resulting 
+grass growth curves. The `ModvegeSite` objects which are actually what's 
+stored in `results` provide a simple means of doing that through their 
+`plot()` method.
+
+For example, to see the growth curves for year 2013 at site Sorens we could do:
+```{r plot_results}
+results[[1]][[1]]$plot()
+```
+The blue vertical lines in the top left plot indicate cutting events.
+They should coincide with the steps in the harvested biomass `hvBM`, bottom 
+right plot.
+
+Excellent! You have run your first ModVege simulation with `growR`!
+
+## 4. Change inputs and run a different simulation
+
+Now, for the sake of the example, let's say that you want to check what the 
+simulation would look like if both sides had a significantly lower 
+nutritional index `NI`.  First, check the current values of `NI` in the 
+differnet parameter files (`input/sorens_parameters.csv` and 
+`input/posieux_parameters.csv`). They should be 0.7 for both sites. 
+
+We want to investigate what the growth curves look like for different values 
+of NI. For that purpose, we'll focus only on the site Sorens and only on the 
+year 2013 (just to keep the calculations required for the example quick).
+
+One way to supply different parameters to the simulation, is by providing 
+different parameter files.
+Copy `sorens_parameters.csv` twice and call the copies something like 
+`sorens_parameters_lowNI.csv` and `sorens_parameters_highNI.csv`. In one of 
+the files, change the value of NI to 0.5 and in the other, change it to 1.0.
+
+Then, copy the `example_config.txt` file, give it a name of your choice 
+(we'll use `NI_screening.txt` here) and edit it such that there are only 
+three uncommented lines. All of them should use *site name* sorens1 and only 
+the year 2013. One of them should use the original `sorens_parameters.csv` 
+file while the others should use the newly written parameter files with 
+higher and lower `NI` values respectively. Since we now specify several runs 
+with the same *site name*, we need to distinguish them by giving at least two 
+of them a distinct *run name* as well.
+
+When done, your new config file might look something like this:
+```
+# site name 	# run name 	# year(s) 	# param file 			# weather data 			# cut dates
+sorens1 	-  	2013   	sorens_parameters.csv	sorens_weather.txt    	sorens_management1.txt
+sorens1 	lowNI  	2013   	sorens_parameters_lowNI.csv	sorens_weather.txt    	sorens_management1.txt
+sorens1 	highNI  	2013   	sorens_parameters_highNI.csv	sorens_weather.txt    	sorens_management1.txt
+```
+Be sure that the spelling of your file names is correct and consistent and 
+that all the files reside in the correct locations (i.e. the `input` 
+directory under our working directory).
+
+If all seems fine, go for it (use the name of the config file you chose):
+```
+new_envs = read_config("NI_screening.txt")
+```
+```{r, include = FALSE}
+# Simulate the changes made through a config file.
+env0 = environments[[1]]$clone()
+env0$years = 2013
+env1 = env0$clone(deep = TRUE)
+env1$parameters$set_parameters(list(NI = 0.5))
+env2 = env0$clone(deep = TRUE)
+env2$parameters$set_parameters(list(NI = 1.0))
+new_envs = c(env0, env1, env2)
+```
+
+And we're ready to run and inspect our next run of simulations:
+```{r ni_screening}
+new_results = growR_run_loop(new_envs)
+# Plot all results
+for (run in new_results) {
+  print(run[[1]]$parameters$NI)
+  run[[1]]$plot()
+}
+```
+
+We can see how `NI` affects the total biomass production: larger `NI` leads 
+to proportionally larger `cBM` and `hvBM` by the end of the season.
+
+```{r, include = FALSE}
+# Clean up
+knitr::opts_knit$set(
+  root.dir = original_dir
+)
+setwd(original_dir)
+#unlink(working_dir, recursive = TRUE)
+```
+
