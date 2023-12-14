@@ -170,7 +170,7 @@ ModvegeSite = R6Class(
 #' @field stubble_height float. Minimum height the grass can assume. The 
 #'    biomass will not fall below that height. This can and should therefore 
 #'    be smaller than `self$cut_height`.
-      stubble_heigt = 0.01,
+      stubble_heigt = 0.05,
 
   #-Public-methods----------------------------------------------------------------
 
@@ -729,14 +729,33 @@ ModvegeSite = R6Class(
     ## @description
     ## Get index (or, equivalently, DOY) of the start of the growing season.
     ##
+    ## This function implements the *multicriterial thermal definition* (MTD) 
+    ## as described in chapter 2.3.1.3 of the dissertation of Andreas 
+    ## Schaumberger:
+    ## Räumliche Modelle zur Vegetations- und Ertragsdynamik im 
+    ## Wirtschaftsgrünland, 2011, ISBN-13: 978-3-902559-67-8
+    ##
     ## @param critical_temperature Daily average temperature in degree 
     ##   Celsius required for a day being considered "warm enough" for growth.
+    ## @param min_window_temperature Required minimum average temperature 
+    ##   over the outer window.
+    ## @param min_daily_temperature Lowest allowed temperature within the 
+    ##   outer window.
+    ## @param inner_window_width Size of the inner, smaller window with the 
+    ##   critical_temperature requirement.
+    ## @param outer_window_width Size of the outer, larger window with the 
+    ##   average and minimum temperature requirements.
     ## @param consider_snow Toggle whether the effect of snow cover is to be 
     ##   considered.
     ## @param critical_snow Minimum daily snowfall in mm for a day to be 
     ##   considered snowy.
     ##
     get_start_of_growing_season = function(critical_temperature = 5.,
+                                           min_window_temperature = 6.,
+                                           min_daily_temperature = 2.,
+                                           inner_window_width = 5,
+                                           outer_window_width = 10,
+                                           first_possible_DOY = 1,
                                            consider_snow = FALSE,
                                            critical_snow = 1.) {
       W = self$get_weather()
@@ -749,10 +768,32 @@ ModvegeSite = R6Class(
         j_snow = 1
       }
 
-      # The other criterion is that the temperature should be above a 
-      # critical temperature for a given time interval (ensured by 
-      # "smoothened" T data).
-      j_t_critical = min(which(W[["Ta_sm"]] >= critical_temperature))
+      j_t_critical = 0
+      # For the multicriterial thermal definition, start with  an outer 
+      # sliding window of 10 days
+      for (j in first_possible_DOY:(self$days_per_year - outer_window_width)) {
+        outer_window = W$Ta[j:(j+outer_window_width)]
+        # If there are frosts, move the outer window.
+        # Likewise, if the average temperature is too low, move the outer window.
+        if (any(outer_window < min_daily_temperature) |
+            (mean(outer_window) < min_window_temperature)) {
+          next
+        }
+        # If there are no frosts and the average T is high enough, check if 
+        # there is a suitable inner window.
+        for (j_inner in 1:(outer_window_width - inner_window_width)) {
+          inner_window = outer_window[j_inner:(j_inner + inner_window_width)]
+          if (all(inner_window >= critical_temperature)) {
+            j_t_critical = j
+            break
+          }
+        }
+        # Leave the outer loop if j_t_critical has been found.
+        if (j_t_critical > 0) {
+          break
+        }
+      }
+
       self$j_start_of_growing_season = max(j_snow, j_t_critical)
       return(self$j_start_of_growing_season)
     },
