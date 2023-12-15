@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,6 +81,24 @@ from average sunlight irradiance <code>SRad</code> in J/s/m^2^ as:
 <li><p><code>ET0</code> evapotranspiration in mm.</p></li>
 </ul><p>These parameters are stored in this object in the respective <code>PARAM_vec</code>
 fields.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="snow-model">Snow model<a class="anchor" aria-label="anchor" href="#snow-model"></a></h2>
+    <p>The precipitation and temperature inputs are used in order to estimate the
+snow cover for each day by use of a snow model.
+The employed model is as formulated by Kokkonen et al. 2006 and makes use
+of parameters from Rango and Martinec, 1995.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Rango A, Martinec J (1995).
+“Revisiting the Degree-Day Method for Snowmelt Computations.”
+<em>JAWRA Journal of the American Water Resources Association</em>, <b>31</b>(4), 657--669.
+ISSN 1752-1688, <a href="https://doi.org/10.1111/j.1752-1688.1995.tb03392.x" class="external-link">doi:10.1111/j.1752-1688.1995.tb03392.x</a>
+.</p>
+<p>Kokkonen T, Koivusalo H, Jakeman A, Norton J (2006).
+“Construction of a Degree-Day Snow Model in the Light of the Ten Iterative Steps in Model Development.”
+In <em>iEMSs Third Biennial Meeting: "Summit on Environmental Modelling and Software". International Environmental Modelling and Software Society, Burlington, USA, July 2006</em>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
