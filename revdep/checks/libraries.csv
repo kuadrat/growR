@@ -1,6 +1,0 @@
-package,old,new,delta
-growR,1.1.0,1.1.0.9000,*
-R6,2.5.1,2.5.1,
-rbibutils,2.2.16,2.2.16,
-Rdpack,2.6,2.6,
-rlang,1.1.2,1.1.2,
