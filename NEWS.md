@@ -25,6 +25,10 @@
   *Räumliche Modelle zur Vegetations- und Ertragsdynamik im 
   Wirtschaftsgrünland*, 2011, ISBN-13: 978-3-902559-67-8
 
+## Removed
+
+* compare.R script is not fetched by `setup_directory()`.
+
 # growR 1.1.0
 
 ## Added

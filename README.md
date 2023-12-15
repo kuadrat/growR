@@ -52,39 +52,52 @@ Installing from source might make sense if...
   not yet available on the CRAN version but is also likely less stable,
 - for some reason installation from CRAN is not an option for you.
 
-In this case,
-
-1. Start by cloning this repository"
-    ```
-    $ git clone git@github.com:kuadrat/growR.git
-    ```
-    or via https:
-    ```
-    $ git clone https://github.com/kuadrat/growR.git
-    ```
-    This will create a directory `growR` in your file system.
+In this case, start by cloning this repository
+```
+$ git clone git@github.com:kuadrat/growR.git
+```
+or via https:
+```
+$ git clone https://github.com/kuadrat/growR.git
+```
+This will create a directory `growR` in your file system.
     
-    If you don't have or don't want to use *git*, you could alternatively copy 
-    the source code as a .zip file from 
-    [github](https://github.com/kuadrat/growR/archive/refs/heads/master.zip).
-    Unzip the contents into a directory `growR`.
+If you don't have or don't want to use *git*, you could alternatively copy 
+the source code as a .zip file from 
+[github](https://github.com/kuadrat/growR/archive/refs/heads/master.zip).
+Unzip the contents into a directory `growR`.
 
-2. You can now install *growR* by issuing the following at the prompt of 
-    an `R` session:
-    ```
-    install.packages("/full/path/to/growR", repos = NULL)
-    ```
-    You should replace `"/full/path/to/"` with the actual path to the `growR` 
-    directory on your computer. Also, replace slashes (`/`) with backslashe (`\`) 
-    if you're on Windows.
+#### Alternative A
 
-`growR` should now be installed and available in `R` through 
-`library(growR)`.
+You can now install your local version of *growR* by issuing
+the following at the prompt of an `R` session:
+```
+install.packages("/full/path/to/growR", repos = NULL)
+```
+You should replace `"/full/path/to/"` with the actual path to the `growR` 
+directory on your computer. Also, replace slashes (`/`) with backslashe (`\`) 
+if you're on Windows.
 
+`growR` should now be installed and available in `R` through `library(growR)`.   
 If you make changes to the source files in the `growR` directory, just 
 uninstall the current version (issue `remove.packages("growR")` in `R`) 
-and repeat step 2 above.
+and repeat this step.
 
+#### Alternative B
+
+If you make frequent changes to the code, it might be
+unpractical to uninstall and reinstall the changed version each time. In that
+case, `devtools` comes in very handy (if needed, install it with
+`install.packages("devtools")`). It allows you to load a package into an active
+`R` session without the need of it being properly installed. The following has
+practically the equivalent result as the method described in 
+[alternative A](#alternative-a):
+```
+library(devtools)
+devtools::load_all("/full/path/to/growR")
+```
+The notes about `"/full/path/to"` as in [Alternative A](#alternative-a) apply here as well.
+   
 ### Non-package version
 
 If you just want to focus on using and adjusting the ModVege model and feel 
