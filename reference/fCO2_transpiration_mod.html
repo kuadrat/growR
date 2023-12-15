@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,16 +79,13 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function for the effect on transpiration is from equations (2-6) in
 Kruijt et al.</p>
-<p>It appears in this paper that there is a small formal mistake in said
-equations.
-With the stated values, it is not possible to reproduce the tabulated
-values of $c$ close to 1, as in their table 3. Instead, we conclude that
-equation (4) should read:</p>
+<p>It appears that this paper that said equations are most likely incorrect.
+With the stated values, I cannot reproduce tabulated values of c close to
+1, as in their table 3. Instead,I conclude that equation (4) should read:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  c <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> s_gs <span class="sc">*</span> s_T <span class="sc">*</span> F_T <span class="sc">*</span> deltaCO2</span></code></pre><p></p></div>
 <p>with the multiplicative terms giving small negative numbers.
-The factors $s_gs$, $s_T$ and $F_T$ for grasslands are taken from pages
-260 and 261 in Kruijt et al. where we averaged over the stated ranges to
-get:</p>
+The factors s_gs, s_T and F_T for grasslands are taken from pages 260 and
+261 in Kruijt et al. where we averaged over the stated ranges to get:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  c <span class="sc">~</span><span class="er">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.0001</span> <span class="sc">*</span> deltaCO2</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
