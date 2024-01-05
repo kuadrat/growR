@@ -9,6 +9,13 @@
 
 * Temperature sum is only increased once growing season has started.
 
+## Fixed
+
+* Window sizes in multicriterial thermal definition were incorrect.
+* Calculation of fAgeDR was incorrect.
+* Biomass correctly updated after cuts.
+* `fW` now uses correct threshold value of 3.8 instead of 3.81.
+
 # growR 1.2.0
 
 ## Added

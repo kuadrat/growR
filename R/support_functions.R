@@ -80,8 +80,8 @@ fW <- function(W, PET) {
   # High values of PET
   if (PET > 6.5) {
     result = W
-  # Values of PET between 3.81 and 6.5
-  } else if (PET > 3.81) {
+  # Values of PET between 3.8 and 6.5
+  } else if (PET > 3.8) {
     # Choose a different result, depending on which 0.2 - wide interval W is in.
     selector = 1 + floor(W / 0.2)
     result = switch(selector,
@@ -91,7 +91,7 @@ fW <- function(W, PET) {
                     0.5 * W + 0.6,
                     1,
                     1)
-  # Values of PET below 3.81
+  # Values of PET below 3.8
   } else {
     # Choose a different result, depending on which 0.2 - wide interval W is in.
     selector = 1 + floor(W / 0.2)

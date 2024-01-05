@@ -774,7 +774,7 @@ ModvegeSite = R6Class(
       # For the multicriterial thermal definition, start with  an outer 
       # sliding window of 10 days
       for (j in first_possible_DOY:(self$days_per_year - outer_window_width)) {
-        outer_window = W$Ta[j:(j+outer_window_width)]
+        outer_window = W$Ta[j:(j + outer_window_width - 1)]
         # If there are frosts, move the outer window.
         # Likewise, if the average temperature is too low, move the outer window.
         if (any(outer_window < min_daily_temperature) |
@@ -783,10 +783,10 @@ ModvegeSite = R6Class(
         }
         # If there are no frosts and the average T is high enough, check if 
         # there is a suitable inner window.
-        for (j_inner in 1:(outer_window_width - inner_window_width)) {
-          inner_window = outer_window[j_inner:(j_inner + inner_window_width)]
-          if (all(inner_window >= critical_temperature)) {
-            j_t_critical = j
+        for (j_inner in 1:(outer_window_width - inner_window_width + 1)) {
+          inner_window = outer_window[j_inner:(j_inner + inner_window_width - 1)]
+          if (all(inner_window > critical_temperature)) {
+            j_t_critical = j + j_inner
             break
           }
         }
@@ -1029,7 +1029,7 @@ ModvegeSite = R6Class(
       ratio4 = self$AgeDR[j] / (P$ST2 - P$ST1)
       if (ratio4 < 1./3.) {
         fAgeDR = 1.
-      } else if (ratio4 < 1.) {
+      } else if (ratio4 < 2./3.) {
         fAgeDR = 2.
       } else {
         fAgeDR = 3.
@@ -1156,6 +1156,8 @@ ModvegeSite = R6Class(
                                 (self$BMGRp - self$BMGR[j]) +
                                 (self$BMDVp - self$BMDV[j]) +
                                 (self$BMDRp - self$BMDR[j])
+      # Update total biomass after cut.
+      self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
     },
 
     ## @description Construct a string full of meta information on a ModVege 
