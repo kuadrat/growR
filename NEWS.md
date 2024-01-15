@@ -4,6 +4,8 @@
 
 * `j_start_of_growing_season` is written to output file headers.
 * Output file header contains `cut_DOYs`.
+* `growR_run_loop` allows use of previous year's state variables as initial 
+  conditions for current year by means of the `independent` argument.
 
 ## Changed
 

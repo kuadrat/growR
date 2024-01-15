@@ -4,13 +4,19 @@
 \alias{growR_run_loop}
 \title{Run growR simulations}
 \usage{
-growR_run_loop(modvege_environments, output_dir = "")
+growR_run_loop(modvege_environments, output_dir = "", independent = TRUE)
 }
 \arguments{
 \item{modvege_environments}{A list of \link{ModvegeEnvironment} instances.}
 
 \item{output_dir}{string; name of directory to which output files are to
 be written. If \code{output_dir == ""} (default), no files are written.}
+
+\item{independent}{boolean; If \code{TRUE} (default) the simulation for each
+year starts with the same initial conditions, as specified in the
+parameters of the modvege_environments. If \code{FALSE}, initial conditions
+are taken as the final state values of the simulation of the previous
+year.}
 }
 \value{
 A list of the format \verb{[[run]][[year]]} containing clones of

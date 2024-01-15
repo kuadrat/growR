@@ -10,7 +10,11 @@
 #' @param modvege_environments A list of [ModvegeEnvironment] instances.
 #' @param output_dir string; name of directory to which output files are to 
 #'   be written. If `output_dir == ""` (default), no files are written.
-#'
+#' @param independent boolean; If `TRUE` (default) the simulation for each 
+#'   year starts with the same initial conditions, as specified in the 
+#'   parameters of the modvege_environments. If `FALSE`, initial conditions 
+#'   are taken as the final state values of the simulation of the previous 
+#'   year.
 #' @return A list of the format `[[run]][[year]]` containing clones of 
 #'   the [ModvegeSite] instances that were run. Also write to files, if 
 #'   *output_dir* is nonempty.
