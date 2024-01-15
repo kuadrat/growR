@@ -877,7 +877,7 @@ ModvegeSite = R6Class(
 
       ATr = PTr * fW(self$WRp / P$WHC, PETeff)
       PEv = PETeff -  PTr
-      AEv = PEv * fW(self$WRp / P$WHC, PETmx)
+      AEv = PEv * self$WRp / P$WHC
       self$AET[j] = ATr + AEv
 
       # Soil moisture budget

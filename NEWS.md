@@ -13,8 +13,9 @@
 
 * Window sizes in multicriterial thermal definition were incorrect.
 * Calculation of fAgeDR was incorrect.
-* Biomass correctly updated after cuts.
+* Biomass is correctly updated after cuts.
 * `fW` now uses correct threshold value of 3.8 instead of 3.81.
+* Correction of AEv calculation.
 
 # growR 1.2.0
 

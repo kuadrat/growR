@@ -24,7 +24,8 @@
 #' @md
 #' @export
 #' 
-growR_run_loop = function(modvege_environments, output_dir = "") {
+growR_run_loop = function(modvege_environments, output_dir = "", 
+                          independent = TRUE) {
   # Parse output dir
   if (output_dir == "") {
     write_files = FALSE
@@ -67,6 +68,18 @@ growR_run_loop = function(modvege_environments, output_dir = "") {
 
       #-Store-output------------------------------------------------------------
       results[[run]][[i_year]] = modvege$clone(deep = TRUE)
+
+      #-Adjust-initial-conditions-for-next-year---------------------------------
+      if (!independent) {
+        n_days = modvege$days_per_year
+        for (initial_condition in c("BMGV", "BMGR", "BMDV", "BMDR", "AgeGV", 
+                                    "AgeGR", "AgeDV", "AgeDR")) {
+          previous_value = modvege[[initial_condition]][n_days]
+          for (ic in c(initial_condition, paste0(initial_condition, "0"))) {
+            modvege$parameters[[ic]] = previous_value
+          }
+        }
+      }
     } # End of loop over simulation years
   } # End of loop over runs
   logger("All runs completed.", level = INFO)
