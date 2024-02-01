@@ -408,3 +408,120 @@ get_end_of_cutting_season = function(min_biomass, elevation,
   return(d_end)
 }
 
+#' Create a weighted temperature sum
+#'
+#' A temperature sum is constructed by summing the average daily temperature 
+#' for each day, but applying a weight factor of 0.5 for January and 0.75 for 
+#' February.
+#'
+#' @param temperatures vector Daily average temperatures in degree Celsius.
+#' @param negative boolean Whether to include negative temperature values in 
+#'   the summation. By default, negative values are set to 0, meaning that 
+#'   the temperature sum is monotonically increasing.
+#'
+#' @return Weighted temperature sum.
+#'
+#' @examples
+#' # Use fake temperatures
+#' ts = rep(2, 365)
+#' weighted_temperature_sum(ts)
+#' 
+#' @export
+weighted_temperature_sum = function(temperatures, negative = FALSE) {
+  weights = c(rep(0.5, 31), rep(0.75, 28), rep(1, length(temperatures)-28-31))
+  if (!negative) {
+    # Set negative values to 0
+    temperatures = sapply(temperatures, function(t) { max(t, 0) })
+  }
+  weighted = temperatures * weights
+  return(cumsum(weighted))
+}
+
+#' Determine start of growing season
+#'
+#' This implements a conventional method for the determination of the start of 
+#' the growing season (SGS) based on daily average temperatures.
+#'
+#' A temperature sum is constructed using [weighted_temperature_sum()], i.e. 
+#' by summing the average daily temperature for each day, but applying a 
+#' weight factor of 0.5 for January and 0.75 for February.
+#'
+#' The SGS is defined as the first day where the so constructed temperature sum 
+#' crosses 200 degree days.
+#' 
+#' @param temperatures vector Daily average temperatures in degree Celsius.
+#'
+#' @seealso [start_of_growing_season_mtd()], [weighted_temperature_sum()]
+#'
+#' @examples
+#' ts = rep(2, 365)
+#' start_of_growing_season(ts)
+#'
+#' @export
+start_of_growing_season = function(temperatures) {
+  # Create weighted temperature sum
+  TS = weighted_temperature_sum(temperatures)
+  # Find where TS > 200
+  j0 = min(which(TS > 200))    
+  return(j0)
+}
+
+#' Multicriterial Thermal Definition
+#'
+#' Find the start of the growing season based on daily average temperatures.
+#'
+#' This function implements the *multicriterial thermal definition* (MTD) 
+#' as described in chapter 2.3.1.3 of the dissertation of Andreas 
+#' Schaumberger:
+#' Räumliche Modelle zur Vegetations- und Ertragsdynamik im 
+#' Wirtschaftsgrünland, 2011, ISBN-13: 978-3-902559-67-8
+#'
+#' @param temperatures vector Daily average temperatures in degree Celsius.
+#' @param first_possible_DOY int Only consider days of the year from this 
+#'   value onward.
+#' @return int DOY of the growing season start according to the MTD.
+#'
+#' @seealso [start_of_growing_season()]
+#'
+#' @examples
+#' # Create fake temperatures
+#' ts = c(0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 6, 6, 6, 3, 3, 3, 3, 3, 6, 6, 6, 
+#' 6, 5, 6, 7, 8, 9, 10, 11, 12)
+#' start_of_growing_season_mtd(ts)
+#'
+#' @export
+start_of_growing_season_mtd = function(temperatures,
+                                       first_possible_DOY = 1) {
+  n_days = length(temperatures)
+  result = 0
+  outer_window_width = 10
+  inner_window_width = 5
+  critical_temperature = 5.
+  min_daily_temperature = 2.
+  min_window_temperature = 6.
+  # For the multicriterial thermal definition, start with  an outer 
+  # sliding window of 10 days
+  for (j in first_possible_DOY:(n_days - outer_window_width)) {
+    outer_window = temperatures[j:(j + outer_window_width - 1)]
+    # If there are frosts, move the outer window.
+    # Likewise, if the average temperature is too low, move the outer window.
+    if (any(outer_window < min_daily_temperature) | 
+        (mean(outer_window) < min_window_temperature)) {
+      next
+    }
+    # If there are no frosts and the average T is high enough, check if 
+    # there is a suitable inner window.
+    for (j_inner in 1:(outer_window_width - inner_window_width + 1)) {
+      inner_window = outer_window[j_inner:(j_inner + inner_window_width - 1)]
+      if (all(inner_window > critical_temperature)) {
+        result = j + j_inner - 1
+        break
+      }
+    }
+    # Leave the outer loop if j_t_critical has been found.
+    if (result != 0) {
+      break
+    }
+  }
+  return(result)
+}

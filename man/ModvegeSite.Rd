@@ -89,6 +89,8 @@ Part of ENV due to water limitation. Dimensionless.
 \seealso{
 \link[=autocut]{autocut}
 
+\code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}, \code{\link[=start_of_growing_season]{start_of_growing_season()}}
+
 \code{get_target_biomass()}
 
 \code{ModvegeParameters$set_parameters()}
@@ -185,6 +187,7 @@ be smaller than \code{self$cut_height}.}
 \item \href{#method-ModvegeSite-new}{\code{ModvegeSite$new()}}
 \item \href{#method-ModvegeSite-get_weather}{\code{ModvegeSite$get_weather()}}
 \item \href{#method-ModvegeSite-get_management}{\code{ModvegeSite$get_management()}}
+\item \href{#method-ModvegeSite-set_SGS_method}{\code{ModvegeSite$set_SGS_method()}}
 \item \href{#method-ModvegeSite-determine_cut_from_input}{\code{ModvegeSite$determine_cut_from_input()}}
 \item \href{#method-ModvegeSite-determine_cut_automatically}{\code{ModvegeSite$determine_cut_automatically()}}
 \item \href{#method-ModvegeSite-get_target_biomass}{\code{ModvegeSite$get_target_biomass()}}
@@ -247,6 +250,34 @@ Return management data if it exists
 
 \subsection{Returns}{
 The ManagementData object, if it exists.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-set_SGS_method"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-set_SGS_method}{}}}
+\subsection{Method \code{set_SGS_method()}}{
+Choose which method to be used for determination of SGS
+
+Options for the determination of the start of growing season (SGS) are:
+\describe{
+\item{MTD}{Multicriterial thermal definition,
+\code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}}
+\item{simple}{Commonly used, simple SGS definition based on
+temperature sum, \code{\link[=start_of_growing_season]{start_of_growing_season()}}}
+}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$set_SGS_method(method)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{method}}{str Name of the method to use. Options: "MTD", "simple".}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+none
 }
 }
 \if{html}{\out{<hr>}}

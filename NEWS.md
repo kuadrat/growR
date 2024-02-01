@@ -6,10 +6,13 @@
 * Output file header contains `cut_DOYs`.
 * `growR_run_loop` allows use of previous year's state variables as initial 
   conditions for current year by means of the `independent` argument.
+* Additional option for determination of growing season start is available 
+  through `ModvegeSite$set_SGS_method. This comes with a different available 
+  definition of the temperature sum and is reflected in the methods 
+  `start_of_growing_season`, `start_of_growing_season_mtd`, 
+  `weighted_temperature_sum`.
 
 ## Changed
-
-* Temperature sum is only increased once growing season has started.
 
 ## Fixed
 
