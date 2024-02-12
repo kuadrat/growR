@@ -48,6 +48,13 @@ ET~c~ = K~c~ ET~0~
 limited: SEN~i~^max^ = c~s~ GRO~i~
 for \emph{i} in \emph{GV}, \emph{GR}. Makes it less likely for grass population to die out.
 Can be set to large values in order to effectively disable senescence capping.
+\item \code{stubble_height} float. Minimum height the grass can assume. The
+biomass will not fall below that height. This effectively presents a simple
+model of \emph{plant reserves}.
+\item \code{SGS_method} string. Choice of method to determine the start of the growing
+season. Can be either \code{"MTD"} for the multicriterial thermal definition
+(see \code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}) or \code{"simple"} for a commonly used
+approach as described in \code{\link[=start_of_growing_season]{start_of_growing_season()}}).
 }
 }
 

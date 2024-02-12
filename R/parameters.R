@@ -43,6 +43,7 @@ parameter_defaults = list(
   CO2_growth_factor = 0.5,
   crop_coefficient = 1.15,
   senescence_cap = 0.7,
+  stubble_height = 0.02,
   SGS_method = "MTD"
 )
 # Create a list that can be inserted into R6 class to create many fields

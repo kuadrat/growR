@@ -168,10 +168,6 @@ ModvegeSite = R6Class(
 #'    [ModvegeEnvironment]'s `get_environment_for_year()` method. If its 
 #'    `is_empty` field is `TRUE`, the [autocut] routine will be employed.
       management = NULL,
-#' @field stubble_height float. Minimum height the grass can assume. The 
-#'    biomass will not fall below that height. This can and should therefore 
-#'    be smaller than `self$cut_height`.
-      stubble_height = 0.02,
 
   #-Public-methods----------------------------------------------------------------
 
@@ -1063,10 +1059,10 @@ ModvegeSite = R6Class(
       # SEN is always >= 0
       dBMGV = self$GROGV - self$SENGV
       self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
-                         self$stubble_height * 10. * P$BDGV)
+                         self$parameters$stubble_height * 10. * P$BDGV)
       dBMGR = self$GROGR - self$SENGR
       self$BMGR[j] = max(self$BMGRp + dBMGR * self$time_step, 
-                         self$stubble_height * 10. * P$BDGR)
+                         self$parameters$stubble_height * 10. * P$BDGR)
       
       dBMDV = (1. - P$sigmaGV) * self$SENGV - self$ABSDV
       self$BMDV[j] = max(self$BMDVp + dBMDV * self$time_step, 0.)

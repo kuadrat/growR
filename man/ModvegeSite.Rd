@@ -174,10 +174,6 @@ BDDR).}
 \item{\code{management}}{A list containing management data as returned by
 \link{ModvegeEnvironment}'s \code{get_environment_for_year()} method. If its
 \code{is_empty} field is \code{TRUE}, the \link{autocut} routine will be employed.}
-
-\item{\code{stubble_height}}{float. Minimum height the grass can assume. The
-biomass will not fall below that height. This can and should therefore
-be smaller than \code{self$cut_height}.}
 }
 \if{html}{\out{</div>}}
 }

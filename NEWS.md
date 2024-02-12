@@ -14,6 +14,9 @@
 
 ## Changed
 
+* `stubble_height` is now a parameter (i.e. a field of `ModvegeParameters`) 
+  instead of a field of `MdvegeSite`.
+
 ## Fixed
 
 * Window sizes in multicriterial thermal definition were incorrect.
