@@ -114,6 +114,7 @@
 <h2 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
 </h2>
 <ol style="list-style-type: decimal">
+<li><a href="#what-is-this-for?">What is this for?</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#getting-started">Getting Started</a></li>
 <li><a href="#contributing">Contributing</a></li>
@@ -121,6 +122,29 @@
 <li><a href="#glossary">Glossary</a></li>
 <li><a href="#footnotes-and-references">Footnotes and References</a></li>
 </ol>
+</div>
+<div class="section level2">
+<h2 id="what-is-this-for">What is this for?<a class="anchor" aria-label="anchor" href="#what-is-this-for"></a>
+</h2>
+<p>This <code>R</code> package allows simulation of grass growth.</p>
+<div class="section level3">
+<h3 id="why-simulate-grass-growth">Why simulate grass growth?<a class="anchor" aria-label="anchor" href="#why-simulate-grass-growth"></a>
+</h3>
+<p>Grasslands constitute one of Earth’s most widespread terrestrial ecosystems<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;If you make changes that generally improve &lt;code&gt;growR&lt;/code&gt;, it would be great if you could share them to make them available to all future users. See &lt;a href="#contributing"&gt;Contributing&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a> and a core element in global agriculture, providing roughly half the feed inputs for global livestock systems <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Herrero, Mario, Petr Havlík, Hugo Valin, An Notenbaert, Mariana C. Rufino, Philip K. Thornton, Michael Blümmel, Franz Weiss, Delia Grace, and Michael Obersteiner. “Biomass Use, Production, Feed Efficiencies, and Greenhouse Gas Emissions from Global Livestock Systems.” Proceedings of the National Academy of Sciences 110, no. 52 (December 24, 2013): 20888–93. &lt;a href="https://doi.org/10.1073/pnas.1308149110" class="external-link"&gt;doi:10.1073/pnas.1308149110&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a>. Beside their contribution to global food production, they provide a catalogue of other ecosystem services, such as water flow and erosion regulation, pollination service, carbon sequestration and climate regulation <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;If you make changes that generally improve &lt;code&gt;growR&lt;/code&gt;, it would be great if you could share them to make them available to all future users. See &lt;a href="#contributing"&gt;Contributing&lt;/a&gt;.&lt;/p&gt;'><sup>6</sup></a>. The latter have become particularly important in light of anthropogenic climate change <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;IPCC Report 2022, Chapter 5.&lt;/p&gt;"><sup>7</sup></a>.</p>
+<p>Understanding the functioning of grassland ecosystems and their responses to external changes is therefore of significant interest. Vegetation models provide a powerful platform for such studies.</p>
+</div>
+<div class="section level3">
+<h3 id="how-does-this-compare-to-other-grass-and-vegetation-models">How does this compare to other grass and vegetation models?<a class="anchor" aria-label="anchor" href="#how-does-this-compare-to-other-grass-and-vegetation-models"></a>
+</h3>
+<p>The number of grassland models is large and ever-growing. We can therefore not give a comprehensive list, but will try to make a couple of representative comparisons to illustrate where <code>growR</code> has its niche. For the most part, an advantage of <code>growR</code> over other, similar models and their implementations is its distribution as <code>R</code> package via CRAN.</p>
+<ul>
+<li>The <a href="https://sites.massey.ac.nz/hurleypasturemodel/hurley-pasture-model/" class="external-link">Hurley Pasture Model</a> <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Thornley, J. H. M. Grassland Dynamics: An Ecosystem Simulation Model. CAB International, 1998.&lt;/p&gt;"><sup>8</sup></a> is a detailed mechanistic model for managed pastures. It is implemented in the <em>Advanced continuous simulation language (ACSL)</em> and the source code is available on request.</li>
+<li>
+<a href="https://github.com/davcam/BASGRA/" class="external-link">BASGRA</a> <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Van Oijen, M., M. Höglind, D.R. Cameron, and S.M. Thorsen. “BASGRA_2014.” Zenodo, August 13, 2015. &lt;a href="https://doi.org/10.5281/zenodo.27867" class="external-link uri"&gt;https://doi.org/10.5281/zenodo.27867&lt;/a&gt;.&lt;/p&gt;'><sup>9</sup></a> and its descendant <a href="https://github.com/MarcelVanOijen/BASGRA_N" class="external-link">BASGRA_N</a> <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Höglind, Mats, David Cameron, Tomas Persson, Xiao Huang, and Marcel van Oijen. “BASGRA_N: A Model for Grassland Productivity, Quality and Greenhouse Gas Balance.” Ecological Modelling 417 (February 1, 2020): 108925. &lt;a href="https://doi.org/10.1016/j.ecolmodel.2019.108925" class="external-link"&gt;doi:10.1016/j.ecolmodel.2019.108925&lt;/a&gt;.&lt;/p&gt;'><sup>10</sup></a> are multi-year grassland models which include tiller dynamics. They are also implemented in <code>R</code> with the source code freely available. However, they do not come packaged, as <code>growR</code> does.</li>
+<li>PROGRASS <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Lazzarotto, P., P. Calanca, and J. Fuhrer. “Dynamics of Grass–Clover Mixtures—An Analysis of the Response to Management with the PROductive GRASsland Simulator (PROGRASS).” Ecological Modelling 220, no. 5 (March 10, 2009): 703–24. &lt;a href="https://doi.org/10.1016/j.ecolmodel.2008.11.023" class="external-link"&gt;doi:10.1016/j.ecolmodel.2008.11.023&lt;/a&gt;.&lt;/p&gt;'><sup>11</sup></a> was developed to capture the interactions in grass/clover mixtures. As of this writing, no accessible implementation was found.</li>
+<li>The focus of PaSim <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;Graux, A. -I., M. Gaurut, J. Agabriel, R. Baumont, R. Delagarde, L. Delaby, and J. -F. Soussana. “Development of the Pasture Simulation Model for Assessing Livestock Production under Climate Change.” Agriculture, Ecosystems &amp;amp; Environment 144, no. 1 (November 1, 2011): 69–91. &lt;a href="https://doi.org/10.1016/j.agee.2011.07.001" class="external-link"&gt;doi:10.1016/j.agee.2011.07.001&lt;/a&gt;.&lt;/p&gt;'><sup>12</sup></a> is the investigation of livestock production, which is not directly covered in <code>growR</code>, under climate change conditions.</li>
+</ul>
+</div>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -137,7 +161,7 @@
 </h3>
 <p>Installing from source might make sense if…</p>
 <ul>
-<li>you intend on making changes to the model<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;If you make changes that generally improve &lt;code&gt;growR&lt;/code&gt;, it would be great if you could share them to make them available to all future users. See &lt;a href="#contributing"&gt;Contributing&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a>,</li>
+<li>you intend on making changes to the model<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;If you make changes that generally improve &lt;code&gt;growR&lt;/code&gt;, it would be great if you could share them to make them available to all future users. See &lt;a href="#contributing"&gt;Contributing&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a>,</li>
 <li>you want to contribute to package development and maintenance,</li>
 <li>you want to get access to the cutting edge version, which may have changes not yet available on the CRAN version but is also likely less stable,</li>
 <li>for some reason installation from CRAN is not an option for you.</li>
@@ -264,7 +288,6 @@ growR                   Tutorial (source, html)
 <li><a href="https://kuadrat.github.io/growR/"><img src="https://badgen.net/badge/Documentation/github.io/cyan" alt="Documentation"></a></li>
 <li><a href="https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/kuadrat/growR" class="external-link"><img src="https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV" alt="codecov"></a></li>
-<li><a href="https://joss.theoj.org/papers/bd4b3a207a8d4de1dc784dba702e38fc" class="external-link"><img src="https://joss.theoj.org/papers/bd4b3a207a8d4de1dc784dba702e38fc/status.svg" alt="status"></a></li>
 </ul>
 </div>
 
