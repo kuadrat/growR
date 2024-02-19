@@ -4,6 +4,7 @@
   [![Documentation](https://badgen.net/badge/Documentation/github.io/cyan)](https://kuadrat.github.io/growR/)
   [![R-CMD-check](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kuadrat/growR/actions/workflows/R-CMD-check.yaml)
   [![codecov](https://codecov.io/gh/kuadrat/growR/graph/badge.svg?token=65OACJW5FV)](https://app.codecov.io/gh/kuadrat/growR)
+  [![DOI](https://joss.theoj.org/papers/10.21105/joss.06260/status.svg)](https://doi.org/10.21105/joss.06260)
 <!-- badges: end -->
 
 ![](man/figures/logo.png)
