@@ -23,12 +23,56 @@ tools for analysing model outputs and performance.
 
 ## Contents
 
-1. [Installation](#installation)
-2. [Getting Started](#getting-started)
+1. [What is this for?](#what-is-this-for?)
+2. [Installation](#installation)
+3. [Getting Started](#getting-started)
 4. [Contributing](#contributing)
 5. [Contact](#contact)
-3. [Glossary](#glossary)
+6. [Glossary](#glossary)
 7. [Footnotes and References](#footnotes-and-references)
+
+## What is this for?
+
+This `R` package allows simulation of grass growth.
+
+### Why simulate grass growth?
+
+Grasslands constitute one of Earth's most widespread terrestrial 
+ecosystems[^3] and a core element in global agriculture, providing roughly 
+half the feed inputs for global livestock systems 
+[^4].
+Beside their contribution to global food production, they provide a catalogue 
+of other ecosystem services, such as water flow and erosion regulation, 
+pollination service, carbon sequestration and climate regulation 
+[^3].
+The latter have become particularly important in light of anthropogenic 
+climate change [^5].
+
+Understanding the functioning of grassland ecosystems and their responses to 
+external changes is therefore of significant interest.
+Vegetation models provide a powerful platform for such studies.
+
+### How does this compare to other grass and vegetation models?
+
+The number of grassland models is large and ever-growing.
+We can therefore not give a comprehensive list, but will try to make a couple 
+of representative comparisons to illustrate where `growR` has its niche.
+For the most part, an advantage of `growR` over other, similar models and 
+their implementations is its distribution as `R` package via CRAN.
+
+- The [Hurley Pasture Model](https://sites.massey.ac.nz/hurleypasturemodel/hurley-pasture-model/) [^6]
+  is a detailed mechanistic model for managed pastures. It is implemented in 
+  the *Advanced continuous simulation language (ACSL)* and the source code is 
+  available on request.
+- [BASGRA](https://github.com/davcam/BASGRA/) [^7] 
+  and its descendant [BASGRA_N](https://github.com/MarcelVanOijen/BASGRA_N) 
+  [^8] are multi-year grassland models which include tiller dynamics.
+  They are also implemented in `R` with the source code freely available. 
+  However, they do not come packaged, as `growR` does.
+- PROGRASS [^9] was developed to capture the interactions in grass/clover 
+  mixtures. As of this writing, no accessible implementation was found.
+- The focus of PaSim [^10] is the investigation of livestock production, 
+  which is not directly covered in `growR`, under climate change conditions.
 
 ## Installation
 
@@ -191,6 +235,45 @@ und Eric Mosimann. „Testing the Ability of a Simple Grassland Model to
 Simulate the Seasonal Effects of Drought on Herbage Growth“. Field Crops 
 Research 187 (Februar 2016): 12–23. 
 [doi:10.1016/j.fcr.2015.12.008](https://doi.org/10.1016/j.fcr.2015.12.008).
+
+[^3]: Zhao, Yuanyuan, Zhifeng Liu, and Jianguo Wu. “Grassland Ecosystem 
+Services: A Systematic Review of Research Advances and Future Directions.” 
+Landscape Ecology 35, no. 4 (April 1, 2020): 793–814. 
+[doi:10.1007/s10980-020-00980-3](https://doi.org/10.1007/s10980-020-00980-3).
+
+[^4]: Herrero, Mario, Petr Havlík, Hugo Valin, An Notenbaert, Mariana C. 
+Rufino, Philip K. Thornton, Michael Blümmel, Franz Weiss, Delia Grace, and 
+Michael Obersteiner. “Biomass Use, Production, Feed Efficiencies, and 
+Greenhouse Gas Emissions from Global Livestock Systems.” Proceedings of the 
+National Academy of Sciences 110, no. 52 (December 24, 2013): 20888–93. 
+[doi:10.1073/pnas.1308149110](https://doi.org/10.1073/pnas.1308149110).
+
+[^5]: IPCC Report 2022, Chapter 5.
+
+[^6]: Thornley, J. H. M. Grassland Dynamics: An Ecosystem Simulation Model. 
+CAB International, 1998.
+
+[^7]: Van Oijen, M., M. Höglind, D.R. Cameron, and S.M. Thorsen. 
+“BASGRA_2014.” Zenodo, August 13, 2015. https://doi.org/10.5281/zenodo.27867.
+
+[^8]: Höglind, Mats, David Cameron, Tomas Persson, Xiao Huang, and Marcel van 
+Oijen. “BASGRA_N: A Model for Grassland Productivity, Quality and Greenhouse 
+Gas Balance.” Ecological Modelling 417 (February 1, 2020): 108925. 
+[doi:10.1016/j.ecolmodel.2019.108925](https://doi.org/10.1016/j.ecolmodel.2019.108925).
+
+[^9]: Lazzarotto, P., P. Calanca, and J. Fuhrer. “Dynamics of Grass–Clover 
+Mixtures—An Analysis of the Response to Management with the PROductive 
+GRASsland Simulator (PROGRASS).” Ecological Modelling 220, no. 5 (March 10, 
+2009): 703–24. 
+[doi:10.1016/j.ecolmodel.2008.11.023](https://doi.org/10.1016/j.ecolmodel.2008.11.023).
+
+[^10]: Graux, A. -I., M. Gaurut, J. Agabriel, R. Baumont, R. Delagarde, L. 
+Delaby, and J. -F. Soussana. “Development of the Pasture Simulation Model for 
+Assessing Livestock Production under Climate Change.” Agriculture, Ecosystems 
+& Environment 144, no. 1 (November 1, 2011): 69–91. 
+[doi:10.1016/j.agee.2011.07.001](https://doi.org/10.1016/j.agee.2011.07.001).
+
+
 
 [^3]: If you make changes that generally improve `growR`, it would be great if you could 
 share them to make them available to all future users. See [Contributing](#contributing).
