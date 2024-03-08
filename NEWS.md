@@ -20,10 +20,13 @@
 ## Fixed
 
 * Window sizes in multicriterial thermal definition were incorrect.
-* Calculation of fAgeDR was incorrect.
+* Calculation of `fAgeDR` was incorrect.
 * Biomass is correctly updated after cuts.
+* `dBM` can become negative, as it should.
 * `fW` now uses correct threshold value of 3.8 instead of 3.81.
 * Correction of AEv calculation.
+* NULL value for simulations without cut_DOYs still produces a header in the 
+  output file.
 
 # growR 1.2.0
 

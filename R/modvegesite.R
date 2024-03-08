@@ -1071,8 +1071,8 @@ ModvegeSite = R6Class(
       
       # Current (BM) and cumulative (cBM) biomass and today's biomass change (dBM).
       self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
-      self$dBM[j] = max(0., dBMGV + dBMGR + dBMDV + dBMDR)
-      self$cBM[j] = max(0., self$cBMp + self$dBM[j])
+      self$dBM[j] = dBMGV + dBMGR + dBMDV + dBMDR
+      self$cBM[j] = self$cBMp + max(0., self$dBM[j])
 
       # Green biomass
     ## :TODO: These derived values can be calculated vectorially upon request.
@@ -1181,6 +1181,7 @@ ModvegeSite = R6Class(
       }
       # Add additional info
       for (name in c("j_start_of_growing_season", "cut_DOYs", "SGS_method")) {
+        # Access private or public values
         if (name %in% names(self)) {
           value = self[[name]]
         } else {
@@ -1189,6 +1190,10 @@ ModvegeSite = R6Class(
         # Handle vectors
         if (length(value) > 1) {
           value = paste0(value, collapse = ", ")
+        }
+        # Safeguard against NULL values
+        if (is.null(value)) {
+          value = "NULL"
         }
         header = sprintf("%s\n#%s;%s", header, name, value)
       }
