@@ -27,6 +27,8 @@
 * Correction of AEv calculation.
 * NULL value for simulations without cut_DOYs still produces a header in the 
   output file.
+* Bug where error message was not printed correctly in case of missing 
+  parameters.
 
 # growR 1.2.0
 

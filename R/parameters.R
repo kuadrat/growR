@@ -164,6 +164,7 @@ ModvegeParameters = R6Class(
         if (!file.exists(param_file)) {
           stop(sprintf("Parameter file `%s` not found.", param_file))
         }
+        self$param_file = param_file
         # Read the file and store values and names.
         logger(sprintf("Reading parameters from `%s`.", param_file))
         parameters = read.csv(param_file, sep = ",", stringsAsFactors = FALSE)
