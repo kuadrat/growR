@@ -12,7 +12,6 @@ initial_run_variables = list(
   BMGRp = NULL,
   BMDRp = NULL,
   BMDVp = NULL,
-  STp = NULL,
   cBMp = NULL,
   WRp = NULL,
   GROGV = NULL,
@@ -128,49 +127,47 @@ ModvegeSite = R6Class(
 #'   occurred during the growth period, in which case reproductive growth is 
 #'   stopped.
       cut_during_growth_preriod = NULL,
-#' @field last_DOY_for_initial_cut **autocut** Start cutting after this DOY, 
+#' @field last_DOY_for_initial_cut [autocut] Start cutting after this DOY, 
 #'   even if yield target is not reached.
       last_DOY_for_initial_cut = 150,
-#' @field max_cut_period **autocut** Maximum period to wait between 
+#' @field max_cut_period [autocut] Maximum period to wait between 
 #'   subsequent cuts.
       max_cut_period = 55,
-#' @field dry_precipitation_limit **autocut** Maximum amount of allowed 
+#' @field dry_precipitation_limit [autocut] Maximum amount of allowed 
 #'   precipitation (mm) to consider a day.
       dry_precipitation_limit = 1,
-#' @field dry_days_before_cut **autocut** Number of days that shold be dry 
+#' @field dry_days_before_cut [autocut] Number of days that shold be dry 
 #'   before a cut is made.
       dry_days_before_cut = 1,
-#' @field dry_days_after_cut **autocut** Number of days that shold be dry 
+#' @field dry_days_after_cut [autocut] Number of days that shold be dry 
 #'   after a cut is made.
       dry_days_after_cut = 2,
-#' @field max_cut_delay **autocut** Number of days a farmer is willing to 
+#' @field max_cut_delay [autocut] Number of days a farmer is willing to 
 #'   wait for dry conditions before a cut is made anyways.
       max_cut_delay = 5,
-#' @field cut_delays **autocut** Vector to keep track of cut delay times.
+#' @field cut_delays [autocut] Vector to keep track of cut delay times.
 #'   wait for dry conditions before a cut is made anyways.
       cut_delays = c(0),
-#' @field dry_window **autocut** Logical that indicates if DOY at index is 
+#' @field dry_window [autocut] Logical that indicates if DOY at index is 
 #'   considered dry enough to cut.
       dry_window = NULL,
-#' @field target_biomass **autocut** Biomass amount that should to be reached 
+#' @field target_biomass [autocut] Biomass amount that should to be reached 
 #'   by given DOY for a cut to be made.
       target_biomass = NULL,
-#' @field end_of_cutting_season **autocut** Determined DOY after which no 
+#' @field end_of_cutting_season [autocut] Determined DOY after which no 
 #'   more cuts are made.
       end_of_cutting_season = NULL,
-#' @field BM_after_cut **autocut** Amount of biomass that remains after a cut 
+#' @field BM_after_cut [autocut] Amount of biomass that remains after a cut 
 #'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
 #'   BDDR).
       BM_after_cut = NULL,
-#' @field weather A [WeatherData] object.
+#' @field weather A list created by a [WeatherData] object's 
+#'   `get_weather_for_year()` method.
       weather = NULL,
-#' @field management A [ManagementData] object. If its `is_empty` field is `TRUE`, 
-#'   the autocut routine will be employed.
+#' @field management A list containing management data as returned by 
+#'    [ModvegeEnvironment]'s `get_environment_for_year()` method. If its 
+#'    `is_empty` field is `TRUE`, the [autocut] routine will be employed.
       management = NULL,
-#' @field stubble_height float. Minimum height the grass can assume. The 
-#'    biomass will not fall below that height. This can and should therefore 
-#'    be smaller than `self$cut_height`.
-      stubble_heigt = 0.05,
 
   #-Public-methods----------------------------------------------------------------
 
@@ -186,12 +183,15 @@ ModvegeSite = R6Class(
         self$site_name = site_name
         self$run_name = run_name
         self$parameters = parameters
+        self$set_SGS_method(self$parameters$SGS_method)
 
         self$state_variable_names = names(initial_state_variables)
         self$n_state_variables = length(self$state_variable_names)
 
         # Precalculate constants
         private$REP_ON = (0.25 + (0.75 * (parameters$NI - 0.35)) / 0.65) 
+        private$minBMGV = parameters$stubble_height * 10. * parameters$BDGV
+        private$minBMGR = parameters$stubble_height * 10. * parameters$BDGR
         # Limit for biomass that remains after a cut
         self$BM_after_cut = self$cut_height * 10. * sum(parameters$BDGV,
                                                         parameters$BDGR,
@@ -218,6 +218,30 @@ ModvegeSite = R6Class(
           stop("ModvegeSite$management has not been set.")
         } else {
           return(self$management)
+        }
+      },
+
+      #' @description Choose which method to be used for determination of SGS
+      #' 
+      #' Options for the determination of the start of growing season (SGS) are:
+      #' \describe{
+      #'   \item{MTD}{Multicriterial thermal definition, 
+      #'     [start_of_growing_season_mtd()]}
+      #'   \item{simple}{Commonly used, simple SGS definition based on 
+      #'     temperature sum, [start_of_growing_season()]}
+      #' }
+      #'
+      #' @param method str Name of the method to use. Options: "MTD", "simple".
+      #' @return none
+      #'
+      #' @seealso [start_of_growing_season_mtd()], [start_of_growing_season()]
+      #'
+      set_SGS_method = function(method) {
+        if (method %in% private$SGS_options) {
+          private$SGS_method = method
+        } else {
+          warning(sprintf("Unrecognized SGS method `%s`. Use one of %s.",
+                  paste(private$SGS_options, collapse = ", ")))
         }
       },
 
@@ -320,7 +344,7 @@ ModvegeSite = R6Class(
       #'
       #' @param DOY Integer day of the year to consider.
       #' @param intensity One of ("high", "middle", "low") specifying 
-      #'   management intensity..
+      #'   management intensity.
       #' @return target Biomass (kg / ha) that should be reached on day *DOY* 
       #'   for this management *intensity*.
       #'
@@ -361,6 +385,7 @@ ModvegeSite = R6Class(
         self$management = management
         self$year = year
         private$initialize_state_variables()
+        private$calculate_temperature_sum()
         private$get_start_of_growing_season()
 
         # Determine whether cuts are to be read from input or to be 
@@ -636,6 +661,8 @@ ModvegeSite = R6Class(
     vars_to_exclude = c("OMDDV", "OMDDR"),
     current_DOY = 1,
     REP_ON = NULL,
+    SGS_method = "MTD",
+    SGS_options = c("MTD", "simple"),
     # List of labels to use for different variables when plotting.
     ylabels  =  list(AgeGV = "AgeGV (degree days)",
                    AgeGR = "AgeGR (degree days)",
@@ -669,6 +696,8 @@ ModvegeSite = R6Class(
                    ENVfT = "temperature limitation ENVfT",
                    ENVfW = "water limitation ENVfW"
                    ),
+    minBMGV = NULL,
+    minBMGR = NULL,
 
     #-Private-methods-----------------------------------------------------------
 
@@ -721,9 +750,30 @@ ModvegeSite = R6Class(
       self[["BMGRp"]]  = P$BMGR0
       self[["BMDRp"]]  = P$BMDR0
       self[["BMDVp"]]  = P$BMDV0
-      self[["STp"]]    = P$ST0
       self[["cBMp"]]   = P$cBM0
       self[["WRp"]]    = P$WR0
+    },
+
+    ## @description
+    ## Pre-calculate the temperature sum based on the daily average 
+    ## temperatures stored in self$weather using the method defined by 
+    ## private$SGS_method (which can be set trhough [self$set_SGS_method()]).
+    ##
+    ## Sets self$ST.
+    ##
+    calculate_temperature_sum = function() {
+      W = self$get_weather()
+
+      # Set negative values to 0
+      non_negative = sapply(W$Ta, function(t) { max(t, 0) })
+
+      if (private$SGS_method == "MTD") {
+        # Use simple temperature sum
+        self$ST = cumsum(non_negative)
+      } else if (private$SGS_method == "simple") {
+        # Use weighted temperature sum
+        self$ST = weighted_temperature_sum(non_negative)
+      }
     },
 
     ## @description
@@ -735,27 +785,14 @@ ModvegeSite = R6Class(
     ## Räumliche Modelle zur Vegetations- und Ertragsdynamik im 
     ## Wirtschaftsgrünland, 2011, ISBN-13: 978-3-902559-67-8
     ##
-    ## @param critical_temperature Daily average temperature in degree 
-    ##   Celsius required for a day being considered "warm enough" for growth.
-    ## @param min_window_temperature Required minimum average temperature 
-    ##   over the outer window.
-    ## @param min_daily_temperature Lowest allowed temperature within the 
-    ##   outer window.
-    ## @param inner_window_width Size of the inner, smaller window with the 
-    ##   critical_temperature requirement.
-    ## @param outer_window_width Size of the outer, larger window with the 
-    ##   average and minimum temperature requirements.
+    ## @param first_possible_DOY int Only consider days of the year from this 
+    ##   value onward.
     ## @param consider_snow Toggle whether the effect of snow cover is to be 
     ##   considered.
     ## @param critical_snow Minimum daily snowfall in mm for a day to be 
     ##   considered snowy.
     ##
-    get_start_of_growing_season = function(critical_temperature = 5.,
-                                           min_window_temperature = 6.,
-                                           min_daily_temperature = 2.,
-                                           inner_window_width = 5,
-                                           outer_window_width = 10,
-                                           first_possible_DOY = 1,
+    get_start_of_growing_season = function(first_possible_DOY = 30,
                                            consider_snow = FALSE,
                                            critical_snow = 1.) {
       W = self$get_weather()
@@ -768,30 +805,12 @@ ModvegeSite = R6Class(
         j_snow = 1
       }
 
-      j_t_critical = 0
-      # For the multicriterial thermal definition, start with  an outer 
-      # sliding window of 10 days
-      for (j in first_possible_DOY:(self$days_per_year - outer_window_width)) {
-        outer_window = W$Ta[j:(j+outer_window_width)]
-        # If there are frosts, move the outer window.
-        # Likewise, if the average temperature is too low, move the outer window.
-        if (any(outer_window < min_daily_temperature) |
-            (mean(outer_window) < min_window_temperature)) {
-          next
-        }
-        # If there are no frosts and the average T is high enough, check if 
-        # there is a suitable inner window.
-        for (j_inner in 1:(outer_window_width - inner_window_width)) {
-          inner_window = outer_window[j_inner:(j_inner + inner_window_width)]
-          if (all(inner_window >= critical_temperature)) {
-            j_t_critical = j
-            break
-          }
-        }
-        # Leave the outer loop if j_t_critical has been found.
-        if (j_t_critical > 0) {
-          break
-        }
+      if (private$SGS_method == "MTD") {
+        j_t_critical = start_of_growing_season_mtd(W$Ta, first_possible_DOY)
+      } else if (private$SGS_method == "simple") {
+        # :TODO: [Performance/Redundancy] This internally calculates ST, 
+        # which would already be accessible in self$ST.
+        j_t_critical = start_of_growing_season(W$Ta)
       }
 
       self$j_start_of_growing_season = max(j_snow, j_t_critical)
@@ -812,7 +831,6 @@ ModvegeSite = R6Class(
       self$BMGRp  = self$BMGR[j - 1]
       self$BMDRp  = self$BMDR[j - 1]
       self$BMDVp  = self$BMDV[j - 1]
-      self$STp    = self$ST[j - 1]
       self$cBMp   = self$cBM[j - 1]
       self$WRp    = self$WR[j - 1]
     },
@@ -839,9 +857,6 @@ ModvegeSite = R6Class(
 
       # LAI for computing PGRO
       self$LAIGV[j] = P$SLA * P$pcLAM * self$BMGVp / 10.
-
-      # Increase temperature sum
-      self$ST[j] = self$STp + max(W$Ta[j], 0) * self$time_step
 
       # LAI for computing AET
       LAI.ET = P$SLA * P$pcLAM * (self$BMGVp + self$BMGRp) / 10.
@@ -871,7 +886,7 @@ ModvegeSite = R6Class(
 
       ATr = PTr * fW(self$WRp / P$WHC, PETeff)
       PEv = PETeff -  PTr
-      AEv = PEv * fW(self$WRp / P$WHC, PETmx)
+      AEv = PEv * self$WRp / P$WHC
       self$AET[j] = ATr + AEv
 
       # Soil moisture budget
@@ -932,6 +947,7 @@ ModvegeSite = R6Class(
                  (self$AgeGVp + max(0., T_average)) - 
                  self$AgeGVp
       } else {
+        # Reset age to 0
         dAgeGV = -self$AgeGVp
       }
       self$AgeGV[j] = self$AgeGVp + dAgeGV * self$time_step
@@ -1023,7 +1039,7 @@ ModvegeSite = R6Class(
       ratio4 = self$AgeDR[j] / (P$ST2 - P$ST1)
       if (ratio4 < 1./3.) {
         fAgeDR = 1.
-      } else if (ratio4 < 1.) {
+      } else if (ratio4 < 2./3.) {
         fAgeDR = 2.
       } else {
         fAgeDR = 3.
@@ -1046,21 +1062,32 @@ ModvegeSite = R6Class(
       P = self$parameters
       # SEN is always >= 0
       dBMGV = self$GROGV - self$SENGV
-      self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
-                         self$stubble_height * 10. * P$BDGV)
+      next_BMGV = self$BMGVp + dBMGV * self$time_step
       dBMGR = self$GROGR - self$SENGR
-      self$BMGR[j] = max(self$BMGRp + dBMGR * self$time_step, 
-                         self$stubble_height * 10. * P$BDGR)
-      
+      next_BMGR = self$BMGRp + dBMGR * self$time_step
+      self$BMGV[j] = next_BMGV
+      self$BMGR[j] = next_BMGR
+      # Prevent biomass collapse if we are beyond ST2
+      if (self$ST[j] >= P$ST2) {
+        if (next_BMGV < private$minBMGV) {
+          self$BMGV[j] = private$minBMGV
+          dBMGV = self$BMGV[j] - self$BMGV[j-1]
+        }
+        if (next_BMGR < private$minBMGR) {
+          self$BMGR[j] = private$minBMGR
+          dBMGR = self$BMGR[j] - self$BMGR[j-1]
+        }
+      }
+ 
       dBMDV = (1. - P$sigmaGV) * self$SENGV - self$ABSDV
-      self$BMDV[j] = max(self$BMDVp + dBMDV * self$time_step, 0.)
+      self$BMDV[j] = self$BMDVp + dBMDV * self$time_step
       dBMDR = (1. - P$sigmaGR) * self$SENGR - self$ABSDR
-      self$BMDR[j] = max(self$BMDRp + dBMDR * self$time_step, 0.)
+      self$BMDR[j] = self$BMDRp + dBMDR * self$time_step
       
       # Current (BM) and cumulative (cBM) biomass and today's biomass change (dBM).
       self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
-      self$dBM[j] = max(0., dBMGV + dBMGR + dBMDV + dBMDR)
-      self$cBM[j] = max(0., self$cBMp + self$dBM[j])
+      self$dBM[j] = dBMGV + dBMGR + dBMDV + dBMDR
+      self$cBM[j] = self$cBMp + max(0., self$dBM[j])
 
       # Green biomass
     ## :TODO: These derived values can be calculated vectorially upon request.
@@ -1150,6 +1177,8 @@ ModvegeSite = R6Class(
                                 (self$BMGRp - self$BMGR[j]) +
                                 (self$BMDVp - self$BMDV[j]) +
                                 (self$BMDRp - self$BMDR[j])
+      # Update total biomass after cut.
+      self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
     },
 
     ## @description Construct a string full of meta information on a ModVege 
@@ -1165,6 +1194,25 @@ ModvegeSite = R6Class(
         parameter_value = self$parameters[[name]]
         header = sprintf("%s\n#%s;%s", header, name, parameter_value)
       }
+      # Add additional info
+      for (name in c("j_start_of_growing_season", "cut_DOYs", "SGS_method")) {
+        # Access private or public values
+        if (name %in% names(self)) {
+          value = self[[name]]
+        } else {
+          value = private[[name]]
+        }
+        # Handle vectors
+        if (length(value) > 1) {
+          value = paste0(value, collapse = ", ")
+        }
+        # Safeguard against NULL values
+        if (is.null(value)) {
+          value = "NULL"
+        }
+        header = sprintf("%s\n#%s;%s", header, name, value)
+      }
+
       # Finally, for double consistency, simulation year, site and run names
       header = sprintf("%s\n#year;%s\n#site_name;%s\n#run_name;%s", 
                        header, self$year, self$site_name, self$run_name)

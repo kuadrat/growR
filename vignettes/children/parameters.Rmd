@@ -52,3 +52,13 @@
   limited: SEN~i~^max^ = c~s~ GRO~i~ 
   for *i* in *GV*, *GR*. Makes it less likely for grass population to die out.
   Can be set to large values in order to effectively disable senescence capping.
+
+- `stubble_height` float. Minimum height the grass can assume. The 
+  biomass will not fall below that height. This effectively presents a simple 
+  model of *plant reserves*.
+
+- `SGS_method` string. Choice of method to determine the start of the growing 
+  season. Can be either `"MTD"` for the multicriterial thermal definition 
+  (see [start_of_growing_season_mtd()]) or `"simple"` for a commonly used 
+  approach as described in [start_of_growing_season()]).
+

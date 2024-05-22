@@ -24,7 +24,7 @@ The exact regression for the target biomass is based on Fig. S2 in the
 supplementary material of Petersen et al.
 
 A refinement to expected yield as function of altitude has been 
-implemented according to Table 1a in Huguenen et al. (2017).
+implemented according to Table 1a in Huguenin et al. (2017).
 }
 \references{
     \insertRef{petersen2021DynamicSimulationManagement}{growR}

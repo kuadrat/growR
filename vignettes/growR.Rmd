@@ -160,19 +160,24 @@ results[[1]][[1]]
 ```
 might be a little overwhelming and not very helpful, though.
 A convenient way to quickly see what has happened is to plot the resulting 
-grass growth curves. The `ModvegeSite` objects which are actually what's 
-stored in `results` provide a simple means of doing that through their 
-`plot()` method.
+grass growth curves. The `ModvegeSite()` objects which are actually what's 
+stored in `results` provide a simple means of doing that through the
+`plot()` and the `ModvegeSite()`s `plot_XXX()` methods.
 
-For example, to see the growth curves for year 2013 at site Sorens we could do:
+For example, to get an overview over the time evolution of the biomass we 
+could simply do:
 ```{r plot_results}
-results[[1]][[1]]$plot()
+results[[1]][[1]]$plot_bm()
 ```
-The blue vertical lines in the top left plot indicate cutting events.
-They should coincide with the steps in the harvested biomass `hvBM`, bottom 
-right plot.
+
+The blue vertical lines in the *BM* versus *DOY* plot indicate the cutting 
+events.
+They coincide with the steps visible in the bottom right plot, showing 
+harvested biomass versus *DOY*.
+Also have a look at the related `plot_XXX` functions of `ModvegeSite()` objects.
 
 Excellent! You have run your first ModVege simulation with `growR`!
+
 
 ## 4. Change inputs and run a different simulation
 

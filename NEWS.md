@@ -1,3 +1,37 @@
+# growR 1.2.0.9000
+
+## Added
+
+* Additional option for determination of growing season start is available 
+  through `ModvegeSite$set_SGS_method. This comes with a different available 
+  definition of the temperature sum and is reflected in the methods 
+  `start_of_growing_season`, `start_of_growing_season_mtd`, 
+  `weighted_temperature_sum`.
+
+## Changed
+
+* `j_start_of_growing_season` is written to output file headers.
+* Output file header contains `cut_DOYs`.
+* `growR_run_loop` allows use of previous year's state variables as initial 
+  conditions for current year by means of the `independent` argument.
+* `stubble_height` is now a parameter (i.e. a field of `ModvegeParameters`) 
+  instead of a field of `MovegeSite`.
+* Lower biomass limit is only applied after `ST2`.
+
+## Fixed
+
+* Window sizes in multicriterial thermal definition were incorrect.
+* Calculation of `fAgeDR` was incorrect.
+* Biomass is correctly updated after cuts.
+* `dBM` can become negative, as it should.
+* `fW` now uses correct threshold value of 3.8 instead of 3.81.
+* Correction of AEv calculation.
+* NULL value for simulations without cut_DOYs still produces a header in the 
+  output file.
+* Bug where error message was not printed correctly in case of missing 
+  parameters.
+* Biomass (BM, BMxx) was unaligned with biomass change (dBM, dBMxx).
+
 # growR 1.2.0
 
 ## Added

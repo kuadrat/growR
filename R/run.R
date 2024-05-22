@@ -10,7 +10,11 @@
 #' @param modvege_environments A list of [ModvegeEnvironment] instances.
 #' @param output_dir string; name of directory to which output files are to 
 #'   be written. If `output_dir == ""` (default), no files are written.
-#'
+#' @param independent boolean; If `TRUE` (default) the simulation for each 
+#'   year starts with the same initial conditions, as specified in the 
+#'   parameters of the modvege_environments. If `FALSE`, initial conditions 
+#'   are taken as the final state values of the simulation of the previous 
+#'   year.
 #' @return A list of the format `[[run]][[year]]` containing clones of 
 #'   the [ModvegeSite] instances that were run. Also write to files, if 
 #'   *output_dir* is nonempty.
@@ -24,7 +28,8 @@
 #' @md
 #' @export
 #' 
-growR_run_loop = function(modvege_environments, output_dir = "") {
+growR_run_loop = function(modvege_environments, output_dir = "", 
+                          independent = TRUE) {
   # Parse output dir
   if (output_dir == "") {
     write_files = FALSE
@@ -67,6 +72,18 @@ growR_run_loop = function(modvege_environments, output_dir = "") {
 
       #-Store-output------------------------------------------------------------
       results[[run]][[i_year]] = modvege$clone(deep = TRUE)
+
+      #-Adjust-initial-conditions-for-next-year---------------------------------
+      if (!independent) {
+        n_days = modvege$days_per_year
+        for (initial_condition in c("BMGV", "BMGR", "BMDV", "BMDR", "AgeGV", 
+                                    "AgeGR", "AgeDV", "AgeDR")) {
+          previous_value = modvege[[initial_condition]][n_days]
+          for (ic in c(initial_condition, paste0(initial_condition, "0"))) {
+            modvege$parameters[[ic]] = previous_value
+          }
+        }
+      }
     } # End of loop over simulation years
   } # End of loop over runs
   logger("All runs completed.", level = INFO)

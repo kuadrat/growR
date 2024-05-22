@@ -89,6 +89,8 @@ Part of ENV due to water limitation. Dimensionless.
 \seealso{
 \link[=autocut]{autocut}
 
+\code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}, \code{\link[=start_of_growing_season]{start_of_growing_season()}}
+
 \code{get_target_biomass()}
 
 \code{ModvegeParameters$set_parameters()}
@@ -132,57 +134,46 @@ provided or not.}
 occurred during the growth period, in which case reproductive growth is
 stopped.}
 
-\item{\code{last_DOY_for_initial_cut}}{\strong{autocut} Start cutting after this DOY,
+\item{\code{last_DOY_for_initial_cut}}{\link{autocut} Start cutting after this DOY,
 even if yield target is not reached.}
 
-\item{\code{max_cut_period}}{\strong{autocut} Maximum period to wait between
+\item{\code{max_cut_period}}{\link{autocut} Maximum period to wait between
 subsequent cuts.}
 
-\item{\code{dry_precipitation_limit}}{\strong{autocut} Maximum amount of allowed
+\item{\code{dry_precipitation_limit}}{\link{autocut} Maximum amount of allowed
 precipitation (mm) to consider a day.}
 
-\item{\code{dry_days_before_cut}}{\strong{autocut} Number of days that shold be dry
+\item{\code{dry_days_before_cut}}{\link{autocut} Number of days that shold be dry
 before a cut is made.}
 
-\item{\code{dry_days_after_cut}}{\strong{autocut} Number of days that shold be dry
+\item{\code{dry_days_after_cut}}{\link{autocut} Number of days that shold be dry
 after a cut is made.}
 
-\item{\code{max_cut_delay}}{\strong{autocut} Number of days a farmer is willing to
+\item{\code{max_cut_delay}}{\link{autocut} Number of days a farmer is willing to
 wait for dry conditions before a cut is made anyways.}
 
-\item{\code{cut_delays}}{\strong{autocut} Vector to keep track of cut delay times.
+\item{\code{cut_delays}}{\link{autocut} Vector to keep track of cut delay times.
 wait for dry conditions before a cut is made anyways.}
 
-\item{\code{dry_window}}{\strong{autocut} Logical that indicates if DOY at index is
+\item{\code{dry_window}}{\link{autocut} Logical that indicates if DOY at index is
 considered dry enough to cut.}
 
-\item{\code{target_biomass}}{\strong{autocut} Biomass amount that should to be reached
+\item{\code{target_biomass}}{\link{autocut} Biomass amount that should to be reached
 by given DOY for a cut to be made.}
 
-\item{\code{end_of_cutting_season}}{\strong{autocut} Determined DOY after which no
+\item{\code{end_of_cutting_season}}{\link{autocut} Determined DOY after which no
 more cuts are made.}
 
-\item{\code{BM_after_cut}}{\strong{autocut} Amount of biomass that remains after a cut
+\item{\code{BM_after_cut}}{\link{autocut} Amount of biomass that remains after a cut
 (determined through cut_height and biomass densities BDGV, BDDV, BDGR,
 BDDR).}
 
-\item{\code{weather}}{A \link{WeatherData} object.}
+\item{\code{weather}}{A list created by a \link{WeatherData} object's
+\code{get_weather_for_year()} method.}
 
-\item{\code{management}}{A \link{ManagementData} object. If its \code{is_empty} field is \code{TRUE},
-the autocut routine will be employed.}
-
-\item{\code{stubble_height}}{float. Minimum height the grass can assume. The
-biomass will not fall below that height. This can and should therefore
-be smaller than \code{self$cut_height}.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{stubble_height}}{float. Minimum height the grass can assume. The
-biomass will not fall below that height. This can and should therefore
-be smaller than \code{self$cut_height}.}
+\item{\code{management}}{A list containing management data as returned by
+\link{ModvegeEnvironment}'s \code{get_environment_for_year()} method. If its
+\code{is_empty} field is \code{TRUE}, the \link{autocut} routine will be employed.}
 }
 \if{html}{\out{</div>}}
 }
@@ -192,6 +183,7 @@ be smaller than \code{self$cut_height}.}
 \item \href{#method-ModvegeSite-new}{\code{ModvegeSite$new()}}
 \item \href{#method-ModvegeSite-get_weather}{\code{ModvegeSite$get_weather()}}
 \item \href{#method-ModvegeSite-get_management}{\code{ModvegeSite$get_management()}}
+\item \href{#method-ModvegeSite-set_SGS_method}{\code{ModvegeSite$set_SGS_method()}}
 \item \href{#method-ModvegeSite-determine_cut_from_input}{\code{ModvegeSite$determine_cut_from_input()}}
 \item \href{#method-ModvegeSite-determine_cut_automatically}{\code{ModvegeSite$determine_cut_automatically()}}
 \item \href{#method-ModvegeSite-get_target_biomass}{\code{ModvegeSite$get_target_biomass()}}
@@ -254,6 +246,34 @@ Return management data if it exists
 
 \subsection{Returns}{
 The ManagementData object, if it exists.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ModvegeSite-set_SGS_method"></a>}}
+\if{latex}{\out{\hypertarget{method-ModvegeSite-set_SGS_method}{}}}
+\subsection{Method \code{set_SGS_method()}}{
+Choose which method to be used for determination of SGS
+
+Options for the determination of the start of growing season (SGS) are:
+\describe{
+\item{MTD}{Multicriterial thermal definition,
+\code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}}
+\item{simple}{Commonly used, simple SGS definition based on
+temperature sum, \code{\link[=start_of_growing_season]{start_of_growing_season()}}}
+}
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$set_SGS_method(method)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{method}}{str Name of the method to use. Options: "MTD", "simple".}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+none
 }
 }
 \if{html}{\out{<hr>}}
@@ -348,7 +368,7 @@ https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
 \item{\code{DOY}}{Integer day of the year to consider.}
 
 \item{\code{intensity}}{One of ("high", "middle", "low") specifying
-management intensity..}
+management intensity.}
 }
 \if{html}{\out{</div>}}
 }

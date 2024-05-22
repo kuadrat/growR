@@ -42,7 +42,9 @@ parameter_defaults = list(
   OMDDR = 0.4,
   CO2_growth_factor = 0.5,
   crop_coefficient = 1.15,
-  senescence_cap = 0.7
+  senescence_cap = 0.7,
+  stubble_height = 0.02,
+  SGS_method = "MTD"
 )
 # Create a list that can be inserted into R6 class to create many fields
 initial_condition_names = names(initial_conditions)
@@ -162,6 +164,7 @@ ModvegeParameters = R6Class(
         if (!file.exists(param_file)) {
           stop(sprintf("Parameter file `%s` not found.", param_file))
         }
+        self$param_file = param_file
         # Read the file and store values and names.
         logger(sprintf("Reading parameters from `%s`.", param_file))
         parameters = read.csv(param_file, sep = ",", stringsAsFactors = FALSE)
