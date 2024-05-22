@@ -190,6 +190,8 @@ ModvegeSite = R6Class(
 
         # Precalculate constants
         private$REP_ON = (0.25 + (0.75 * (parameters$NI - 0.35)) / 0.65) 
+        private$minBMGV = parameters$stubble_height * 10. * parameters$BDGV
+        private$minBMGR = parameters$stubble_height * 10. * parameters$BDGR
         # Limit for biomass that remains after a cut
         self$BM_after_cut = self$cut_height * 10. * sum(parameters$BDGV,
                                                         parameters$BDGR,
@@ -694,6 +696,8 @@ ModvegeSite = R6Class(
                    ENVfT = "temperature limitation ENVfT",
                    ENVfW = "water limitation ENVfW"
                    ),
+    minBMGV = NULL,
+    minBMGR = NULL,
 
     #-Private-methods-----------------------------------------------------------
 
@@ -1058,16 +1062,27 @@ ModvegeSite = R6Class(
       P = self$parameters
       # SEN is always >= 0
       dBMGV = self$GROGV - self$SENGV
-      self$BMGV[j] = max(self$BMGVp + dBMGV * self$time_step, 
-                         self$parameters$stubble_height * 10. * P$BDGV)
+      next_BMGV = self$BMGVp + dBMGV * self$time_step
       dBMGR = self$GROGR - self$SENGR
-      self$BMGR[j] = max(self$BMGRp + dBMGR * self$time_step, 
-                         self$parameters$stubble_height * 10. * P$BDGR)
-      
+      next_BMGR = self$BMGRp + dBMGR * self$time_step
+      self$BMGV[j] = next_BMGV
+      self$BMGR[j] = next_BMGR
+      # Prevent biomass collapse if we are beyond ST2
+      if (self$ST[j] >= P$ST2) {
+        if (next_BMGV < private$minBMGV) {
+          self$BMGV[j] = private$minBMGV
+          dBMGV = self$BMGV[j] - self$BMGV[j-1]
+        }
+        if (next_BMGR < private$minBMGR) {
+          self$BMGR[j] = private$minBMGR
+          dBMGR = self$BMGR[j] - self$BMGR[j-1]
+        }
+      }
+ 
       dBMDV = (1. - P$sigmaGV) * self$SENGV - self$ABSDV
-      self$BMDV[j] = max(self$BMDVp + dBMDV * self$time_step, 0.)
+      self$BMDV[j] = self$BMDVp + dBMDV * self$time_step
       dBMDR = (1. - P$sigmaGR) * self$SENGR - self$ABSDR
-      self$BMDR[j] = max(self$BMDRp + dBMDR * self$time_step, 0.)
+      self$BMDR[j] = self$BMDRp + dBMDR * self$time_step
       
       # Current (BM) and cumulative (cBM) biomass and today's biomass change (dBM).
       self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
