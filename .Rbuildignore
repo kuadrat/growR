@@ -1,3 +1,5 @@
+revdep
+joss_paper
 data-raw
 ^cran-comments\.md$
 ^\.github$

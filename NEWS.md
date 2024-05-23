@@ -1,10 +1,10 @@
-# growR 1.2.0.9000
+# growR 1.3.0
 
 ## Added
 
-* Additional option for determination of growing season start is available 
+* An additional option for determination of growing season start is available 
   through `ModvegeSite$set_SGS_method. This comes with a different available 
-  definition of the temperature sum and is reflected in the methods 
+  definition of the temperature sum and is reflected in the new methods 
   `start_of_growing_season`, `start_of_growing_season_mtd`, 
   `weighted_temperature_sum`.
 

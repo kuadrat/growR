@@ -94,4 +94,8 @@ reference:
   - parse_year_strings
   - posieux_weather
   - set_growR_verbosity
+  - start_of_growing_season
+  - start_of_growing_season_mtd
+  - weighted_temperature_sum
   - yield_parameters
+
