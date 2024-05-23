@@ -1,16 +1,16 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   calibration: calibration.html
+  growR: growR.html
   initial_conditions: children/initial_conditions.html
-  parameters: children/parameters.html
+  parameter_descriptions: parameter_descriptions.html
   parameters_fg: children/parameters_fg.html
+  parameters: children/parameters.html
   state_variables: children/state_variables.html
   weather_parameters: children/weather_parameters.html
-  growR: growR.html
-  parameter_descriptions: parameter_descriptions.html
-last_built: 2024-02-19T07:58Z
+last_built: 2024-05-23T08:10Z
 urls:
   reference: https://kuadrat.github.io/growR/reference
   article: https://kuadrat.github.io/growR/articles
