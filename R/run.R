@@ -42,6 +42,8 @@ growR_run_loop = function(modvege_environments, output_dir = "",
     results[[run]] = list()
     logger(sprintf("Starting run %s out of %s.", run, n_runs), level = INFO)
     run_environment = modvege_environments[[run]]
+    logger(sprintf(" site name: `%s`.", run_environment$site_name), level = INFO)
+    logger(sprintf("  run name: `%s`.", run_environment$run_name), level = INFO)
     modvege = ModvegeSite$new(run_environment$parameters,
                               site_name = run_environment$site_name,
                               run_name = run_environment$run_name
