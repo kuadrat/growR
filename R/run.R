@@ -73,7 +73,7 @@ growR_run_loop = function(modvege_environments, output_dir = "",
       }
 
       #-Store-output------------------------------------------------------------
-      results[[run]][[i_year]] = modvege$clone(deep = TRUE)
+      results[[run]][[i_year]] = modvege$clone(deep = FALSE)
 
       #-Adjust-initial-conditions-for-next-year---------------------------------
       if (!independent) {
