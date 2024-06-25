@@ -40,7 +40,8 @@ ModvegeEnvironment = R6Class(
     param_file = NULL,
 #' @field weather_file Name of supplied weather file.
     weather_file = NULL,
-#' @field management_file Name of supplied management file.
+#' @field management_file Name of supplied management file or management 
+#'    intensity for [Autocut] ('high', 'middle', 'low', 'extensive').
     management_file = NULL,
 #' @field parameters A [ModvegeParameters] object.
     parameters = NULL,

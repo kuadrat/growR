@@ -131,10 +131,16 @@ PhenologicalAutocut = R6Class(
         last_cut_DOY = i0 + lower[[1]]
       }
 
-      # Time between cuts
-      integer_n_cuts = round(self$n_cuts)
-      delta = floor((last_cut_DOY - first_cut_DOY) / (integer_n_cuts - 1))
-      self$cut_DOYs = (((1:integer_n_cuts) - 1) * delta) + first_cut_DOY
+      # Calculate time between cuts
+      # Round n_cuts but apply at least 1
+      integer_n_cuts = max(1, round(self$n_cuts))
+      if (integer_n_cuts != 1) {
+        delta = floor((last_cut_DOY - first_cut_DOY) / (integer_n_cuts - 1))
+        self$cut_DOYs = (((1:integer_n_cuts) - 1) * delta) + first_cut_DOY
+      } else {
+        # If there's just one cut, apply it at end of season
+        self$cut_DOYs = c(last_cut_DOY)
+      }
     },
 
     #' @description Does a cut occur on *DOY*?
