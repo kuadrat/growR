@@ -22,7 +22,7 @@ to file using write_output()."><meta property="og:image" content="https://kuadra
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,9 +158,8 @@ ISSN 1365-2494, <a href="https://doi.org/10.1111/j.1365-2494.2006.00515.x" class
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="autocut.html">autocut</a></p>
+    <div class="dont-index"><p><a href="Autocut.html">Autocut</a></p>
 <p><code><a href="start_of_growing_season_mtd.html">start_of_growing_season_mtd()</a></code>, <code><a href="start_of_growing_season.html">start_of_growing_season()</a></code></p>
-<p><code>get_target_biomass()</code></p>
 <p><code>ModvegeParameters$set_parameters()</code></p></div>
     </div>
     <div class="section level2">
@@ -229,58 +228,8 @@ occurred during the growth period, in which case reproductive growth is
 stopped.</p></dd>
 
 
-<dt><code>last_DOY_for_initial_cut</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Start cutting after this DOY,
-even if yield target is not reached.</p></dd>
-
-
-<dt><code>max_cut_period</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Maximum period to wait between
-subsequent cuts.</p></dd>
-
-
-<dt><code>dry_precipitation_limit</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Maximum amount of allowed
-precipitation (mm) to consider a day.</p></dd>
-
-
-<dt><code>dry_days_before_cut</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Number of days that shold be dry
-before a cut is made.</p></dd>
-
-
-<dt><code>dry_days_after_cut</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Number of days that shold be dry
-after a cut is made.</p></dd>
-
-
-<dt><code>max_cut_delay</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Number of days a farmer is willing to
-wait for dry conditions before a cut is made anyways.</p></dd>
-
-
-<dt><code>cut_delays</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Vector to keep track of cut delay times.
-wait for dry conditions before a cut is made anyways.</p></dd>
-
-
-<dt><code>dry_window</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Logical that indicates if DOY at index is
-considered dry enough to cut.</p></dd>
-
-
-<dt><code>target_biomass</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Biomass amount that should to be reached
-by given DOY for a cut to be made.</p></dd>
-
-
-<dt><code>end_of_cutting_season</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Determined DOY after which no
-more cuts are made.</p></dd>
-
-
 <dt><code>BM_after_cut</code></dt>
-<dd><p><a href="autocut.html">autocut</a> Amount of biomass that remains after a cut
+<dd><p>Amount of biomass that remains after a cut #'
 (determined through cut_height and biomass densities BDGV, BDDV, BDGR,
 BDDR).</p></dd>
 
@@ -293,7 +242,12 @@ BDDR).</p></dd>
 <dt><code>management</code></dt>
 <dd><p>A list containing management data as returned by
 <a href="ModvegeEnvironment.html">ModvegeEnvironment</a>'s <code>get_environment_for_year()</code> method. If its
-<code>is_empty</code> field is <code>TRUE</code>, the <a href="autocut.html">autocut</a> routine will be employed.</p></dd>
+<code>is_empty</code> field is <code>TRUE</code>, the <a href="Autocut.html">Autocut</a> routine will be employed.</p></dd>
+
+
+<dt><code>Autocut</code></dt>
+<dd><p>A subclass of <a href="Autocut.html">Autocut</a>. The algorithm used to determine
+cut events.</p></dd>
 
 
 </dl><p></p></div>
@@ -309,8 +263,6 @@ BDDR).</p></dd>
 <li><p><a href="#method-ModvegeSite-get_management"><code>ModvegeSite$get_management()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-set_SGS_method"><code>ModvegeSite$set_SGS_method()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-determine_cut_from_input"><code>ModvegeSite$determine_cut_from_input()</code></a></p></li>
-<li><p><a href="#method-ModvegeSite-determine_cut_automatically"><code>ModvegeSite$determine_cut_automatically()</code></a></p></li>
-<li><p><a href="#method-ModvegeSite-get_target_biomass"><code>ModvegeSite$get_target_biomass()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-run"><code>ModvegeSite$run()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-write_output"><code>ModvegeSite$write_output()</code></a></p></li>
 <li><p><a href="#method-ModvegeSite-set_parameters"><code>ModvegeSite$set_parameters()</code></a></p></li>
@@ -421,93 +373,15 @@ temperature sum, <code><a href="start_of_growing_season.html">start_of_growing_s
 <p>Boolean <code>TRUE</code> if a cut happens on day <em>DOY</em>.</p>
 </div>
 
-</div><p></p><hr><a id="method-ModvegeSite-determine_cut_automatically"></a><div class="section">
-<h3 id="method-determine-cut-automatically-">Method <code>determine_cut_automatically()</code><a class="anchor" aria-label="anchor" href="#method-determine-cut-automatically-"></a></h3>
-<p>Decide based on simple criteria whether day of year <em>DOY</em> would be a
-good day to cut.</p>
-<p>This follows an implementation described in
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A.
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation
-of Management Events for Assessing Impacts of Climate Change on
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy
-128 (August 1, 2021): 126306.
-https://doi.org/10.1016/j.eja.2021.126306.</p>
-<p>The decision to cut is made based on two criteria.
-First, it is checked whether a <em>target biomass</em> is reached on given
-DOY. The defined target depends on the DOY and is given through
-:func:<code>get_target_biomass</code>. If said biomass is present, return <code>TRUE</code>.</p>
-<p>Otherwise, it is checked whether a given amount of time has passed
-since the last cut. Depending on whether this is the first cut of
-the season or not, the relevant parameters are
-:int:<code>last_DOY_for_initial_cut</code> and :int:<code>max_cut_period</code>.
-If that amount of time has passed, return <code>TRUE</code>, otherwise return
-<code>FALSE</code>.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">determine_cut_automatically</span><span class="op">(</span><span class="va">DOY</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>DOY</code></dt>
-<dd><p>Integer day of the year for which to make a cut decision.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
-<p>Boolean <code>TRUE</code> if a cut happens on day <em>DOY</em>.</p>
-</div>
-
-</div><p></p><hr><a id="method-ModvegeSite-get_target_biomass"></a><div class="section">
-<h3 id="method-get-target-biomass-">Method <code>get_target_biomass()</code><a class="anchor" aria-label="anchor" href="#method-get-target-biomass-"></a></h3>
-<p>Get target value of biomass on given <em>DOY</em>, which determines whether
-a cut is to occur.</p>
-<p>The regression for the target biomass is based on Fig. S2 in the
-supplementary material of
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A.
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation
-of Management Events for Assessing Impacts of Climate Change on
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy
-128 (August 1, 2021): 126306.
-https://doi.org/10.1016/j.eja.2021.126306.</p>
-<p>A refinement to expected yield as function of altitude has been
-implemented according to Table 1a in
-Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz,
-8, (6), 2017,
-https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/</p><div class="section">
-<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">get_target_biomass</span><span class="op">(</span><span class="va">DOY</span>, intensity <span class="op">=</span> <span class="st">"high"</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>DOY</code></dt>
-<dd><p>Integer day of the year to consider.</p></dd>
-
-
-<dt><code>intensity</code></dt>
-<dd><p>One of ("high", "middle", "low") specifying
-management intensity.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
-<p>target Biomass (kg / ha) that should be reached on day <em>DOY</em>
-for this management <em>intensity</em>.</p>
-</div>
-
 </div><p></p><hr><a id="method-ModvegeSite-run"></a><div class="section">
 <h3 id="method-run-">Method <code>run()</code><a class="anchor" aria-label="anchor" href="#method-run-"></a></h3>
 <p>Carry out a ModVege simulation for one year.</p><div class="section">
-<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span><span class="va">year</span>, <span class="va">weather</span>, <span class="va">management</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>year</code></dt>
 <dd><p>Integer specifying the year to consider.</p></dd>
 
@@ -525,7 +399,7 @@ for this management <em>intensity</em>.</p>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
+<h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
 <p>None Fills the state variables of this instance with the
 simulated values. Access them programmatically or write them to
 file using <code>write_output()</code>.</p>
@@ -535,12 +409,12 @@ file using <code>write_output()</code>.</p>
 <h3 id="method-write-output-">Method <code>write_output()</code><a class="anchor" aria-label="anchor" href="#method-write-output-"></a></h3>
 <p>Write values of ModVege results into given file.</p>
 <p>A header with metadata is prepended to the actual data.</p><div class="section">
-<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
+<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">write_output</span><span class="op">(</span><span class="va">filename</span>, force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
+<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>filename</code></dt>
 <dd><p>Path or name of filename to be created or overwritten.</p></dd>
 
@@ -552,7 +426,7 @@ file using <code>write_output()</code>.</p>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
+<h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
 <p>None Writes simulation results to file <em>filename</em>.</p>
 </div>
 
@@ -562,12 +436,12 @@ file using <code>write_output()</code>.</p>
 <p>This is just a shorthand to the underlying <code>ModvegeParameters</code>
 object's <code>set_parameters()</code> function. Special care is taken to
 account for potential changes to functional group weights.</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">set_parameters</span><span class="op">(</span><span class="va">params</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>params</code></dt>
 <dd><p>List of name-value pairs of the parameters to update.</p></dd>
 
@@ -575,7 +449,7 @@ account for potential changes to functional group weights.</p><div class="sectio
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
+<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
 <p>None Updates this object's parameter values.</p>
 </div>
 
@@ -586,8 +460,61 @@ account for potential changes to functional group weights.</p><div class="sectio
 modeled state variables.</p>
 <p>Can only be sensibly run <em>after</em> a simulation has been carried out,
 i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_bm"></a><div class="section">
+<h3 id="method-plot-bm-">Method <code>plot_bm()</code><a class="anchor" aria-label="anchor" href="#method-plot-bm-"></a></h3>
+<p>Create an overview plot for biomass.</p>
+<p>Creates a simple base R plot showing the BM with cutting events and,
+if applicable, target biomass, dBM, cBM and hvBM.
+Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
+<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_bm</span><span class="op">(</span>smooth_interval <span class="op">=</span> <span class="fl">28</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>smooth_interval</code></dt>
+<dd><p>Int. Number of days over which the variable
+<code>dBM</code> is smoothened.</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Further arguments are discarded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
+<p>NULL Creates a plot of the result in the active device.</p>
+</div>
+
+</div><p></p><hr><a id="method-ModvegeSite-plot_limitations"></a><div class="section">
+<h3 id="method-plot-limitations-">Method <code>plot_limitations()</code><a class="anchor" aria-label="anchor" href="#method-plot-limitations-"></a></h3>
+<p>Create an overview plot of limiting factors.</p>
+<p>Creates a simple base R plot showing the different environmental
+limitation functions over time.
+Can only be sensibly run <em>after</em> a simulation has been carried out,
+i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
+<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_limitations</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -603,25 +530,22 @@ i.e. after this instance's <code>run()</code> method has been called.</p><div cl
 <p>NULL Creates a plot of the result in the active device.</p>
 </div>
 
-</div><p></p><hr><a id="method-ModvegeSite-plot_bm"></a><div class="section">
-<h3 id="method-plot-bm-">Method <code>plot_bm()</code><a class="anchor" aria-label="anchor" href="#method-plot-bm-"></a></h3>
-<p>Create an overview plot for biomass.</p>
-<p>Creates a simple base R plot showing the BM with cutting events and,
-if applicable, target biomass, dBM, cBM and hvBM.
-Can only be sensibly run <em>after</em> a simulation has been carried out,
+</div><p></p><hr><a id="method-ModvegeSite-plot_water"></a><div class="section">
+<h3 id="method-plot-water-">Method <code>plot_water()</code><a class="anchor" aria-label="anchor" href="#method-plot-water-"></a></h3>
+<p>Create an overview plot of the water balance.</p>
+<p>Creates a simple base R plot showing different variables pertaining to
+the water balance, namely water reserves <em>WR</em>, actual
+evapotranspiration <em>AET</em>, leaf area index <em>LAI</em> and LAI of the green
+vegetative compartment <em>LAIGV</em>.</p>
+<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
 i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
 <h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_bm</span><span class="op">(</span>smooth_interval <span class="op">=</span> <span class="fl">28</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_water</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>smooth_interval</code></dt>
-<dd><p>Int. Number of days over which the variable
-<code>dBM</code> is smoothened.</p></dd>
-
-
-<dt><code>...</code></dt>
+<p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Further arguments are discarded.</p></dd>
 
 
@@ -632,15 +556,17 @@ i.e. after this instance's <code>run()</code> method has been called.</p><div cl
 <p>NULL Creates a plot of the result in the active device.</p>
 </div>
 
-</div><p></p><hr><a id="method-ModvegeSite-plot_limitations"></a><div class="section">
-<h3 id="method-plot-limitations-">Method <code>plot_limitations()</code><a class="anchor" aria-label="anchor" href="#method-plot-limitations-"></a></h3>
-<p>Create an overview plot of limiting factors.</p>
-<p>Creates a simple base R plot showing the different environmental
-limitation functions over time.
-Can only be sensibly run <em>after</em> a simulation has been carried out,
+</div><p></p><hr><a id="method-ModvegeSite-plot_growth"></a><div class="section">
+<h3 id="method-plot-growth-">Method <code>plot_growth()</code><a class="anchor" aria-label="anchor" href="#method-plot-growth-"></a></h3>
+<p>Create an overview plot of growth dynamics.</p>
+<p>Creates a simple base R plot showing different variables pertaining to
+the growth dynamics, namely potential growth <em>PGRO</em>, effective
+growth <em>GRO</em>, the reproductive function <em>REP</em> and the temperature
+sum <em>ST</em>.</p>
+<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
 i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
 <h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_limitations</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_growth</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -656,67 +582,15 @@ i.e. after this instance's <code>run()</code> method has been called.</p><div cl
 <p>NULL Creates a plot of the result in the active device.</p>
 </div>
 
-</div><p></p><hr><a id="method-ModvegeSite-plot_water"></a><div class="section">
-<h3 id="method-plot-water-">Method <code>plot_water()</code><a class="anchor" aria-label="anchor" href="#method-plot-water-"></a></h3>
-<p>Create an overview plot of the water balance.</p>
-<p>Creates a simple base R plot showing different variables pertaining to
-the water balance, namely water reserves <em>WR</em>, actual
-evapotranspiration <em>AET</em>, leaf area index <em>LAI</em> and LAI of the green
-vegetative compartment <em>LAIGV</em>.</p>
-<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
-i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
-<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_water</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>...</code></dt>
-<dd><p>Further arguments are discarded.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
-<p>NULL Creates a plot of the result in the active device.</p>
-</div>
-
-</div><p></p><hr><a id="method-ModvegeSite-plot_growth"></a><div class="section">
-<h3 id="method-plot-growth-">Method <code>plot_growth()</code><a class="anchor" aria-label="anchor" href="#method-plot-growth-"></a></h3>
-<p>Create an overview plot of growth dynamics.</p>
-<p>Creates a simple base R plot showing different variables pertaining to
-the growth dynamics, namely potential growth <em>PGRO</em>, effective
-growth <em>GRO</em>, the reproductive function <em>REP</em> and the temperature
-sum <em>ST</em>.</p>
-<p>Can only be sensibly run <em>after</em> a simulation has been carried out,
-i.e. after this instance's <code>run()</code> method has been called.</p><div class="section">
-<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_growth</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>...</code></dt>
-<dd><p>Further arguments are discarded.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
-<p>NULL Creates a plot of the result in the active device.</p>
-</div>
-
 </div><p></p><hr><a id="method-ModvegeSite-plot_var"></a><div class="section">
 <h3 id="method-plot-var-">Method <code>plot_var()</code><a class="anchor" aria-label="anchor" href="#method-plot-var-"></a></h3>
 <p>Plot the temporal evolution of a modeled state variable.</p><div class="section">
-<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
+<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">plot_var</span><span class="op">(</span><span class="va">var</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>var</code></dt>
 <dd><p>String. Name of the state variable to plot.</p></dd>
 
@@ -728,19 +602,19 @@ i.e. after this instance's <code>run()</code> method has been called.</p><div cl
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-14">Returns<a class="anchor" aria-label="anchor" href="#returns-14"></a></h4>
+<h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
 <p>None, but plots to the current device.</p>
 </div>
 
 </div><p></p><hr><a id="method-ModvegeSite-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
+<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ModvegeSite</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
+<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

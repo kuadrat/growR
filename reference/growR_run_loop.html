@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">growR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,11 +107,15 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">growR_run_loop</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">env1</span>, <span class="va">env2</span><span class="op">)</span>, output_dir <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Starting run 1 out of 2.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO] site name: `posieux1`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]  run name: `-`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 1/2]Simulating year 2013 (1/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 1/2]Simulating year 2014 (2/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 1/2]Simulating year 2015 (3/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 1/2]Simulating year 2016 (4/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]Starting run 2 out of 2.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO] site name: `sorens1`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO]  run name: `-`.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 2/2]Simulating year 2013 (1/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 2/2]Simulating year 2014 (2/4)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [INFO][Run 2/2]Simulating year 2015 (3/4)</span>
@@ -132,6 +136,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2563.53685693821</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 102.84 104.12 104.79 108.13 113.74 117.69 119.45 119.45  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 356.080235356464</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 747.3162 746.116660416 745.491129848167 742.378930983185 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 29.8722 29.814845376 29.7848814563971 29.6356592003006 2 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 2.34299102132323</span>
@@ -169,29 +174,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 7229.0639116253</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 106 134 162 190 218 246 274 302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: -2.6838 -1.199539584 -0.62553056783328 -3.11219886498208 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -206,7 +200,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: posieux1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -247,6 +240,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 3070.87366438124</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 102.07 105.44 108.61 112.35 115.58 117.36 124.65 132.15  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 435.123915843282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 748.04385 744.87850580325 741.930399428063 738.484475911 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 29.90685 29.75567087325 29.6141826582477 29.448047093534 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 0.145872941277318</span>
@@ -284,29 +278,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 11464.6810906814</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 91 119 147 175 203 231 259 287</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: -1.95615 -3.16534419675 -2.9481063751866 -3.445923516870 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -321,7 +304,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: posieux1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -362,6 +344,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2951.13482002105</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 100 100 104.91 109.88 109.88 109.88 110.27 115.11 122.86 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 338.246964126842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 750 750 745.36005 740.73093447225 740.73093447225 740.73 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 30 30 29.77905 29.55704718225 29.55704718225 29.55704718 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 1.41527881807348</span>
@@ -399,29 +382,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 7395.53341352108</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 90 118 146 174 202 230 258 286 314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: 0 0 -4.63995 -4.62911552775 0 0 -0.357964320730916 -4.43 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -436,7 +408,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: posieux1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -477,6 +448,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2754.76329664012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 103.99 107.78 111.31 116.04 120.55 123.86 127.42 131.52  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 383.051716604792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 746.22945 742.68975041175 739.429467580217 735.106022791 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 29.82045 29.65092074175 29.4939191164224 29.284659760291 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 1.78392649662687</span>
@@ -514,29 +486,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 8655.18388124217</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 89 117 145 173 201 229 257 285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: -3.77055 -3.53969958825 -3.26028283153287 -4.32344478883 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -551,7 +512,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: posieux1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -594,6 +554,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2295.17765333274</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 102.41 102.7 102.7 105.98 110.39 112.89 112.89 114.12 11 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 370.304808951</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 747.72255 747.45043420575 747.45043420575 744.3753243852 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 29.89155 29.87854717575 29.87854717575 29.7315447236453  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 0.47395457909275</span>
@@ -631,29 +592,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 7841.72955659756</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 106 134 162 190 218 246 274 302</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: -2.27745 -0.27211579425 0 -3.07510982047989 -4.094811373 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -668,7 +618,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: sorens1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -709,6 +658,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2569.40156551628</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 102.03 105.18 109.1 112.19 113.89 115.61 122.11 128.58 1 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 413.555372388403</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 748.08165 745.12259677875 741.474186950609 738.631281546 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 29.90865 29.76733162875 29.5922997187729 29.455139409576 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 1.6535647814618</span>
@@ -746,29 +696,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 10217.0758797703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 91 119 147 175 203 231 259 287</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: -1.91835 -2.95905322125 -3.64840982814105 -2.84290540383 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -783,7 +722,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: sorens1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -824,6 +762,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2709.57058128289</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 100 100.15 104.87 108.03 108.03 108.03 109.26 113.06 119 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 367.30328845583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 750 749.85825 745.39980939 742.456180652507 742.45618065 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 30 29.99325 29.78089779 29.6397363344754 29.639736334475 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 0.646093312885173</span>
@@ -861,29 +800,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 8724.35909045946</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 118 146 174 202 230 258 286 314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: 0 -0.14175 -4.45844061 -2.9436287374926 0 0 -1.135177993 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -898,7 +826,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: sorens1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>
@@ -939,6 +866,7 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGRp: 2492.27519480207</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGV: 102.97 105.51 107.62 110.78 113.77 115.61 118.18 121.58  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     AgeGVp: 405.976163870246</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Autocut: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BM: 747.19335 744.8139274665 742.852022155526 739.9319657652 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDR: 29.86635 29.7525592065 29.6583923566114 29.5178115768411 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     BMDRp: 0.34327925782018</span>
@@ -976,29 +904,18 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cBMp: 8624.43068429059</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_DOYs: 117 145 173 201 229 257 285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cut_delays: 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_during_growth_preriod: TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cut_height: 0.05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dBM: -2.80665 -2.3794225335 -1.96190531097437 -2.920056390264 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     days_per_year: 365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_automatically: function (DOY) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     determine_cut_from_input: function (DOY) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_after_cut: 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_days_before_cut: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_precipitation_limit: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     dry_window: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     end_of_cutting_season: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_management: function () </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     get_target_biomass: function (DOY, intensity = "high") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     get_weather: function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     hvBM: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (parameters, site_name = "-", run_name = "-") </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     j_start_of_growing_season: 88</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     last_DOY_for_initial_cut: 150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     management: list</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_delay: 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     max_cut_period: 55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     n_state_variables: 31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     parameters: ModvegeParameters, R6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     plot: function (...) </span>
@@ -1013,7 +930,6 @@ as specified in the <em>site_name</em> and <em>run_name</em> fields of the suppl
 <span class="r-out co"><span class="r-pr">#&gt;</span>     set_parameters: function (params) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     site_name: sorens1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     state_variable_names: AgeGV AgeGR AgeDV AgeDR BMGV BMGR BMDV BMDR OMDGV OMDGR  ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     target_biomass: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     time_step: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     version: package_version, numeric_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     weather: list</span>

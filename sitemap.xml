@@ -46,6 +46,9 @@
     <loc>https://kuadrat.github.io/growR/news/index.html</loc>
   </url>
   <url>
+    <loc>https://kuadrat.github.io/growR/reference/Autocut.html</loc>
+  </url>
+  <url>
     <loc>https://kuadrat.github.io/growR/reference/Combinator.html</loc>
   </url>
   <url>
@@ -76,6 +79,12 @@
     <loc>https://kuadrat.github.io/growR/reference/ModvegeSite.html</loc>
   </url>
   <url>
+    <loc>https://kuadrat.github.io/growR/reference/PetersenAutocut.html</loc>
+  </url>
+  <url>
+    <loc>https://kuadrat.github.io/growR/reference/PhenologicalAutocut.html</loc>
+  </url>
+  <url>
     <loc>https://kuadrat.github.io/growR/reference/PscanPlotter.html</loc>
   </url>
   <url>
@@ -98,9 +107,6 @@
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/atmospheric_CO2.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/autocut.html</loc>
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/box_smooth.html</loc>
@@ -145,19 +151,7 @@
     <loc>https://kuadrat.github.io/growR/reference/fW.html</loc>
   </url>
   <url>
-    <loc>https://kuadrat.github.io/growR/reference/get_annual_gross_yield.html</loc>
-  </url>
-  <url>
     <loc>https://kuadrat.github.io/growR/reference/get_bias.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/get_end_of_cutting_season.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/get_expected_n_cuts.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/get_relative_cut_contribution.html</loc>
   </url>
   <url>
     <loc>https://kuadrat.github.io/growR/reference/get_site_name.html</loc>
