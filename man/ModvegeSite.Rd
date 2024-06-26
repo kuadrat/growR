@@ -87,11 +87,9 @@ Part of ENV due to water limitation. Dimensionless.
 \insertRef{jouven2006ModelPredictingDynamics}{growR}
 }
 \seealso{
-\link[=autocut]{autocut}
+\link[=Autocut]{Autocut}
 
 \code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}, \code{\link[=start_of_growing_season]{start_of_growing_season()}}
-
-\code{get_target_biomass()}
 
 \code{ModvegeParameters$set_parameters()}
 }
@@ -134,37 +132,7 @@ provided or not.}
 occurred during the growth period, in which case reproductive growth is
 stopped.}
 
-\item{\code{last_DOY_for_initial_cut}}{\link{autocut} Start cutting after this DOY,
-even if yield target is not reached.}
-
-\item{\code{max_cut_period}}{\link{autocut} Maximum period to wait between
-subsequent cuts.}
-
-\item{\code{dry_precipitation_limit}}{\link{autocut} Maximum amount of allowed
-precipitation (mm) to consider a day.}
-
-\item{\code{dry_days_before_cut}}{\link{autocut} Number of days that shold be dry
-before a cut is made.}
-
-\item{\code{dry_days_after_cut}}{\link{autocut} Number of days that shold be dry
-after a cut is made.}
-
-\item{\code{max_cut_delay}}{\link{autocut} Number of days a farmer is willing to
-wait for dry conditions before a cut is made anyways.}
-
-\item{\code{cut_delays}}{\link{autocut} Vector to keep track of cut delay times.
-wait for dry conditions before a cut is made anyways.}
-
-\item{\code{dry_window}}{\link{autocut} Logical that indicates if DOY at index is
-considered dry enough to cut.}
-
-\item{\code{target_biomass}}{\link{autocut} Biomass amount that should to be reached
-by given DOY for a cut to be made.}
-
-\item{\code{end_of_cutting_season}}{\link{autocut} Determined DOY after which no
-more cuts are made.}
-
-\item{\code{BM_after_cut}}{\link{autocut} Amount of biomass that remains after a cut
+\item{\code{BM_after_cut}}{Amount of biomass that remains after a cut #'
 (determined through cut_height and biomass densities BDGV, BDDV, BDGR,
 BDDR).}
 
@@ -173,7 +141,10 @@ BDDR).}
 
 \item{\code{management}}{A list containing management data as returned by
 \link{ModvegeEnvironment}'s \code{get_environment_for_year()} method. If its
-\code{is_empty} field is \code{TRUE}, the \link{autocut} routine will be employed.}
+\code{is_empty} field is \code{TRUE}, the \link{Autocut} routine will be employed.}
+
+\item{\code{Autocut}}{A subclass of \link{Autocut}. The algorithm used to determine
+cut events.}
 }
 \if{html}{\out{</div>}}
 }
@@ -185,8 +156,6 @@ BDDR).}
 \item \href{#method-ModvegeSite-get_management}{\code{ModvegeSite$get_management()}}
 \item \href{#method-ModvegeSite-set_SGS_method}{\code{ModvegeSite$set_SGS_method()}}
 \item \href{#method-ModvegeSite-determine_cut_from_input}{\code{ModvegeSite$determine_cut_from_input()}}
-\item \href{#method-ModvegeSite-determine_cut_automatically}{\code{ModvegeSite$determine_cut_automatically()}}
-\item \href{#method-ModvegeSite-get_target_biomass}{\code{ModvegeSite$get_target_biomass()}}
 \item \href{#method-ModvegeSite-run}{\code{ModvegeSite$run()}}
 \item \href{#method-ModvegeSite-write_output}{\code{ModvegeSite$write_output()}}
 \item \href{#method-ModvegeSite-set_parameters}{\code{ModvegeSite$set_parameters()}}
@@ -294,87 +263,6 @@ Read from the input whether a cut occurs on day \emph{DOY}.
 }
 \subsection{Returns}{
 Boolean \code{TRUE} if a cut happens on day \emph{DOY}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-determine_cut_automatically"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-determine_cut_automatically}{}}}
-\subsection{Method \code{determine_cut_automatically()}}{
-Decide based on simple criteria whether day of year \emph{DOY} would be a
-good day to cut.
-
-This follows an implementation described in
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A.
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation
-of Management Events for Assessing Impacts of Climate Change on
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy
-128 (August 1, 2021): 126306.
-https://doi.org/10.1016/j.eja.2021.126306.
-
-The decision to cut is made based on two criteria.
-First, it is checked whether a \emph{target biomass} is reached on given
-DOY. The defined target depends on the DOY and is given through
-:func:\code{get_target_biomass}. If said biomass is present, return \code{TRUE}.
-
-Otherwise, it is checked whether a given amount of time has passed
-since the last cut. Depending on whether this is the first cut of
-the season or not, the relevant parameters are
-:int:\code{last_DOY_for_initial_cut} and :int:\code{max_cut_period}.
-If that amount of time has passed, return \code{TRUE}, otherwise return
-\code{FALSE}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$determine_cut_automatically(DOY)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{DOY}}{Integer day of the year for which to make a cut decision.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Boolean \code{TRUE} if a cut happens on day \emph{DOY}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ModvegeSite-get_target_biomass"></a>}}
-\if{latex}{\out{\hypertarget{method-ModvegeSite-get_target_biomass}{}}}
-\subsection{Method \code{get_target_biomass()}}{
-Get target value of biomass on given \emph{DOY}, which determines whether
-a cut is to occur.
-
-The regression for the target biomass is based on Fig. S2 in the
-supplementary material of
-Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A.
-Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation
-of Management Events for Assessing Impacts of Climate Change on
-Pre-Alpine Grassland Productivity.” European Journal of Agronomy
-128 (August 1, 2021): 126306.
-https://doi.org/10.1016/j.eja.2021.126306.
-
-A refinement to expected yield as function of altitude has been
-implemented according to Table 1a in
-Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz,
-8, (6), 2017,
-https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ModvegeSite$get_target_biomass(DOY, intensity = "high")}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{DOY}}{Integer day of the year to consider.}
-
-\item{\code{intensity}}{One of ("high", "middle", "low") specifying
-management intensity.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-target Biomass (kg / ha) that should be reached on day \emph{DOY}
-for this management \emph{intensity}.
 }
 }
 \if{html}{\out{<hr>}}

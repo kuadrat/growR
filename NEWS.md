@@ -1,3 +1,14 @@
+# growR 1.3.0.9000
+
+## Added
+
+* site_name and run_name are printed to console in `growR_run_loop`.
+* PhenologicalAutocut
+
+## Changed
+
+* autocut algorithm is now outsourced to its own R6class.
+
 # growR 1.3.0
 
 ## Added

@@ -91,7 +91,7 @@ install.packages("growR")
 
 Installing from source might make sense if...
 
-- you intend on making changes to the model[^3],
+- you intend on making changes to the model[^11],
 - you want to contribute to package development and maintenance,
 - you want to get access to the cutting edge version, which may have changes
   not yet available on the CRAN version but is also likely less stable,
@@ -275,6 +275,6 @@ Assessing Livestock Production under Climate Change.” Agriculture, Ecosystems
 
 
 
-[^3]: If you make changes that generally improve `growR`, it would be great if you could 
+[^11]: If you make changes that generally improve `growR`, it would be great if you could 
 share them to make them available to all future users. See [Contributing](#contributing).
 

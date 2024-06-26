@@ -75,7 +75,7 @@ initial_state_variables = list(
 #' ## Initial conditions
 #' ```{r child = "vignettes/children/initial_conditions.Rmd"}
 #' ```
-#' @seealso \link[=autocut]{autocut}
+#' @seealso \link[=Autocut]{Autocut}
 #'
 #' @references
 #' \insertRef{jouven2006ModelPredictingDynamics}{growR}
@@ -127,37 +127,7 @@ ModvegeSite = R6Class(
 #'   occurred during the growth period, in which case reproductive growth is 
 #'   stopped.
       cut_during_growth_preriod = NULL,
-#' @field last_DOY_for_initial_cut [autocut] Start cutting after this DOY, 
-#'   even if yield target is not reached.
-      last_DOY_for_initial_cut = 150,
-#' @field max_cut_period [autocut] Maximum period to wait between 
-#'   subsequent cuts.
-      max_cut_period = 55,
-#' @field dry_precipitation_limit [autocut] Maximum amount of allowed 
-#'   precipitation (mm) to consider a day.
-      dry_precipitation_limit = 1,
-#' @field dry_days_before_cut [autocut] Number of days that shold be dry 
-#'   before a cut is made.
-      dry_days_before_cut = 1,
-#' @field dry_days_after_cut [autocut] Number of days that shold be dry 
-#'   after a cut is made.
-      dry_days_after_cut = 2,
-#' @field max_cut_delay [autocut] Number of days a farmer is willing to 
-#'   wait for dry conditions before a cut is made anyways.
-      max_cut_delay = 5,
-#' @field cut_delays [autocut] Vector to keep track of cut delay times.
-#'   wait for dry conditions before a cut is made anyways.
-      cut_delays = c(0),
-#' @field dry_window [autocut] Logical that indicates if DOY at index is 
-#'   considered dry enough to cut.
-      dry_window = NULL,
-#' @field target_biomass [autocut] Biomass amount that should to be reached 
-#'   by given DOY for a cut to be made.
-      target_biomass = NULL,
-#' @field end_of_cutting_season [autocut] Determined DOY after which no 
-#'   more cuts are made.
-      end_of_cutting_season = NULL,
-#' @field BM_after_cut [autocut] Amount of biomass that remains after a cut 
+#' @field BM_after_cut Amount of biomass that remains after a cut #'   
 #'   (determined through cut_height and biomass densities BDGV, BDDV, BDGR, 
 #'   BDDR).
       BM_after_cut = NULL,
@@ -166,8 +136,11 @@ ModvegeSite = R6Class(
       weather = NULL,
 #' @field management A list containing management data as returned by 
 #'    [ModvegeEnvironment]'s `get_environment_for_year()` method. If its 
-#'    `is_empty` field is `TRUE`, the [autocut] routine will be employed.
+#'    `is_empty` field is `TRUE`, the [Autocut] routine will be employed.
       management = NULL,
+#' @field Autocut A subclass of [Autocut]. The algorithm used to determine
+#'    cut events.
+      Autocut = NULL,
 
   #-Public-methods----------------------------------------------------------------
 
@@ -255,114 +228,6 @@ ModvegeSite = R6Class(
         return(M$n_cuts > 0 && (DOY %in% M$cut_DOY))
       },
 
-      #' @description
-      #' Decide based on simple criteria whether day of year *DOY* would be a 
-      #' good day to cut.
-      #'
-      #' This follows an implementation described in
-      #' Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-      #' Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-      #' of Management Events for Assessing Impacts of Climate Change on 
-      #' Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-      #' 128 (August 1, 2021): 126306. 
-      #' https://doi.org/10.1016/j.eja.2021.126306.
-      #'
-      #' The decision to cut is made based on two criteria.
-      #' First, it is checked whether a *target biomass* is reached on given 
-      #' DOY. The defined target depends on the DOY and is given through 
-      #' :func:`get_target_biomass`. If said biomass is present, return `TRUE`.
-      #'
-      #' Otherwise, it is checked whether a given amount of time has passed 
-      #' since the last cut. Depending on whether this is the first cut of 
-      #' the season or not, the relevant parameters are 
-      #' :int:`last_DOY_for_initial_cut` and :int:`max_cut_period`.
-      #' If that amount of time has passed, return `TRUE`, otherwise return 
-      #' `FALSE`.
-      #'
-      #' @param DOY Integer day of the year for which to make a cut decision.
-      #' @return Boolean `TRUE` if a cut happens on day *DOY*.
-      #'
-      #' @seealso `get_target_biomass()`
-      #'
-      determine_cut_automatically = function(DOY) {
-        # Don't cut close to end-of-year
-        if (DOY > self$end_of_cutting_season) {
-          return(FALSE)
-        }
-        cut_target_reached = FALSE
-        # Check if target biomass is reached.
-        if (self$BM[DOY] >= self$target_biomass[DOY]) {
-          cut_target_reached = TRUE
-        }
-        # Otherwise, check if enough time has passed to warrant a cut.
-        n_previous_cuts = length(self$cut_DOYs)
-        if (!cut_target_reached) {
-          if (n_previous_cuts == 0) {
-            cut_target_reached = DOY > self$last_DOY_for_initial_cut
-          } else {
-            last_cut_DOY = self$cut_DOYs[n_previous_cuts]
-            cut_target_reached = DOY - last_cut_DOY > self$max_cut_period
-          }
-        }
-        # If we're not ready to cut, exit.
-        if (!cut_target_reached) {
-          return(FALSE)
-        }
-        cut_index = n_previous_cuts + 1
-        # Otherwise, check if the weather holds up...
-        if (self$dry_window[DOY] ||
-            # or if we just cannot wait any longer.
-            self$cut_delays[cut_index] >= self$max_cut_delay) {
-          # We're cutting. Prepare cut_delays vector for next cut.
-          self$cut_delays = c(self$cut_delays, 0)
-          return(TRUE)
-        } else {
-          # Wait another day.
-          self$cut_delays[cut_index] = self$cut_delays[cut_index] + 1
-          return(FALSE)
-        }
-      },
-
-      #' @description
-      #' Get target value of biomass on given *DOY*, which determines whether 
-      #' a cut is to occur.
-      #'
-      #' The regression for the target biomass is based on Fig. S2 in the 
-      #' supplementary material of 
-      #' Petersen, Krischan, David Kraus, Pierluigi Calanca, Mikhail A. 
-      #' Semenov, Klaus Butterbach-Bahl, and Ralf Kiese. “Dynamic Simulation 
-      #' of Management Events for Assessing Impacts of Climate Change on 
-      #' Pre-Alpine Grassland Productivity.” European Journal of Agronomy 
-      #' 128 (August 1, 2021): 126306. 
-      #' https://doi.org/10.1016/j.eja.2021.126306.
-      #'
-      #' A refinement to expected yield as function of altitude has been 
-      #' implemented according to Table 1a in
-      #' Huguenen-Elie et al. "Düngung von Grasland", Agrarforschung Schweiz, 
-      #' 8, (6), 2017, 
-      #' https://www.agrarforschungschweiz.ch/2017/06/9-duengung-von-grasland-grud-2017/
-      #'
-      #' @param DOY Integer day of the year to consider.
-      #' @param intensity One of ("high", "middle", "low") specifying 
-      #'   management intensity.
-      #' @return target Biomass (kg / ha) that should be reached on day *DOY* 
-      #'   for this management *intensity*.
-      #'
-      get_target_biomass = function(DOY, intensity = "high") {
-        # For DOY < 130, use the value at DOY = 130
-        DOY = max(130, DOY)
-        # The relative fraction is taken from Petersen et al. (Fig. S2).
-        f = get_relative_cut_contribution(DOY)
-        # The absolute annual yield is approximated by Petersen's equation 19,
-        # refined according to the source they cite.
-        # The factor 1000 is to convert from t/ha to kg/ha.
-        gross_yield = get_annual_gross_yield(self$parameters$ELV, 
-                                             intensity = intensity) * 1000
-        target = f * gross_yield
-        # The target must not be smaller than the remainder after a cut
-        return(max(target, self$BM_after_cut))
-      },
-
       #-Wrapper-function----------------------------------------------------------
 
       #' @description Carry out a ModVege simulation for one year.
@@ -391,34 +256,13 @@ ModvegeSite = R6Class(
         # Determine whether cuts are to be read from input or to be 
         # determined algorithmically.
         if (management$is_empty) {
-          # Precalculate target biomass
-          self$target_biomass = sapply(1:self$days_per_year,
-            function(day) {
-              self$get_target_biomass(day, intensity = management$intensity)
-            }
-          )
-          # Calculate end of the season and max cut interval.
-          self$end_of_cutting_season = 
-            get_end_of_cutting_season(self$BM_after_cut, self$parameters$ELV, 
-                                      management$intensity)
-          n_cuts = get_expected_n_cuts(self$parameters$ELV, management$intensity)
-          delta = self$end_of_cutting_season - self$last_DOY_for_initial_cut
-          self$max_cut_period = round(delta / n_cuts)
-          # Prepare the intervals of dry-enough cut conditions.
-          dry_days = weather$PP < self$dry_precipitation_limit
-          self$dry_window = logical(self$days_per_year)
-          for (i in 1:self$days_per_year) {
-            i0 = max(i - self$dry_days_before_cut, 1)
-            i1 = min(i + self$dry_days_after_cut, self$days_per_year)
-            all_dry = all(dry_days[i0:i1])
-            self$dry_window[i] = all_dry
-          }
+#          self$Autocut = PetersenAutocut$new(self)
+          self$Autocut = PhenologicalAutocut$new(self)
           # Point the cut determination function to the autocut routine.
-          self$determine_cut = self$determine_cut_automatically
+          self$determine_cut = self$Autocut$determine_cut
         } else {
           self$determine_cut = self$determine_cut_from_input
         }
-
         # Loop over days of the year.
         # :TODO: Avoid if j==1 statements by increasing vector sizes by one.
         logger("Starting loop over days of the year.", level = TRACE)
@@ -733,7 +577,6 @@ ModvegeSite = R6Class(
       # ceased.
       self$cut_during_growth_preriod = FALSE
       self$cut_DOYs = c()
-      self$cut_delays = c(0)
 
       # Water balance and growth
       self[["SENGV"]] = P$SENGV0
