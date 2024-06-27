@@ -4,6 +4,7 @@
 
 * site_name and run_name are printed to console in `growR_run_loop`.
 * PhenologicalAutocut
+* Multithreading for `growR_run_loop` with the `parallel` package.
 
 ## Changed
 

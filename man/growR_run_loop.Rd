@@ -4,7 +4,12 @@
 \alias{growR_run_loop}
 \title{Run growR simulations}
 \usage{
-growR_run_loop(modvege_environments, output_dir = "", independent = TRUE)
+growR_run_loop(
+  modvege_environments,
+  output_dir = "",
+  independent = TRUE,
+  n_threads = 1
+)
 }
 \arguments{
 \item{modvege_environments}{A list of \link{ModvegeEnvironment} instances.}
@@ -17,6 +22,11 @@ year starts with the same initial conditions, as specified in the
 parameters of the modvege_environments. If \code{FALSE}, initial conditions
 are taken as the final state values of the simulation of the previous
 year.}
+
+\item{n_threads}{int; \emph{Experimental} The number of parallel threads to use.
+Requires the \code{parallel} package to be installed and is not tested on
+Windows. The simulation workload  of the supplied \emph{modvege_environments} is
+split evenly across \emph{n_threads} different CPUs.}
 }
 \value{
 A list of the format \verb{[[run]][[year]]} containing clones of
