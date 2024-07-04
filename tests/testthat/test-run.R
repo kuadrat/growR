@@ -5,8 +5,14 @@ test_that("growR_run_loop with example config", {
                      input_dir = file.path(.tmpdir(), "input"))
   # Reduce run time by reducing the number of years
   for (env in envs) {
-    env$years = env$years[[1]]
+    env$years = env$years[1:2]
   }
+  # Standard run
   expect_no_error(growR_run_loop(envs))
+  # Parallel run
+  expect_no_error(growR_run_loop(envs, n_threads = 2))
+  # Chained run
+  expect_no_error(growR_run_loop(envs, independent = FALSE))
+
   unlink(.tmpdir(), recursive = TRUE)
 })

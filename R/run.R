@@ -59,9 +59,10 @@ growR_run_loop = function(modvege_environments, output_dir = "",
   results = list()
 
   if (n_threads > 1) {
-      results = parallel::mclapply(modvege_environments, run_loop_parallel, 
-                                   output_dir, independent, 
-                                   mc.cores = n_threads)
+    # Multi-thread run
+    results = parallel::mclapply(modvege_environments, run_loop_parallel, 
+                                 output_dir, independent, 
+                                 mc.cores = n_threads)
   } else {
     # Single-thread run
     for (run in 1:n_runs) {
@@ -153,7 +154,6 @@ run_loop_core = function(run_environment, run, n_runs, output_dir,
                          run_environment$run_name_in_filename,
                          this_year)
       out_path = file.path(output_dir, out_file)
-      logger("Entering `ModvegeSite$write_output`", level = TRACE)
       modvege$write_output(out_path, force = TRUE)
     }
 

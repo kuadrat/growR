@@ -67,9 +67,9 @@ test_that("ModvegeSite methods: run(), write_to_file()", {
   MV = ModvegeSite$new(E$parameters)
   year = E$years[[1]]
   E1 = E$get_environment_for_year(year)
+  # Standard run
   expect_no_error(MV$run(year, E1$W, E1$M))
   path = save_temp_output(MV)
   expect_snapshot_file(path, mv_output_snapshot, compare = compare_file_text)
-#  expect_no_error(MV$plot())
 })
 
