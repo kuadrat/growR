@@ -374,7 +374,7 @@ NULL Creates a plot of the result in the active device.
 Create an overview plot for biomass.
 
 Creates a simple base R plot showing the BM with cutting events and,
-if applicable, target biomass, dBM, cBM and hvBM.
+if applicable, target biomass, dBM, BMG and hvBM.
 Can only be sensibly run \emph{after} a simulation has been carried out,
 i.e. after this instance's \code{run()} method has been called.
 \subsection{Usage}{

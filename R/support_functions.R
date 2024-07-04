@@ -13,7 +13,13 @@
 #'
 #' @export
 fPAR <- function(PAR) {
-  max(0., min(1., 1. - 0.0445 * (PAR - 5.))) }
+  res = 1. - 0.0445 * (PAR - 5.)
+  # Limit to the range [0, 1]
+  res[res > 1] = 1
+  res[res < 0] = 0
+  return(res)
+}
+
 
 #' Temperature limitation
 #'
@@ -40,17 +46,15 @@ fPAR <- function(PAR) {
 #' @md
 #' @export
 fT <- function(t, T0 = 4, T1 = 10, T2 = 20) {
-  if (t < T0) {
-    return(0.)
-  } else if (t < T1) {
-    return((t - T0) / (T1 - T0))
-  } else if (t < T2) {
-    return(1)
-  } else if (t < 40) {
-    return((40 - t) / (40 - T2))
-  } else {
-    return(0)
-  }
+  res = rep(0, length(t))
+  mask1 = t >= T0 & t < T1
+  res[mask1] = (t[mask1] - T0) / (T1 - T0)
+  mask2 = t >= T1 & t < T2
+  res[mask2] = 1
+  mask3 = t >= T2 & t < 40
+  res[mask3] = (40 - t[mask3]) / (40 - T2)
+  res[t >= 40] = 0
+  return(res)
 }
 
 #' Water stress

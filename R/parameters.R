@@ -42,7 +42,6 @@ parameter_defaults = list(
   OMDDR = 0.4,
   CO2_growth_factor = 0.5,
   crop_coefficient = 1.15,
-  senescence_cap = 0.7,
   stubble_height = 0.02,
   SGS_method = "MTD"
 )

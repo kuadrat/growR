@@ -42,7 +42,8 @@ present.}
 
 \item{\code{weather_file}}{Name of supplied weather file.}
 
-\item{\code{management_file}}{Name of supplied management file.}
+\item{\code{management_file}}{Name of supplied management file or management
+intensity for \link{Autocut} ('high', 'middle', 'low', 'extensive').}
 
 \item{\code{parameters}}{A \link{ModvegeParameters} object.}
 

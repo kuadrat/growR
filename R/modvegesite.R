@@ -12,7 +12,6 @@ initial_run_variables = list(
   BMGRp = NULL,
   BMDRp = NULL,
   BMDVp = NULL,
-  cBMp = NULL,
   WRp = NULL,
   GROGV = NULL,
   GROGR = NULL
@@ -32,7 +31,6 @@ initial_state_variables = list(
   OMDDR = NULL,
   BM = NULL,
   BMG = NULL,
-  cBM = NULL,
   dBM = NULL,
   hvBM = NULL,
   OMD = NULL,
@@ -249,8 +247,13 @@ ModvegeSite = R6Class(
         logger(sprintf("days_per_year: %s", self$days_per_year), level = DEBUG)
         self$management = management
         self$year = year
+        # Calculate everything that can be done before the loop
+        P = self$parameters
         private$initialize_state_variables()
         private$calculate_temperature_sum()
+        private$calculate_PETeff()
+        self$ENVfPAR = fPAR(weather$PAR)
+        self$ENVfT = fT(weather$Ta, P$T0, P$T1, P$T2)
         private$get_start_of_growing_season()
 
         # Determine whether cuts are to be read from input or to be 
@@ -272,14 +275,16 @@ ModvegeSite = R6Class(
           private$calculate_growth()
           private$calculate_ageing()
           private$update_biomass()
-          private$calculate_digestibility()
           private$apply_cuts()
 
           # Re-align LAI to BMGV
-          P = self$parameters
           self$LAI[j] = P$SLA * P$pcLAM * (self$BMGV[j] + self$BMGR[j]) / 10.
           self$LAIGV[j] = P$SLA * P$pcLAM * (self$BMGV[j]) / 10.
         }
+        # Vectorially calculate derived quantities
+        self$BM = self$BMGV + self$BMGR + self$BMDV + self$BMDR
+        self$BMG = self$BMGV + self$BMGR
+        private$calculate_digestibility()
         logger("End of ModvegeSite$run()", level = TRACE)
       },
 
@@ -354,7 +359,7 @@ ModvegeSite = R6Class(
         oldpar = par(no.readonly = TRUE)
         on.exit(par(oldpar))
         par(mfrow = c(4, 4))
-        vars_to_plot = c("BM", "cBM", "hvBM", "dBM",
+        vars_to_plot = c("BM", "BMG", "hvBM", "dBM",
                          "ENV", "ENVfT", "ENVfW", "ENVfPAR",
                          "WR", "AET", "LAI", "LAIGV",
                          "PGRO", "REP", "GRO", "ST")
@@ -371,7 +376,7 @@ ModvegeSite = R6Class(
       #' @description Create an overview plot for biomass.
       #'
       #' Creates a simple base R plot showing the BM with cutting events and,
-      #' if applicable, target biomass, dBM, cBM and hvBM.
+      #' if applicable, target biomass, dBM, BMG and hvBM.
       #' Can only be sensibly run *after* a simulation has been carried out, 
       #' i.e. after this instance's `run()` method has been called.
       #'
@@ -393,10 +398,10 @@ ModvegeSite = R6Class(
         if (self$get_management()$is_empty) {
           lines(self$target_biomass, col = "grey")
         }
-        # dBM, cBM, hBM
+        # BMG, dBM, hBM
+        plot(self$BMG, type = "l", xlab = xlab, ylab = "BMG (kg / ha)")
         plot(box_smooth(self$dBM, smooth_interval), type = "l", 
              xlab = xlab, ylab = "smoothened dBM (kg / ha)")
-        plot(self$cBM, type = "l", xlab = xlab, ylab = "cBM (kg / ha)")
         plot(self$hvBM, type = "l", xlab = xlab, ylab = "hvBM (kg / ha)")
       },
 
@@ -507,6 +512,7 @@ ModvegeSite = R6Class(
     REP_ON = NULL,
     SGS_method = "MTD",
     SGS_options = c("MTD", "simple"),
+    PETeff = NULL,
     # List of labels to use for different variables when plotting.
     ylabels  =  list(AgeGV = "AgeGV (degree days)",
                    AgeGR = "AgeGR (degree days)",
@@ -518,7 +524,6 @@ ModvegeSite = R6Class(
                    BMDR = "BMDR (kg/ha)",
                    BM = "standing biomass BM (kg/ha)",
                    BMG = "standing green biomass BMG (kg/ha)",
-                   cBM = "cumulative biomass cBM (kg/ha)",
                    dBM = "daily biomass growth dBM (kg/ha/d)",
                    hvBM = "total harvested biomass growth hvBM (kg/ha)",
                    OMD = "organic matter digestibility OMD (kg/kg)",
@@ -593,7 +598,6 @@ ModvegeSite = R6Class(
       self[["BMGRp"]]  = P$BMGR0
       self[["BMDRp"]]  = P$BMDR0
       self[["BMDVp"]]  = P$BMDV0
-      self[["cBMp"]]   = P$cBM0
       self[["WRp"]]    = P$WR0
     },
 
@@ -619,6 +623,23 @@ ModvegeSite = R6Class(
       }
     },
 
+    ## @description Precalculate PETeff
+    ##
+    ## This is a purely meteorological variable and can thus be calculated 
+    ## vectorially.
+    calculate_PETeff = function() {
+      W = self$weather
+
+      # Apply crop coefficient
+      private$PETeff = self$parameters$crop_coefficient * W$PET
+
+      # Reduce PT when there is snow or precipitation
+      pp_mask = W$PP > 1
+      snow_mask = W$snow > 5
+      private$PETeff[pp_mask] = 0.7 * private$PETeff[pp_mask]
+      private$PETeff[snow_mask] = 0.2
+    },
+
     ## @description
     ## Get index (or, equivalently, DOY) of the start of the growing season.
     ##
@@ -636,7 +657,7 @@ ModvegeSite = R6Class(
     ##   considered snowy.
     ##
     get_start_of_growing_season = function(first_possible_DOY = 30,
-                                           consider_snow = FALSE,
+                                           consider_snow = TRUE,
                                            critical_snow = 1.) {
       W = self$get_weather()
       # Find the last day of the first half of the year that still had snow 
@@ -674,7 +695,6 @@ ModvegeSite = R6Class(
       self$BMGRp  = self$BMGR[j - 1]
       self$BMDRp  = self$BMDR[j - 1]
       self$BMDVp  = self$BMDV[j - 1]
-      self$cBMp   = self$cBM[j - 1]
       self$WRp    = self$WR[j - 1]
     },
 
@@ -710,21 +730,7 @@ ModvegeSite = R6Class(
       # 1. - exp(-0.6*LAIGVGR), as used to compute intercepted radiation.
       # Then impose water stress limitation, fW. In the case of soil
       # evaporation use an fW appropriate for high values of PET (PETmx).
-      PETmn  = .2
-      PETmx  = 8.
-
-    #  PETeff = ifelse(snow[j] > 5, PETmn, 
-    #                    ifelse(PP[j] > 1, 0.7*PET[j], PET[j])) 
-
-      if (W$snow[j] > 5) {
-        # Snow cover
-        PETeff = PETmn
-      } else {
-        # Less evapotranspiration when there is precipitation.
-        PETeff = P$crop_coefficient * W$PET[j]
-        PETeff = ifelse(W$PP[j] > 1, 0.7 * PETeff, PETeff)
-      }
-      PETeff = PETeff * fCO2_transpiration_mod(W$aCO2)
+      PETeff = private$PETeff[j]
       PTr = PETeff * (1. - exp(-0.6 * LAI.ET))
 
       ATr = PTr * fW(self$WRp / P$WHC, PETeff)
@@ -737,9 +743,7 @@ ModvegeSite = R6Class(
                        min(P$WHC, 
                            self$WRp + W$liquidP[j] + W$melt[j] - self$AET[j]))
 
-      # Environmental constraints.
-      self$ENVfPAR[j] = fPAR(W$PAR[j])
-      self$ENVfT[j]   = fT(W$Ta[j], P$T0, P$T1, P$T2)
+      # Environmental constraints which cannot be calculated vectorially.
       self$ENVfW[j]   = fW(self$WR[j] / P$WHC, PETeff)
       self$ENV[j]     = self$ENVfPAR[j] * self$ENVfT[j] * self$ENVfW[j]
 
@@ -839,16 +843,6 @@ ModvegeSite = R6Class(
         self$SENGR = P$KGR * self$BMGRp * abs(T_average)
       }
 
-      # Put a cap on senescence.
-      # :NOTE: The following two lines were not part of the original model 
-      # formulation.
-      if (abs(self$SENGV) > P$senescence_cap * abs(self$GROGV)) { 
-        self$SENGV = P$senescence_cap * self$GROGV 
-      }
-      if (abs(self$SENGR) > P$senescence_cap * abs(self$GROGR)) { 
-        self$SENGR = P$senescence_cap * self$GROGR 
-      }
-     
       # Calculate ageing for compartments DV & DR.
       # The ifelse is to prevent zerodivision.
       if (self$BMDVp - self$ABSDV + self$SENGV != 0.) {
@@ -927,43 +921,24 @@ ModvegeSite = R6Class(
       dBMDR = (1. - P$sigmaGR) * self$SENGR - self$ABSDR
       self$BMDR[j] = self$BMDRp + dBMDR * self$time_step
       
-      # Current (BM) and cumulative (cBM) biomass and today's biomass change (dBM).
-      self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
+      # Today's biomass change (dBM) without cuts.
       self$dBM[j] = dBMGV + dBMGR + dBMDV + dBMDR
-      self$cBM[j] = self$cBMp + max(0., self$dBM[j])
-
-      # Green biomass
-    ## :TODO: These derived values can be calculated vectorially upon request.
-      self$BMG[j] = self$BMGV[j] + self$BMGR[j]
     },
 
-    ## @description Caclulate the organic matter digestibility of each compartment.
-    ##
-    ## :TODO: These derived values can be calculated vectorially upon 
-    ## request and thus do not need to be part of a for loop.
+    ## @description 
+    ## Caclulate the organic matter digestibility of each compartment.
     ##
     calculate_digestibility = function() {
       P = self$parameters
-      j = private$current_DOY
-      # OMDGV[j] = max(minOMDGV,
-      #                ifelse(j == 1, maxOMDGV,
-      #                       maxOMDGV - AgeGV[j]*(maxOMDGV - minOMDGV)/LLS))
-      # OMDGR[j] = max(minOMDGR,
-      #                ifelse(j == 1, maxOMDGR,
-      #                       maxOMDGR - AgeGR[j]*(maxOMDGR - minOMDGR)/(ST2 - ST1)))
-      self$OMDGV[j] = P$maxOMDGV - self$AgeGV[j] * 
-        (P$maxOMDGV - P$minOMDGV) / P$LLS
-      self$OMDGR[j] = P$maxOMDGR - self$AgeGR[j] * 
-        (P$maxOMDGR - P$minOMDGR) / (P$ST2 - P$ST1)
-      
+      self$OMDGV = P$maxOMDGV - (self$AgeGV * (P$maxOMDGV - P$minOMDGV) / P$LLS)
+      self$OMDGR = P$maxOMDGR - (self$AgeGR * (P$maxOMDGR - P$minOMDGR) / 
+                                 (P$ST2 - P$ST1))
       # Total digestibility
-      self$OMD[j] = (self$OMDGV[j] * self$BMGV[j] + self$OMDGR[j] * 
-                     self$BMGR[j] + P$OMDDV * self$BMDV[j] + P$OMDDR * 
-                     self$BMDR[j]) / self$BM[j]
+      self$OMD = (self$OMDGV * self$BMGV + self$OMDGR * self$BMGR + 
+                  P$OMDDV * self$BMDV + P$OMDDR * self$BMDR) / self$BM
       
       # Digestibility of green biomass
-      self$OMDG[j] = (self$OMDGV[j] * self$BMGV[j] + 
-                      self$OMDGR[j] * self$BMGR[j]) / self$BMG[j]
+      self$OMDG = (self$OMDGV * self$BMGV + self$OMDGR * self$BMGR) / self$BMG
     },
 
     ## @description Simulate the effects of cuts on the grass growth.
@@ -1020,8 +995,6 @@ ModvegeSite = R6Class(
                                 (self$BMGRp - self$BMGR[j]) +
                                 (self$BMDVp - self$BMDV[j]) +
                                 (self$BMDRp - self$BMDR[j])
-      # Update total biomass after cut.
-      self$BM[j] = self$BMGV[j] + self$BMGR[j] + self$BMDV[j] + self$BMDR[j]
     },
 
     ## @description Construct a string full of meta information on a ModVege 
@@ -1091,4 +1064,5 @@ ModvegeSite = R6Class(
 plot.ModvegeSite = function(x, ...) {
   x$plot(...)
 }
+
 

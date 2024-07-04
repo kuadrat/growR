@@ -9,6 +9,12 @@
 ## Changed
 
 * autocut algorithm is now outsourced to its own R6class.
+* Performance improvements to ModvegeSite$un() in the order of 25%.
+
+## Removed
+
+* `ModvegeParameters$senescence_cap`
+* `ModvegeSite$cBM`
 
 # growR 1.3.0
 
