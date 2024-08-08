@@ -200,6 +200,11 @@ ModvegeParameters = R6Class(
       #'
       set_parameters = function(params) {
         param_names = names(params)
+        # Handle the case of an empty list.
+        if (length(params) == 0) {
+          return()
+        }
+
         for (i in 1:length(params)) {
           name = param_names[[i]]
           self[[name]] = params[[i]]

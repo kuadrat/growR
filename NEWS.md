@@ -5,11 +5,16 @@
 * site_name and run_name are printed to console in `growR_run_loop`.
 * PhenologicalAutocut
 * Multithreading for `growR_run_loop` with the `parallel` package.
+* New parameter for irrigation.
 
 ## Changed
 
 * autocut algorithm is now outsourced to its own R6class.
 * Performance improvements to ModvegeSite$un() in the order of 25%.
+
+## Fixed
+
+* `ModvegeParameters$set_parameters()` can now handle empty lists.
 
 ## Removed
 
