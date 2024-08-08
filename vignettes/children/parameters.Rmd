@@ -62,3 +62,7 @@
   (see [start_of_growing_season_mtd()]) or `"simple"` for a commonly used 
   approach as described in [start_of_growing_season()]).
 
+- `irrigation` float. Should be non-negative but smaller than `WHC`. 
+  Simulates irrigation by ensuring that water reserves `WR` never fall below 
+  the here specified value. A value of `0` implies no irrigation.
+

@@ -19,7 +19,7 @@ are distributed equally between first and last cut dates.
 \link{Autocut}
 }
 \section{Super class}{
-\code{growR::Autocut} -> \code{PhenologicalAutocut}
+\code{\link[growR:Autocut]{growR::Autocut}} -> \code{PhenologicalAutocut}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

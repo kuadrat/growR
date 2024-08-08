@@ -43,7 +43,8 @@ parameter_defaults = list(
   CO2_growth_factor = 0.5,
   crop_coefficient = 1.15,
   stubble_height = 0.02,
-  SGS_method = "MTD"
+  SGS_method = "MTD",
+  irrigation = 0.0
 )
 # Create a list that can be inserted into R6 class to create many fields
 initial_condition_names = names(initial_conditions)

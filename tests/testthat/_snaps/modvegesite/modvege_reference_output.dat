@@ -31,6 +31,7 @@
 #crop_coefficient;1.15
 #stubble_height;0.02
 #SGS_method;MTD
+#irrigation;0
 #WHC;130
 #NI;0.7
 #w_FGA;0.7

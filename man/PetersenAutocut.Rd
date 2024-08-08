@@ -45,7 +45,7 @@ implemented according to Table 1a in Huguenin et al. (2017).
 \code{get_target_biomass()}
 }
 \section{Super class}{
-\code{growR::Autocut} -> \code{PetersenAutocut}
+\code{\link[growR:Autocut]{growR::Autocut}} -> \code{PetersenAutocut}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}

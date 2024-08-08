@@ -255,6 +255,8 @@ ModvegeSite = R6Class(
         self$ENVfPAR = fPAR(weather$PAR)
         self$ENVfT = fT(weather$Ta, P$T0, P$T1, P$T2)
         private$get_start_of_growing_season()
+        # Define minimal water reserves
+        private$WRmin = min(P$WHC, P$irrigation)
 
         # Determine whether cuts are to be read from input or to be 
         # determined algorithmically.
@@ -547,6 +549,7 @@ ModvegeSite = R6Class(
                    ),
     minBMGV = NULL,
     minBMGR = NULL,
+    WRmin = NULL,
 
     #-Private-methods-----------------------------------------------------------
 
@@ -738,8 +741,12 @@ ModvegeSite = R6Class(
       AEv = PEv * self$WRp / P$WHC
       self$AET[j] = ATr + AEv
 
-      # Soil moisture budget
-      self$WR[j] = max(0., 
+      # Soil moisture budget.
+      # Soil moisture cannot fall below the value specified through 
+      # *irrigation* (which should itself be non-negative). Besides that, 
+      # soil moisture is just a bucket with influxes of precipitation and 
+      # snow melt and outflux through evapotranspiration.
+      self$WR[j] = max(private$WRmin, 
                        min(P$WHC, 
                            self$WRp + W$liquidP[j] + W$melt[j] - self$AET[j]))
 

@@ -55,6 +55,9 @@ model of \emph{plant reserves}.
 season. Can be either \code{"MTD"} for the multicriterial thermal definition
 (see \code{\link[=start_of_growing_season_mtd]{start_of_growing_season_mtd()}}) or \code{"simple"} for a commonly used
 approach as described in \code{\link[=start_of_growing_season]{start_of_growing_season()}}).
+\item \code{irrigation} float. Should be non-negative but smaller than \code{WHC}.
+Simulates irrigation by ensuring that water reserves \code{WR} never fall below
+the here specified value. A value of \code{0} implies no irrigation.
 }
 }
 
