@@ -7,6 +7,7 @@
 growR_run_loop(
   modvege_environments,
   output_dir = "",
+  return_results = TRUE,
   independent = TRUE,
   n_threads = 1
 )
@@ -16,6 +17,11 @@ growR_run_loop(
 
 \item{output_dir}{string; name of directory to which output files are to
 be written. If \code{output_dir == ""} (default), no files are written.}
+
+\item{return_results}{boolean Whether or not simulation results are to be
+kept in memory and returned at function completion. Can be disabled to
+safe RAM, especially if results are anyways written to file (which is
+the case if \code{output_dir} is not empty).}
 
 \item{independent}{boolean; If \code{TRUE} (default) the simulation for each
 year starts with the same initial conditions, as specified in the

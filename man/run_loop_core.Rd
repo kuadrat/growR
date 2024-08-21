@@ -4,7 +4,14 @@
 \alias{run_loop_core}
 \title{Core of growR_run_loop}
 \usage{
-run_loop_core(run_environment, run, n_runs, output_dir, independent)
+run_loop_core(
+  run_environment,
+  run,
+  n_runs,
+  output_dir,
+  return_results,
+  independent
+)
 }
 \arguments{
 \item{run_environment}{A [ModvegeEnvironment] instance containing all the 
@@ -16,6 +23,11 @@ information necessary to simulate a site.}
 
 \item{output_dir}{str Path to directory where output files will be written 
 to.}
+
+\item{return_results}{boolean Whether or not simulation results are to be 
+kept in memory and returned at function completion. Can be disabled to 
+safe RAM, especially if results are anyways written to file (which is 
+the case if `output_dir` is not empty).}
 
 \item{independent}{boolean Whether or not simulations of subsequent years 
 are treated as independent.}
