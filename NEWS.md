@@ -13,10 +13,14 @@
 * autocut accepts 'medium' as alias for 'middle' and applies a single cut 
   according to phenology.
 * Performance improvements to ModvegeSite$un() in the order of 25%.
+* Small performance improvement of `WeatherData` initialization through 
+  vectorization of snow model.
 
 ## Fixed
 
 * `ModvegeParameters$set_parameters()` can now handle empty lists.
+* Fix in determination of start of growing season for cases with no snow in 
+  first half-year.
 
 ## Removed
 

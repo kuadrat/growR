@@ -665,11 +665,13 @@ ModvegeSite = R6Class(
       W = self$get_weather()
       # Find the last day of the first half of the year that still had snow 
       # cover. Assume that growth can only start after that day.
+      j_snow = 1
       if (consider_snow) {
         # Go one day beyond the last day with too much snow
-        j_snow = max(which(W[["snow"]][1:180] > critical_snow)) + 1
-      } else {
-        j_snow = 1
+        snow_days = which(W[["snow"]][1:180] > critical_snow)
+        if (length(snow_days) > 0) {
+          j_snow = max(snow_days) + 1
+        }
       }
 
       if (private$SGS_method == "MTD") {

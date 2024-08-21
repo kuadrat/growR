@@ -157,27 +157,28 @@ WeatherData = R6Class(
       liquidP_vec = (1./(1. + exp(-1.5*(Ta_vec - 2.)))) * PP_vec
       solidP_vec  = PP_vec - liquidP_vec
 
-      melt_vec   = numeric(vec_size)
-      freeze_vec = numeric(vec_size)
-      snow_vec   = numeric(vec_size)
-      melt_vec[1]   = 0.
-      freeze_vec[1] = 0.
-      snow_vec[1]   = 0.
+      # Calculate as much as possible vectorially.
+      dT_melt = Ta_vec - T_melt
+      T_above_melting = dT_melt >= 0
+      freeze_vec = pmin(liquidP_vec, -C_freeze*dT_melt)
+      freeze_vec[T_above_melting] = 0
+      melt0 = C_melt * dT_melt
+      dsnow0 = solidP_vec + freeze_vec
 
+      snow_vec = numeric(vec_size)
+      melt_vec = numeric(vec_size)
+      snow_vec[1] = 0.
+      melt_vec[1] = 0.
       for (j in 2:vec_size) {
-        # :TODO: Is time_step needed here?
-        time_step = 1
-        melt_vec[j]   = ifelse(snow_vec[j - 1] > 0. & Ta_vec[j] >= T_melt,
-                               min(snow_vec[j - 1]/time_step, 
-                                   C_melt * (Ta_vec[j] - T_melt)), 
-                               0.)
-        freeze_vec[j] = ifelse(Ta_vec[j] < T_melt, 
-                               min(liquidP_vec[j], 
-                                   C_freeze * (T_melt - Ta_vec[j])), 
-                               0.)
-        dsnow_dt     = solidP_vec[j] + freeze_vec[j] - melt_vec[j]
-        snow_vec[j]   = max(0., snow_vec[j - 1] + dsnow_dt * time_step)
+        if (snow_vec[j-1] > 0. & T_above_melting[j]) {
+          melt_vec[j] = min(snow_vec[j-1], melt0[j])
+        } else {
+          melt_vec[j] = 0
+        }
+        dsnow = dsnow0[j] - melt_vec[j]
+        snow_vec[j] = snow_vec[j-1] + dsnow
       }
+
       self[["liquidP_vec"]] = liquidP_vec
       self[["melt_vec"]] = melt_vec
       self[["snow_vec"]] = snow_vec
