@@ -14,6 +14,10 @@ parallel_error_message = paste0("The following R packages are required in ",
 #' @param modvege_environments A list of [ModvegeEnvironment] instances.
 #' @param output_dir string; name of directory to which output files are to 
 #'   be written. If `output_dir == ""` (default), no files are written.
+#' @param return_results boolean Whether or not simulation results are to be 
+#'   kept in memory and returned at function completion. Can be disabled to 
+#'   safe RAM, especially if results are anyways written to file (which is 
+#'   the case if `output_dir` is not empty).
 #' @param independent boolean; If `TRUE` (default) the simulation for each 
 #'   year starts with the same initial conditions, as specified in the 
 #'   parameters of the modvege_environments. If `FALSE`, initial conditions 
@@ -37,7 +41,8 @@ parallel_error_message = paste0("The following R packages are required in ",
 #' @export
 #' 
 growR_run_loop = function(modvege_environments, output_dir = "", 
-                          independent = TRUE, n_threads = 1) {
+                          return_results = TRUE, independent = TRUE, 
+                          n_threads = 1) {
   # Set up parallelisation
   if (n_threads > 1) {
     # Check if suggested packages are present
@@ -61,7 +66,7 @@ growR_run_loop = function(modvege_environments, output_dir = "",
   if (n_threads > 1) {
     # Multi-thread run
     results = parallel::mclapply(modvege_environments, run_loop_parallel, 
-                                 output_dir, independent, 
+                                 output_dir, return_results, independent, 
                                  mc.cores = n_threads)
   } else {
     # Single-thread run
@@ -72,8 +77,11 @@ growR_run_loop = function(modvege_environments, output_dir = "",
              level = INFO)
       logger(sprintf("  run name: `%s`.", run_environment$run_name), 
              level = INFO)
-      results[[run]] = run_loop_core(run_environment, run, n_runs, output_dir, 
-                                     independent)
+      result = run_loop_core(run_environment, run, n_runs, output_dir, 
+                             return_results, independent)
+      if (return_results) {
+        results[[run]] = result
+      }
     } # End of loop over runs
   }
   logger("All runs completed.", level = INFO)
@@ -118,6 +126,10 @@ run_loop_parallel = function(run_environment, ...) {
 #' @param n_runs integer Total number of runs to carry out.
 #' @param output_dir str Path to directory where output files will be written 
 #'   to.
+#' @param return_results boolean Whether or not simulation results are to be 
+#'   kept in memory and returned at function completion. Can be disabled to 
+#'   safe RAM, especially if results are anyways written to file (which is 
+#'   the case if `output_dir` is not empty).
 #' @param independent boolean Whether or not simulations of subsequent years 
 #'   are treated as independent.
 #' @return A list of [ModvegeSite] instances containing the simulation 
@@ -128,7 +140,7 @@ run_loop_parallel = function(run_environment, ...) {
 #' @keywords internal
 #'
 run_loop_core = function(run_environment, run, n_runs, output_dir, 
-                         independent) {
+                         return_results, independent) {
   results_for_env = list()
   modvege = ModvegeSite$new(run_environment$parameters,
                             site_name = run_environment$site_name,
@@ -172,6 +184,11 @@ run_loop_core = function(run_environment, run, n_runs, output_dir,
       }
     }
   } # End of loop over simulation years
-  return(results_for_env)
+  # Avoid RAM filling by not returning anything.
+  if (return_results) {
+    return(results_for_env)
+  } else {
+    return(list())
+  }
 }
 

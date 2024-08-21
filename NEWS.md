@@ -6,6 +6,8 @@
 * PhenologicalAutocut
 * Multithreading for `growR_run_loop` with the `parallel` package.
 * New parameter for irrigation.
+* `growR_run_loop` allows to suppress returning the simulation objects. This 
+  is useful to prevent overkill memory usage.
 
 ## Changed
 
