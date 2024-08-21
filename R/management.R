@@ -80,13 +80,16 @@ ManagementData = R6Class(
         self$cut_DOY = c()
         # Set the parameter for the management intensity according to user 
         # specification or fall back to default value.
-        choices = c("high", "middle", "low", "extensive")
+        choices = c("high", "middle", "medium", "low", "extensive")
         intensity = basename(management_file)
         if (intensity %in% choices) {
           self$intensity = intensity
           logger(sprintf("[autocut]Setting management intensity to `%s`.", 
                          intensity), level = INFO)
         } else {
+          logger(sprintf("[autocut]Management intensity `%s` not recognized.",
+                         "Setting intensity to `high`.", 
+                         intensity), level = INFO)
           self$intensity = "high"
         }
       }

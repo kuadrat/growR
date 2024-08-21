@@ -10,6 +10,8 @@
 ## Changed
 
 * autocut algorithm is now outsourced to its own R6class.
+* autocut accepts 'medium' as alias for 'middle' and applies a single cut 
+  according to phenology.
 * Performance improvements to ModvegeSite$un() in the order of 25%.
 
 ## Fixed

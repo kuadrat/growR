@@ -52,6 +52,10 @@ Autocut = R6Class(
     #' @return Number of expected cuts per season.
     #'
     get_expected_n_cuts = function(elevation, intensity = "high") {
+      # Allow for 'medium' as a valid input
+      if (intensity == "medium") {
+        intensity = "middle"
+      }
       mask = management_parameters$intensity == intensity
       # Find the altitudes below and above given elevation
       altitudes = management_parameters[mask, ]$altitude
@@ -138,8 +142,11 @@ PhenologicalAutocut = R6Class(
         delta = floor((last_cut_DOY - first_cut_DOY) / (integer_n_cuts - 1))
         self$cut_DOYs = (((1:integer_n_cuts) - 1) * delta) + first_cut_DOY
       } else {
-        # If there's just one cut, apply it at end of season
-        self$cut_DOYs = c(last_cut_DOY)
+        # If there's just one cut, apply it when we expect the maximum growth 
+        # from phenology, i.e. at ST2
+        target_temperature_sum = self$MVS$parameters$ST2
+        only_cut_DOY = which.min(abs(self$MVS$ST - target_temperature_sum))
+        self$cut_DOYs = c(only_cut_DOY)
       }
     },
 
