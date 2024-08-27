@@ -249,6 +249,9 @@ ModvegeSite = R6Class(
         self$year = year
         # Calculate everything that can be done before the loop
         P = self$parameters
+        private$CO2_growth_mod = fCO2_growth_mod(weather$aCO2,
+                                                 P$CO2_growth_factor)
+        private$CO2_transpiration_mod = fCO2_transpiration_mod(weather$aCO2)
         private$initialize_state_variables()
         private$calculate_temperature_sum()
         private$calculate_PETeff()
@@ -550,6 +553,8 @@ ModvegeSite = R6Class(
     minBMGV = NULL,
     minBMGR = NULL,
     WRmin = NULL,
+    CO2_growth_mod = NULL,
+    CO2_transpiration_mod = NULL,
 
     #-Private-methods-----------------------------------------------------------
 
@@ -736,7 +741,7 @@ ModvegeSite = R6Class(
       # Then impose water stress limitation, fW. In the case of soil
       # evaporation use an fW appropriate for high values of PET (PETmx).
       PETeff = private$PETeff[j]
-      PTr = PETeff * (1. - exp(-0.6 * LAI.ET))
+      PTr = PETeff * (1. - exp(-0.6 * LAI.ET)) * private$CO2_transpiration_mod
 
       ATr = PTr * fW(self$WRp / P$WHC, PETeff)
       PEv = PETeff -  PTr
@@ -762,8 +767,7 @@ ModvegeSite = R6Class(
         self$GRO[j] = 0
       } else {
         self$PGRO[j] = W$PAR[j] * P$RUEmax * 
-          (1. - exp(-0.6 * self$LAIGV[j])) * 10. * 
-          fCO2_growth_mod(W$aCO2, P$CO2_growth_factor)
+          (1. - exp(-0.6 * self$LAIGV[j])) * 10. * private$CO2_growth_mod
         self$GRO[j]  = P$NI * self$PGRO[j] * self$ENV[j] * 
           SEA(self$ST[j], P$minSEA, P$maxSEA, P$ST1, P$ST2)
       }

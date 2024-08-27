@@ -44,6 +44,8 @@ of parameters from Rango and Martinec, 1995.
 }
 \seealso{
 \link{WeatherData}\verb{$read_weather()}
+
+\link{atmospheric_CO2}
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -85,6 +87,9 @@ weather data only for a given year. The keys in the list are:
 \item \href{#method-WeatherData-ensure_file_integrity}{\code{WeatherData$ensure_file_integrity()}}
 \item \href{#method-WeatherData-calculate_day_length}{\code{WeatherData$calculate_day_length()}}
 \item \href{#method-WeatherData-get_weather_for_year}{\code{WeatherData$get_weather_for_year()}}
+\item \href{#method-WeatherData-get_RCP}{\code{WeatherData$get_RCP()}}
+\item \href{#method-WeatherData-set_RCP}{\code{WeatherData$set_RCP()}}
+\item \href{#method-WeatherData-aCO2}{\code{WeatherData$aCO2()}}
 \item \href{#method-WeatherData-clone}{\code{WeatherData$clone()}}
 }
 }
@@ -186,6 +191,64 @@ year and return them as a list.
 \subsection{Returns}{
 W List containing the keys aCO2, year, DOY, Ta, Ta_sm, PAR,
 PP, PET, liquidP, melt, snow, ndays.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WeatherData-get_RCP"></a>}}
+\if{latex}{\out{\hypertarget{method-WeatherData-get_RCP}{}}}
+\subsection{Method \code{get_RCP()}}{
+Return the value of \code{private$RCP}. This is used for the
+calculation of atmospheric CO2.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$get_RCP()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+String representing the currently selected representative
+concentration pathway (RCP).
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WeatherData-set_RCP"></a>}}
+\if{latex}{\out{\hypertarget{method-WeatherData-set_RCP}{}}}
+\subsection{Method \code{set_RCP()}}{
+Choose the RCP to be used for the calculation of
+atmospheric CO2 concentration.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$set_RCP(RCP)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{RCP}}{float or string. One of {2.6, 4.5, 8.5}.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WeatherData-aCO2"></a>}}
+\if{latex}{\out{\hypertarget{method-WeatherData-aCO2}{}}}
+\subsection{Method \code{aCO2()}}{
+Return average atmospheric CO2 concentration for given year.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WeatherData$aCO2(year, RCP = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{year}}{int The year to consider. For years between 1980 and 2020,
+the empirical NOAA fit is taken (see \link{atmospheric_CO2}). From 2020
+to 2100 a rough estimation is made based on the specified \emph{RCP}.}
+
+\item{\code{RCP}}{string Name of the RCP in the format "X.Y". Has to be valid
+for \link{WeatherData}\verb{$set_RCP()}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+float The atmospheric CO2 concentration in ppm.
 }
 }
 \if{html}{\out{<hr>}}

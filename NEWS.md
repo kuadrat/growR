@@ -8,6 +8,7 @@
 * New parameter for irrigation.
 * `growR_run_loop` allows to suppress returning the simulation objects. This 
   is useful to prevent overkill memory usage.
+* CO2 affects plant transpiration, according to `fCO2_transpiration_mod`.
 
 ## Changed
 
@@ -17,6 +18,10 @@
 * Performance improvements to ModvegeSite$un() in the order of 25%.
 * Small performance improvement of `WeatherData` initialization through 
   vectorization of snow model.
+* Set `CO2_growth_factor` from 0.5 to the much more realistic value of 0.1.
+* Atmospheric CO2 for years beyond 2020 is now estimated according to common 
+  representative concentration pathways (RCPs). See, e.g. `WeatherData$set_RCP()`
+  or `WeatherData$aCO2()`.
 
 ## Fixed
 

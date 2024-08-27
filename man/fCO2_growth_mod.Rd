@@ -15,7 +15,7 @@ values bewtween 0 and 2 with the interval of highest likelihood
 and b = 0.8 in C3 plants. The difference on the output of this function
 of choosing a small (0.1) and large (0.8) value for b has an effect on
 the result for an atmospheric concentration of 700 ppm of roughly 40
-percent!.}
+percent!}
 
 \item{c_ref}{numeric Reference CO2 concentration in ppm.}
 }

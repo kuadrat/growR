@@ -103,10 +103,11 @@ WeatherData = R6Class(
       self$years = years
       # Load weather data
       if (file.exists(weather_file)) {
-        logger(sprintf("Loading weather data from %s.", weather_file), 
+        logger(sprintf("[WeatherData]Loading weather data from %s.", 
+                       weather_file), 
                level = DEBUG)
       } else {
-        stop(sprintf("Weather file `%s` not found.", weather_file))
+        stop(sprintf("[WeatherData]Weather file `%s` not found.", weather_file))
       }
       weather = read.table(weather_file, header = TRUE)
       weather = self$ensure_file_integrity(weather)
@@ -255,7 +256,7 @@ WeatherData = R6Class(
       }
 
       W = list()
-      W[["aCO2"]]  = atmospheric_CO2(year)
+      W[["aCO2"]]  = self$aCO2(year, self$RCP)
       W[["year"]]  = self$year_vec[iW]
       W[["DOY"]]   = self$DOY_vec[iW]
       W[["Ta"]]    = self$Ta_vec[iW]
@@ -270,6 +271,72 @@ WeatherData = R6Class(
 
       self[["W"]] = W
       return(W)
+    },
+
+    #' @description Return the value of `private$RCP`. This is used for the 
+    #' calculation of atmospheric CO2.
+    #'
+    #' @return String representing the currently selected representative 
+    #'   concentration pathway (RCP).
+    #'
+    get_RCP = function() {
+      return(private$RCP)
+    },
+
+    #' @description Choose the RCP to be used for the calculation of 
+    #' atmospheric CO2 concentration.
+    #'
+    #' @param RCP float or string. One of {2.6, 4.5, 8.5}.
+    #'
+    set_RCP = function(RCP) {
+      RCP = as.character(RCP)
+      allowed_RCPs = private$cCO2_table$RCP
+      if (!RCP %in% allowed_RCPs) {
+        message = "[WeatherData]RCP `%s` not recognized. Allowed values:"
+        message = paste(message, paste(allowed_RCPs, collapse = ", "))
+        warning(sprintf(message, RCP))
+      } else {
+        logger(sprintf("[WeatherData]Setting RCP to `%s`.", RCP), level = TRACE)
+        private$RCP = RCP
+      }
+    },
+
+    #' @description Return average atmospheric CO2 concentration for given year.
+    #'
+    #' @param year int The year to consider. For years between 1980 and 2020, 
+    #'   the empirical NOAA fit is taken (see [atmospheric_CO2]). From 2020 
+    #'   to 2100 a rough estimation is made based on the specified *RCP*.
+    #' @param RCP string Name of the RCP in the format "X.Y". Has to be valid 
+    #'   for [WeatherData]`$set_RCP()`.
+    #' @return float The atmospheric CO2 concentration in ppm.
+    #'
+    #' @seealso [atmospheric_CO2]
+    aCO2 = function(year, RCP = NULL) {
+      if (year < 2020) {
+        # Use the empirical function from NOAA.
+        return(atmospheric_CO2(year))
+      } else {
+        # Otherwise, use simple approximations, depending on RCP.
+        # Just interpolate linearly between 2020, 2050 and 2100.
+        if (is.null(RCP)) {
+          RCP = private$RCP
+        }
+        row = private$cCO2_table[private$cCO2_table$RCP == RCP, ]
+        c2020 = atmospheric_CO2(2020)
+        c2050 = row[["c2050"]]
+        c2100 = row[["c2100"]]
+        if (year < 2050) {
+          return((c2050 - c2020)/(2050 - 2020) * (year - 2020) + c2020)
+        } else {
+          return((c2100 - c2050)/(2100 - 2050) * (year - 2050) + c2050)
+        }
+      }
     }
+  ),
+  private = list(
+    RCP = "2.6",
+    cCO2_table = data.frame(RCP = c("2.6", "4.5", "8.5"),
+                            c2050 = c(450, 500, 550),
+                            c2100 = c(420, 600, 900))
   )
 )
