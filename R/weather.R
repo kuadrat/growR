@@ -286,14 +286,13 @@ WeatherData = R6Class(
     #' @description Choose the RCP to be used for the calculation of 
     #' atmospheric CO2 concentration.
     #'
-    #' @param RCP float or string. One of {2.6, 4.5, 8.5}.
+    #' @param RCP float or string. One of 2.6, 4.5, 8.5.
     #'
     set_RCP = function(RCP) {
       RCP = as.character(RCP)
-      allowed_RCPs = private$cCO2_table$RCP
-      if (!RCP %in% allowed_RCPs) {
+      if (!RCP %in% private$allowed_RCPs) {
         message = "[WeatherData]RCP `%s` not recognized. Allowed values:"
-        message = paste(message, paste(allowed_RCPs, collapse = ", "))
+        message = paste(message, paste(private$allowed_RCPs, collapse = ", "))
         warning(sprintf(message, RCP))
       } else {
         logger(sprintf("[WeatherData]Setting RCP to `%s`.", RCP), level = TRACE)
@@ -321,22 +320,21 @@ WeatherData = R6Class(
         if (is.null(RCP)) {
           RCP = private$RCP
         }
-        row = private$cCO2_table[private$cCO2_table$RCP == RCP, ]
-        c2020 = atmospheric_CO2(2020)
-        c2050 = row[["c2050"]]
-        c2100 = row[["c2100"]]
-        if (year < 2050) {
-          return((c2050 - c2020)/(2050 - 2020) * (year - 2020) + c2020)
-        } else {
-          return((c2100 - c2050)/(2100 - 2050) * (year - 2050) + c2050)
-        }
+        RCP_string = paste0("RCP", RCP)
+        row_selector = cCO2_coefficients[["order"]] == 3
+        row_selector = row_selector & cCO2_coefficients[["RCP"]] == RCP_string
+        row = cCO2_coefficients[row_selector, ]
+        res = row[["a3"]]*year^3 + 
+              row[["a2"]]*year^2 + 
+              row[["a1"]]*year + 
+              row[["a0"]]
+        return(res)
       }
     }
   ),
+
   private = list(
     RCP = "2.6",
-    cCO2_table = data.frame(RCP = c("2.6", "4.5", "8.5"),
-                            c2050 = c(450, 500, 550),
-                            c2100 = c(420, 600, 900))
+    allowed_RCPs = c("2.6", "4.5", "8.5")
   )
 )

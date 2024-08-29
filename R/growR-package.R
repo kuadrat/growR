@@ -8,7 +8,8 @@
 "_PACKAGE"
 
 globalVariables(c("yield_parameters",
-                  "management_parameters"))
+                  "management_parameters",
+                  "cCO2_coefficients"))
 
 #' Default options introduced by package growR
 #'

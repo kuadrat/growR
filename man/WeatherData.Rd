@@ -221,7 +221,7 @@ atmospheric CO2 concentration.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{RCP}}{float or string. One of {2.6, 4.5, 8.5}.}
+\item{\code{RCP}}{float or string. One of 2.6, 4.5, 8.5.}
 }
 \if{html}{\out{</div>}}
 }

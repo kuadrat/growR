@@ -126,3 +126,31 @@
 #' @md
 "parameter_scan_example"
 
+#' Coefficients for polynomial fits to atmospheric CO2 concentration scenarios.
+#'
+#' @description
+#' The fifth IPCC assessment report provides data for atmospheric CO2 
+#' concentration under different representative concentration pathway (RCP) 
+#' scenarios on decadal resolution. The values in this matrix represent the 
+#' coefficients of a second order polynomial fit to said data.
+#'
+#' @details
+#' These coefficients can be used to produce functions of the form `f(year) = 
+#' a3*year^3 + a2*year^2 + a1*year + a0` which return the estimated 
+#' atmospheric CO2 concentration in ppm for a given year.
+#' The validity of the polynomial fit is restricted to the years 2000 to 2100.
+#'
+#' @format A data.frame with columns
+#'   \describe{
+#'   \item{RCP}{Name of the RCP.}
+#'   \item{a3}{Coefficient of the quadratic term.}
+#'   \item{a2}{Coefficient of the quadratic term.}
+#'   \item{a1}{Coefficient of the linear term.}
+#'   \item{a0}{Coefficient of the constant term.}
+#'   }
+#'
+#' @seealso [atmospheric_CO2()], [WeatherData()]`$aCO2()`
+#'
+#' @md
+"cCO2_coefficients"
+

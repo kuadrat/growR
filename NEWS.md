@@ -9,6 +9,8 @@
 * `growR_run_loop` allows to suppress returning the simulation objects. This 
   is useful to prevent overkill memory usage.
 * CO2 affects plant transpiration, according to `fCO2_transpiration_mod`.
+* Coefficients for polynomial fits to atmospheric CO2 concentration 
+  projections for different RCPs according to IPCC (`cCO2_coefficients`).
 
 ## Changed
 
