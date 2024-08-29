@@ -1,234 +1,80 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://kuadrat.github.io/growR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/calibration.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/children/initial_conditions.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/children/parameters.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/children/parameters_fg.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/children/state_variables.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/children/weather_parameters.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/growR.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/articles/parameter_descriptions.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/Autocut.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/Combinator.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/FG_A.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/FG_B.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/FG_C.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/FG_D.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/FunctionalGroup.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ManagementData.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ModvegeEnvironment.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ModvegeParameters.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ModvegeSite.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/PetersenAutocut.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/PhenologicalAutocut.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/PscanPlotter.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/SEA.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/WeatherData.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/aCO2_inverse.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/add_lines.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/analyze_parameter_scan.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/append_to_table.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/atmospheric_CO2.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/box_smooth.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/browse.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/build_functional_group.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/check_for_package.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/compare.R.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/create_combinations.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/create_example_environment.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ensure_table_columns.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/ensure_unique_filename.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/fCO2_growth_mod.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/fCO2_transpiration_mod.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/fPAR.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/fT.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/fW.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/get_bias.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/get_site_name.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/growR-package.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/growR_package_options.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/growR_run_loop.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/load_measured_data.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/logger.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/make_yearDOY.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/management_parameters.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/metric_map.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/parameter_scan_example.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/parse_year_strings.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/plot.ModvegeSite.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/plot_parameter_scan.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/plus-.FunctionalGroup.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/posieux_weather.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/read_config.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/run_parameter_scan.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/set_growR_verbosity.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/setup_directory.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/start_of_growing_season.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/start_of_growing_season_mtd.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/times-.FunctionalGroup.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/weighted_temperature_sum.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/willmott.html</loc>
-  </url>
-  <url>
-    <loc>https://kuadrat.github.io/growR/reference/yield_parameters.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://kuadrat.github.io/growR/404.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/LICENSE-text.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/LICENSE.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/calibration.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/children/initial_conditions.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/children/parameters.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/children/parameters_fg.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/children/state_variables.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/children/weather_parameters.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/growR.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/index.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/articles/parameter_descriptions.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/authors.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/index.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/news/index.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/Autocut.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/Combinator.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/FG_A.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/FG_B.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/FG_C.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/FG_D.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/FunctionalGroup.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/ManagementData.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/ModvegeEnvironment.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/ModvegeParameters.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/ModvegeSite.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/PetersenAutocut.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/PhenologicalAutocut.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/PscanPlotter.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/SEA.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/WeatherData.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/aCO2_inverse.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/add_lines.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/analyze_parameter_scan.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/append_to_table.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/atmospheric_CO2.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/box_smooth.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/browse.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/build_functional_group.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/check_for_package.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/compare.R.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/create_combinations.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/create_example_environment.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/ensure_table_columns.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/ensure_unique_filename.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/fCO2_growth_mod.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/fCO2_transpiration_mod.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/fPAR.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/fT.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/fW.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/get_bias.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/get_site_name.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/growR-package.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/growR_package_options.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/growR_run_loop.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/index.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/load_measured_data.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/logger.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/make_yearDOY.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/management_parameters.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/metric_map.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/parameter_scan_example.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/parse_year_strings.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/plot.ModvegeSite.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/plot_parameter_scan.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/plus-.FunctionalGroup.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/posieux_weather.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/read_config.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/run_parameter_scan.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/set_growR_verbosity.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/setup_directory.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/start_of_growing_season.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/start_of_growing_season_mtd.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/times-.FunctionalGroup.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/weighted_temperature_sum.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/willmott.html</loc></url>
+<url><loc>https://kuadrat.github.io/growR/reference/yield_parameters.html</loc></url>
 </urlset>
+
